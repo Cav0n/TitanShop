@@ -47,7 +47,10 @@
                                 <small id="helpBasePassword" class="form-text text-muted">Le mot de passe de l'utilisateur de la base de données.</small>
                             </div>
 
-                            <div class="col-12 text-right">
+                            <div class="col-6 text-left">
+                                <a class="btn btn-outline-dark" href="{{ route('index') }}" role="button">Retour</a>
+                            </div>
+                            <div class="col-6 text-right">
                                 <button type="submit" class="btn btn-primary">Valider</button>
                             </div>
                         </div>
