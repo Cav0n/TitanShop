@@ -1,0 +1,29 @@
+// Body
+$body-bg: #f1f1f1;
+// Typography
+$font-family-sans-serif: 'Nunito',
+sans-serif;
+$font-size-base: 0.9rem;
+$line-height-base: 1.6;
+// Colors
+$blue: #3490dc;
+$indigo: #6574cd;
+$purple: #9561e2;
+$pink: #f66d9b;
+$red: #e3342f;
+$orange: #f6993f;
+$yellow: #ffed4a;
+$green: #38c172;
+$teal: #4dc0b5;
+$cyan: #6cb2eb;
+$dark: #0a0a0a;
+$white: #ffffff;
+$light: #f5f5f5;
+// Theme Color
+$primary: #7dc93f;
+$secondary: #9561e2;
+// Options
+$enable-shadows: true;
+// Breakpoints
+$container-max-widths: ( sm: 540px, md: 720px, lg: 960px, xl: 1140px, xxl: 1400px, xxxl: 1800px) !default;
+$grid-breakpoints: ( xs: 0, sm: 576px, md: 768px, lg: 992px, xl: 1200px, xxl: 1500px, xxxl: 1910px) !default;
