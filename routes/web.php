@@ -14,3 +14,5 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', 'Main\MainController@index')->name('index');
+Route::get('/install', 'Main\MainController@install')->name('install');
+Route::post('/install/database', 'Main\SettingsController@databaseUpdate')->name('settings.database.update');
