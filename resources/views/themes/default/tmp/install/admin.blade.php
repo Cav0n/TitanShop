@@ -8,7 +8,7 @@
             <div class="col-11 col-sm-10 col-md-8 col-lg-6">
 
                 @if(!empty($errors->any()))
-                @include('components.alerts.error', ['errors' => $errors->all()])
+                @include('themes.default.components.alerts.error', ['errors' => $errors->all()])
                 @endif
 
                 <div class="bg-light border shadow-sm p-3">

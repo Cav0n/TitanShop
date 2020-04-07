@@ -26,8 +26,23 @@ Route::middleware('shopIsNotInstalled')->group(function() {
     Route::post('/install/admin', 'Users\AdminController@store')->name('install.admin');
     Route::get('/install/success', 'Main\InstallController@success')->name('install.success');
 });
-
 /** --------------------- */
+
+
 Route::middleware('shopIsInstalled')->group(function() {
     Route::get('/', 'Main\MainController@index')->name('index');
+
+    /**
+     * ADMIN BACKOFFICE
+     */
+    Route::middleware('notAdmin')->group(function() {
+        Route::get('/admin/login', 'Admin\Auth\LoginController@showLoginPage')->name('admin.login');
+        Route::post('/admin/login', 'Admin\Auth\LoginController@login')->name('admin.login');
+    });
+
+    Route::middleware('admin')->group(function() {
+        Route::get('/admin', 'Admin\AdminController@index')->name('admin');
+        Route::any('/admin/logout', 'Admin\Auth\LoginController@logout')->name('admin.logout');
+    });
+     /** --------------------- */
 });
