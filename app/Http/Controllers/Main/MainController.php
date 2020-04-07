@@ -11,11 +11,6 @@ class MainController extends Controller
         return view('index');
     }
 
-    public function install()
-    {
-        return view('tmp.install');
-    }
-
     public static function changeEnv($data = array()){
         if(count($data) > 0){
 
