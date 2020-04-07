@@ -1,9 +1,9 @@
-@extends('templates.default')
+@extends('templates.install')
 
 @section('page.title', 'Titan Shop - Welcome')
 
 @section('page.content')
-    <div id="homepage" class="container-fluid d-flex flex-column justify-content-center" style="min-height:100vh;">
+    <div id="install" class="container-fluid d-flex flex-column justify-content-center">
         <div class="row justify-content-center my-3">
             <div class="col-11 col-sm-10 col-md-8 col-lg-6">
 

@@ -1,6 +1,19 @@
 // Variables
 @import 'variables';
 
-#homepage {
-    font-family: 'Playfair Display', serif;
+#install {
+    min-height: 100vh;
+}
+
+body {
+    font-family: 'Playfair Display', serif !important;
+}
+
+.navbar-light .navbar-nav .nav-link svg {
+    height:1.4rem;
+    fill: rgba(0, 0, 0, 0.5);
+}
+
+.navbar-light .navbar-nav .nav-link:hover svg {
+    fill: rgba(0, 0, 0, 0.7);
 }
