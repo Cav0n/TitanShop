@@ -4,14 +4,14 @@
 
 @section('page.content')
     <div id="homepage" class="container-fluid d-flex flex-column justify-content-center" style="min-height:100vh;">
-        <div class="row justify-content-center">
+        <div class="row justify-content-center my-3">
             <div class="col-11 col-sm-10 col-md-8 col-lg-6">
 
                 @if(!empty($errors->any()))
                 @include('components.alerts.error', ['errors' => $errors->all()])
                 @endif
 
-                <div class="bg-light border shadow-sm p-3 my-4">
+                <div class="bg-light border shadow-sm p-3">
                     <h1 class="h4">Votre base de données a été correctement configuré.</h1>
                     <p>
                         Veuillez à présent indiquer les informations de votre boutique en ligne.

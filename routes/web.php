@@ -13,6 +13,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+/**
+ * INSTALLATION ROUTES
+ */
 Route::get('/', 'Main\MainController@index')->name('index');
 Route::get('/install', 'Main\InstallController@install')->name('install');
 Route::get('/install/database', 'Main\InstallController@databaseStep')->name('install.database');
@@ -20,3 +23,7 @@ Route::post('/install/database', 'Main\InstallController@databaseUpdate')->name(
 Route::get('/install/informations', 'Main\InstallController@informationsStep')->name('install.informations');
 Route::post('/install/informations', 'Main\InstallController@informationsUpdate')->name('settings.updateOrCreate');
 Route::get('/install/admin', 'Main\InstallController@adminStep')->name('install.admin');
+Route::post('/install/admin', 'Users\AdminController@store')->name('install.admin');
+/** --------------------- */
+
+Route::get('/homepage', 'Main\MainController@homepage')->name('homepage');

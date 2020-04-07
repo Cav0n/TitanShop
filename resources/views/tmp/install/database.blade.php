@@ -11,7 +11,7 @@
                 @include('components.alerts.error', ['errors' => $errors->all()])
                 @endif
 
-                <div class="bg-light border shadow-sm p-3 my-4">
+                <div class="bg-light border shadow-sm p-3">
                     <h1 class="h4">Bienvenue dans l'installeur de TitanShop !</h1>
                     <p>
                         Vous allez être guidé pendant tout le processus d'installation.<br>

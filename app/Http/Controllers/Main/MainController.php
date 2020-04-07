@@ -11,6 +11,11 @@ class MainController extends Controller
         return view('index');
     }
 
+    public function homepage()
+    {
+        return view('homepage');
+    }
+
     public static function changeEnv($data = array()){
         if(count($data) > 0){
 
