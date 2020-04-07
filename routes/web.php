@@ -24,6 +24,7 @@ Route::get('/install/informations', 'Main\InstallController@informationsStep')->
 Route::post('/install/informations', 'Main\InstallController@informationsUpdate')->name('settings.updateOrCreate');
 Route::get('/install/admin', 'Main\InstallController@adminStep')->name('install.admin');
 Route::post('/install/admin', 'Users\AdminController@store')->name('install.admin');
+Route::get('/install/success', 'Main\InstallController@success')->name('install.success');
 /** --------------------- */
 
 Route::get('/homepage', 'Main\MainController@homepage')->name('homepage');

@@ -19,7 +19,7 @@
                     <form action="{{ route('install.admin') }}" method="POST">
                         @csrf
                         <input type="hidden" name="role" value="SUPER_ADMIN">
-                        <input type="hidden" name="next_url" value="{{ route('homepage') }}">
+                        <input type="hidden" name="next_url" value="{{ route('install.success') }}">
                         <div class="row">
                             <div class="col-12 col-lg-6 form-group">
                                 <label for="firstname">Prénom</label>

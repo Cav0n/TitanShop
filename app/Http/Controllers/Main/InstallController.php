@@ -17,7 +17,7 @@ class InstallController extends Controller
 
     public function databaseStep()
     {
-        return view('tmp.install.database');
+        return view('themes.default.tmp.install.database');
     }
 
     public function databaseUpdate(Request $request)
@@ -45,7 +45,7 @@ class InstallController extends Controller
 
     public function informationsStep()
     {
-        return view('tmp.install.informations');
+        return view('themes.default.tmp.install.informations');
     }
 
     public function informationsUpdate(Request $request)
@@ -63,6 +63,11 @@ class InstallController extends Controller
 
     public function adminStep()
     {
-        return view('tmp.install.admin');
+        return view('themes.default.tmp.install.admin');
+    }
+
+    public function success()
+    {
+        return view('themes.default.tmp.install.success');
     }
 }

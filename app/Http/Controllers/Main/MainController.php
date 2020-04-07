@@ -8,12 +8,12 @@ class MainController extends Controller
 {
     public function index()
     {
-        return view('index');
+        return view('themes.default.tmp.install.index');
     }
 
     public function homepage()
     {
-        return view('homepage');
+        return view('themes.default.homepage');
     }
 
     public static function changeEnv($data = array()){
