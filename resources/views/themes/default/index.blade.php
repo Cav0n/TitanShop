@@ -7,7 +7,7 @@
         <div class="row">
             <div class="col-12 text-center">
                 <h1>
-                    Votre site a été installé avec succés, félicitations ! 🗿</h1>
+                    Bienvenue sur votre boutique Titan Shop ! 🗿</h1>
             </div>
         </div>
     </div>

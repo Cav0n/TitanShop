@@ -8,7 +8,8 @@
             <div class="col-12 text-center">
                 <h1>
                     Welcome to Titan 🗿</h1>
-                    <a class="btn btn-outline-primary rounded-0 py-1" href="{{ route('install') }}" role="button">Installer ma boutique</a>
+                    <a class="btn btn-outline-primary rounded-0 py-1" href="{{ route('install.database') }}" role="button">
+                        Installer ma boutique</a>
             </div>
         </div>
     </div>

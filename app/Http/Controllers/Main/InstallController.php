@@ -6,10 +6,16 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Artisan;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Settings\SettingController;
+use App\Setting;
 use Exception;
 
 class InstallController extends Controller
 {
+    public function index()
+    {
+        return view('themes.default.tmp.install.index');
+    }
+
     public function install()
     {
         return redirect(route('install.database'));
@@ -68,6 +74,11 @@ class InstallController extends Controller
 
     public function success()
     {
+        $activatedSetting = new Setting();
+        $activatedSetting->code = 'SHOP_ACTIVATED';
+        $activatedSetting->value = true;
+        $activatedSetting->save();
+
         return view('themes.default.tmp.install.success');
     }
 }
