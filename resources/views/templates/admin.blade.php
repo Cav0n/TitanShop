@@ -9,21 +9,19 @@
     {{-- CSS --}}
     <link rel="stylesheet" href="{{ asset('css/bootstrap.css') }}">
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/admin.css') }}">
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,900;1,400;1,500;1,600;1,900&display=swap" rel="stylesheet">
     @yield('page.css_import')
 
-    <title>@yield('page.title', \App\Setting::valueOrNull('SHOP_NAME'))</title>
+    <title>@yield('page.title', 'ADMIN - ' . \App\Setting::valueOrNull('SHOP_NAME'))</title>
 </head>
 <body>
     {{-- JS --}}
     <script src="{{ asset('js/app.js') }}"></script>
+    <script src="{{ asset('js/admin.js') }}"></script>
     @yield('page.js_import')
 
-    @include('themes.default.components.layouts.header')
-
     @yield('page.content')
-
-    @include('themes.default.components.layouts.footer')
 
     {{-- Convert "img" to svg --}}
     <script>
