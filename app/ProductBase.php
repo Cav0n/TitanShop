@@ -62,4 +62,9 @@ class ProductBase extends Model
     {
         return \number_format($this->price, 2, ",", " ") . ' €';
     }
+
+    public function getIsInPromoAttribute()
+    {
+        return (null !== $this->promoPrice) && (0 !== $this->promoPrice) && ($this->promoPrice < $this->price);
+    }
 }
