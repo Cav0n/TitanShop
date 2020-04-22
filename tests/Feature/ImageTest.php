@@ -45,7 +45,7 @@ class ImageTest extends TestCase
         $this->assertEquals('10.00 Go', $image->sizeFormatted);
     }
 
-     /**
+    /**
      * Create a complete image
      *
      * @return Image

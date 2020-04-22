@@ -15,7 +15,16 @@ class ProductI18nController extends Controller
      */
     public function index()
     {
-        //
+        $i18ns = ProductI18n::all();
+        $results = [];
+
+        foreach ($i18ns as $i18n) {
+            if ($i18n->product->isAvailable) {
+                $results[] = $i18n;
+            }
+        }
+
+        return $results;
     }
 
     /**
@@ -36,7 +45,18 @@ class ProductI18nController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'product_base_id' => 'required|exists:product_bases,id',
+            'title' => 'required|min:3',
+            'description' => 'required|min:10',
+        ]);
+
+        $productI18n = new ProductI18n();
+        $productI18n->product_base_id = $request['product_base_id'];
+        $productI18n->lang = $request['lang'] ?? 'FR';
+        $productI18n->title = $request['title'];
+        $productI18n->description = $request['description'];
+        $productI18n->save();
     }
 
     /**
@@ -70,7 +90,17 @@ class ProductI18nController extends Controller
      */
     public function update(Request $request, ProductI18n $productI18n)
     {
-        //
+        $request->validate([
+            'product_base_id' => 'required|exists:product_bases,id',
+            'title' => 'required|min:3',
+            'description' => 'required|min:10',
+        ]);
+
+        $productI18n->product_base_id = $request['product_base_id'];
+        $productI18n->lang = $request['lang'] ?? 'FR';
+        $productI18n->title = $request['title'];
+        $productI18n->description = $request['description'];
+        $productI18n->save();
     }
 
     /**
@@ -81,6 +111,6 @@ class ProductI18nController extends Controller
      */
     public function destroy(ProductI18n $productI18n)
     {
-        //
+        $productI18n->forceDelete();
     }
 }
