@@ -1,4 +1,4 @@
-<div class="product-container d-flex flex-column">
+<div class="product-container d-flex flex-column bg-light border shadow-sm">
     <img
         class="img-fluid w-100"
         src="{{ asset($product->images->first()->path ?? null) }}"

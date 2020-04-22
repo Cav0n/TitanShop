@@ -5,6 +5,7 @@ namespace Tests\Feature;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 use \App\ProductI18n;
+use \App\ProductBase;
 
 class ProductI18nTest extends TestCase
 {
@@ -15,17 +16,11 @@ class ProductI18nTest extends TestCase
      *
      * @return void
      */
-    public function testCreation()
+    public function testCompleteCreation()
     {
         $product = ProductTest::createCompleteProduct();
 
-        $productI18n = new ProductI18n();
-        $productI18n->lang = 'FR';
-        $productI18n->title = 'Test de produit';
-        $productI18n->description = 'Ceci est un test de produit';
-        $productI18n->product_base_id = $product->id;
-
-        $productI18n->save();
+        $productI18n = self::createCompleteProductI18n($product);
 
         $this->assertNotNull($productI18n);
     }
@@ -45,5 +40,23 @@ class ProductI18nTest extends TestCase
         $this->expectException(\Illuminate\Database\QueryException::class);
 
         $productI18n->save();
+    }
+
+    /**
+     * Create a complete productI18n
+     *
+     * @param  mixed $product
+     * @return void
+     */
+    public static function createCompleteProductI18n(ProductBase $product, $lang = 'FR')
+    {
+        $productI18n = new ProductI18n();
+        $productI18n->lang = $lang;
+        $productI18n->title = 'Test de produit';
+        $productI18n->description = 'Ceci est un test de produit';
+        $productI18n->product_base_id = $product->id;
+        $product->save();
+
+        return $product;
     }
 }

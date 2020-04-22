@@ -99,4 +99,14 @@ class ProductBase extends Model
 
         return $this->i18ns->where('lang', $lang)->first()->title;
     }
+
+    /**
+     * Return product description i18n
+     */
+    public function getDescriptionAttribute($lang = 'FR')
+    {
+        $lang = (isset($lang)) ? $lang : 'FR';
+
+        return $this->i18ns->where('lang', $lang)->first()->description;
+    }
 }

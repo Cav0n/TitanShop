@@ -4,7 +4,6 @@ namespace Tests\Feature;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
-use \App\Image;
 
 class ImageProductTest extends TestCase
 {
@@ -16,6 +15,24 @@ class ImageProductTest extends TestCase
      * @return void
      */
     public function testProductLinkWithOneImage()
+    {
+        $product = ProductTest::createCompleteProduct();
+        $image = ImageTest::createCompleteImage();
+        $image2 = ImageTest::createCompleteImage();
+
+        $product->images()->attach($image->id, ['rank' => 1]);
+
+        $this->assertEquals(1, count($product->images));
+
+        $this->assertEquals(1, $product->images[0]->pivot->rank);
+    }
+
+    /**
+     * Test product creation link with multiple images
+     *
+     * @return void
+     */
+    public function testProductLinkWithMultipleImages()
     {
         $product = ProductTest::createCompleteProduct();
         $image = ImageTest::createCompleteImage();
