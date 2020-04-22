@@ -7,6 +7,14 @@ use Illuminate\Database\Eloquent\Model;
 class Image extends Model
 {
     /**
+     * Get products of the image
+     */
+    public function products()
+    {
+        return $this->belongsToMany('App\Product')->withPivot(['rank']);
+    }
+
+    /**
      * Get formatted size
      *
      * @return string

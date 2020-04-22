@@ -15,6 +15,14 @@ class ProductBase extends Model
     }
 
     /**
+     * Get images of the product
+     */
+    public function images()
+    {
+        return $this->belongsToMany('App\Image')->withPivot(['rank']);
+    }
+
+    /**
      * Set product price from double / float
      */
     public function setPriceAttribute($value)
