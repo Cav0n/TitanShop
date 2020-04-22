@@ -4,6 +4,7 @@
 
 body {
   font-family: "Playfair Display", serif !important;
+  min-height: 100vh;
 }
 
 .navbar-light .navbar-nav .nav-link svg {

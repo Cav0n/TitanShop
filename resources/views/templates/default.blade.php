@@ -14,7 +14,7 @@
 
     <title>@yield('page.title', \App\Setting::valueOrNull('SHOP_NAME'))</title>
 </head>
-<body>
+<body class="d-flex flex-column">
     {{-- JS --}}
     <script src="{{ asset('js/app.js') }}"></script>
     @yield('page.js_import')

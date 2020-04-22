@@ -5,9 +5,9 @@
 @section('page.content')
     <div id="homepage" class="container-fluid d-flex flex-column justify-content-center my-4">
         <div class="row justify-content-center">
-            <div class="col-12 col-lg-10">
+            <div class="col-12 col-lg-10 col-xl-8">
                 @if(0 === count($products))
-                    <h1>Aucun produit n'est en vente pour le moment</h1>
+                    <h1 class="text-center">Aucun produit n'est en vente pour le moment</h1>
                 @endif
 
                 <div class="row">
