@@ -5,7 +5,7 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\DB;
 
-class CreateSettingI18nsTable extends Migration
+class CreateProductI18nsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,20 +14,20 @@ class CreateSettingI18nsTable extends Migration
      */
     public function up()
     {
-        Schema::create('setting_i18ns', function (Blueprint $table) {
+        Schema::create('product_i18ns', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('setting_id')->unsigned();
-            $table->string('locale')->default('FR');
+
+            $table->bigInteger('product_base_id')->unsigned();
+            $table->string('lang')->default('FR');
             $table->string('title');
-            $table->string('value')->nullable();
-            $table->string('help')->nullable();
+            $table->text('description');
 
             $table->timestamps();
         });
 
-        Schema::table('setting_i18ns', function (Blueprint $table) {
-            $table->foreign('setting_id')
-                    ->references('id')->on('settings')
+        Schema::table('product_i18ns', function (Blueprint $table) {
+            $table->foreign('product_base_id')
+                    ->references('id')->on('product_bases')
                     ->onDelete('cascade');
         });
     }
@@ -39,6 +39,6 @@ class CreateSettingI18nsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('setting_i18ns');
+        Schema::dropIfExists('product_i18ns');
     }
 }
