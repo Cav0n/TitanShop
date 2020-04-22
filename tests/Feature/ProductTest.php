@@ -1,18 +1,21 @@
 <?php
 
-namespace Tests\Unit;
+namespace Tests\Feature;
 
-use PHPUnit\Framework\TestCase;
+use Illuminate\Foundation\Testing\RefreshDatabase;
+use Tests\TestCase;
 use \App\ProductBase;
 
 class ProductTest extends TestCase
 {
+    use RefreshDatabase;
+
     /**
      * A basic product creation test
      *
      * @return void
      */
-    public function creationTest()
+    public function testCreation()
     {
         $product = new ProductBase();
         $product->price = 9.99;
