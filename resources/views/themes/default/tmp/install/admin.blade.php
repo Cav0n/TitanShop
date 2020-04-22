@@ -16,7 +16,7 @@
                     <p>
                         Il ne nous reste plus qu'à créer votre compte d'administrateur.
                     </p>
-                    <form action="{{ route('install.admin') }}" method="POST">
+                    <form action="{{ route('install.admin.save') }}" method="POST">
                         @csrf
                         <input type="hidden" name="role" value="SUPER_ADMIN">
                         <input type="hidden" name="next_url" value="{{ route('install.success') }}">
