@@ -15,7 +15,16 @@ class CreateCategoryBasesTable extends Migration
     {
         Schema::create('category_bases', function (Blueprint $table) {
             $table->id();
+            $table->bigInteger('parent_id')->unsigned()->nullable();
+            $table->boolean('isVisible')->default(0);
+            $table->boolean('isDeleted')->default(0);
             $table->timestamps();
+        });
+
+        Schema::table('category_bases', function (Blueprint $table) {
+            $table->foreign('parent_id')
+                    ->references('id')->on('category_bases')
+                    ->onDelete('cascade');
         });
     }
 

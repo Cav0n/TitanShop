@@ -15,6 +15,14 @@ class Image extends Model
     }
 
     /**
+     * Get categories of the image
+     */
+    public function categories()
+    {
+        return $this->belongsToMany('App\CategoryBase')->withPivot(['rank']);
+    }
+
+    /**
      * Get formatted size
      *
      * @return string
