@@ -20,6 +20,8 @@ class CreateProductBasesTable extends Migration
             $table->integer('price');
             $table->integer('promoPrice')->nullable();
             $table->integer('stock')->default(0);
+            $table->boolean('isVisible')->default(0);
+            $table->boolean('isDeleted')->default(0);
 
             $table->timestamps();
         });

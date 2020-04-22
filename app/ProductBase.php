@@ -60,11 +60,35 @@ class ProductBase extends Model
      */
     public function getPromoPriceFormattedAttribute()
     {
-        return \number_format($this->price, 2, ",", " ") . ' €';
+        return \number_format($this->promoPrice, 2, ",", " ") . ' €';
     }
 
+    /**
+     * Return true if product is in promo
+     */
     public function getIsInPromoAttribute()
     {
         return (null !== $this->promoPrice) && (0 !== $this->promoPrice) && ($this->promoPrice < $this->price);
+    }
+
+    /**
+     * Return product availability
+     * True if stock > 0, isVisible = 1 and isDeleted = 0
+     *
+     * @return void
+     */
+    public function getIsAvailableAttribute()
+    {
+        return (0 < $this->stock) && ($this->isVisible) && (!$this->isDeleted);
+    }
+
+    /**
+     * Return product title i18n
+     */
+    public function getTitleAttribute($lang = 'FR')
+    {
+        $lang = (isset($lang)) ? $lang : 'FR';
+
+        return $this->i18ns->where('lang', $lang)->first()->title;
     }
 }

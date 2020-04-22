@@ -8,7 +8,9 @@ class MainController extends Controller
 {
     public function index()
     {
-        return view('themes.default.index');
+        return view('themes.default.pages.public.index')->with([
+                'products' => \App\ProductBase::all(),
+            ]);
     }
 
     public static function changeEnv($data = array()){

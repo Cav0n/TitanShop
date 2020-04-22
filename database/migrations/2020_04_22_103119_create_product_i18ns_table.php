@@ -17,7 +17,7 @@ class CreateProductI18nsTable extends Migration
         Schema::create('product_i18ns', function (Blueprint $table) {
             $table->id();
 
-            $table->bigInteger('product_id')->unsigned();
+            $table->bigInteger('product_base_id')->unsigned();
             $table->string('lang')->default('FR');
             $table->string('title');
             $table->text('description');
@@ -26,7 +26,7 @@ class CreateProductI18nsTable extends Migration
         });
 
         Schema::table('product_i18ns', function (Blueprint $table) {
-            $table->foreign('product_id')
+            $table->foreign('product_base_id')
                     ->references('id')->on('product_bases')
                     ->onDelete('cascade');
         });

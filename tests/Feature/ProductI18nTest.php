@@ -23,7 +23,7 @@ class ProductI18nTest extends TestCase
         $productI18n->lang = 'FR';
         $productI18n->title = 'Test de produit';
         $productI18n->description = 'Ceci est un test de produit';
-        $productI18n->product_id = $product->id;
+        $productI18n->product_base_id = $product->id;
 
         $productI18n->save();
 
