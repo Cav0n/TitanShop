@@ -16,7 +16,7 @@
                     ->where('isDeleted', 0)
                     ->where('parent_id', null)
                     ->get() as $category)
-                <li class="nav-item active">
+                <li class="nav-item">
                     <a class="nav-link" href="{{ route('index') }}">{{ $category->title }}</a>
                 </li>
                 @endforeach

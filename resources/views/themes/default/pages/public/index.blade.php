@@ -13,7 +13,7 @@
                 <div class="row">
                     @foreach ($products as $product)
 
-                    <div class="col-lg-3">
+                    <div class="col-6 col-sm-4 col-lg-3">
                         @include('themes.default.components.layouts.product', [
                             'product' => $product,
                         ])
