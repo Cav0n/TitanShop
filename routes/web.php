@@ -23,7 +23,7 @@ Route::middleware('shopIsNotInstalled')->group(function() {
     Route::get('/install/informations', 'Main\InstallController@informationsStep')->name('install.informations');
     Route::post('/install/informations', 'Main\InstallController@informationsUpdate')->name('settings.updateOrCreate');
     Route::get('/install/admin', 'Main\InstallController@adminStep')->name('install.admin');
-    Route::post('/install/admin', 'Users\AdminController@store')->name('install.admin.save');
+    Route::post('/install/admin', 'Users\AdminController@store')->name('install.admin.post');
     Route::get('/install/success', 'Main\InstallController@success')->name('install.success');
 });
 /** --------------------- */
@@ -37,7 +37,7 @@ Route::middleware('shopIsInstalled')->group(function() {
      */
     Route::middleware('notAdmin')->group(function() {
         Route::get('/admin/login', 'Admin\Auth\LoginController@showLoginPage')->name('admin.login');
-        Route::post('/admin/login', 'Admin\Auth\LoginController@login')->name('admin.login');
+        Route::post('/admin/login', 'Admin\Auth\LoginController@login')->name('admin.login.post');
     });
 
     Route::middleware('admin')->group(function() {
