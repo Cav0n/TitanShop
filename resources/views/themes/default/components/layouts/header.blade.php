@@ -14,12 +14,10 @@
             <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('index') }}">
-                        <img class="svg mb-1" src="{{ asset('images/icons/customer.svg') }}" alt="customer">
                         Espace client</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('index') }}">
-                        <img class="svg mb-1" src="{{ asset('images/icons/cart.svg') }}" alt="cart">
                         Mon panier</a>
                 </li>
             </ul>
