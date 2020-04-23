@@ -34,6 +34,17 @@ Route::middleware('shopIsInstalled')->group(function() {
     Route::get('/product/{product}', 'Products\ProductBaseController@show')->name('product.show');
     Route::get('/category/{category}', 'Categories\CategoryBaseController@show')->name('category.show');
 
+    /**
+     * CUSTOMER AREA
+     */
+    Route::middleware('guest')->group(function() {
+
+    });
+
+    Route::middleware('auth')->group(function() {
+
+    });
+     /** --------------------- */
 
     /**
      * ADMIN BACKOFFICE
