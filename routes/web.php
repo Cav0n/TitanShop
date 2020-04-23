@@ -38,11 +38,14 @@ Route::middleware('shopIsInstalled')->group(function() {
      * CUSTOMER AREA
      */
     Route::middleware('guest')->group(function() {
-
+        Route::get('/customer-area/login', 'Auth\LoginController@show')->name('customer_area.login');
+        Route::post('/customer-area/login', 'Auth\LoginController@login')->name('customer_area.login.post');
+        Route::get('/customer-area/register', 'Auth\RegisterController@show')->name('customer_area.register');
+        Route::post('/customer-area/register', 'Auth\RegisterController@register')->name('customer_area.register.post');
     });
 
     Route::middleware('auth')->group(function() {
-
+        Route::get('/customer-area', 'Auth\CustomerAreaController@show')->name('customer_area.index');
     });
      /** --------------------- */
 
