@@ -23,6 +23,14 @@ class ProductBase extends Model
     }
 
     /**
+     * Get categories of the product
+     */
+    public function categories()
+    {
+        return $this->hasMany('App\CategoryBase', 'category_product', 'product_id', 'category_id');
+    }
+
+    /**
      * Set product price from double / float
      */
     public function setPriceAttribute($value)
@@ -107,7 +115,7 @@ class ProductBase extends Model
     {
         $lang = (isset($lang)) ? $lang : 'FR';
 
-        return $this->i18ns->where('lang', $lang)->first()->description;
+        return nl2br($this->i18ns->where('lang', $lang)->first()->description);
     }
 
     /**

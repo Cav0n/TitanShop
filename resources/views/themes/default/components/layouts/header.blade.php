@@ -6,8 +6,9 @@
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="headerNavbar">
-            <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
-                <li class="nav-item active">
+
+            <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+                <li class="nav-item @if(Request::route()->named('index')) active @endif">
                     <a class="nav-link" href="{{ route('index') }}">Accueil</a>
                 </li>
 
@@ -16,11 +17,13 @@
                     ->where('isDeleted', 0)
                     ->where('parent_id', null)
                     ->get() as $category)
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ route('index') }}">{{ $category->title }}</a>
+                <li class="nav-item @if(Request::route()->named('category.show', ['category' => $category])) active @endif">
+                    <a class="nav-link" href="{{ route('category.show', ['category' => $category]) }}">{{ $category->title }}</a>
                 </li>
                 @endforeach
+            </ul>
 
+            <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('index') }}">
                         Espace client</a>
@@ -30,6 +33,7 @@
                         Mon panier</a>
                 </li>
             </ul>
+
         </div>
     </nav>
 </header>

@@ -32,6 +32,7 @@ Route::middleware('shopIsNotInstalled')->group(function() {
 Route::middleware('shopIsInstalled')->group(function() {
     Route::get('/', 'Main\MainController@index')->name('index');
     Route::get('/product/{product}', 'Products\ProductBaseController@show')->name('product.show');
+    Route::get('/category/{category}', 'Categories\CategoryBaseController@show')->name('category.show');
 
 
     /**

@@ -63,7 +63,7 @@ class ProductBaseController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\ProductBase  $productBase
+     * @param  \App\ProductBase  $product
      * @return \Illuminate\Http\Response
      */
     public function show(ProductBase $product)

@@ -1,10 +1,13 @@
 @extends('templates.default')
 
 @section('page.title', $product->title . ' - ' . App\Setting::valueOrNull('SHOP_NAME'))
+@section('page.description', $product->description)
 
 @section('page.content')
     <div id="breadcrumb" class="text-center mb-3">
-        {!! $product->breadcrumb !!}
+        <div class="col-12">
+            {!! $product->breadcrumb !!}
+        </div>
     </div>
 
     <div id="product-page" class="row">
@@ -45,7 +48,7 @@
             </div>
 
             <div id="description-container" class="mt-2">
-                <p>{{ $product->description }}</p>
+                <p class='text-justify'>{!! $product->description !!}</p>
             </div>
         </div>
     </div>
