@@ -21,7 +21,15 @@
 
     @include('themes.default.components.layouts.header')
 
-    @yield('page.content')
+    <div id="main" class="container-fluid d-flex flex-column justify-content-center my-4">
+        <div class="row justify-content-center">
+            <div class="col-12 col-lg-10 col-xl-8">
+
+                @yield('page.content')
+
+            </div>
+        </div>
+    </div>
 
     @include('themes.default.components.layouts.footer')
 

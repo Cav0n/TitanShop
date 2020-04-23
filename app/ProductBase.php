@@ -109,4 +109,24 @@ class ProductBase extends Model
 
         return $this->i18ns->where('lang', $lang)->first()->description;
     }
+
+    /**
+     * Return breadcrumb of the product
+     */
+    public function getBreadcrumbAttribute()
+    {
+        $breadcrumb = '';
+
+        $routeToHomepage = route('index');
+        $homepageTitle = "Accueil";
+        $breadcrumb = "/ <a href=\"$routeToHomepage\">$homepageTitle</a> ";
+
+        $routeToProduct = route('product.show', ['product' => $this]);
+        $productTitle = $this->title;
+        $breadcrumb .= "/ <a href=\"$routeToProduct\">$productTitle</a> ";
+
+        $breadcrumb = "<p>$breadcrumb</p>";
+
+        return $breadcrumb;
+    }
 }

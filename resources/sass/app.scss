@@ -10,6 +10,10 @@ body {
     min-height: 100vh;
 }
 
+p {
+    margin-bottom: 0 !important;
+}
+
 .navbar-light .navbar-nav .nav-link svg {
     height:1.4rem;
     fill: rgba(0, 0, 0, 0.5);

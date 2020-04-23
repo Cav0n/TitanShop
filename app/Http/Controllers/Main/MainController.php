@@ -9,7 +9,7 @@ class MainController extends Controller
     public function index()
     {
         return view('themes.default.pages.public.index')->with([
-                'products' => \App\ProductBase::all(),
+                'products' => \App\ProductBase::where('isVisible', 1)->where('isDeleted', 0)->get(),
             ]);
     }
 

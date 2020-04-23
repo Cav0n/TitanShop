@@ -66,9 +66,9 @@ class ProductBaseController extends Controller
      * @param  \App\ProductBase  $productBase
      * @return \Illuminate\Http\Response
      */
-    public function show(ProductBase $productBase)
+    public function show(ProductBase $product)
     {
-        //
+        return view('themes.default.pages.public.product')->with(['product' => $product]);
     }
 
     /**

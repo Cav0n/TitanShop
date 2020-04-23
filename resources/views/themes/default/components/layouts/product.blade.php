@@ -8,7 +8,7 @@
     <div class="p-3">
 
         <div class="product-title d-flex justify-content-center">
-            <a href="" class="text-center">{{ $product->title }}</a>
+            <a href="{{ route('product.show', ['product' => $product]) }}" class="text-center">{{ $product->title }}</a>
         </div>
 
         <div class="d-flex justify-content-center">
