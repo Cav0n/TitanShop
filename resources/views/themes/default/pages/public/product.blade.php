@@ -10,7 +10,7 @@
         </div>
     </div>
 
-    <div id="product-page" class="row">
+    <div id="product-page" class="row mx-0">
         <div id="images-container" class="col-lg-4">
             <img id="big-image" class="img-fluid w-100"
                 src="{{ asset($product->images->first()->path ?? null) }}"
@@ -18,13 +18,15 @@
                 title="{{ $product->images->first()->alt ?? $product->title }}">
 
             <div id="thumbnails" class="row mt-3">
+                @php $first = true; @endphp
                 @foreach ($product->images as $image)
                 <div class="col-3">
-                    <img class="thumbnail img-fluid w-100"
-                        src="{{ asset($product->images->first()->path ?? null) }}"
-                        alt="{{ $product->images->first()->alt ?? $product->title }}"
-                        title="{{ $product->images->first()->alt ?? $product->title }}">
+                    <img class="thumbnail img-fluid w-100 @if($first) border border-primary @endif"
+                        src="{{ asset($image->path ?? null) }}"
+                        alt="{{ $image->alt ?? $product->title }}"
+                        title="{{ $image->alt ?? $product->title }}">
                 </div>
+                @php $first = false; @endphp
                 @endforeach
             </div>
         </div>
@@ -59,8 +61,10 @@
         $(document).ready(function() {
             $('.thumbnail').on('click', function() {
                 let src = $(this).attr('src');
+                $('.thumbnail').removeClass('border').removeClass('border-primary');
+                $(this).addClass('border').addClass('border-primary');
 
-                $("#big-image").attr('src')
+                $("#big-image").attr('src', src);
             });
         });
     </script>
