@@ -27,7 +27,7 @@ class ProductBase extends Model
      */
     public function categories()
     {
-        return $this->hasMany('App\CategoryBase', 'category_product', 'product_id', 'category_id');
+        return $this->belongsToMany('App\CategoryBase', 'category_product', 'product_id', 'category_id');
     }
 
     /**

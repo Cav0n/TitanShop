@@ -43,7 +43,7 @@ class CategoryBase extends Model
      */
     public function products()
     {
-        return $this->hasMany('App\ProductBase', 'category_product', 'category_id', 'product_id');
+        return $this->belongsToMany('App\ProductBase', 'category_product', 'category_id', 'product_id');
     }
 
     /**
@@ -103,5 +103,13 @@ class CategoryBase extends Model
         $breadcrumb = "<p>$breadcrumb</p>";
 
         return $breadcrumb;
+    }
+
+    /**
+     * Return true if category has no childs and no products
+     */
+    public function getIsEmptyAttribute()
+    {
+        return 0 === count($this->childs) && 0 === count($this->products);
     }
 }

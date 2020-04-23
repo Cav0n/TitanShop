@@ -20,8 +20,8 @@
         <div class="col-12 mt-3">
             <div class="row">
                 @foreach ($category->childs as $child)
-                <div class="col-3">
-                    <a class="p-3 bg-light shadow-sm" href="{{ route('category.show', ['category' => $child]) }}">{{ $child->title }}</a>
+                <div class="col-3 d-flex">
+                    <a class="p-3 bg-light border shadow-sm" href="{{ route('category.show', ['category' => $child]) }}">{{ $child->title }}</a>
                 </div>
                 @endforeach
             </div>
@@ -39,5 +39,11 @@
                 @endforeach
             </div>
         </div>
+
+        @if($category->isEmpty)
+        <div class="col-12 mt-3">
+            <p class="text-center">Cette catégorie ne contient ni sous catégorie, ni produit.</p>
+        </div>
+        @endif
     </div>
 @endsection
