@@ -18,15 +18,13 @@
                 title="{{ $product->images->first()->alt ?? $product->title }}">
 
             <div id="thumbnails" class="row mt-3">
-                @php $first = true; @endphp
                 @foreach ($product->images as $image)
                 <div class="col-3">
-                    <img class="thumbnail img-fluid w-100 @if($first) border border-primary @endif"
+                    <img class="thumbnail img-fluid w-100 @if($loop->first) border border-primary @endif"
                         src="{{ asset($image->path ?? null) }}"
                         alt="{{ $image->alt ?? $product->title }}"
                         title="{{ $image->alt ?? $product->title }}">
                 </div>
-                @php $first = false; @endphp
                 @endforeach
             </div>
         </div>

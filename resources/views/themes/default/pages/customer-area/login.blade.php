@@ -3,15 +3,7 @@
 @section('page.title',  'Espace client - ' . App\Setting::valueOrNull('SHOP_NAME'))
 
 @section('page.content')
-    @if ($errors->any())
-        <div class="alert alert-danger">
-            <ul>
-                @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                @endforeach
-            </ul>
-        </div>
-    @endif
+    @include('themes.default.components.alerts.error')
 
     <form class="bg-light p-3 shadow-sm" method="POST">
         @csrf
