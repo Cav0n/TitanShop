@@ -28,8 +28,8 @@
                     <a class="nav-link" href="{{ route('customer-area.index') }}">
                         Espace client</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ route('index') }}">
+                <li class="nav-item {{ \App\Utils::active('cart')}}">
+                    <a class="nav-link" href="{{ route('cart') }}">
                         Mon panier</a>
                 </li>
             </ul>
