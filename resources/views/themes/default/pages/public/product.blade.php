@@ -44,7 +44,8 @@
             </div>
 
             <div id="action-container" class="mt-2">
-                <a class="btn btn-outline-primary" href="/" role="button">Ajouter à mon panier</a>
+                <a class="btn btn-outline-primary" href="{{ route('cart.items.add', ['product_id' => $product->id]) }}" role="button">
+                    Ajouter à mon panier</a>
             </div>
 
             <div id="description-container" class="mt-2">

@@ -33,6 +33,8 @@ Route::middleware('shopIsInstalled')->group(function() {
     Route::get('/', 'Main\MainController@index')->name('index');
     Route::get('/product/{product}', 'Products\ProductBaseController@show')->name('product.show');
     Route::get('/category/{category}', 'Categories\CategoryBaseController@show')->name('category.show');
+    Route::get('/cart/items/add', 'Cart\CartItemController@store')->name('cart.items.add');
+    Route::get('/cart/item/added/{item}', 'Cart\CartItemController@notificationPage')->name('cart.item.added');
 
     /**
      * CUSTOMER AREA
