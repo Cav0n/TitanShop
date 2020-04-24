@@ -11,7 +11,7 @@
         <div class="form-group">
             <label for="email">Email</label>
             <input type="email" class="form-control" name="email" id="email" aria-describedby="helpEmail">
-            <small id="helpEmail" class="form-text text-muted"><a href='{{ route('customer_area.register') }}'>
+            <small id="helpEmail" class="form-text text-muted"><a href='{{ route('customer-area.register') }}'>
                 Vous n'avez pas de compte ?</a></small>
         </div>
         <div class="form-group">

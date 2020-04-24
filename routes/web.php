@@ -37,30 +37,34 @@ Route::middleware('shopIsInstalled')->group(function() {
     /**
      * CUSTOMER AREA
      */
-    Route::middleware('guest')->group(function() {
-        Route::get('/customer-area/login', 'Auth\LoginController@show')->name('customer_area.login');
-        Route::post('/customer-area/login', 'Auth\LoginController@login')->name('customer_area.login.post');
-        Route::get('/customer-area/register', 'Auth\RegisterController@show')->name('customer_area.register');
-        Route::post('/customer-area/register', 'Auth\RegisterController@register')->name('customer_area.register.post');
-    });
+    Route::group(['prefix' => 'customer-area'], function () {
+        Route::middleware('guest')->group(function() {
+            Route::get('login', 'Auth\LoginController@show')->name('customer-area.login');
+            Route::post('login', 'Auth\LoginController@login')->name('customer-area.login.post');
+            Route::get('register', 'Auth\RegisterController@show')->name('customer-area.register');
+            Route::post('register', 'Auth\RegisterController@register')->name('customer-area.register.post');
+        });
 
-    Route::middleware('auth')->group(function() {
-        Route::get('/customer-area', 'Auth\CustomerAreaController@show')->name('customer_area.index');
-        Route::any('/customer-area/logout', 'Auth\LoginController@logout')->name('customer_area.logout');
+        Route::middleware('auth')->group(function() {
+            Route::get('', 'Auth\CustomerAreaController@show')->name('customer-area.index');
+            Route::any('logout', 'Auth\LoginController@logout')->name('customer-area.logout');
+        });
     });
      /** --------------------- */
 
     /**
      * ADMIN BACKOFFICE
      */
-    Route::middleware('notAdmin')->group(function() {
-        Route::get('/admin/login', 'Admin\Auth\LoginController@showLoginPage')->name('admin.login');
-        Route::post('/admin/login', 'Admin\Auth\LoginController@login')->name('admin.login.post');
-    });
+    Route::group(['prefix' => 'admin'], function () {
+        Route::middleware('notAdmin')->group(function() {
+            Route::get('login', 'Admin\Auth\LoginController@showLoginPage')->name('admin.login');
+            Route::post('login', 'Admin\Auth\LoginController@login')->name('admin.post');
+        });
 
-    Route::middleware('admin')->group(function() {
-        Route::get('/admin', 'Admin\AdminController@index')->name('admin');
-        Route::any('/admin/logout', 'Admin\Auth\LoginController@logout')->name('admin.logout');
+        Route::middleware('admin')->group(function() {
+            Route::get('', 'Admin\AdminController@index')->name('admin.index');
+            Route::any('logout', 'Admin\Auth\LoginController@logout')->name('admin.logout');
+        });
     });
      /** --------------------- */
 });

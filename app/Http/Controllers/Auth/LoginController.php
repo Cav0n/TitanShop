@@ -29,7 +29,7 @@ class LoginController extends Controller
         $credentials = $request->only('email', 'password');
 
         if (Auth::attempt($credentials)) {
-            return redirect()->intended(route('customer_area.index'));
+            return redirect()->intended(route('customer-area.index'));
         }
 
         return \back();
