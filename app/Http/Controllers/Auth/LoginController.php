@@ -31,5 +31,13 @@ class LoginController extends Controller
         if (Auth::attempt($credentials)) {
             return redirect()->intended(route('customer_area.index'));
         }
+
+        return \back();
+    }
+
+    public function logout(Request $request)
+    {
+        Auth::logout();
+        return redirect()->route('index');
     }
 }

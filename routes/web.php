@@ -46,6 +46,7 @@ Route::middleware('shopIsInstalled')->group(function() {
 
     Route::middleware('auth')->group(function() {
         Route::get('/customer-area', 'Auth\CustomerAreaController@show')->name('customer_area.index');
+        Route::any('/customer-area/logout', 'Auth\LoginController@logout')->name('customer_area.logout');
     });
      /** --------------------- */
 
