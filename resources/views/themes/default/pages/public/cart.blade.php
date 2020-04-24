@@ -1,47 +1,23 @@
-@extends('templates.default')
+@extends('templates.cart')
 
-@section('page.title', 'Mon panier - ' . App\Setting::valueOrNull('SHOP_NAME'))
-
-@section('page.content')
-    <div class="row mb-3">
-        <div class="col-12">
-            <h1 class="h3">Mon panier</h1>
-            <p id="breadcrumb">
-                / <a href="{{ route('index') }}">Accueil</a>
-                / <a href="{{ route('cart') }}">Mon panier</a>
-            </p>
+@section('cart.content')
+    @foreach ($cart->items as $item)
+    <div class="cart-item bg-light shadow-sm p-3 @if(! $loop->last) mb-3 @endif">
+        <div class="row">
+            <div class="col-lg-10">
+                <a href="{{ route('product.show', ['product' => $item->product]) }}" class="h5">{{ $item->product->title }}</a>
+                <p>Prix unitaire : {{ $item->product->priceFormatted }}</p>
+                <p>Quantité : {{ $item->quantity }}</p>
+            </div>
+            <div class="col-lg-2 d-flex flex-column justify-content-center border-left">
+                <p class="text-center">{{ $item->priceFormatted }}</p>
+            </div>
         </div>
+
     </div>
+    @endforeach
+@endsection
 
-
-    <div class="row">
-        @if (0 !== count($cart->items))
-
-        <div class="col-12 col-lg-8 d-flex flex-column">
-            @foreach ($cart->items as $item)
-            <div class="cart-item bg-light shadow-sm p-3 @if(! $loop->last) mb-3 @endif">
-                <p>{{ $item->product->title }}</p>
-            </div>
-            @endforeach
-        </div>
-        <div class="col-12 col-lg-4">
-            <div class="bg-light shadow-sm p-3">
-                <p>{{ $cart->totalQuantity }} articles : {{ $cart->totalPriceFormatted }}</p>
-                <p>Frais de port : {{ \App\Setting::valueOrNull('SHIPPING_COSTS') }}</p>
-                <p>Total : {{ $cart->totalPrice }}</p>
-
-                <a class="btn btn-primary w-100 mt-3" href="{{ route('cart.delivery') }}" role="button">Valider le panier</a>
-            </div>
-        </div>
-
-        @else
-
-        <div class="col-12">
-            <div class="bg-light shadow-sm p-3">
-                <h2 class="h5 text-center">Votre panier est vide.</h2>
-            </div>
-        </div>
-
-        @endif
-    </div>
+@section('cart.summary.next-button')
+    <a class="btn btn-primary w-100 mt-3" href="{{ route('cart.delivery') }}" role="button">Valider le panier</a>
 @endsection

@@ -36,10 +36,13 @@ class CartItemController extends Controller
      */
     public function store(Request $request)
     {
-        $item = new CartItem();
         $cart = session('cart');
 
-        $item->quantity = $request['quantity'] ?? 1;
+        if (null === $item = \App\CartItem::where('cart_id', $cart->id)->where('product_id', $request['product_id'])->first()) {
+            $item = new CartItem();
+        }
+
+        $item->quantity += $request['quantity'] ?? 1;
         $item->product_id = $request['product_id'];
         $item->cart_id = $cart->id;
 
