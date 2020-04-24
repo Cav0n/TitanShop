@@ -45,4 +45,14 @@ class User extends Authenticatable
     {
         $this->attribute['password'] = Hash::make($value);
     }
+
+    public function getEmailPrettyAttribute()
+    {
+        return strtolower($this->email);
+    }
+
+    public function getPhonePrettyAttribute()
+    {
+        return null !== $this->phone ? chunk_split($this->phone, 2, ' ') : 'Non défini';
+    }
 }

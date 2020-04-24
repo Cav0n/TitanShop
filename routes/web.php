@@ -47,6 +47,11 @@ Route::middleware('shopIsInstalled')->group(function() {
 
         Route::middleware('auth')->group(function() {
             Route::get('', 'Auth\CustomerAreaController@show')->name('customer-area.index');
+            Route::post('update/personal-informations', 'Users\UserController@update')->name('user.update.personal-informations.post');
+            Route::post('update/password', 'Users\UserController@updatePassword')->name('user.update.password.post');
+
+            Route::get('modal/personal-informations', 'Auth\CustomerAreaController@personalInformationsModal')->name('customer-area.modal.personal-informations');
+            Route::get('modal/password', 'Auth\CustomerAreaController@passwordModal')->name('customer-area.modal.password');
             Route::any('logout', 'Auth\LoginController@logout')->name('customer-area.logout');
         });
     });
