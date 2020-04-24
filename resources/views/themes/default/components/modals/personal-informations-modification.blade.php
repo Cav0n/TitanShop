@@ -32,6 +32,6 @@
 @section('modal.footer')
     <button type="button" class="btn btn-secondary" data-dismiss="modal">
         Annuler</button>
-    <label type="button" class="btn btn-primary" for="submit-form" tabindex="0">
+    <label class="btn btn-primary" for="submit-form" tabindex="0">
         Sauvegarder</label>
 @endsection
