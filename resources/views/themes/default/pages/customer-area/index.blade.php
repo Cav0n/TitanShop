@@ -3,6 +3,15 @@
 @section('page.title',  'Espace client - ' . App\Setting::valueOrNull('SHOP_NAME'))
 
 @section('page.content')
+    <div class="row mb-3">
+        <div class="col-12">
+            <p id="breadcrumb">
+                / <a href="{{ route('index') }}">Accueil</a>
+                / <a href="{{ route('customer-area.index') }}">Espace client</a>
+            </p>
+        </div>
+    </div>
+
     @include('themes.default.components.alerts.error')
     @include('themes.default.components.alerts.success')
 

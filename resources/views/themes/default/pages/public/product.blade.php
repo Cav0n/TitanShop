@@ -4,8 +4,8 @@
 @section('page.description', $product->description)
 
 @section('page.content')
-    <div id="breadcrumb" class="text-center mb-3">
-        <div class="col-12">
+    <div id="breadcrumb" class="mb-3">
+        <div class="col-12 offset-lg-4 col-lg-8">
             {!! $product->breadcrumb !!}
         </div>
     </div>

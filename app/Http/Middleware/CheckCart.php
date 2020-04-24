@@ -19,16 +19,27 @@ class CheckCart
     public function handle($request, Closure $next)
     {
         if (! session()->has('cart')) {
-            $cart = new Cart();
-            $cart->token = Str::random(15);
-            $cart->user_id = Auth::check() ? Auth::user()->id : null;
-            $cart->save();
-
-            session(['cart' => $cart]);
+            $this->createCart();
         } else {
             session(['cart' => Cart::where('token', session('cart')->token)->first()]);
+
+            try {
+                session('cart')->items;
+            } catch (\Throwable $th) {
+                $this->createCart();
+            }
         }
 
         return $next($request);
+    }
+
+    protected function createCart()
+    {
+        $cart = new Cart();
+        $cart->token = Str::random(15);
+        $cart->user_id = Auth::check() ? Auth::user()->id : null;
+        $cart->save();
+
+        session(['cart' => $cart]);
     }
 }

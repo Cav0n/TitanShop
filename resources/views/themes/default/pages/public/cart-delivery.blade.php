@@ -3,7 +3,16 @@
 @section('page.title', 'Livraison | Mon panier - ' . App\Setting::valueOrNull('SHOP_NAME'))
 
 @section('page.content')
-    <h1 class="text-center h3">Mon panier - Livraison</h1>
+    <div class="row mb-3">
+        <div class="col-12">
+            <h1 class="h3">Mon panier - Livraison</h1>
+            <p id="breadcrumb">
+                / <a href="{{ route('index') }}">Accueil</a>
+                / <a href="{{ route('cart') }}">Mon panier</a>
+                / <a href="{{ route('cart.delivery') }}">Livraison</a>
+            </p>
+        </div>
+    </div>
 
     <div class="row">
         <div class="col-12 col-lg-8 d-flex flex-column">

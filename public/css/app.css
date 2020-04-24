@@ -20,3 +20,7 @@ p {
   fill: rgba(0, 0, 0, 0.7);
 }
 
+#breadcrumb a {
+  color: #6c757d !important;
+}
+
