@@ -7,7 +7,7 @@
         </button>
         <div class="collapse navbar-collapse" id="headerNavbar">
 
-            <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+            <ul class="navbar-nav mr-auto">
                 <li class="nav-item {{ \App\Utils::active('index') }}">
                     <a class="nav-link" href="{{ route('index') }}">Accueil</a>
                 </li>
@@ -23,7 +23,7 @@
                 @endforeach
             </ul>
 
-            <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
+            <ul class="navbar-nav ml-auto">
                 <li class="nav-item {{ \App\Utils::active('customer-area')}}">
                     <a class="nav-link" href="{{ route('customer-area.index') }}">
                         Espace client</a>
