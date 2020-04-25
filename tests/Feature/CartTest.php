@@ -51,6 +51,25 @@ class CartTest extends TestCase
     }
 
     /**
+     * A cart creation test with shipping and billing addresses
+     *
+     * @return void
+     */
+    public function testCreationWithAddresses()
+    {
+        $cart = self::createSimpleCart();
+        $shippingAddress = AddressTest::createCompleteAddress();
+        $billingAddress = AddressTest::createCompleteAddress();
+
+        $cart->shipping_address_id = $shippingAddress->id;
+        $cart->billing_address_id = $billingAddress->id;
+
+        $this->assertNotNull($cart);
+        $this->assertNotNull($cart->shippingAddress);
+        $this->assertNotNull($cart->billingAddress);
+    }
+
+    /**
      * Create a simple cart
      *
      * @return Cart

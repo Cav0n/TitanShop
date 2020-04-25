@@ -23,6 +23,22 @@ class Cart extends Model
         return $this->belongsTo('App\User');
     }
 
+    /**
+     * Get cart shipping address
+     */
+    public function shippingAddress()
+    {
+        return $this->belongsTo('App\Address', 'shipping_address_id');
+    }
+
+    /**
+     * Get cart billing address
+     */
+    public function billingAddress()
+    {
+        return $this->belongsTo('App\Address', 'billing_address_id');
+    }
+
     public function getTotalQuantityAttribute()
     {
         $quantity = 0;
