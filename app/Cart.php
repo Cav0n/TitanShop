@@ -76,6 +76,29 @@ class Cart extends Model
         return \number_format($this->totalPrice, 2, ",", " ") . ' €';
     }
 
+    /**
+     * Get cart total price with shipping costs
+     *
+     * @return void
+     */
+    public function getTotalPriceWithShippingCostsAttribute()
+    {
+        $price = $this->totalPrice;
+        $shippingCosts = \App\Setting::valueOrNull('SHIPPING_COSTS');
+
+        return $price + $shippingCosts;
+    }
+
+    /**
+     * Get cart total price formatted with shipping costs
+     *
+     * @return void
+     */
+    public function getTotalPriceWithShippingCostsFormattedAttribute()
+    {
+        return \number_format($this->totalPriceWithShippingCosts, 2, ",", " ") . ' €';
+    }
+
     public function generateToken()
     {
         $this->token = Str::random(15);

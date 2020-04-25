@@ -16,6 +16,7 @@ class CreateOrdersTable extends Migration
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
             $table->string('trackingNumber');
+            $table->integer('shippingCosts')->nullable();
             $table->bigInteger('shipping_address_id')->unsigned();
             $table->bigInteger('billing_address_id')->unsigned();
             $table->bigInteger('user_id')->unsigned()->nullable();

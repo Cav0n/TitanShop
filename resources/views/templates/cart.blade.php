@@ -8,8 +8,9 @@
             <p id="breadcrumb">
                 / <a href="{{ route('index') }}">Accueil</a>
                 / <a href="{{ route('cart') }}">Mon panier</a>
+                @yield('cart.breadcrumb')
             </p>
-            <h1 class="h3">Mon panier</h1>
+            <h1 class="h3">@yield('cart.title', 'Mon panier')</h1>
         </div>
     </div>
 
@@ -27,8 +28,8 @@
         <div class="col-12 col-lg-4">
             <div class="bg-light shadow-sm p-3">
                 <p>{{ $cart->totalQuantity }} articles : {{ $cart->totalPriceFormatted }}</p>
-                <p>Frais de port : {{ \App\Setting::valueOrNull('SHIPPING_COSTS') }}</p>
-                <p>Total : {{ $cart->totalPrice }}</p>
+                <p>Frais de port : {{ \App\Setting::valueOrNull('SHIPPING_COSTS', true) }} €</p>
+                <p>Total : {{ $cart->totalPriceWithShippingCostsFormatted }}</p>
 
                 @yield('cart.summary.next-button')
             </div>

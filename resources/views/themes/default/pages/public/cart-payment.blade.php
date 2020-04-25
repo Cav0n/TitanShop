@@ -1,5 +1,11 @@
 @extends('templates.cart')
 
+@section('cart.title', 'Mon panier - Paiement')
+
+@section('cart.breadcrumb')
+    / <a href="{{ route('cart.payment') }}">Paiement</a>
+@endsection
+
 @section('cart.content')
 <form id="delivery-form" class="mb-3 mb-lg-0 p-0" action="{{ route('cart.payment.post') }}" method="POST">
     @csrf

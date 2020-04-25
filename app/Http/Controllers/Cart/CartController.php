@@ -52,6 +52,11 @@ class CartController extends Controller
 
         $order = app('App\Http\Controllers\Orders\OrderController')->createFromCart($cart);
 
+        foreach ($order->items as $item) {
+            $item->product->stock -= $item->quantity;
+            $item->product->save();
+        }
+
         session()->forget('cart');
 
         return redirect(route('cart.thanks', ['order' => $order]));

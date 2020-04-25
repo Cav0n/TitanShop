@@ -1,5 +1,12 @@
 @extends('templates.cart')
 
+@section('cart.title', 'Mon panier - Paiement par chèque')
+
+@section('cart.breadcrumb')
+    / <a href="{{ route('cart.payment') }}">Paiement</a>
+    / <a href="{{ route('cart.payment.cheque') }}">Paiement par chèque</a>
+@endsection
+
 @section('cart.content')
 <div id="payment-cheque" class="mb-3 mb-lg-0 p-3 bg-light shadow-sm">
     <p>Vous trouverez ici les instructions pour payer par chèque.</p>

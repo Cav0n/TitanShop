@@ -6,17 +6,46 @@ use Illuminate\Database\Eloquent\Model;
 
 class Setting extends Model
 {
+    /** @var array TYPES
+     * The differents possibles types of settings
+     * The is useful in backoffice to display settings form.
+     *
+     * Ex: string setting will be displayed in an input type="text"
+     * Another Ex: text setting will be displayed in a textarea
+     * */
+    const TYPES = [
+        'string', 'text', 'bool', 'number', 'price'
+    ];
+
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
     protected $fillable = [
-        'code', 'value', 'password',
+        'code', 'type', 'value', 'password',
     ];
 
-    public static function valueOrNull(string $code)
+    public static function valueOrNull(string $code, $formatted = false)
     {
-        return (Setting::where('code', $code)->exists() ? \App\Setting::where('code', $code)->first()->value : null);
+        $setting = \App\Setting::where('code', $code)->first();
+
+        if (null === $setting || ! \in_array($setting->type, self::TYPES)) {
+            return null;
+        }
+
+        if ("price" === $setting->type) {
+            if ($formatted) {
+                return number_format($setting->value / 100.0, 2, ',', ' ');
+            }
+
+            return $setting->value / 100.0;
+        }
+
+        if ("number" === $setting->type) {
+            return (null !== $setting->value) ? $setting->value : 0;
+        }
+
+        return $setting->value;
     }
 }

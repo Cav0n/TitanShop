@@ -37,16 +37,23 @@ class CartItemController extends Controller
     public function store(Request $request)
     {
         $cart = session('cart');
+        $product = \App\ProductBase::where('id', $request['product_id'])->first();
+        $quantity = $request['quantity'];
 
-        if (null === $item = \App\CartItem::where('cart_id', $cart->id)->where('product_id', $request['product_id'])->first()) {
+        if (null === $item = \App\CartItem::where('cart_id', $cart->id)->where('product_id', $product->id)->first()) {
             $item = new CartItem();
         }
 
-        $item->quantity += $request['quantity'] ?? 1;
-        $item->product_id = $request['product_id'];
+        $item->quantity += $quantity ?? 1;
+        $item->product_id = $product->id;
         $item->cart_id = $cart->id;
 
         $item->save();
+
+        if ($item->quantity > $product->stock) {
+            $item->quantity = $product->stock;
+            $item->save();
+        }
 
         return redirect(route('cart.item.added', ['item' => $item]));
     }

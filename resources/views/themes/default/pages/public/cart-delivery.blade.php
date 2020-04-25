@@ -1,5 +1,11 @@
 @extends('templates.cart')
 
+@section('cart.title', 'Mon panier - Livraison')
+
+@section('cart.breadcrumb')
+    / <a href="{{ route('cart.delivery') }}">Livraison</a>
+@endsection
+
 @section('cart.content')
 <form id="delivery-form" class="mb-3 mb-lg-0 p-0" action="{{ route('cart.delivery.add-addresses') }}" method="POST">
     @csrf

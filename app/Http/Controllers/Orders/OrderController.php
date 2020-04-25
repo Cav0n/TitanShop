@@ -43,6 +43,7 @@ class OrderController extends Controller
         }
 
         $order = new Order();
+        $order->shippingCosts = \App\Setting::valueOrNull('SHIPPING_COSTS');
         $order->shipping_address_id = $cart->shippingAddress->id;
         $order->billing_address_id = $cart->billingAddress->id;
         $order->user_id = $cart->user_id;
