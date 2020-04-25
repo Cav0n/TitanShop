@@ -41,6 +41,7 @@ Route::middleware('shopIsInstalled')->group(function() {
     Route::get('/cart/payment', 'Cart\CartStepController@showPayment')->name('cart.payment');
     Route::post('/cart/payment', 'Cart\CartController@doPayment')->name('cart.payment.post');
     Route::get('/cart/payment/cheque', 'Cart\CartController@chequeInstructions')->name('cart.payment.cheque');
+    Route::get('/cart/create-order', 'Cart\CartController@createOrder')->name('cart.create-order');
     Route::get('/cart/thanks', 'Cart\CartStepController@showThanks')->name('cart.thanks');
 
     /**

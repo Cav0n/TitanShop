@@ -45,4 +45,15 @@ class CartController extends Controller
 
         return view('themes.default.pages.public.cart-cheque-payment')->with(['cart' => $cart]);
     }
+
+    public function createOrder()
+    {
+        $cart = session('cart');
+
+        $order = app('App\Http\Controllers\Orders\OrderController')->createFromCart($cart);
+
+        session()->forget('cart');
+
+        return redirect(route('cart.thanks'));
+    }
 }

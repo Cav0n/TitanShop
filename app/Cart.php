@@ -16,14 +16,6 @@ class Cart extends Model
     }
 
     /**
-     * Get cart user
-     */
-    public function user()
-    {
-        return $this->belongsTo('App\User');
-    }
-
-    /**
      * Get cart shipping address
      */
     public function shippingAddress()
@@ -37,6 +29,14 @@ class Cart extends Model
     public function billingAddress()
     {
         return $this->belongsTo('App\Address', 'billing_address_id');
+    }
+
+    /**
+     * Get cart user
+     */
+    public function user()
+    {
+        return $this->belongsTo('App\User');
     }
 
     public function getTotalQuantityAttribute()

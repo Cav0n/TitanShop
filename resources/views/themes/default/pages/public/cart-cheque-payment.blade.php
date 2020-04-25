@@ -7,7 +7,7 @@
 @endsection
 
 @section('cart.summary.next-button')
-<a class="btn btn-primary w-100 mt-3" href="{{ route('cart.thanks') }}" role="button">Valider ma commande</a>
+<a class="btn btn-primary w-100 mt-3" href="{{ route('cart.create-order') }}" role="button">Valider ma commande</a>
 @endsection
 
 @section('cart.summary.other')
