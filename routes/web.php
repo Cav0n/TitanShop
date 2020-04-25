@@ -39,6 +39,9 @@ Route::middleware('shopIsInstalled')->group(function() {
     Route::get('/cart/delivery', 'Cart\CartStepController@showDelivery')->name('cart.delivery');
     Route::post('/cart/delivery/add-addresses', 'Cart\CartController@addAddresses')->name('cart.delivery.add-addresses');
     Route::get('/cart/payment', 'Cart\CartStepController@showPayment')->name('cart.payment');
+    Route::post('/cart/payment', 'Cart\CartController@doPayment')->name('cart.payment.post');
+    Route::get('/cart/payment/cheque', 'Cart\CartController@chequeInstructions')->name('cart.payment.cheque');
+    Route::get('/cart/thanks', 'Cart\CartStepController@showThanks')->name('cart.thanks');
 
     /**
      * CUSTOMER AREA

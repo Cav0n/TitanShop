@@ -18,6 +18,10 @@ class Utils
      */
     public static function active(string $routeName, $parameters = null, $output = 'active')
     {
+        if (null === Request::route()) {
+            return;
+        }
+
         $routePrefix = str_replace('/', '',Request::route()->getPrefix());
 
         /**

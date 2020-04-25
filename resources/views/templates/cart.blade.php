@@ -13,6 +13,7 @@
         </div>
     </div>
 
+    @include('themes.default.components.alerts.error')
 
     <div class="row">
         @if (0 !== count($cart->items))

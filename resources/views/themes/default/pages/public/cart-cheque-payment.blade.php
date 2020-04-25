@@ -1,26 +1,13 @@
 @extends('templates.cart')
 
 @section('cart.content')
-<form id="delivery-form" class="mb-3 mb-lg-0 p-0" action="{{ route('cart.payment.post') }}" method="POST">
-    @csrf
-
-    <div class="bg-light shadow-sm p-3">
-        <p>Veuillez selectionner un moyen de paiement :</p>
-        <div class="form-check d-flex flex-column">
-            <label class="form-check-label">
-                <input type="radio" class="form-check-input" name="payment_method" id="payment_method" value="cheque" checked>
-                Chèque
-            </label>
-        </div>
-    </div>
-
-    <input type="submit" id="submit-form" class="d-none" />
-</form>
+<div id="payment-cheque" class="mb-3 mb-lg-0 p-3 bg-light shadow-sm">
+    <p>Vous trouverez ici les instructions pour payer par chèque.</p>
+</div>
 @endsection
 
 @section('cart.summary.next-button')
-<label class="btn btn-primary w-100 mt-3 mb-0" for="submit-form" tabindex="0">
-    Payer</label>
+<a class="btn btn-primary w-100 mt-3" href="{{ route('cart.thanks') }}" role="button">Valider ma commande</a>
 @endsection
 
 @section('cart.summary.other')

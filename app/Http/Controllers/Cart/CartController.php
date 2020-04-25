@@ -25,4 +25,24 @@ class CartController extends Controller
 
         return redirect()->route('cart.payment');
     }
+
+    public function doPayment(Request $request)
+    {
+        $paymentMethod = $request['payment_method'];
+
+        switch ($paymentMethod) {
+            case 'cheque':
+                return redirect(route('cart.payment.cheque'));
+
+            default:
+                return back()->withErrors(['payment_method' => "The payment method \"$paymentMethod\" is not valid"]);
+        }
+    }
+
+    public function chequeInstructions()
+    {
+        $cart = session('cart');
+
+        return view('themes.default.pages.public.cart-cheque-payment')->with(['cart' => $cart]);
+    }
 }

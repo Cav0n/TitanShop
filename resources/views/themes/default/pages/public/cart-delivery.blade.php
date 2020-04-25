@@ -11,29 +11,29 @@
 
         <div class="form-group col-12 col-lg-6">
             <label for="shipping_lastname">Nom de famille du destinataire</label>
-            <input type="text" class="form-control" name="shipping[lastname]" id="shipping_lastname">
+            <input type="text" class="form-control" name="shipping[lastname]" id="shipping_lastname" value="{{ old('shipping')['lastname'] }}">
         </div>
         <div class="form-group col-12 col-lg-6">
             <label for="shipping_firstname">Prénom du destinataire</label>
-            <input type="text" class="form-control" name="shipping[firstname]" id="shipping_firstname">
+            <input type="text" class="form-control" name="shipping[firstname]" id="shipping_firstname" value="{{ old('shipping')['firstname'] }}">
         </div>
 
         <div class="form-group col-12">
             <label for="shipping_street">Rue</label>
-            <input type="text" class="form-control" name="shipping[street]" id="shipping_street">
+            <input type="text" class="form-control" name="shipping[street]" id="shipping_street" value="{{ old('shipping')['street'] }}">
         </div>
         <div class="form-group col-12">
             <label for="shipping_street2">Complément d'adresse</label>
-            <input type="text" class="form-control" name="shipping[street2]" id="shipping_street2" aria-describedby="helpStreet2">
+            <input type="text" class="form-control" name="shipping[street2]" id="shipping_street2" aria-describedby="helpStreet2" value="{{ old('shipping')['street2'] }}">
             <small id="helpStreet2" class="form-text text-muted">Numéro d'appartement, nom de résidence...</small>
         </div>
         <div class="form-group col-12 col-lg-4">
             <label for="shipping_zipCode">Code postal</label>
-            <input type="text" class="form-control" name="shipping[zipCode]" id="shipping_zipCode">
+            <input type="text" class="form-control" name="shipping[zipCode]" id="shipping_zipCode" value="{{ old('shipping')['zipCode'] }}">
         </div>
         <div class="form-group col-12 col-lg-8">
             <label for="shipping_city">Ville</label>
-            <input type="text" class="form-control" name="shipping[city]" id="shipping_city">
+            <input type="text" class="form-control" name="shipping[city]" id="shipping_city" value="{{ old('shipping')['city'] }}">
         </div>
         <div class="form-group col-12 text-center">
             <div class="form-check form-check-inline">
@@ -52,29 +52,29 @@
 
         <div class="form-group col-12 col-lg-6">
             <label for="billing_lastname">Nom de famille</label>
-            <input type="text" class="form-control" name="billing[lastname]" id="billing_lastname">
+            <input type="text" class="form-control" name="billing[lastname]" id="billing_lastname" value="{{ old('billing')['lastname'] }}">
         </div>
         <div class="form-group col-12 col-lg-6">
             <label for="billing_firstname">Prénom</label>
-            <input type="text" class="form-control" name="billing[firstname]" id="billing_firstname">
+            <input type="text" class="form-control" name="billing[firstname]" id="billing_firstname" value="{{ old('billing')['firstname'] }}">
         </div>
 
         <div class="form-group col-12">
             <label for="billing_street">Rue</label>
-            <input type="text" class="form-control" name="billing[street]" id="billing_street">
+            <input type="text" class="form-control" name="billing[street]" id="billing_street" value="{{ old('billing')['street'] }}">
         </div>
         <div class="form-group col-12">
             <label for="billing_street2">Complément d'adresse</label>
-            <input type="text" class="form-control" name="billing[street2]" id="billing_street2" aria-describedby="helpStreet2">
+            <input type="text" class="form-control" name="billing[street2]" id="billing_street2" aria-describedby="helpStreet2" value="{{ old('billing')['street2'] }}">
             <small id="helpStreet2" class="form-text text-muted">Numéro d'appartement, nom de résidence...</small>
         </div>
         <div class="form-group col-12 col-lg-4">
             <label for="billing_zipCode">Code postal</label>
-            <input type="text" class="form-control" name="billing[zipCode]" id="billing_zipCode">
+            <input type="text" class="form-control" name="billing[zipCode]" id="billing_zipCode" value="{{ old('billing')['zipCode'] }}">
         </div>
         <div class="form-group col-12 col-lg-8">
             <label for="billing_city">Ville</label>
-            <input type="text" class="form-control" name="billing[city]" id="billing_city">
+            <input type="text" class="form-control" name="billing[city]" id="billing_city" value="{{ old('billing')['city'] }}">
         </div>
     </div>
 

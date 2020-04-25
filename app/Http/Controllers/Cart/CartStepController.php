@@ -29,7 +29,11 @@ class CartStepController extends Controller
     {
         $cart = session('cart');
 
-        return view('themes.default.pages.public.cart-delivery')->with(['cart' => $cart]);
+        if (0 < count($cart->items)) {
+            return view('themes.default.pages.public.cart-delivery')->with(['cart' => $cart]);
+        }
+
+        return redirect(route('cart'));
     }
 
     /**
@@ -41,6 +45,15 @@ class CartStepController extends Controller
     {
         $cart = session('cart');
 
-        return view('themes.default.pages.public.cart-payment')->with(['cart' => $cart]);
+        if (isset($cart->shippingAddress) && isset($cart->billingAddress)) {
+            return view('themes.default.pages.public.cart-payment')->with(['cart' => $cart]);
+        }
+
+        return redirect(route('cart.delivery'));
+    }
+
+    public function showThanks()
+    {
+        return view('themes.default.pages.public.cart-thanks');
     }
 }
