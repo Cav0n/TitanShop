@@ -6,8 +6,9 @@
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="headerNavbar">
-            <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-                <li class="nav-item active">
+
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item {{ \App\Utils::active('index') }}">
                     <a class="nav-link" href="{{ route('index') }}">Accueil</a>
                 </li>
 
@@ -16,21 +17,23 @@
                     ->where('isDeleted', 0)
                     ->where('parent_id', null)
                     ->get() as $category)
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ route('index') }}">{{ $category->title }}</a>
+                <li class="nav-item {{ \App\Utils::active('category.show', ['category' => $category->id]) }}">
+                    <a class="nav-link" href="{{ route('category.show', ['category' => $category]) }}">{{ $category->title }}</a>
                 </li>
                 @endforeach
             </ul>
-            <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ route('index') }}">
+
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item {{ \App\Utils::active('customer-area')}}">
+                    <a class="nav-link" href="{{ route('customer-area.index') }}">
                         Espace client</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ route('index') }}">
+                <li class="nav-item {{ \App\Utils::active('cart')}}">
+                    <a class="nav-link" href="{{ route('cart') }}">
                         Mon panier</a>
                 </li>
             </ul>
+
         </div>
     </nav>
 </header>

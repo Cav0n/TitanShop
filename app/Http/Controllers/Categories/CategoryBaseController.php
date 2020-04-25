@@ -42,12 +42,12 @@ class CategoryBaseController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\CategoryBase  $categoryBase
+     * @param  \App\CategoryBase  $category
      * @return \Illuminate\Http\Response
      */
-    public function show(CategoryBase $categoryBase)
+    public function show(CategoryBase $category)
     {
-        //
+        return view('themes.default.pages.public.category', ['category' => $category]);
     }
 
     /**

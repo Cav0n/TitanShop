@@ -30,13 +30,20 @@ class CategoryBase extends Model
         return $this->belongsTo('App\CategoryBase', 'parent_id');
     }
 
-
     /**
      * Get childs of the category
      */
     public function childs()
     {
         return $this->hasMany('App\CategoryBase', 'parent_id');
+    }
+
+    /**
+     * Get products of the category
+     */
+    public function products()
+    {
+        return $this->belongsToMany('App\ProductBase', 'category_product', 'category_id', 'product_id');
     }
 
     /**
@@ -65,6 +72,44 @@ class CategoryBase extends Model
     {
         $lang = (isset($lang)) ? $lang : 'FR';
 
-        return $this->i18ns->where('lang', $lang)->first()->description;
+        return nl2br($this->i18ns->where('lang', $lang)->first()->description);
+    }
+
+    /**
+     * Return breadcrumb of the category
+     */
+    public function getBreadcrumbAttribute()
+    {
+        $breadcrumb = '';
+
+        $categoryRoute = route('category.show', ['category' => $this]);
+        $categoryTitle = $this->title;
+        $breadcrumb = "/ <a href=\"$categoryRoute\">$categoryTitle</a>";
+
+        $parent = $this->parent;
+
+        while (null !== $parent) {
+            $parentRoute = route('category.show', ['category' => $parent]);
+            $parentTitle = $parent->title;
+            $breadcrumb = "/ <a href=\"$parentRoute\">$parentTitle</a> " . $breadcrumb;
+
+            $parent = $parent->parent;
+        }
+
+        $routeToHomepage = route('index');
+        $homepageTitle = "Accueil";
+        $breadcrumb = "/ <a href=\"$routeToHomepage\">$homepageTitle</a> " . $breadcrumb;
+
+        $breadcrumb = "<p>$breadcrumb</p>";
+
+        return $breadcrumb;
+    }
+
+    /**
+     * Return true if category has no childs and no products
+     */
+    public function getIsEmptyAttribute()
+    {
+        return 0 === count($this->childs) && 0 === count($this->products);
     }
 }

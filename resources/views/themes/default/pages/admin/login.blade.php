@@ -7,9 +7,7 @@
 
                 <h1 class="text-center">{{ \App\Setting::valueOrNull('SHOP_NAME') }}</h1>
 
-                @if(!empty($errors->any()))
-                @include('themes.default.components.alerts.error', ['errors' => $errors->all()])
-                @endif
+                @include('themes.default.components.alerts.error')
 
                 <form class="row bg-light shadow-sm py-3" action="{{ route('admin.login') }}" method="POST">
                     @csrf
