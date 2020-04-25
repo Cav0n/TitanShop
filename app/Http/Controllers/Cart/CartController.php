@@ -54,6 +54,6 @@ class CartController extends Controller
 
         session()->forget('cart');
 
-        return redirect(route('cart.thanks'));
+        return redirect(route('cart.thanks', ['order' => $order]));
     }
 }

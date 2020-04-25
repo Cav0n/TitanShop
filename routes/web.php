@@ -33,16 +33,25 @@ Route::middleware('shopIsInstalled')->group(function() {
     Route::get('/', 'Main\MainController@index')->name('index');
     Route::get('/product/{product}', 'Products\ProductBaseController@show')->name('product.show');
     Route::get('/category/{category}', 'Categories\CategoryBaseController@show')->name('category.show');
-    Route::get('/cart/items/add', 'Cart\CartItemController@store')->name('cart.items.add');
-    Route::get('/cart/item/added/{item}', 'Cart\CartItemController@notificationPage')->name('cart.item.added');
-    Route::get('/cart', 'Cart\CartStepController@showCurrent')->name('cart');
-    Route::get('/cart/delivery', 'Cart\CartStepController@showDelivery')->name('cart.delivery');
-    Route::post('/cart/delivery/add-addresses', 'Cart\CartController@addAddresses')->name('cart.delivery.add-addresses');
-    Route::get('/cart/payment', 'Cart\CartStepController@showPayment')->name('cart.payment');
-    Route::post('/cart/payment', 'Cart\CartController@doPayment')->name('cart.payment.post');
-    Route::get('/cart/payment/cheque', 'Cart\CartController@chequeInstructions')->name('cart.payment.cheque');
-    Route::get('/cart/create-order', 'Cart\CartController@createOrder')->name('cart.create-order');
-    Route::get('/cart/thanks', 'Cart\CartStepController@showThanks')->name('cart.thanks');
+
+
+    /**
+     * CART
+     */
+    Route::group(['prefix' => 'cart'], function () {
+        Route::get('', 'Cart\CartStepController@showCurrent')->name('cart');
+
+        Route::get('items/add', 'Cart\CartItemController@store')->name('cart.items.add');
+        Route::get('item/added/{item}', 'Cart\CartItemController@notificationPage')->name('cart.item.added');
+        Route::get('delivery', 'Cart\CartStepController@showDelivery')->name('cart.delivery');
+        Route::post('delivery/add-addresses', 'Cart\CartController@addAddresses')->name('cart.delivery.add-addresses');
+        Route::get('payment', 'Cart\CartStepController@showPayment')->name('cart.payment');
+        Route::post('payment', 'Cart\CartController@doPayment')->name('cart.payment.post');
+        Route::get('payment/cheque', 'Cart\CartController@chequeInstructions')->name('cart.payment.cheque');
+        Route::get('create-order', 'Cart\CartController@createOrder')->name('cart.create-order');
+        Route::get('thanks/{order:trackingNumber}', 'Cart\CartStepController@showThanks')->name('cart.thanks');
+    });
+     /** --------------------- */
 
     /**
      * CUSTOMER AREA

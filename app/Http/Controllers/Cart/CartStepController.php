@@ -52,8 +52,14 @@ class CartStepController extends Controller
         return redirect(route('cart.delivery'));
     }
 
-    public function showThanks()
+    /**
+     * Show thanks page
+     *
+     * @param  \App\Order $order
+     * @return void
+     */
+    public function showThanks(\App\Order $order)
     {
-        return view('themes.default.pages.public.cart-thanks');
+        return view('themes.default.pages.public.cart-thanks')->with(['order' => $order]);
     }
 }
