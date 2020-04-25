@@ -39,6 +39,8 @@ class CartStepController extends Controller
      */
     public function showPayment()
     {
-        //
+        $cart = session('cart');
+
+        return view('themes.default.pages.public.cart-payment')->with(['cart' => $cart]);
     }
 }

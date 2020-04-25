@@ -37,6 +37,8 @@ Route::middleware('shopIsInstalled')->group(function() {
     Route::get('/cart/item/added/{item}', 'Cart\CartItemController@notificationPage')->name('cart.item.added');
     Route::get('/cart', 'Cart\CartStepController@showCurrent')->name('cart');
     Route::get('/cart/delivery', 'Cart\CartStepController@showDelivery')->name('cart.delivery');
+    Route::post('/cart/delivery/add-addresses', 'Cart\CartController@addAddresses')->name('cart.delivery.add-addresses');
+    Route::get('/cart/payment', 'Cart\CartStepController@showPayment')->name('cart.payment');
 
     /**
      * CUSTOMER AREA

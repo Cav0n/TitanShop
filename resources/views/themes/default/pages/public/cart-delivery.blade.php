@@ -1,7 +1,9 @@
 @extends('templates.cart')
 
 @section('cart.content')
-<form id="delivery-form" class="mb-3 mb-lg-0 p-0" action="">
+<form id="delivery-form" class="mb-3 mb-lg-0 p-0" action="{{ route('cart.delivery.add-addresses') }}" method="POST">
+    @csrf
+
     <div class="bg-light shadow-sm row mx-0 py-2">
         <div class="col-12">
             <h2 class="h5">Adresse de livraison</h2>
@@ -36,7 +38,7 @@
         <div class="form-group col-12 text-center">
             <div class="form-check form-check-inline">
                 <label class="form-check-label">
-                    <input id="same-addresses-checkbox" class="form-check-input" type="checkbox" value="sameBillingAddress" checked>
+                    <input id="same-addresses-checkbox" class="form-check-input" type="checkbox" name="sameBillingAddress" value="sameBillingAddress" checked>
                         Adresse de facturation identique
                 </label>
             </div>

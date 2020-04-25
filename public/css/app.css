@@ -24,3 +24,12 @@ p {
   color: #6c757d !important;
 }
 
+.mini-address .address-title {
+  font-size: 1.1rem;
+  font-weight: 600 !important;
+}
+
+.mini-address .address-text {
+  font-size: 0.9rem;
+}
+
