@@ -5,7 +5,6 @@ namespace App\Http\Middleware;
 use Closure;
 use \App\Cart;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Str;
 
 class CheckCart
 {
@@ -36,8 +35,8 @@ class CheckCart
     protected function createCart()
     {
         $cart = new Cart();
-        $cart->token = Str::random(15);
         $cart->user_id = Auth::check() ? Auth::user()->id : null;
+        $cart->generateToken();
         $cart->save();
 
         session(['cart' => $cart]);

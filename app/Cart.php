@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Str;
 
 class Cart extends Model
 {
@@ -12,6 +13,14 @@ class Cart extends Model
     public function items()
     {
         return $this->hasMany('App\CartItem');
+    }
+
+    /**
+     * Get cart user
+     */
+    public function user()
+    {
+        return $this->belongsTo('App\User');
     }
 
     public function getTotalQuantityAttribute()
@@ -49,5 +58,10 @@ class Cart extends Model
     public function getTotalPriceFormattedAttribute()
     {
         return \number_format($this->totalPrice, 2, ",", " ") . ' €';
+    }
+
+    public function generateToken()
+    {
+        $this->token = Str::random(15);
     }
 }

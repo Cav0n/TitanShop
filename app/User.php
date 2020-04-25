@@ -55,4 +55,12 @@ class User extends Authenticatable
     {
         return null !== $this->phone ? chunk_split($this->phone, 2, ' ') : 'Non défini';
     }
+
+    /**
+     * Get carts of the user
+     */
+    public function carts()
+    {
+        return $this->hasMany('App\Cart');
+    }
 }

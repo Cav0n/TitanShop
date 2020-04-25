@@ -6,7 +6,7 @@
     <h1 class="text-center h3">{{ $item->product->title }} a été ajouté au panier</h1>
 
     <div class="row bg-light shadow-sm p-3 mx-0">
-        <div class="col-2 col-md-1 mx-0 mx-md-2">
+        <div class="col-2 col-md-1 mx-0">
             <img id="big-image" class="img-fluid w-100"
                 src="{{ asset($item->product->images->first()->path ?? null) }}"
                 alt="{{ $item->product->images->first()->alt ?? $item->product->title }}"

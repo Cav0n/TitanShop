@@ -68,6 +68,20 @@ class UserTest extends TestCase
         $user->save();
     }
 
+    public function testCartAttach()
+    {
+        $user = self::createCompleteUser();
+        $cart = CartTest::createSimpleCart();
+
+        $cart->user_id = $user->id;
+        $cart->save();
+
+        $this->assertNotNull($user);
+        $this->assertNotNull($cart);
+        $this->assertNotNull($user->carts);
+        $this->assertEquals(1, count($user->carts));
+    }
+
     /**
      * Create a complete user
      *

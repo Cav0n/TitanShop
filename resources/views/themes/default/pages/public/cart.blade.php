@@ -2,14 +2,15 @@
 
 @section('cart.content')
     @foreach ($cart->items as $item)
-    <div class="cart-item bg-light shadow-sm p-3 @if(! $loop->last) mb-3 @endif">
+    <div class="cart-item bg-light shadow-sm p-3 mb-3">
         <div class="row">
-            <div class="col-lg-10">
+            <div class="col-12 col-lg-10">
                 <a href="{{ route('product.show', ['product' => $item->product]) }}" class="h5">{{ $item->product->title }}</a>
                 <p>Prix unitaire : {{ $item->product->priceFormatted }}</p>
                 <p>Quantité : {{ $item->quantity }}</p>
+                <p class="d-flex d-lg-none">Prix total : {{ $item->priceFormatted }}</p>
             </div>
-            <div class="col-lg-2 d-flex flex-column justify-content-center border-left">
+            <div class="col-lg-2 d-none d-lg-flex flex-column justify-content-center border-left">
                 <p class="text-center">{{ $item->priceFormatted }}</p>
             </div>
         </div>
