@@ -23,6 +23,7 @@ class CreateAddressesTable extends Migration
             $table->string('zipCode');
             $table->string('city');
 
+            $table->boolean('isDeleted')->default(0);
             $table->timestamps();
         });
     }

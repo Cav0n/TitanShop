@@ -14,7 +14,7 @@ class AddressController extends Controller
      */
     public function index()
     {
-        //
+        return Address::where('isDeleted', 0)->get();
     }
 
     /**
@@ -31,11 +31,30 @@ class AddressController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @return Address
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'firstname' => 'required|min:2',
+            'lastname' => 'required|min:2',
+            'street' => 'required|min:2',
+            'street2' => 'nullable|min:2',
+            'zipCode' => 'required|min:4|max:5',
+            'city' => 'required|min:2',
+        ]);
+
+        $address = new Address();
+        $address->firstname = $request['firstname'];
+        $address->lastname = $request['lastname'];
+        $address->street = $request['street'];
+        $address->street2 = $request['street'];
+        $address->zipCode = $request['zipCode'];
+        $address->city = $request['city'];
+
+        $address->save();
+
+        return $address;
     }
 
     /**
@@ -69,7 +88,25 @@ class AddressController extends Controller
      */
     public function update(Request $request, Address $address)
     {
-        //
+        $request->validate([
+            'firstname' => 'required|min:2',
+            'lastname' => 'required|min:2',
+            'street' => 'required|min:2',
+            'street2' => 'nullable|min:2',
+            'zipCode' => 'required|min:4|max:5',
+            'city' => 'required|min:2',
+        ]);
+
+        $address->firstname = $request['firstname'];
+        $address->lastname = $request['lastname'];
+        $address->street = $request['street'];
+        $address->street2 = $request['street'];
+        $address->zipCode = $request['zipCode'];
+        $address->city = $request['city'];
+
+        $address->save();
+
+        return $address;
     }
 
     /**
@@ -80,6 +117,7 @@ class AddressController extends Controller
      */
     public function destroy(Address $address)
     {
-        //
+        $address->isDeleted = 1;
+        $address->save();
     }
 }
