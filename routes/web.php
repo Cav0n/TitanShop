@@ -88,6 +88,8 @@ Route::middleware('shopIsInstalled')->group(function() {
         Route::middleware('admin')->group(function() {
             Route::get('', 'Admin\AdminController@index')->name('admin.index');
             Route::any('logout', 'Admin\Auth\LoginController@logout')->name('admin.logout');
+
+            Route::get('/products', 'Products\ProductBaseController@index')->name('admin.products');
         });
     });
      /** --------------------- */

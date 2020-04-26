@@ -15,13 +15,25 @@
 
     <title>@yield('page.title', 'ADMIN - ' . \App\Setting::valueOrNull('SHOP_NAME'))</title>
 </head>
-<body>
+<body class="container-fluid">
     {{-- JS --}}
     <script src="{{ asset('js/app.js') }}"></script>
     <script src="{{ asset('js/admin.js') }}"></script>
     @yield('page.js_import')
 
-    @yield('page.content')
+    <div class="row">
+        <div id="sidenav-container" class="col-xl-2 p-2 sticky-top">
+            @include('themes.default.components.admin.sidenav')
+        </div>
+
+        <div class="col-xl-10 px-3 py-2">
+            <h1 class="h3 mb-3">
+                @yield('page.title', 'Titan Shop - BackOffice')
+            </h1>
+
+            @yield('page.content')
+        </div>
+    </div>
 
     {{-- Convert "img" to svg --}}
     <script>

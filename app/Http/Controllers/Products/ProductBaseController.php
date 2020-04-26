@@ -16,7 +16,9 @@ class ProductBaseController extends Controller
      */
     public function index()
     {
-        $products = ProductBase::where('isVisible', 1)->where('isDeleted', 0)->get();
+        $products = ProductBase::where('isDeleted', 0)->get();
+
+        return view('themes.default.pages.admin.products')->with(['products' => $products]);
     }
 
     /**
