@@ -23,7 +23,7 @@
                 <td class="align-middle">{{ $user->email }}</td>
                 <td class="align-middle">{{ $user->phonePretty ?? 'Non indiqué'}}</td>
 
-                <td class="text-right">
+                <td class="text-right align-middle">
                     <a class="btn btn-primary ml-auto" href="#" role="button">Éditer</a>
                 </td>
             </tr>

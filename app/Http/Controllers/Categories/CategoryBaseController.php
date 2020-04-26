@@ -19,7 +19,9 @@ class CategoryBaseController extends Controller
                         ->where('parent_id', $request['parent_id'])
                         ->get();
 
-        return view('themes.default.pages.admin.categories')->with(['categories' => $categories]);
+        $category = CategoryBase::where('id', $request['parent_id'])->first();
+
+        return view('themes.default.pages.admin.categories')->with(['categories' => $categories, 'category' => $category]);
     }
 
     /**
@@ -62,7 +64,7 @@ class CategoryBaseController extends Controller
      */
     public function edit(CategoryBase $categoryBase)
     {
-        //
+        return view('themes.default.pages.admin.category', ['category' => $categoryBase]);
     }
 
     /**
@@ -74,7 +76,12 @@ class CategoryBaseController extends Controller
      */
     public function update(Request $request, CategoryBase $categoryBase)
     {
-        //
+        $i18n = $categoryBase->i18ns()->where('lang', $request['lang'])->first();
+        $i18n->title = $request['title'];
+        $i18n->description = $request['description'];
+        $i18n->save();
+
+        return redirect()->back()->with(['success' => ['La catégorie a été modifié avec succés.']]);
     }
 
     /**

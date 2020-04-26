@@ -29,7 +29,7 @@
                     {{ $order->totalPriceWithShippingCostsFormatted }}
                     {!! $order->shippingCosts ? '<br>(Dont ' . $order->shippingCostsFormatted . " de frais de port)" : null !!}
                 </td>
-                <td class="text-right">
+                <td class="text-right align-middle">
                     <a class="btn btn-primary ml-auto" href="#" role="button">Éditer</a>
                 </td>
             </tr>

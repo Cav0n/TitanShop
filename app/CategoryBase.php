@@ -105,6 +105,36 @@ class CategoryBase extends Model
         return $breadcrumb;
     }
 
+        /**
+     * Return breadcrumb of the category
+     */
+    public function getAdminBreadcrumbAttribute()
+    {
+        $breadcrumb = '';
+
+        $categoryRoute = route('admin.category.edit', ['categoryBase' => $this]);
+        $categoryTitle = $this->title;
+        $breadcrumb = "/ <a href=\"$categoryRoute\">$categoryTitle</a>";
+
+        $parent = $this->parent;
+
+        while (null !== $parent) {
+            $parentRoute = route('admin.categories', ['parent_id' => $parent->id]);
+            $parentTitle = $parent->title;
+            $breadcrumb = "/ <a href=\"$parentRoute\">$parentTitle</a> " . $breadcrumb;
+
+            $parent = $parent->parent;
+        }
+
+        $routeToHomepage = route('admin.categories');
+        $homepageTitle = "Catégories";
+        $breadcrumb = "/ <a href=\"$routeToHomepage\">$homepageTitle</a> " . $breadcrumb;
+
+        $breadcrumb = "<p>$breadcrumb</p>";
+
+        return $breadcrumb;
+    }
+
     /**
      * Return true if category has no childs and no products
      */

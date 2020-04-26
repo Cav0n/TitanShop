@@ -88,6 +88,8 @@ class SettingController extends Controller
             $setting->value = $value;
             $setting->save();
         }
+
+        return redirect()->back()->with(['success' => ['Les paramètres ont été modifié avec succés.']]);
     }
 
     /**

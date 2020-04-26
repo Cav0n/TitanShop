@@ -19,7 +19,7 @@
                 <td class="align-middle">{{ $product->title }}</td>
                 <td class="text-center align-middle">{{ $product->stock }}</td>
                 <td class="text-center align-middle">{{ $product->priceFormatted }}</td>
-                <td class="text-right">
+                <td class="text-right align-middle">
                     <a class="btn btn-primary ml-auto" href="#" role="button">Éditer</a>
                 </td>
             </tr>
