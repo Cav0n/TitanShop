@@ -26,6 +26,34 @@ class Setting extends Model
         'code', 'type', 'value', 'password',
     ];
 
+    /**
+     * Get setting i18ns
+     */
+    public function i18ns()
+    {
+        return $this->hasMany('App\SettingI18n');
+    }
+
+    /**
+     * Return setting title i18n
+     */
+    public function getTitleAttribute($lang = 'FR')
+    {
+        $lang = (isset($lang)) ? $lang : 'FR';
+
+        return $this->i18ns->where('lang', $lang)->first() ? $this->i18ns->where('lang', $lang)->first()->title : null;
+    }
+
+    /**
+     * Return setting help i18n
+     */
+    public function getHelpAttribute($lang = 'FR')
+    {
+        $lang = (isset($lang)) ? $lang : 'FR';
+
+        return $this->i18ns->where('lang', $lang)->first() ? $this->i18ns->where('lang', $lang)->first()->help : null ;
+    }
+
     public static function valueOrNull(string $code, $formatted = false)
     {
         $setting = \App\Setting::where('code', $code)->first();

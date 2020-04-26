@@ -15,7 +15,9 @@ class SettingController extends Controller
      */
     public function index()
     {
-        //
+        $settings = Setting::where('isEditable', 1)->get();
+
+        return view('themes.default.pages.admin.settings')->with(['settings' => $settings]);
     }
 
     /**

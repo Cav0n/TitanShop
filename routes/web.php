@@ -89,7 +89,11 @@ Route::middleware('shopIsInstalled')->group(function() {
             Route::get('', 'Admin\AdminController@index')->name('admin.index');
             Route::any('logout', 'Admin\Auth\LoginController@logout')->name('admin.logout');
 
-            Route::get('/products', 'Products\ProductBaseController@index')->name('admin.products');
+            Route::get('products', 'Products\ProductBaseController@index')->name('admin.products');
+            Route::get('categories', 'Categories\CategoryBaseController@index')->name('admin.categories');
+            Route::get('orders', 'Orders\OrderController@index')->name('admin.orders');
+            Route::get('users', 'Users\UserController@index')->name('admin.users');
+            Route::get('settings', 'Settings\SettingController@index')->name('admin.settings');
         });
     });
      /** --------------------- */

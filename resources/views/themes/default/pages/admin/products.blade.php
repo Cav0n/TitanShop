@@ -1,5 +1,7 @@
 @extends('templates.admin')
 
+@section('page.title', 'Produits')
+
 @section('page.content')
 <div class="bg-light p-3 shadow-sm">
     <table class="table border mb-0">

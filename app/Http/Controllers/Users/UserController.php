@@ -19,7 +19,9 @@ class UserController extends Controller
      */
     public function index()
     {
-        //
+        $users = User::all();
+
+        return view('themes.default.pages.admin.users')->with(['users' => $users]);
     }
 
     /**

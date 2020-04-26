@@ -13,9 +13,13 @@ class CategoryBaseController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        $categories = CategoryBase::where('isDeleted', 0)
+                        ->where('parent_id', $request['parent_id'])
+                        ->get();
+
+        return view('themes.default.pages.admin.categories')->with(['categories' => $categories]);
     }
 
     /**

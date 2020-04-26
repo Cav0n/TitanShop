@@ -17,9 +17,8 @@ class CreateSettingI18nsTable extends Migration
         Schema::create('setting_i18ns', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('setting_id')->unsigned();
-            $table->string('locale')->default('FR');
+            $table->string('lang')->default('FR');
             $table->string('title');
-            $table->string('value')->nullable();
             $table->string('help')->nullable();
 
             $table->timestamps();

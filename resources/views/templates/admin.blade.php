@@ -13,7 +13,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,900;1,400;1,500;1,600;1,900&display=swap" rel="stylesheet">
     @yield('page.css_import')
 
-    <title>@yield('page.title', 'ADMIN - ' . \App\Setting::valueOrNull('SHOP_NAME'))</title>
+    <title>@yield('page.title', 'Backoffice') - Titan Shop</title>
 </head>
 <body class="container-fluid">
     {{-- JS --}}
@@ -21,6 +21,7 @@
     <script src="{{ asset('js/admin.js') }}"></script>
     @yield('page.js_import')
 
+    @if (\App\Admin::check())
     <div class="row">
         <div id="sidenav-container" class="col-xl-2 p-2 sticky-top">
             @include('themes.default.components.admin.sidenav')
@@ -28,12 +29,15 @@
 
         <div class="col-xl-10 px-3 py-2">
             <h1 class="h3 mb-3">
-                @yield('page.title', 'Titan Shop - BackOffice')
+                @yield('page.title', 'BackOffice - Titan Shop')
             </h1>
 
             @yield('page.content')
         </div>
     </div>
+    @else
+    @yield('page.content')
+    @endif
 
     {{-- Convert "img" to svg --}}
     <script>
