@@ -23,11 +23,11 @@
 
     @if (\App\Admin::check())
     <div class="row">
-        <div id="sidenav-container" class="col-xl-2 p-2 sticky-top">
+        <div id="sidenav-container" class="col-0 col-lg-2 p-2 sticky-top d-none d-lg-flex">
             @include('themes.default.components.admin.sidenav')
         </div>
 
-        <div class="col-xl-10 px-3 py-2">
+        <div class="col-12 col-lg-10 px-3 py-2">
             <h1 class="h3 mb-3">
                 @yield('page.title', 'BackOffice - Titan Shop')
             </h1>
