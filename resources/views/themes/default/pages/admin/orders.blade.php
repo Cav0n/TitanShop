@@ -3,7 +3,7 @@
 @section('page.title', 'Commandes')
 
 @section('page.content')
-<div class="bg-light p-3 shadow-sm">
+<div class="bg-white p-3 shadow-sm">
     <table class="table border mb-0">
         <thead class="thead thead-light">
             <tr>

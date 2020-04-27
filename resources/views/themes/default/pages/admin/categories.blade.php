@@ -9,7 +9,7 @@
 </div>
 @endisset
 
-<div class="bg-light p-3 shadow-sm">
+<div class="bg-white p-3 shadow-sm">
 
     @if(0 === count($categories))
     <p class="text-center">Aucune sous catégorie n'existe pour cette catégorie.</p>

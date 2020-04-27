@@ -3,7 +3,7 @@
 @section('page.title', 'Merci pour votre commande - ' . App\Setting::valueOrNull('SHOP_NAME'))
 
 @section('page.content')
-    <div class="bg-light shadow-sm p-3">
+    <div class="bg-white shadow-sm p-3">
         <h1 class="h3">Merci pour votre commande</h1>
 
         @auth

@@ -12,7 +12,7 @@
 @include('themes.default.components.alerts.error')
 @include('themes.default.components.alerts.success')
 
-<div class="bg-light p-3 shadow-sm">
+<div class="bg-white p-3 shadow-sm">
     <form action="{{ route('admin.category.update', ['categoryBase' => $category]) }}" method="POST">
         @csrf
 

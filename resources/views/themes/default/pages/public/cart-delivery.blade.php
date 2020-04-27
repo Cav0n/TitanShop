@@ -10,7 +10,7 @@
 <form id="delivery-form" class="mb-3 mb-lg-0 p-0" action="{{ route('cart.delivery.add-addresses') }}" method="POST">
     @csrf
 
-    <div class="bg-light shadow-sm row mx-0 py-2">
+    <div class="bg-white shadow-sm row mx-0 py-2">
         <div class="col-12">
             <h2 class="h5">Adresse de livraison</h2>
         </div>
@@ -51,7 +51,7 @@
         </div>
     </div>
 
-    <div id="billing-address" class="bg-light shadow-sm row mx-0 py-2">
+    <div id="billing-address" class="bg-white shadow-sm row mx-0 py-2">
         <div class="col-12">
             <h2 class="h5">Adresse de facturation</h2>
         </div>
@@ -94,7 +94,7 @@
 @endsection
 
 @section('cart.summary.other')
-<div class="bg-light shadow-sm row p-3 mt-3 mx-0">
+<div class="bg-white shadow-sm row p-3 mt-3 mx-0">
     @foreach ($cart->items as $item)
         <div class="col-1 px-0">
             <img id="big-image" class="img-fluid w-100"

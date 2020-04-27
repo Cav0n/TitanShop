@@ -7,7 +7,7 @@
 
         @include('themes.default.components.alerts.error')
 
-        <form class="row bg-light shadow-sm py-3 mx-0" action="{{ route('admin.login') }}" method="POST">
+        <form class="row bg-white shadow-sm py-3 mx-0" action="{{ route('admin.login') }}" method="POST">
             @csrf
             <div class="col-12 form-group">
                 <input type="text" class="form-control {{ $errors->has('login') ? 'is-invalid' : '' }}" name="login" id="login" placeholder="Email ou pseudo" value="{{ old('login') }}">

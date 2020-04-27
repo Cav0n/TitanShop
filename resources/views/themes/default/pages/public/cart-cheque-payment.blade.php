@@ -8,7 +8,7 @@
 @endsection
 
 @section('cart.content')
-<div id="payment-cheque" class="mb-3 mb-lg-0 p-3 bg-light shadow-sm">
+<div id="payment-cheque" class="mb-3 mb-lg-0 p-3 bg-white shadow-sm">
     <p>Vous trouverez ici les instructions pour payer par chèque.</p>
 </div>
 @endsection
@@ -18,7 +18,7 @@
 @endsection
 
 @section('cart.summary.other')
-<div class="bg-light shadow-sm row p-3 mt-3 mx-0">
+<div class="bg-white shadow-sm row p-3 mt-3 mx-0">
     @foreach ($cart->items as $item)
         <div class="col-1 px-0">
             <img id="big-image" class="img-fluid w-100"
@@ -32,7 +32,7 @@
     @endforeach
 </div>
 
-<div class="bg-light shadow-sm row p-3 mt-3 mx-0">
+<div class="bg-white shadow-sm row p-3 mt-3 mx-0">
     <div id="shipping-address" class="mini-address">
         <p class="address-title">Adresse de livraison</p>
         <p class="address-text">{!! $cart->shippingAddress !!}</p>

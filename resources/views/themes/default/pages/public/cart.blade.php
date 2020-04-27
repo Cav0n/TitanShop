@@ -2,7 +2,7 @@
 
 @section('cart.content')
     @foreach ($cart->items as $item)
-    <div class="cart-item bg-light shadow-sm p-3 mb-3">
+    <div class="cart-item bg-white shadow-sm p-3 mb-3">
         <div class="row">
             <div class="col-12 col-lg-10">
                 <a href="{{ route('product.show', ['product' => $item->product]) }}" class="h5">{{ $item->product->title }}</a>
