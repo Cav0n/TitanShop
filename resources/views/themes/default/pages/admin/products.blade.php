@@ -2,6 +2,13 @@
 
 @section('page.title', 'Produits')
 
+@section('page.breadcrumb')
+<p id="breadcrumb">
+    / <a href="{{ route('admin.index') }}">Accueil</a>
+    / <a href="{{ route('admin.products') }}">Produits</a>
+</p>
+@endsection
+
 @section('page.content')
 <div class="bg-white p-3 shadow-sm">
     <table class="table border mb-0">

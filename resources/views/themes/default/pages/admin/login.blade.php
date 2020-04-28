@@ -1,5 +1,6 @@
 @extends('templates.admin')
 
+@section('page.content')
 <div class="row justify-content-center">
     <div id="admin-login-container" class="col-12 col-md-10 col-lg-8 col-xl-4 h-100 d-flex flex-column justify-content-center">
 
@@ -23,3 +24,5 @@
 
     </div>
 </div>
+@endsection
+

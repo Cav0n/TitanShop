@@ -15,28 +15,57 @@
 
     <title>@yield('page.title', 'Backoffice') - Titan Shop</title>
 </head>
-<body class="container-fluid">
+<body>
     {{-- JS --}}
     <script src="{{ asset('js/app.js') }}"></script>
     <script src="{{ asset('js/admin.js') }}"></script>
     @yield('page.js_import')
 
     @if (\App\Admin::check())
-    <div class="row">
-        <div id="sidenav-container" class="col-0 col-lg-2 p-2 sticky-top d-none d-lg-flex">
-            @include('themes.default.components.admin.sidenav')
-        </div>
+    <header class="d-flex d-lg-none">
+        <nav class="navbar navbar-expand-sm navbar-light bg-light w-100">
+            <a class="navbar-brand" href="#">Titan Shop</a>
+            <button class="navbar-toggler d-lg-none" type="button" data-toggle="collapse" data-target="#collapsibleNavId" aria-controls="collapsibleNavId"
+                aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="collapsibleNavId">
+                @include('themes.default.components.admin.sidenav-links')
+            </div>
+        </nav>
+    </header>
 
-        <div class="col-12 col-lg-10 px-3 py-2">
-            <h1 class="h3 mb-3">
-                @yield('page.title', 'BackOffice - Titan Shop')
-            </h1>
+    <div class="container-fluid">
+        <div class="row">
+            <div id="sidenav-container" class="col-0 col-lg-2 p-2 sticky-top d-none d-lg-flex">
+                @include('themes.default.components.admin.sidenav')
+            </div>
 
-            @yield('page.content')
+            <div class="col-12 col-lg-10 px-3 py-2">
+                <div class="d-flex justify-content-between">
+                    <div class="d-flex flex-column">
+                        <h1 class="h3 mb-0">
+                            @yield('page.title', 'BackOffice - Titan Shop')
+                        </h1>
+
+                        <div class="mb-2">
+                            @yield('page.breadcrumb')
+                        </div>
+                    </div>
+                    <div class="d-flex flex-column justify-content-center">
+                        @yield('page.buttons')
+                    </div>
+                </div>
+
+
+                @yield('page.content')
+            </div>
         </div>
     </div>
     @else
-    @yield('page.content')
+    <div class="container-fluid">
+        @yield('page.content')
+    </div>
     @endif
 
     {{-- Convert "img" to svg --}}

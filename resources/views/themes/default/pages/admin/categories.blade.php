@@ -2,13 +2,21 @@
 
 @section('page.title', 'Catégories')
 
-@section('page.content')
-@isset($category)
-<div class="mb-3">
-    {!! $category->adminBreadcrumb !!}
-</div>
-@endisset
+@section('page.breadcrumb')
+<p id="breadcrumb">
+    / <a href="{{ route('admin.index') }}">Accueil</a>
+    / <a href="{{ route('admin.categories') }}">Catégories</a>
+    @isset($category)
+        {!! $category->adminBreadcrumb !!}
+    @endisset
+</p>
+@endsection
 
+@section('page.buttons')
+    <a class="btn btn-primary" href="{{ route('admin.category.create', ['parent' => $category]) }}" role="button">Créer une catégorie</a>
+@endsection
+
+@section('page.content')
 <div class="bg-white p-3 shadow-sm">
 
     @if(0 === count($categories))

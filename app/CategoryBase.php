@@ -35,7 +35,7 @@ class CategoryBase extends Model
      */
     public function childs()
     {
-        return $this->hasMany('App\CategoryBase', 'parent_id');
+        return $this->hasMany('App\CategoryBase', 'parent_id')->where('isVisible', 1)->where('isDeleted', 0);
     }
 
     /**
@@ -125,12 +125,6 @@ class CategoryBase extends Model
 
             $parent = $parent->parent;
         }
-
-        $routeToHomepage = route('admin.categories');
-        $homepageTitle = "Catégories";
-        $breadcrumb = "/ <a href=\"$routeToHomepage\">$homepageTitle</a> " . $breadcrumb;
-
-        $breadcrumb = "<p>$breadcrumb</p>";
 
         return $breadcrumb;
     }
