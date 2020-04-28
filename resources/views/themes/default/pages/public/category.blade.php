@@ -21,7 +21,7 @@
             <div class="row">
                 @foreach ($category->childs as $child)
                 <div class="col-6 col-sm-4 col-lg-3 d-flex">
-                    <a class="p-3 bg-light border shadow-sm w-100" href="{{ route('category.show', ['category' => $child]) }}">{{ $child->title }}</a>
+                    <a class="p-3 bg-white border shadow-sm w-100" href="{{ route('category.show', ['category' => $child]) }}">{{ $child->title }}</a>
                 </div>
                 @endforeach
             </div>
