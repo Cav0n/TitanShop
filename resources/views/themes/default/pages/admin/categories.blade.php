@@ -13,7 +13,7 @@
 @endsection
 
 @section('page.buttons')
-    <a class="btn btn-primary" href="{{ route('admin.category.create', ['parent' => $category]) }}" role="button">Créer une catégorie</a>
+    <a class="btn btn-primary mb-3" href="{{ route('admin.category.create', ['parent' => $category]) }}" role="button">Créer une catégorie</a>
 @endsection
 
 @section('page.content')
