@@ -42,7 +42,7 @@
             </div>
 
             <div class="col-12 col-lg-10 px-3 py-2">
-                <div class="d-flex flex-column flex-md-row justify-content-between">
+                <div class="d-flex flex-wrap justify-content-between">
                     <div class="d-flex flex-column">
                         <h1 class="h3 mb-0">
                             @yield('page.title', 'BackOffice - Titan Shop')
@@ -52,7 +52,7 @@
                             @yield('page.breadcrumb')
                         </div>
                     </div>
-                    <div class="d-flex flex-row flex-lg-column justify-content-lg-center">
+                    <div class="buttons-container">
                         @yield('page.buttons')
                     </div>
                 </div>
