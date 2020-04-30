@@ -28,7 +28,9 @@ class ProductBaseController extends Controller
      */
     public function create()
     {
-        //
+        $categories = \App\CategoryBase::where('isDeleted', 0)->get();
+
+        return view('themes.default.pages.admin.product', ['categories' => $categories]);
     }
 
     /**
@@ -41,7 +43,7 @@ class ProductBaseController extends Controller
     {
         $request->validate([
             'price' => 'required|numeric|min:0',
-            'promoPrice' => 'required|numeric|min:0',
+            'promoPrice' => 'nullable|numeric|min:0',
             'stock' => 'nullable|numeric|min:0',
             'title' => 'required|min:3',
             'description' => 'required|min:10',
@@ -51,8 +53,10 @@ class ProductBaseController extends Controller
         $product->price = $request['price'];
         $product->promoPrice = $request['promoPrice'];
         $product->stock = $request['stock'];
-        $product->isVisible = $request['isVisible'];
+        $product->isVisible = $request['isVisible'] ? 1 : 0;
         $product->save();
+
+        $product->categories()->attach($request['category']);
 
         $productI18n = new ProductI18n();
         $productI18n->product_base_id = $product->id;
@@ -60,6 +64,10 @@ class ProductBaseController extends Controller
         $productI18n->title = trim($request['title']);
         $productI18n->description = trim($request['description']);
         $productI18n->save();
+
+        $categories = \App\CategoryBase::where('isDeleted', 0)->get();
+
+        return redirect(route('admin.product.edit', ['product' => $product]));
     }
 
     /**
@@ -79,9 +87,14 @@ class ProductBaseController extends Controller
      * @param  \App\ProductBase  $productBase
      * @return \Illuminate\Http\Response
      */
-    public function edit(ProductBase $productBase)
+    public function edit(ProductBase $product)
     {
-        //
+        $categories = \App\CategoryBase::where('isDeleted', 0)->get();
+
+        return view('themes.default.pages.admin.product', [
+            'categories' => $categories,
+            'product' => $product
+        ]);
     }
 
     /**
@@ -95,7 +108,7 @@ class ProductBaseController extends Controller
     {
         $request->validate([
             'price' => 'required|numeric|min:0',
-            'promoPrice' => 'required|numeric|min:0',
+            'promoPrice' => 'nullable|numeric|min:0',
             'stock' => 'nullable|numeric|min:0',
             'title' => 'required|min:3',
             'description' => 'required|min:10',
@@ -103,16 +116,21 @@ class ProductBaseController extends Controller
 
         $product->price = $request['price'];
         $product->promoPrice = $request['promoPrice'];
-        $product->stock = $request['stock'];
-        $product->isVisible = $request['isVisible'];
+        $product->stock = $request['stock'] ?? 0;
+        $product->isVisible = $request['isVisible'] ? 1 : 0;
         $product->save();
 
-        $productI18n = ProductI18n::where('id', $request['productI18n_id'])->first ?? new ProductI18n();
+        $product->categories()->detach();
+        $product->categories()->attach($request['category']);
+
+        $productI18n = $product->i18ns()->where('lang', $request['lang'])->first();
         $productI18n->product_base_id = $product->id;
         $productI18n->lang = $request['lang'] ?? 'FR';
         $productI18n->title = trim($request['title']);
         $productI18n->description = trim($request['description']);
         $productI18n->save();
+
+        return redirect()->back()->with(['success' => ['Le produit a été modifié avec succés.']]);
     }
 
     /**

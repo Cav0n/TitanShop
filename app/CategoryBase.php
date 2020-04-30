@@ -43,7 +43,7 @@ class CategoryBase extends Model
      */
     public function products()
     {
-        return $this->belongsToMany('App\ProductBase', 'category_product', 'category_id', 'product_id');
+        return $this->belongsToMany('App\ProductBase', 'category_product', 'category_id', 'product_id')->where('isVisible', 1)->where('isDeleted', 0);
     }
 
     /**

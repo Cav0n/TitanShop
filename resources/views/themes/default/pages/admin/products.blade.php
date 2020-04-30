@@ -9,6 +9,10 @@
 </p>
 @endsection
 
+@section('page.buttons')
+    <a class="btn btn-primary mb-3" href="{{ route('admin.product.create') }}" role="button">Créer un produit</a>
+@endsection
+
 @section('page.content')
 <div class="bg-white p-3 shadow-sm">
     <table class="table border mb-0">
@@ -23,11 +27,11 @@
         <tbody>
             @foreach ($products as $product)
             <tr>
-                <td class="align-middle">{{ $product->title }}</td>
+                <td class="align-middle">{{ $product->i18ns->first() ? $product->title : null }}</td>
                 <td class="text-center align-middle">{{ $product->stock }}</td>
                 <td class="text-center align-middle">{{ $product->priceFormatted }}</td>
                 <td class="text-right align-middle">
-                    <a class="btn btn-primary ml-auto" href="#" role="button">Éditer</a>
+                    <a class="btn btn-primary ml-auto" href="{{ route('admin.product.edit', ['product' => $product]) }}" role="button">Éditer</a>
                 </td>
             </tr>
             @endforeach
