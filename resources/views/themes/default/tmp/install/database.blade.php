@@ -7,9 +7,7 @@
         <div class="row justify-content-center">
             <div class="col-11 col-sm-10 col-md-8 col-lg-6">
 
-                @if(!empty($errors->any()))
-                @include('themes.default.components.alerts.error', ['errors' => $errors->all()])
-                @endif
+                @include('themes.default.components.alerts.error')
 
                 <div class="bg-light border shadow-sm p-3">
                     <h1 class="h4">Bienvenue dans l'installeur de TitanShop !</h1>
