@@ -88,9 +88,9 @@ class UserController extends Controller
      * @param  \App\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request)
+    public function update(Request $request, User $user = null)
     {
-        $user = Auth::user();
+        $user = $user ?? Auth::user();
         $this->validator($request, $user)->validate();
 
         $user->firstname = ucfirst($request['firstname']);

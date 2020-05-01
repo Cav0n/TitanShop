@@ -46,6 +46,7 @@
     </div>
 
     <input type="hidden" name="lang" value="FR">
+    <input type="hidden" name="backoffice_redirect" value="true">
 
     <button type="submit" class="btn btn-primary">Sauvegarder</button>
 </form>
