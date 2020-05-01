@@ -88,6 +88,29 @@ Route::middleware('shopIsInstalled')->group(function() {
         Route::middleware('admin')->group(function() {
             Route::get('', 'Admin\AdminController@index')->name('admin.index');
             Route::any('logout', 'Admin\Auth\LoginController@logout')->name('admin.logout');
+
+            Route::get('products', 'Products\ProductBaseController@index')->name('admin.products');
+            Route::get('categories', 'Categories\CategoryBaseController@index')->name('admin.categories');
+            Route::get('orders', 'Orders\OrderController@index')->name('admin.orders');
+            Route::get('users', 'Users\UserController@index')->name('admin.users');
+            Route::get('settings', 'Settings\SettingController@index')->name('admin.settings');
+
+            Route::get('product/new', 'Products\ProductBaseController@create')->name('admin.product.create');
+            Route::post('product/new', 'Products\ProductBaseController@store')->name('admin.product.store');
+            Route::get('product/{product}', 'Products\ProductBaseController@edit')->name('admin.product.edit');
+            Route::post('product/{product}', 'Products\ProductBaseController@update')->name('admin.product.update');
+
+            Route::get('category/new', 'Categories\CategoryBaseController@create')->name('admin.category.create');
+            Route::post('category/new', 'Categories\CategoryBaseController@store')->name('admin.category.store');
+            Route::get('category/{categoryBase}', 'Categories\CategoryBaseController@edit')->name('admin.category.edit');
+            Route::post('category/{categoryBase}', 'Categories\CategoryBaseController@update')->name('admin.category.update');
+
+            Route::get('user/new', 'Users\UserController@create')->name('admin.user.create');
+            Route::post('user/new', 'Users\UserController@store')->name('admin.user.store');
+            Route::get('user/{user}', 'Users\UserController@edit')->name('admin.user.edit');
+            Route::post('user/{user}', 'Users\UserController@update')->name('admin.user.update');
+
+            Route::post('settings/update', 'Settings\SettingController@updateOrCreate')->name('admin.settings.update');
         });
     });
      /** --------------------- */

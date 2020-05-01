@@ -15,7 +15,9 @@ class SettingController extends Controller
      */
     public function index()
     {
-        //
+        $settings = Setting::where('isEditable', 1)->get();
+
+        return view('themes.default.pages.admin.settings')->with(['settings' => $settings]);
     }
 
     /**
@@ -86,6 +88,8 @@ class SettingController extends Controller
             $setting->value = $value;
             $setting->save();
         }
+
+        return redirect()->back()->with(['success' => ['Les paramètres ont été modifié avec succés.']]);
     }
 
     /**

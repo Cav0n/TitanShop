@@ -19,7 +19,9 @@ class UserController extends Controller
      */
     public function index()
     {
-        //
+        $users = User::all();
+
+        return view('themes.default.pages.admin.users')->with(['users' => $users]);
     }
 
     /**
@@ -29,7 +31,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        //
+        return view('themes.default.pages.admin.user');
     }
 
     /**
@@ -47,7 +49,12 @@ class UserController extends Controller
         $user->lastname = ucfirst($request['lastname']);
         $user->email = strtolower($request['email']);
         $user->phone = $request['phone'];
+        $user->password = Hash::make($request['password']);
         $user->save();
+
+        if (isset($request['backoffice_redirect'])) {
+            return redirect(route('admin.user.edit', ['user' => $user]));
+        }
 
         return redirect()->back()->with(['success' => ['Votre compte a été créé avec succés.']]);
     }
@@ -71,7 +78,7 @@ class UserController extends Controller
      */
     public function edit(User $user)
     {
-        //
+        return view('themes.default.pages.admin.user', ['user' => $user]);
     }
 
     /**
@@ -92,7 +99,13 @@ class UserController extends Controller
         $user->phone = $request['phone'];
         $user->save();
 
-        return redirect()->back()->with(['success' => ['Vos informations ont bien été mis à jour.']]);
+        $successMessage = "Vos informations ont bien été mis à jour.";
+
+        if (isset($request['backoffice_redirect'])) {
+            $successMessage = "Les informations du client ont été modifiées avec succés.";
+        }
+
+        return redirect()->back()->with(['success' => [$successMessage]]);
     }
 
     /**

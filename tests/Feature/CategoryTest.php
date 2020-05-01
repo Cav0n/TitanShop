@@ -36,6 +36,11 @@ class CategoryTest extends TestCase
         $this->assertNotNull($child->parent);
         $this->assertNotNull($category->childs);
         $this->assertEquals(1, count($category->childs));
+
+        $child->isVisible = 0;
+        $child->save();
+        $category->refresh();
+        $this->assertEquals(0, count($category->childs));
     }
 
     /**
@@ -46,6 +51,7 @@ class CategoryTest extends TestCase
     public static function createCompleteCategory()
     {
         $category = new CategoryBase();
+        $category->isVisible = 1;
         $category->save();
 
         return $category;

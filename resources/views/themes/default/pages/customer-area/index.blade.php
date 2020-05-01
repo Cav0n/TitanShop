@@ -15,7 +15,7 @@
     @include('themes.default.components.alerts.error')
     @include('themes.default.components.alerts.success')
 
-    <div id="customer-area-container" class="bg-light p-3 shadow-sm row mx-0">
+    <div id="customer-area-container" class="bg-white p-3 shadow-sm row mx-0">
         <div id="customer-area-title" class="border-bottom pb-2 col-12 px-0">
             <h1 class="h2">Bienvenue dans votre espace client</h1>
         </div>

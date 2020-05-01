@@ -5,7 +5,7 @@
 @section('page.content')
     @include('themes.default.components.alerts.error')
 
-    <form class="bg-light p-3 shadow-sm" method="POST">
+    <form class="bg-white p-3 shadow-sm" method="POST">
         @csrf
 
         <div class="form-group">

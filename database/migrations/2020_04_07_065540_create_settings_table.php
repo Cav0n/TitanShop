@@ -19,6 +19,7 @@ class CreateSettingsTable extends Migration
             $table->string('code')->unique();
             $table->string('type');
             $table->string('value')->nullable();
+            $table->boolean('isEditable')->default(1);
 
             $table->timestamps();
         });

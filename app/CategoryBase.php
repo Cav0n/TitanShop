@@ -35,7 +35,7 @@ class CategoryBase extends Model
      */
     public function childs()
     {
-        return $this->hasMany('App\CategoryBase', 'parent_id');
+        return $this->hasMany('App\CategoryBase', 'parent_id')->where('isVisible', 1)->where('isDeleted', 0);
     }
 
     /**
@@ -43,7 +43,7 @@ class CategoryBase extends Model
      */
     public function products()
     {
-        return $this->belongsToMany('App\ProductBase', 'category_product', 'category_id', 'product_id');
+        return $this->belongsToMany('App\ProductBase', 'category_product', 'category_id', 'product_id')->where('isVisible', 1)->where('isDeleted', 0);
     }
 
     /**
@@ -101,6 +101,30 @@ class CategoryBase extends Model
         $breadcrumb = "/ <a href=\"$routeToHomepage\">$homepageTitle</a> " . $breadcrumb;
 
         $breadcrumb = "<p>$breadcrumb</p>";
+
+        return $breadcrumb;
+    }
+
+        /**
+     * Return breadcrumb of the category
+     */
+    public function getAdminBreadcrumbAttribute()
+    {
+        $breadcrumb = '';
+
+        $categoryRoute = route('admin.category.edit', ['categoryBase' => $this]);
+        $categoryTitle = $this->title;
+        $breadcrumb = "/ <a href=\"$categoryRoute\">$categoryTitle</a>";
+
+        $parent = $this->parent;
+
+        while (null !== $parent) {
+            $parentRoute = route('admin.categories', ['parent_id' => $parent->id]);
+            $parentTitle = $parent->title;
+            $breadcrumb = "/ <a href=\"$parentRoute\">$parentTitle</a> " . $breadcrumb;
+
+            $parent = $parent->parent;
+        }
 
         return $breadcrumb;
     }

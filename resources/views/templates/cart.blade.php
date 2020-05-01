@@ -26,7 +26,7 @@
 
         {{-- CART SUMMARY --}}
         <div class="col-12 col-lg-4">
-            <div class="bg-light shadow-sm p-3">
+            <div class="bg-white shadow-sm p-3">
                 <p>{{ $cart->totalQuantity }} articles : {{ $cart->totalPriceFormatted }}</p>
                 <p>Frais de port : {{ \App\Setting::valueOrNull('SHIPPING_COSTS', true) }} €</p>
                 <p>Total : {{ $cart->totalPriceWithShippingCostsFormatted }}</p>
@@ -41,8 +41,8 @@
 
         {{-- NO ITEMS IN CART --}}
         <div class="col-12">
-            <div class="bg-light shadow-sm p-3">
-                <h2 class="h5 text-center">Votre panier est vide.</h2>
+            <div class="bg-white shadow-sm p-3">
+                <h2 class="h5 text-center mb-0">Votre panier est vide.</h2>
             </div>
         </div>
 

@@ -1,4 +1,4 @@
-<header>
+<header class="sticky-top bg-white">
     <nav class="navbar navbar-expand-sm navbar-light">
         <a class="navbar-brand" href="{{ route('index') }}">{{ \App\Setting::valueOrNull('SHOP_NAME') }}</a>
         <button class="navbar-toggler d-lg-none" type="button" data-toggle="collapse" data-target="#headerNavbar" aria-controls="headerNavbar"

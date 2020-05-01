@@ -39,6 +39,14 @@ class User extends Authenticatable
     ];
 
     /**
+     * Get carts of the user
+     */
+    public function carts()
+    {
+        return $this->hasMany('App\Cart');
+    }
+
+    /**
      * Hashing password before save.
      */
     public function setPasswordAttributes($value)
@@ -56,11 +64,18 @@ class User extends Authenticatable
         return null !== $this->phone ? chunk_split($this->phone, 2, ' ') : 'Non défini';
     }
 
-    /**
-     * Get carts of the user
-     */
-    public function carts()
+    public function getFirstnameAttribute($value)
     {
-        return $this->hasMany('App\Cart');
+        return \ucfirst($value);
+    }
+
+    public function getLastnameAttribute($value)
+    {
+        return \strtoupper($value);
+    }
+
+    public function getIdentityAttribute()
+    {
+        return $this->firstname . ' ' . $this->lastname;
     }
 }

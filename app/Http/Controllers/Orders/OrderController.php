@@ -17,7 +17,8 @@ class OrderController extends Controller
      */
     public function index()
     {
-        return Order::all();
+        $orders = Order::all();
+        return view('themes.default.pages.admin.orders')->with(['orders' => $orders]);
     }
 
     /**

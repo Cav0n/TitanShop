@@ -1,0 +1,18 @@
+#sidenav-container {
+    height: 100vh;
+}
+
+#sidenav-container #sidenav {
+    overflow-y: auto;
+}
+
+#admin-login-container {
+    min-height: 100vh;
+}
+
+.table .btn {
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+    padding-left: 0.5rem !important;
+    padding-right: 0.5rem !important;
+}

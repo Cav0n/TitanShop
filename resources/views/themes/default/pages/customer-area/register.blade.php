@@ -3,7 +3,7 @@
 @section('page.title',  'Espace client - ' . App\Setting::valueOrNull('SHOP_NAME'))
 
 @section('page.content')
-    <form class="bg-light p-3 shadow-sm" method="POST">
+    <form class="bg-white p-3 shadow-sm" method="POST">
         @csrf
         <div class="form-group">
             <label for="firstname">Prénom</label>
