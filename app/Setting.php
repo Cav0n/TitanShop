@@ -8,7 +8,7 @@ class Setting extends Model
 {
     /** @var array TYPES
      * The differents possibles types of settings
-     * The is useful in backoffice to display settings form.
+     * This is useful in backoffice to display settings form.
      *
      * Ex: string setting will be displayed in an input type="text"
      * Another Ex: text setting will be displayed in a textarea
@@ -34,6 +34,24 @@ class Setting extends Model
         return $this->hasMany('App\SettingI18n');
     }
 
+    public function getValueAttribute($value)
+    {
+        if ("price" === $this->type) {
+            return $value / 100;
+        }
+
+        return $value;
+    }
+
+    public function setValueAttribute($value)
+    {
+        if ("price" === $this->type) {
+            $value = $value * 100;
+        }
+
+        $this->attributes['value'] = $value;
+    }
+
     /**
      * Return setting title i18n
      */
@@ -54,6 +72,20 @@ class Setting extends Model
         return $this->i18ns->where('lang', $lang)->first() ? $this->i18ns->where('lang', $lang)->first()->help : null ;
     }
 
+    public function getInputAttribute()
+    {
+        return \App\Utils::input(
+            $this->type,
+            'settings[' . $this->code . ']',
+            $this->value,
+            $this->help,
+            null,
+            null,
+            null,
+            null
+        );
+    }
+
     public static function valueOrNull(string $code, $formatted = false)
     {
         $setting = \App\Setting::where('code', $code)->first();
@@ -62,12 +94,8 @@ class Setting extends Model
             return null;
         }
 
-        if ("price" === $setting->type) {
-            if ($formatted) {
-                return number_format($setting->value / 100.0, 2, ',', ' ');
-            }
-
-            return $setting->value / 100.0;
+        if ("price" === $setting->type && $formatted) {
+            return number_format($setting->value, 2, ',', ' ');
         }
 
         if ("number" === $setting->type) {

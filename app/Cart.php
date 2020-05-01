@@ -77,6 +77,30 @@ class Cart extends Model
     }
 
     /**
+     * Get cart shipping costs
+     *
+     * @return void
+     */
+    public function getShippingCostsAttribute()
+    {
+        $shippingCosts =    $this->totalPrice < \App\Setting::valueOrNull('SHIPPING_COSTS_FROM_PRICE')
+                            ? \App\Setting::valueOrNull('SHIPPING_COSTS')
+                            : 0;
+
+        return $shippingCosts;
+    }
+
+    /**
+     * Get cart shipping costs formatted
+     *
+     * @return void
+     */
+    public function getShippingCostsFormattedAttribute()
+    {
+        return \number_format($this->shippingCosts, 2, ",", " ") . ' €';
+    }
+
+    /**
      * Get cart total price with shipping costs
      *
      * @return void
@@ -84,7 +108,7 @@ class Cart extends Model
     public function getTotalPriceWithShippingCostsAttribute()
     {
         $price = $this->totalPrice;
-        $shippingCosts = \App\Setting::valueOrNull('SHIPPING_COSTS');
+        $shippingCosts = $this->shippingCosts;
 
         return $price + $shippingCosts;
     }
