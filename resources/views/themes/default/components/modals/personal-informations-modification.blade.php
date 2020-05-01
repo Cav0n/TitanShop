@@ -32,6 +32,41 @@
 @section('modal.footer')
     <button type="button" class="btn btn-secondary" data-dismiss="modal">
         Annuler</button>
-    <label class="btn btn-primary" for="submit-form" tabindex="0">
+    <button id="save-informations-button" class="btn btn-primary" tabindex="0" data-url="{{ route('user.update.personal-informations.post') }}">
         Sauvegarder</label>
+@endsection
+
+@section('modal.scripts')
+    <script>
+        $(document).ready(function () {
+            $('#save-informations-button').on('click', function () {
+                let url = $(this).data('url');
+                let csrf_token = $('meta[name="csrf-token"]').attr('content');
+
+                let data = {
+                    firstname: null,
+                    lastname: 'bernard',
+                    email: 'fbernard@openstudio.fr',
+                    phone: '0783260601',
+                    ajax: true,
+                }
+
+                $.ajax({
+                    url : url,
+                    type : 'POST',
+                    dataType : 'html',
+                    data: data,
+                    headers: {
+                        'X-CSRF-TOKEN': csrf_token,
+                    },
+                    success : function(code_html, statut){
+                        console.log(code_html)
+                    },
+                    error : function(data){
+                        console.error(erreur)
+                    }
+                });
+            });
+        });
+    </script>
 @endsection

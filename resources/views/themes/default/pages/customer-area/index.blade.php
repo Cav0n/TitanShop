@@ -68,7 +68,6 @@
                     type : 'GET',
                     dataType : 'html',
                     success : function(code_html, statut){
-                        console.log(code_html)
                         parent.append(code_html);
                         $(modalId).modal('show');
                     },

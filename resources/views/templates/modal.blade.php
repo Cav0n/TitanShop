@@ -21,5 +21,6 @@
                 @yield('modal.footer')
               </div>
         </div>
+        @yield('modal.scripts')
     </div>
 </div>
