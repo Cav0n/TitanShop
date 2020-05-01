@@ -1,10 +1,11 @@
 <div class="product-container d-flex flex-column bg-white border shadow-sm">
-    <img
-        class="img-fluid w-100"
-        src="{{ asset($product->images->first()->path ?? null) }}"
-        alt="{{ $product->images->first()->alt ?? $product->title }}"
-        title="{{ $product->images->first()->alt ?? $product->title }}">
-
+    <a href="{{ route('product.show', ['product' => $product]) }}">
+        <img
+            class="img-fluid w-100"
+            src="{{ asset($product->images->first()->path ?? null) }}"
+            alt="{{ $product->images->first()->alt ?? $product->title }}"
+            title="{{ $product->images->first()->alt ?? $product->title }}">
+    </a>
     <div class="p-3">
 
         <div class="product-title d-flex justify-content-center">
