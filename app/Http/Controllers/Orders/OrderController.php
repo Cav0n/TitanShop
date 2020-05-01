@@ -28,7 +28,7 @@ class OrderController extends Controller
      */
     public function create()
     {
-        //
+        return view('themes.default.pages.admin.order');
     }
 
     /**
@@ -96,7 +96,7 @@ class OrderController extends Controller
      */
     public function edit(Order $order)
     {
-        //
+        return view('themes.default.pages.admin.order', ['order' => $order]);
     }
 
     /**

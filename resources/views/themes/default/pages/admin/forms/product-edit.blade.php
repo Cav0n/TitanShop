@@ -27,7 +27,7 @@
     <div class="form-group">
         <label for="category-select">Catégorie</label>
         <select id="category-select" class="custom-select" name="category">
-            <option  @if(0 === count($product->categories)) selected="true" @endif disabled="disabled">
+            <option @if(0 === count($product->categories)) selected="true" @endif disabled="disabled">
                 Veuillez choisir une catégorie</option>
             @foreach ($categories as $category)
                 <option value="{{ $category->id }}" @if($product->categories->first() && $category->id === $product->categories->first()->id) selected="true" @endif>

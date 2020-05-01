@@ -45,4 +45,20 @@ class OrderItem extends Model
     {
         return \number_format($this->price, 2, ",", " ") . ' €';
     }
+
+    /**
+     * Get total product price from integer
+     */
+    public function getTotalPriceAttribute()
+    {
+        return $this->price * $this->quantity;
+    }
+
+    /**
+     * Get total product formatted price
+     */
+    public function getTotalPriceFormattedAttribute()
+    {
+        return \number_format($this->totalPrice, 2, ",", " ") . ' €';
+    }
 }

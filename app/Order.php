@@ -119,6 +119,22 @@ class Order extends Model
     }
 
     /**
+     * Get customer firstname and lastname.
+     * If customer was a connected user then it's the user firstname & lastname.
+     * Else it's the shipping address firstname & lastname.
+     *
+     * @return void
+     */
+    public function getCustomerIdentityAttribute()
+    {
+        if (null !== $this->user) {
+            return $this->user->identity;
+        }
+
+        return $this->shippingAddress->identity;
+    }
+
+    /**
      * Generate order's tracking number
      */
     public function generateTrackingNumber()

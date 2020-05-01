@@ -27,7 +27,7 @@
     <div class="form-group">
         <label for="category-select">Catégorie</label>
         <select id="category-select" class="custom-select" name="category">
-            <option  selected="true" disabled="disabled">Veuillez choisir une catégorie</option>
+            <option selected="true" disabled="disabled">Veuillez choisir une catégorie</option>
             @foreach ($categories as $category)
                 <option value="{{ $category->id }}">{{ $category->title }}</option>
             @endforeach

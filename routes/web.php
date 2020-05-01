@@ -95,6 +95,11 @@ Route::middleware('shopIsInstalled')->group(function() {
             Route::get('users', 'Users\UserController@index')->name('admin.users');
             Route::get('settings', 'Settings\SettingController@index')->name('admin.settings');
 
+            Route::get('order/new', 'Orders\OrderController@create')->name('admin.order.create');
+            Route::post('order/new', 'Orders\OrderController@store')->name('admin.order.store');
+            Route::get('order/{order}', 'Orders\OrderController@edit')->name('admin.order.edit');
+            Route::post('order/{order}', 'Orders\OrderController@update')->name('admin.order.update');
+
             Route::get('product/new', 'Products\ProductBaseController@create')->name('admin.product.create');
             Route::post('product/new', 'Products\ProductBaseController@store')->name('admin.product.store');
             Route::get('product/{product}', 'Products\ProductBaseController@edit')->name('admin.product.edit');

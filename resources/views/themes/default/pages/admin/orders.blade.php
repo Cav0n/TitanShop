@@ -40,7 +40,7 @@
                     @if(null === $order->user)
                         {{ $order->shippingAddress->firstname }} {{ $order->shippingAddress->lastname }}
                     @else
-                        <a href="#">{{ $order->user->firstname }} {{ $order->user->lastname }}</a>
+                        <a href="{{ route('admin.user.edit', ['user' => $order->user]) }}">{{ $order->user->firstname }} {{ $order->user->lastname }}</a>
                     @endif
                 </td>
                 <td class="text-center align-middle d-none d-md-table-cell">
@@ -50,7 +50,7 @@
                     {!! $order->shippingCosts ? '<br>(Dont ' . $order->shippingCostsFormatted . " de frais de port)" : null !!}
                 </td>
                 <td class="text-right align-middle">
-                    <a class="btn btn-primary ml-auto" href="#" role="button">Éditer</a>
+                    <a class="btn btn-primary ml-auto" href="{{ route('admin.order.edit', ['order' => $order]) }}" role="button">Éditer</a>
                 </td>
             </tr>
             @endforeach
