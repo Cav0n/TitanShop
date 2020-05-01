@@ -105,6 +105,11 @@ Route::middleware('shopIsInstalled')->group(function() {
             Route::get('category/{categoryBase}', 'Categories\CategoryBaseController@edit')->name('admin.category.edit');
             Route::post('category/{categoryBase}', 'Categories\CategoryBaseController@update')->name('admin.category.update');
 
+            Route::get('user/new', 'Users\UserController@create')->name('admin.user.create');
+            Route::post('user/new', 'Users\UserController@store')->name('admin.user.store');
+            Route::get('user/{user}', 'Users\UserController@edit')->name('admin.user.edit');
+            Route::post('user/{user}', 'Users\UserController@update')->name('admin.user.update');
+
             Route::post('settings/update', 'Settings\SettingController@updateOrCreate')->name('admin.settings.update');
         });
     });

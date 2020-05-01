@@ -9,6 +9,10 @@
 </p>
 @endsection
 
+@section('page.buttons')
+    <a class="btn btn-primary mb-3" href="{{ route('admin.user.create') }}" role="button">Créer un client</a>
+@endsection
+
 @section('page.content')
 <div class="bg-white p-3 shadow-sm">
     <table class="table border mb-0">
@@ -41,7 +45,7 @@
                     {{ $user->phonePretty ?? 'Non indiqué'}}</td>
 
                 <td class="text-right align-middle">
-                    <a class="btn btn-primary ml-auto" href="#" role="button">Éditer</a>
+                    <a class="btn btn-primary ml-auto" href="{{ route('admin.user.edit', ['user' => $user]) }}" role="button">Éditer</a>
                 </td>
             </tr>
             @endforeach

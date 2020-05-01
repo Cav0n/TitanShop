@@ -73,4 +73,9 @@ class User extends Authenticatable
     {
         return \strtoupper($value);
     }
+
+    public function getIdentityAttribute()
+    {
+        return $this->firstname . ' ' . $this->lastname;
+    }
 }
