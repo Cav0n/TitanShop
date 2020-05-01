@@ -59,7 +59,7 @@ class Setting extends Model
     {
         $lang = (isset($lang)) ? $lang : 'FR';
 
-        return $this->i18ns->where('lang', $lang)->first() ? $this->i18ns->where('lang', $lang)->first()->title : null;
+        return $this->i18ns->where('lang', $lang)->first() ? $this->i18ns->where('lang', $lang)->first()->title : $this->code;
     }
 
     /**

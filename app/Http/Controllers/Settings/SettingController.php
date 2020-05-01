@@ -86,6 +86,7 @@ class SettingController extends Controller
         foreach ($request->input('settings') as $settingCode => $value) {
             $setting = Setting::firstOrNew(['code' => $settingCode]);
             $setting->value = $value;
+            $setting->type = 'string';
             $setting->save();
         }
 

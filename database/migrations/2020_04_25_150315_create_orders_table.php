@@ -20,6 +20,7 @@ class CreateOrdersTable extends Migration
             $table->bigInteger('shipping_address_id')->unsigned();
             $table->bigInteger('billing_address_id')->unsigned();
             $table->bigInteger('user_id')->unsigned()->nullable();
+            $table->bigInteger('status_id')->unsigned()->nullable();
 
             $table->foreign('shipping_address_id')
                     ->references('id')->on('addresses')
@@ -31,6 +32,10 @@ class CreateOrdersTable extends Migration
 
             $table->foreign('user_id')
                     ->references('id')->on('users')
+                    ->onDelete('cascade');
+
+            $table->foreign('status_id')
+                    ->references('id')->on('order_statuses')
                     ->onDelete('cascade');
 
             $table->timestamps();

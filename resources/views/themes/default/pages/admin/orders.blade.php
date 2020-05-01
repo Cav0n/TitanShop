@@ -16,8 +16,8 @@
             <tr>
                 <th class="mobile-only d-table-cell d-md-none">Commande</th>
                 <th class="d-none d-md-table-cell">Client</th>
-                <th class="d-none d-md-table-cell">Numéro de suivi</th>
-                <th class="d-none d-md-table-cell">Prix</th>
+                <th class="d-none d-md-table-cell text-center">Numéro de suivi</th>
+                <th class="d-none d-md-table-cell text-center">Prix</th>
                 <th class="text-right">Actions</th>
             </tr>
         </thead>
@@ -31,8 +31,8 @@
                         @else
                         <a href="#">{{ $order->user->firstname }} {{ $order->user->lastname }}</a>
                         @endif
-                    </b>
-                    <br>
+                    </b> <br>
+                    {{ $order->status->code }} <br>
                     Prix total : {{ $order->totalPriceWithShippingCostsFormatted }}
                     {!! $order->shippingCosts ? '<br>(Dont ' . $order->shippingCostsFormatted . " de frais de port)" : null !!}
                 </td>
@@ -44,7 +44,9 @@
                     @endif
                 </td>
                 <td class="text-center align-middle d-none d-md-table-cell">
-                    {{ $order->trackingNumber }}</td>
+                    {{ $order->trackingNumber }} <br>
+                    {{ $order->status->code }}
+                </td>
                 <td class="text-center align-middle d-none d-md-table-cell">
                     {{ $order->totalPriceWithShippingCostsFormatted }}
                     {!! $order->shippingCosts ? '<br>(Dont ' . $order->shippingCostsFormatted . " de frais de port)" : null !!}

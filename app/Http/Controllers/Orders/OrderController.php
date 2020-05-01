@@ -48,6 +48,7 @@ class OrderController extends Controller
         $order->shipping_address_id = $cart->shippingAddress->id;
         $order->billing_address_id = $cart->billingAddress->id;
         $order->user_id = $cart->user_id;
+        $order->status_id = \App\OrderStatus::where('code', 'WAITING_PAYMENT')->first()->id;
         $order->generateTrackingNumber();
 
         $order->save();

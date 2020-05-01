@@ -40,6 +40,14 @@ class Order extends Model
     }
 
     /**
+     * Get order statys
+     */
+    public function status()
+    {
+        return $this->belongsTo('App\OrderStatus');
+    }
+
+    /**
      * Get order total price
      *
      * @return void
