@@ -1,9 +1,29 @@
+// Variables
+@import 'variables';
+
 #sidenav-container {
     height: 100vh;
 }
 
 #sidenav-container #sidenav {
     overflow-y: auto;
+}
+
+.sidenav a {
+    color: black;
+}
+
+.sidenav .svg {
+    fill: black;
+}
+
+.sidenav a.active {
+    color: $primary;
+    font-weight: 700;
+}
+
+.sidenav .svg.active {
+    fill: $primary;
 }
 
 #admin-login-container {

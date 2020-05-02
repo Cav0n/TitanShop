@@ -6,6 +6,23 @@
   overflow-y: auto;
 }
 
+.sidenav a {
+  color: black;
+}
+
+.sidenav .svg {
+  fill: black;
+}
+
+.sidenav a.active {
+  color: #3f86c9;
+  font-weight: 700;
+}
+
+.sidenav .svg.active {
+  fill: #3f86c9;
+}
+
 #admin-login-container {
   min-height: 100vh;
 }
