@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\Main;
 
 use App\Http\Controllers\Controller;
+use App\Mail\ContactMessage;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 
 class ContactController extends Controller
 {
@@ -29,6 +31,11 @@ class ContactController extends Controller
             'email' => 'required|email:filter',
             'message' => 'required|min:10',
         ]);
+
+        //return (new \App\Mail\ContactMessage($request['name'], $request['message'], $request['email']))->render();
+
+        Mail::to(\App\Setting::valueOrNull('SHOP_EMAIL'))->send(
+            new ContactMessage($request['name'], $request['email'], $request['message']));
 
         return redirect()->back()->with(['success' => ['Votre message a été envoyé avec succés.']]);
     }
