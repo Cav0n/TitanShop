@@ -6,8 +6,11 @@ use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Controllers\Controller;
+use App\Mail\UserRegistered;
+use Exception;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Validation\Rule;
 
 class UserController extends Controller
@@ -54,6 +57,13 @@ class UserController extends Controller
 
         if (isset($request['backoffice_redirect'])) {
             return redirect(route('admin.user.edit', ['user' => $user]));
+        }
+
+        try {
+            Mail::to($user->email)->send(
+                new UserRegistered($user));
+        } catch (Exception $e) {
+            throw $e;
         }
 
         return redirect()->back()->with(['success' => ['Votre compte a été créé avec succés.']]);

@@ -11,6 +11,7 @@
     <h1 class="h3">Espace client - Connexion</h1>
 
     @include('themes.default.components.alerts.error')
+    @include('themes.default.components.alerts.success')
 
     <form class="bg-white p-3 shadow-sm" method="POST">
         @csrf

@@ -3,50 +3,52 @@
 namespace App\Mail;
 
 use Illuminate\Bus\Queueable;
+use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 
-class ContactMessage extends BaseMail
+class BaseMail extends Mailable
 {
     use Queueable, SerializesModels;
 
     /**
-     * The customer name
+     * Subject of the email
      *
      * @var mixed
      */
-    public $customerName;
+    public $subject;
 
     /**
-     * The customer email address
+     * Name of the shop
      *
      * @var mixed
      */
-    public $customerEmailAddress;
+    public $shopName;
 
     /**
-     * The customer message
+     * Email of the shop
      *
-     * @var string
+     * @var mixed
      */
-    public $customerMessage;
+    public $shopEmail;
+
+    /**
+     * URL of the shop
+     *
+     * @var mixed
+     */
+    public $shopUrl;
 
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct(
-        string $customerName,
-        string $customerEmailAddress,
-        string $customerMessage
-        )
+    public function __construct()
     {
-        parent::__construct();
-
-        $this->customerMessage = $customerMessage;
-        $this->customerEmailAddress = $customerEmailAddress;
-        $this->customerName = $customerName;
-        $this->subject = "Nouveau message d'un client";
+        $this->subject = "Notification " . $this->shopName;
+        $this->shopName = \App\Setting::valueOrNull('SHOP_NAME');
+        $this->shopEmail = \App\Setting::valueOrNull('SHOP_EMAIL');
+        $this->shopURL = \App\Setting::valueOrNull('SHOP_URL');
     }
 
     /**

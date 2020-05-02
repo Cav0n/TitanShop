@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Main;
 
 use App\Http\Controllers\Controller;
 use App\Mail\ContactMessage;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 
@@ -32,10 +33,12 @@ class ContactController extends Controller
             'message' => 'required|min:10',
         ]);
 
-        //return (new \App\Mail\ContactMessage($request['name'], $request['message'], $request['email']))->render();
-
-        Mail::to(\App\Setting::valueOrNull('SHOP_EMAIL'))->send(
-            new ContactMessage($request['name'], $request['email'], $request['message']));
+        try {
+            Mail::to(\App\Setting::valueOrNull('SHOP_EMAIL'))->send(
+                new ContactMessage($request['name'], $request['email'], $request['message']));
+        } catch (Exception $e) {
+            // futur log
+        }
 
         return redirect()->back()->with(['success' => ['Votre message a été envoyé avec succés.']]);
     }
