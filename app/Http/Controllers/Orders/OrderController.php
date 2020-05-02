@@ -6,8 +6,11 @@ use App\Cart;
 use App\Order;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Mail\OrderCreated;
 use App\OrderItem;
+use Exception;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\Mail;
 
 class OrderController extends Controller
 {
@@ -63,6 +66,13 @@ class OrderController extends Controller
             $orderItem->order_id = $order->id;
 
             $orderItem->save();
+        }
+
+        try {
+            Mail::to($order->user->email)->send(
+                new OrderCreated($order));
+        } catch (Exception $e) {
+            throw $e;
         }
 
         return $order;
