@@ -36,3 +36,12 @@
     padding-left: 0.5rem !important;
     padding-right: 0.5rem !important;
 }
+
+a .svg {
+    height: 1.4rem;
+    width: 1.4rem;
+}
+
+.text-muted .svg {
+    fill: grey;
+}
