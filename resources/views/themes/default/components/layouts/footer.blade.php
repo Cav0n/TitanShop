@@ -4,13 +4,10 @@
 
             <div class="row text-md-center">
                 <div class="col-12 col-md-4">
-                    <p class="mb-0">Qui sommes nous ?</p>
+                    <a href="{{ route('order.tracking') }}" class="mb-0">Suivre une commande</a>
                 </div>
                 <div class="col-12 col-md-4">
                     <p class="mb-0">Contactez nous</p>
-                </div>
-                <div class="col-12 col-md-4">
-                    <p class="mb-0">Petit test</p>
                 </div>
             </div>
 

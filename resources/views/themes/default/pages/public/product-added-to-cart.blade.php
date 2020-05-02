@@ -32,10 +32,10 @@
     </div>
 
     <div class="row mt-3">
-        <div class="offset-lg-6 col-12 col-md-6 col-lg-3">
-            <a class="btn btn-secondary w-100" href="{{ route('product.show', ['product' => $item->product]) }}" role="button">Revenir au produit</a>
+        <div class="offset-lg-6 col-12 col-md-6 col-lg-3 order-2 order-lg-1 mt-3 mt-lg-0">
+            <a class="btn btn-outline-secondary w-100" href="{{ route('product.show', ['product' => $item->product]) }}" role="button">Revenir au produit</a>
         </div>
-        <div class="col-12 col-md-6 col-lg-3 mt-3 mt-md-0">
+        <div class="col-12 col-md-6 col-lg-3 order-1 order-lg-2">
             <a class="btn btn-primary w-100" href="{{ route('cart') }}" role="button">Aller au panier</a>
         </div>
     </div>

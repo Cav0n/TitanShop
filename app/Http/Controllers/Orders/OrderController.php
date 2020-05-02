@@ -7,6 +7,7 @@ use App\Order;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\OrderItem;
+use Illuminate\Http\JsonResponse;
 
 class OrderController extends Controller
 {
@@ -121,5 +122,37 @@ class OrderController extends Controller
     public function destroy(Order $order)
     {
         //
+    }
+
+    public function tracking()
+    {
+        return view('themes.default.pages.public.order-tracking');
+    }
+
+    public function trackingAPI(Request $request)
+    {
+        $trackingNumber = $request['t'];
+
+        if (null === $trackingNumber) {
+            $message = 'Tracking number is required.';
+
+            return new JsonResponse(['error' => [
+                'message' => $message,
+                'feedback' => "<div class=\"invalid-feedback\">$message</div>"
+            ]], 422);
+        }
+
+        if (null === $order = Order::where('trackingNumber', $trackingNumber)->first()){
+            $message = 'No order found with this tracking number.';
+
+            return new JsonResponse(['error' => [
+                'message' => $message,
+                'feedback' => "<div class=\"invalid-feedback\">$message</div>",
+            ]], 404);
+        }
+
+        $result = ['view' => view('themes.default.components.layouts.order-minimal', ['order' => $order])->render()];
+
+        return $result;
     }
 }
