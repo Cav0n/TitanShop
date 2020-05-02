@@ -3,10 +3,14 @@
 @section('page.title', 'Suivre une commande - ' . App\Setting::valueOrNull('SHOP_NAME'))
 
 @section('page.content')
-    <h1 class="text-center h3">Suivre une commande</h1>
+    <div id="breadcrumb">
+        / <a href="{{ route('index') }}">Accueil</a>
+        / <a href="{{ route('order.tracking') }}">Suivre une commande</a>
+    </div>
+    <h1 class="h3">Suivre une commande</h1>
 
     <div class="row bg-white shadow-sm p-3 mx-0">
-        <div id="search-container" class="col-12">
+        <div id="search-container" class="col-12 p-0">
             <div class="input-group">
                 <input id="trackingNumber" class="form-control" type="text" name="trackingNumber">
                 <div class="input-group-append">

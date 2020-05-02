@@ -17,6 +17,7 @@
         </div>
 
         {{-- Childs categories --}}
+        @if (0 < count($category->childs))
         <div class="col-12 mt-3">
             <div class="row">
                 @foreach ($category->childs as $child)
@@ -26,8 +27,10 @@
                 @endforeach
             </div>
         </div>
+        @endif
 
         {{-- Category's products --}}
+        @if (0 < count($category->products))
         <div class="col-12 mt-3">
             <div class="row">
                 @foreach ($category->products as $product)
@@ -39,6 +42,7 @@
                 @endforeach
             </div>
         </div>
+        @endif
 
         @if($category->isEmpty)
         <div class="col-12 mt-3">

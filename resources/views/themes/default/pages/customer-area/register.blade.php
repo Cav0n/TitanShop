@@ -3,6 +3,13 @@
 @section('page.title',  'Espace client - ' . App\Setting::valueOrNull('SHOP_NAME'))
 
 @section('page.content')
+    <div id="breadcrumb">
+        / <a href="{{ route('index') }}">Accueil</a>
+        / <a href="{{ route('customer-area.index') }}">Espace client</a>
+        / <a href="{{ route('customer-area.register') }}">Enregistrement</a>
+    </div>
+    <h1 class="h3">Espace client - Enregistrement</h1>
+
     <form class="bg-white p-3 shadow-sm" method="POST">
         @csrf
         <div class="form-group">
