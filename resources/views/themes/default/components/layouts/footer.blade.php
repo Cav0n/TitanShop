@@ -7,7 +7,7 @@
                     <a href="{{ route('order.tracking') }}" class="mb-0">Suivre une commande</a>
                 </div>
                 <div class="col-12 col-md-4">
-                    <p class="mb-0">Contactez nous</p>
+                    <a href="{{ route('contact.show') }}" class="mb-0">Contactez nous</a>
                 </div>
             </div>
 

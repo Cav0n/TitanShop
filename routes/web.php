@@ -34,7 +34,8 @@ Route::middleware('shopIsInstalled')->group(function() {
     Route::get('/product/{product}', 'Products\ProductBaseController@show')->name('product.show');
     Route::get('/category/{category}', 'Categories\CategoryBaseController@show')->name('category.show');
     Route::get('/order/tracking', 'Orders\OrderController@tracking')->name('order.tracking');
-
+    Route::get('/contact', 'Main\ContactController@show')->name('contact.show');
+    Route::post('/contact', 'Main\ContactController@sendMessage')->name('contact.sendMessage');
 
     /**
      * CART
