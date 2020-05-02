@@ -15,6 +15,7 @@
         <thead class="thead thead-light">
             <tr>
                 <th class="mobile-only d-table-cell d-md-none">Commande</th>
+                <th class="d-none d-md-table-cell">Date</th>
                 <th class="d-none d-md-table-cell">Client</th>
                 <th class="d-none d-md-table-cell text-center">Numéro de suivi</th>
                 <th class="d-none d-md-table-cell text-center">Prix</th>
@@ -32,9 +33,13 @@
                         <a href="#">{{ $order->user->firstname }} {{ $order->user->lastname }}</a>
                         @endif
                     </b> <br>
-                    {{ $order->status->code }} <br>
+                    {!! $order->status->badge !!} <br>
                     Prix total : {{ $order->totalPriceWithShippingCostsFormatted }}
                     {!! $order->shippingCosts ? '<br>(Dont ' . $order->shippingCostsFormatted . " de frais de port)" : null !!}
+                </td>
+                <td class="align-middle d-none d-md-table-cell">
+                    {{ $order->created_at->format('d/m/Y') }} <br>
+                    à {{ $order->created_at->format('H:i') }}
                 </td>
                 <td class="align-middle d-none d-md-table-cell">
                     @if(null === $order->user)
@@ -45,7 +50,7 @@
                 </td>
                 <td class="text-center align-middle d-none d-md-table-cell">
                     {{ $order->trackingNumber }} <br>
-                    {{ $order->status->code }}
+                    {!! $order->status->badge !!}
                 </td>
                 <td class="text-center align-middle d-none d-md-table-cell">
                     {{ $order->totalPriceWithShippingCostsFormatted }}
