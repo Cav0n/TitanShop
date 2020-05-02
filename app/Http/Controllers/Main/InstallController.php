@@ -40,7 +40,7 @@ class InstallController extends Controller
         ]);
 
         try {
-            Artisan::call('migrate:refresh', ['--quiet' => true]);
+            Artisan::call('migrate:fresh', ['--quiet' => true]);
         } catch (\Exception $e) {
             return back()
                     ->withErrors('<b>Erreur lors de l\'ajout de la base de donnée.</b><br>Erreur: ' . $e->getMessage())

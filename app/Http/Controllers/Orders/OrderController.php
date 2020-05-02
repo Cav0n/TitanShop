@@ -48,6 +48,8 @@ class OrderController extends Controller
         }
 
         $order = new Order();
+        $order->email = $cart->email;
+        $order->phone = $cart->phone;
         $order->shippingCosts = $cart->shippingCosts;
         $order->shipping_address_id = $cart->shippingAddress->id;
         $order->billing_address_id = $cart->billingAddress->id;
@@ -69,8 +71,7 @@ class OrderController extends Controller
         }
 
         try {
-            Mail::to($order->user->email)->send(
-                new OrderCreated($order));
+            Mail::to($order->email)->send(new OrderCreated($order));
         } catch (Exception $e) {
             throw $e;
         }
@@ -141,7 +142,7 @@ class OrderController extends Controller
 
     public function trackingAPI(Request $request)
     {
-        $trackingNumber = $request['t'];
+        $trackingNumber = ltrim(trim($request['t']), '#');
 
         if (null === $trackingNumber) {
             $message = 'Tracking number is required.';

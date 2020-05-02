@@ -26,7 +26,7 @@
     <script>
         $('#search-order').on('click', function () {
             let trackingNumber = $('#trackingNumber');
-            let url = $(this).data('url') + '?t=' + trackingNumber.val();
+            let url = $(this).data('url') + '?t=' + trackingNumber.val().replace(/#/, '');
 
             fetch(url)
             .then((resp) => resp.json())

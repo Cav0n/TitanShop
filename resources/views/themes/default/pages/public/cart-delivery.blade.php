@@ -12,6 +12,22 @@
 
     <div class="bg-white shadow-sm row mx-0 py-2">
         <div class="col-12">
+            <div class="row">
+                <div class="form-group col-6">
+                    <label for="email">Email</label>
+                    <input type="text" class="form-control" name="email" id="email" aria-describedby="helpEmail" @if(Auth::check()) value="{{ Auth::user()->email }}" @endif required>
+                    <small id="helpEmail" class="form-text text-muted">
+                        Votre email sera utilisé pour vous tenir au courant de l'avancement de votre commande</small>
+                </div>
+
+                <div class="form-group col-6">
+                    <label for="phone">Téléphone</label>
+                    <input type="text" class="form-control" name="phone" id="phone" aria-describedby="helpPhone" @if(Auth::check()) value="{{ Auth::user()->phone }}" @endif >
+                </div>
+            </div>
+        </div>
+
+        <div class="col-12">
             <h2 class="h5">Adresse de livraison</h2>
         </div>
 
