@@ -6,6 +6,7 @@ use App\Cart;
 use App\Order;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Mail\Admin\OrderCreated as AdminOrderCreated;
 use App\Mail\OrderCreated;
 use App\Mail\OrderStatusUpdated;
 use App\OrderItem;
@@ -75,6 +76,7 @@ class OrderController extends Controller
 
         try {
             Mail::to($order->email)->send(new OrderCreated($order));
+            Mail::to(\App\Setting::valueOrNull('SHOP_EMAIL'))->send(new AdminOrderCreated($order));
         } catch (Exception $e) {
             throw $e;
         }
