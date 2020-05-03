@@ -2,7 +2,7 @@
 
 return [
 
-    \*
+    *\
     |--------------------------------------------------------------------------
     | FR - Validation des lignes de language
     |--------------------------------------------------------------------------
@@ -11,7 +11,7 @@ return [
     | the validator class. Some of these rules have multiple versions such
     | as the size rules. Feel free to tweak each of these messages here.
     |
-    *\
+    \*
 
     'accepted' => 'Le :attribute doit être accepté.',
     'active_url' => 'Le :attribute n\est pas un URL valide.',
