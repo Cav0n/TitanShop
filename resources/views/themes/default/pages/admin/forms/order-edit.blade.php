@@ -6,23 +6,25 @@
         <input type="text" class="form-control" name="title" id="title" value="{{ old('trackingNumber', $order->trackingNumber) }}" disabled>
     </div>
 
-    <div class="col-12 col-lg-4 mb-3">
+    <div class="col-12 col-lg-4 mb-3 d-flex flex-column">
         <p class="h4">Client</p>
 
         @isset($order->user)
-            <a href="#">{{ $order->customerIdentity}}</a>
+            <a href="{{ route('admin.user.edit', ['user' => $order->user]) }}">{{ $order->customerIdentity }}</a>
         @else
-            <p>{{ $order->customerIdentity}}</p>
+            <p>{{ $order->customerIdentity }}</p>
+            <a href="mailto:{{ $order->mail }}">{{ $order->email }}</a>
+            <a href="tel:{{ $order->phone }}">{{ $order->phone }}</a>
         @endisset
     </div>
 
     <div class="col-12 col-lg-4 mb-3">
-        <p class="h4">Adresse de livraison</label>
+        <p class="h4">Adresse de livraison</p>
         <p>{!! $order->shippingAddress !!}</p>
     </div>
 
     <div class="col-12 col-lg-4">
-        <p class="h4">Adresse de facturation</label>
+        <p class="h4">Adresse de facturation</p>
         <p>{!! $order->billingAddress !!}</p>
     </div>
 
@@ -69,7 +71,7 @@
 
     <input type="hidden" name="lang" value="FR">
 
-    <div class="form-group col-12">
+    <div class="form-group col-12 mb-0">
         <button type="submit" class="btn btn-primary">Sauvegarder</button>
     </div>
 </form>

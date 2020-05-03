@@ -14,6 +14,19 @@
 </p>
 @endsection
 
+@isset($order)
+@section('page.buttons')
+    <div class="form-group my-0 h-100 d-flex flex-column justify-content-center ">
+        <select id="order-status" class="custom-select" name="order-status" style="background-color: {{ $order->status->color }}">
+            @foreach ($orderStatus as $status)
+                <option value="{{ $status->code }}" @if($order->status->code === $status->code) selected="true" @endif>
+                    {{ $status->title }}</option>
+            @endforeach
+        </select>
+    </div>
+@endsection
+@endisset
+
 @section('page.content')
 <a class="btn btn-outline-dark mb-3 py-0 px-2" href="{{ route('admin.orders') }}" role="button">
     Retour</a>
