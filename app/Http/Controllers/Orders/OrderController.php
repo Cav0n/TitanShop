@@ -7,6 +7,7 @@ use App\Order;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Mail\OrderCreated;
+use App\Mail\OrderStatusUpdated;
 use App\OrderItem;
 use Exception;
 use Illuminate\Http\JsonResponse;
@@ -126,6 +127,28 @@ class OrderController extends Controller
     public function update(Request $request, Order $order)
     {
         //
+    }
+
+    /**
+     * Update the order's status
+     *
+     * @return void
+     */
+    public function updateStatus(Request $request, Order $order)
+    {
+        $order->status_id = \App\OrderStatus::where('code', $request['statusCode'])->first()->id;
+        $order->save();
+
+        try {
+            Mail::to($order->email)->send(new OrderStatusUpdated($order));
+        } catch (Exception $e) {
+            throw $e;
+        }
+
+        return response()->json([
+            'message' => 'Le statut de la commande a été mis à jour avec succés.',
+            'color' => $order->status->color
+        ]);
     }
 
     /**

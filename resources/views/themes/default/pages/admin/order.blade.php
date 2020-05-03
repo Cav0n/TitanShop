@@ -17,7 +17,7 @@
 @isset($order)
 @section('page.buttons')
     <div class="form-group my-0 h-100 d-flex flex-column justify-content-center ">
-        <select id="order-status" class="custom-select" name="order-status" style="background-color: {{ $order->status->color }}">
+        <select id="order-status" class="custom-select" name="order-status" style="background-color: {{ $order->status->color }}" data-url="{{ route('admin.order.updateStatus', ['order' => $order]) }}">
             @foreach ($orderStatus as $status)
                 <option value="{{ $status->code }}" @if($order->status->code === $status->code) selected="true" @endif>
                     {{ $status->title }}</option>
@@ -44,3 +44,47 @@
     @endisset
 </div>
 @endsection
+
+@isset($order)
+    @section('scripts')
+        <script>
+            let orderStatusSelect = $('#order-status');
+
+            orderStatusSelect.change(function () {
+                if (confirm('Êtes-vous certain de vouloir modifier le status de cette commande ?')) {
+                    changeOrderStatus(
+                        orderStatusSelect.data('url'),
+                        orderStatusSelect.val(),
+                        orderStatusSelect
+                    );
+                }
+            });
+
+            function changeOrderStatus(url, statusCode, orderStatusSelect) {
+                let token = $('meta[name="csrf-token"]').attr('content');
+
+                fetch(url, {
+                    method: "POST",
+                    headers: {
+                        'X-Requested-With': 'XMLHttpRequest',
+                        'X-CSRF-Token': token,
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json'
+                    },
+                    body: JSON.stringify({ 'statusCode' : statusCode })
+                })
+                .then((resp) => resp.json())
+                .then(function(data) {
+                    if (undefined !== data.error) {
+                        throw data.error
+                    }
+                    console.log(data);
+                    orderStatusSelect.css('background-color', data.color);
+                })
+                .catch(function(error) {
+                    console.error(error.message)
+                });
+            }
+        </script>
+    @endsection
+@endisset
