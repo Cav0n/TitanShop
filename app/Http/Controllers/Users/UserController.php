@@ -53,7 +53,6 @@ class UserController extends Controller
         $customer->email = strtolower($request['email']);
         $customer->phone = $request['phone'];
         $customer->password = Hash::make($request['password']);
-        $customer->isActivated = $request['isActivated'] ? 1 : 0;
         $customer->save();
 
         if (isset($request['backoffice_redirect'])) {

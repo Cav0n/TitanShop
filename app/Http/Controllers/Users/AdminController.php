@@ -50,7 +50,6 @@ class AdminController extends Controller
         $administrator->email = strtolower($request['email']);
         $administrator->password = Hash::make($request['password']);
         $administrator->role = $request['role'];
-        $administrator->isActivated = $request['isActivated'] ? 1 : 0;
         $administrator->save();
 
         if(isset($request['next_url'])) {
