@@ -53,6 +53,10 @@ class AdminController extends Controller
         $administrator->isActivated = $request['isActivated'] ? 1 : 0;
         $administrator->save();
 
+        if(isset($request['next_url'])) {
+            return redirect($request['next_url']);
+        }
+
         return redirect(route('admin.users.administrator.edit', ['administrator' => $administrator]));
     }
 
