@@ -39,13 +39,15 @@
 
     <div class="row mx-0 mx-lg-2 mt-2">
         <div class="d-none d-lg-flex flex-column col-2 p-0">
-            <img src="{{ asset('images/icons/customers-bw.svg') }}" alt="customers icon" class="svg w-100 {{ request()->route()->named('admin.users') ? 'active' : null }}">
+            <img src="{{ asset('images/icons/customers-bw.svg') }}" alt="customers icon" class="svg w-100 {{ request()->route()->named('admin.users.customers') ? 'active' : null }}">
         </div>
         <div class="px-0 px-lg-2 col-12 col-lg-10 d-flex flex-column">
-            <a href="{{ route('admin.users') }}" class="h5 mb-0 {{ request()->route()->named('admin.users') ? 'active' : null }}">
+            <a href="{{ route('admin.users.customers') }}" class="h5 mb-0 {{ request()->route()->named('admin.users.customers') ? 'active' : null }}">
+                Utilisateurs</a>
+            <a href="{{ route('admin.users.customers') }}" class="{{ request()->route()->named('admin.users.customers') ? 'active' : null }}">
                 Clients</a>
-            <a href="{{ route('admin.users') }}" class="{{ request()->route()->named('admin.users') ? 'active' : null }}">
-                Tous les clients</a>
+            <a href="{{ route('admin.users.administrators') }}" class="{{ request()->route()->named('admin.users.administrators') ? 'active' : null }}">
+                Administrateurs</a>
         </div>
     </div>
 

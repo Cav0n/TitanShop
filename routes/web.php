@@ -95,7 +95,8 @@ Route::middleware('shopIsInstalled')->group(function() {
             Route::get('products', 'Products\ProductBaseController@index')->name('admin.products');
             Route::get('categories', 'Categories\CategoryBaseController@index')->name('admin.categories');
             Route::get('orders', 'Orders\OrderController@index')->name('admin.orders');
-            Route::get('users', 'Users\UserController@index')->name('admin.users');
+            Route::get('users/customers', 'Users\UserController@index')->name('admin.users.customers');
+            Route::get('users/administrators', 'Users\AdminController@index')->name('admin.users.administrators');
             Route::get('settings', 'Settings\SettingController@index')->name('admin.settings');
 
             Route::get('order/new', 'Orders\OrderController@create')->name('admin.order.create');
@@ -113,10 +114,15 @@ Route::middleware('shopIsInstalled')->group(function() {
             Route::get('category/{categoryBase}', 'Categories\CategoryBaseController@edit')->name('admin.category.edit');
             Route::post('category/{categoryBase}', 'Categories\CategoryBaseController@update')->name('admin.category.update');
 
-            Route::get('user/new', 'Users\UserController@create')->name('admin.user.create');
-            Route::post('user/new', 'Users\UserController@store')->name('admin.user.store');
-            Route::get('user/{user}', 'Users\UserController@edit')->name('admin.user.edit');
-            Route::post('user/{user}', 'Users\UserController@update')->name('admin.user.update');
+            Route::get('users/customer/new', 'Users\UserController@create')->name('admin.users.customer.create');
+            Route::post('users/customer/new', 'Users\UserController@store')->name('admin.users.customer.store');
+            Route::get('users/customer/{customer}', 'Users\UserController@edit')->name('admin.users.customer.edit');
+            Route::post('users/customer/{customer}', 'Users\UserController@update')->name('admin.users.customer.update');
+
+            Route::get('users/administrator/new', 'Users\AdminController@create')->name('admin.users.administrator.create');
+            Route::post('users/administrator/new', 'Users\AdminController@store')->name('admin.users.administrator.store');
+            Route::get('users/administrator/{administrator}', 'Users\AdminController@edit')->name('admin.users.administrator.edit');
+            Route::post('users/administrator/{administrator}', 'Users\AdminController@update')->name('admin.users.administrator.update');
 
             Route::post('settings/update', 'Settings\SettingController@updateOrCreate')->name('admin.settings.update');
         });

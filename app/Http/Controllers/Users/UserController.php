@@ -22,9 +22,9 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users = User::all();
+        $customers = User::all();
 
-        return view('themes.default.pages.admin.users')->with(['users' => $users]);
+        return view('themes.default.pages.admin.users.customers')->with(['customers' => $customers]);
     }
 
     /**
@@ -34,7 +34,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        return view('themes.default.pages.admin.user');
+        return view('themes.default.pages.admin.users.customer');
     }
 
     /**
@@ -47,21 +47,22 @@ class UserController extends Controller
     {
         $this->validator($request)->validate();
 
-        $user = new User();
-        $user->firstname = ucfirst($request['firstname']);
-        $user->lastname = ucfirst($request['lastname']);
-        $user->email = strtolower($request['email']);
-        $user->phone = $request['phone'];
-        $user->password = Hash::make($request['password']);
-        $user->save();
+        $customer = new User();
+        $customer->firstname = ucfirst($request['firstname']);
+        $customer->lastname = ucfirst($request['lastname']);
+        $customer->email = strtolower($request['email']);
+        $customer->phone = $request['phone'];
+        $customer->password = Hash::make($request['password']);
+        $customer->isActivated = $request['isActivated'] ? 1 : 0;
+        $customer->save();
 
         if (isset($request['backoffice_redirect'])) {
-            return redirect(route('admin.user.edit', ['user' => $user]));
+            return redirect(route('admin.users.customer.edit', ['customer' => $customer]));
         }
 
         try {
-            Mail::to($user->email)->send(
-                new UserRegistered($user));
+            Mail::to($customer->email)->send(
+                new UserRegistered($customer));
         } catch (Exception $e) {
             throw $e;
         }
@@ -86,9 +87,9 @@ class UserController extends Controller
      * @param  \App\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function edit(User $user)
+    public function edit(User $customer)
     {
-        return view('themes.default.pages.admin.user', ['user' => $user]);
+        return view('themes.default.pages.admin.users.customer', ['customer' => $customer]);
     }
 
     /**
@@ -98,16 +99,17 @@ class UserController extends Controller
      * @param  \App\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, User $user = null)
+    public function update(Request $request, User $customer = null)
     {
-        $user = $user ?? Auth::user();
-        $this->validator($request, $user)->validate();
+        $customer = $customer ?? Auth::user();
+        $this->validator($request, $customer)->validate();
 
-        $user->firstname = ucfirst($request['firstname']);
-        $user->lastname = ucfirst($request['lastname']);
-        $user->email = strtolower($request['email']);
-        $user->phone = $request['phone'];
-        $user->save();
+        $customer->firstname = ucfirst($request['firstname']);
+        $customer->lastname = ucfirst($request['lastname']);
+        $customer->email = strtolower($request['email']);
+        $customer->phone = $request['phone'];
+        $customer->isActivated = $request['isActivated'] ? 1 : 0;
+        $customer->save();
 
         $successMessage = "Vos informations ont bien été mis à jour.";
 
@@ -173,6 +175,7 @@ class UserController extends Controller
             ],
             'email' => [
                 'required',
+                'email:filter',
                 $uniqueEmailRule
             ],
             'phone' => [

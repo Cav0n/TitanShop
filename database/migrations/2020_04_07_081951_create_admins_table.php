@@ -23,6 +23,7 @@ class CreateAdminsTable extends Migration
             $table->string('password');
             $table->string('role');
             $table->string('token')->nullable();
+            $table->boolean('isActivated')->default(1);
 
             $table->timestamps();
         });

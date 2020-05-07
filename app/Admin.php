@@ -7,6 +7,12 @@ use Illuminate\Support\Facades\Hash;
 
 class Admin extends Model
 {
+    const ROLES = [
+        'SUPER_ADMIN',
+        'ADMIN',
+        'PRODUCT_CREATOR',
+    ];
+
     /**
      * The attributes that should be hidden for arrays.
      *
@@ -28,5 +34,10 @@ class Admin extends Model
         }
 
         return false;
+    }
+
+    public function getIdentityAttribute()
+    {
+        return $this->firstname . ' ' . $this->lastname;
     }
 }
