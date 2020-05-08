@@ -146,7 +146,15 @@ class ProductBaseController extends Controller
             'public/images/products', $originalName
         );
 
-        return JsonResponse::create(['image' => asset('images/products/' . $originalName)]);
+        $image = new \App\Image();
+        $image->path =  'images/storage/products/' . $originalName;
+        $image->alt = $originalName;
+        $image->size = $request['filesize'];
+        $image->save();
+
+        $product->images()->attach($image);
+
+        return new JsonResponse(['image' => $image->path], 200);
     }
 
     /**

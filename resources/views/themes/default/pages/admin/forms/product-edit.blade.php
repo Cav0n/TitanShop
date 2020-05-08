@@ -58,6 +58,15 @@
         id="images-upload" enctype="multipart/form-data" method="POST">
     @csrf
     </form>
+
+    <div class="row">
+        @foreach ($product->images as $image)
+            <div class="col-lg-3 product-image">
+                <img src="{{ asset($image->path) }}" alt="{{ $image->alt }}" title="{{ $image->title }}" class="w-100">
+            </div>
+        @endforeach
+    </div>
+
 </div>
 
 <script>
@@ -67,10 +76,14 @@
             done();
         },
         init: function() {
+            this.on("sending", function(file, xhr, formData) {
+                // Will send the filesize along with the file as POST data.
+                formData.append("filesize", file.size);
+            });
             this.on("success", function (file, response) {
                 console.log(file);
                 console.log(response);
-            })
+            });
         }
     };
 </script>
