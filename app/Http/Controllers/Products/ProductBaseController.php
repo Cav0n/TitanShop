@@ -6,6 +6,7 @@ use App\ProductBase;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\ProductI18n;
+use Illuminate\Http\JsonResponse;
 
 class ProductBaseController extends Controller
 {
@@ -131,6 +132,21 @@ class ProductBaseController extends Controller
         $productI18n->save();
 
         return redirect()->back()->with(['success' => ['Le produit a été modifié avec succés.']]);
+    }
+
+    public function addImage(Request $request, ProductBase $product)
+    {
+        $request->validate([
+            'image' => 'image',
+        ]);
+
+        $originalName = $request->image->getClientOriginalName();
+
+        $path = $request->image->storeAs(
+            'public/images/products', $originalName
+        );
+
+        return JsonResponse::create(['image' => asset('images/products/' . $originalName)]);
     }
 
     /**

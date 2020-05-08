@@ -108,6 +108,7 @@ Route::middleware('shopIsInstalled')->group(function() {
             Route::post('product/new', 'Products\ProductBaseController@store')->name('admin.product.store');
             Route::get('product/{product}', 'Products\ProductBaseController@edit')->name('admin.product.edit');
             Route::post('product/{product}', 'Products\ProductBaseController@update')->name('admin.product.update');
+            Route::post('product/{product}/images/add', 'Products\ProductBaseController@addImage')->name('admin.product.images.add');
 
             Route::get('category/new', 'Categories\CategoryBaseController@create')->name('admin.category.create');
             Route::post('category/new', 'Categories\CategoryBaseController@store')->name('admin.category.store');

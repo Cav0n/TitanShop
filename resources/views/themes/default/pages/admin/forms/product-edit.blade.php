@@ -49,3 +49,28 @@
 
     <button type="submit" class="btn btn-primary">Sauvegarder</button>
 </form>
+
+<div id="images-container" class="mt-3 pt-3 border-top">
+    <p>Images</p>
+
+    <form action="{{ route('admin.product.images.add', ['product' => $product]) }}"
+        class="dropzone border rounded bg-light p-3 d-flex flex-direction-column justify-content-center"
+        id="images-upload" enctype="multipart/form-data" method="POST">
+    @csrf
+    </form>
+</div>
+
+<script>
+    dropzone.options.imagesUpload = {
+        paramName: "image", // The name that will be used to transfer the file
+        accept: function(file, done) {
+            done();
+        },
+        init: function() {
+            this.on("success", function (file, response) {
+                console.log(file);
+                console.log(response);
+            })
+        }
+    };
+</script>
