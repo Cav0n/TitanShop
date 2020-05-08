@@ -15,9 +15,10 @@
         <thead class="thead thead-light">
             <tr>
                 <th class="mobile-only d-table-cell d-md-none">Commande</th>
+                <th class="d-none d-md-table-cell">Date</th>
                 <th class="d-none d-md-table-cell">Client</th>
-                <th class="d-none d-md-table-cell">Numéro de suivi</th>
-                <th class="d-none d-md-table-cell">Prix</th>
+                <th class="d-none d-md-table-cell text-center">Numéro de suivi</th>
+                <th class="d-none d-md-table-cell text-center">Prix</th>
                 <th class="text-right">Actions</th>
             </tr>
         </thead>
@@ -31,26 +32,32 @@
                         @else
                         <a href="#">{{ $order->user->firstname }} {{ $order->user->lastname }}</a>
                         @endif
-                    </b>
-                    <br>
+                    </b> <br>
+                    {!! $order->status->badge !!} <br>
                     Prix total : {{ $order->totalPriceWithShippingCostsFormatted }}
                     {!! $order->shippingCosts ? '<br>(Dont ' . $order->shippingCostsFormatted . " de frais de port)" : null !!}
+                </td>
+                <td class="align-middle d-none d-md-table-cell">
+                    {{ $order->created_at->format('d/m/Y') }} <br>
+                    à {{ $order->created_at->format('H:i') }}
                 </td>
                 <td class="align-middle d-none d-md-table-cell">
                     @if(null === $order->user)
                         {{ $order->shippingAddress->firstname }} {{ $order->shippingAddress->lastname }}
                     @else
-                        <a href="#">{{ $order->user->firstname }} {{ $order->user->lastname }}</a>
+                        <a href="{{ route('admin.user.edit', ['user' => $order->user]) }}">{{ $order->user->firstname }} {{ $order->user->lastname }}</a>
                     @endif
                 </td>
                 <td class="text-center align-middle d-none d-md-table-cell">
-                    {{ $order->trackingNumber }}</td>
+                    {{ $order->trackingNumber }} <br>
+                    {!! $order->status->badge !!}
+                </td>
                 <td class="text-center align-middle d-none d-md-table-cell">
                     {{ $order->totalPriceWithShippingCostsFormatted }}
                     {!! $order->shippingCosts ? '<br>(Dont ' . $order->shippingCostsFormatted . " de frais de port)" : null !!}
                 </td>
                 <td class="text-right align-middle">
-                    <a class="btn btn-primary ml-auto" href="#" role="button">Éditer</a>
+                    <a class="btn btn-primary ml-auto" href="{{ route('admin.order.edit', ['order' => $order]) }}" role="button">Éditer</a>
                 </td>
             </tr>
             @endforeach

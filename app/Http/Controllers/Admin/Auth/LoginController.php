@@ -19,6 +19,11 @@ class LoginController extends Controller
         ]);
 
         if (null !== $admin = Admin::where('email', $request['login'])->orWhere('pseudo', $request['login'])->first()) {
+            if (! $admin->isActivated) {
+                return back()->withErrors(['login' => 'Votre compte est désactivé. Veuillez contacter l\'administrateur du site.'])
+                            ->withInput();
+            }
+
             if (Hash::check($request['password'], $admin->password)) {
                 $token = Str::random(60);
                 $admin->token = Hash::make($token);

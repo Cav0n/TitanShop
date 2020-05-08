@@ -28,6 +28,11 @@ class LoginController extends Controller
 
         $credentials = $request->only('email', 'password');
 
+        if (! \App\User::where('email', $credentials['email'])->first()->isActivated) {
+            return back()->withErrors(['login' => 'Votre compte n\'est pas activé.'])
+                    ->withInput();
+        }
+
         if (Auth::attempt($credentials)) {
             return redirect()->intended(route('customer-area.index'));
         }

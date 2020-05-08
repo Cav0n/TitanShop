@@ -16,6 +16,11 @@ class Address extends Model
         return \strtoupper($value);
     }
 
+    public function getIdentityAttribute($value)
+    {
+        return $this->firstname . ' ' . $this->lastname;
+    }
+
     public function getCity($value)
     {
         return \strtoupper($value);

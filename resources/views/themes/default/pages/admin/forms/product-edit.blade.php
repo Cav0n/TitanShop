@@ -27,7 +27,7 @@
     <div class="form-group">
         <label for="category-select">Catégorie</label>
         <select id="category-select" class="custom-select" name="category">
-            <option  @if(0 === count($product->categories)) selected="true" @endif disabled="disabled">
+            <option @if(0 === count($product->categories)) selected="true" @endif disabled="disabled">
                 Veuillez choisir une catégorie</option>
             @foreach ($categories as $category)
                 <option value="{{ $category->id }}" @if($product->categories->first() && $category->id === $product->categories->first()->id) selected="true" @endif>
@@ -49,3 +49,41 @@
 
     <button type="submit" class="btn btn-primary">Sauvegarder</button>
 </form>
+
+<div id="images-container" class="mt-3 pt-3 border-top">
+    <p>Images</p>
+
+    <form action="{{ route('admin.product.images.add', ['product' => $product]) }}"
+        class="dropzone border rounded bg-light p-3 d-flex flex-direction-column justify-content-center"
+        id="images-upload" enctype="multipart/form-data" method="POST">
+    @csrf
+    </form>
+
+    <div class="row">
+        @foreach ($product->images as $image)
+            <div class="col-lg-3 product-image">
+                <img src="{{ asset($image->path) }}" alt="{{ $image->alt }}" title="{{ $image->title }}" class="w-100">
+            </div>
+        @endforeach
+    </div>
+
+</div>
+
+<script>
+    dropzone.options.imagesUpload = {
+        paramName: "image", // The name that will be used to transfer the file
+        accept: function(file, done) {
+            done();
+        },
+        init: function() {
+            this.on("sending", function(file, xhr, formData) {
+                // Will send the filesize along with the file as POST data.
+                formData.append("filesize", file.size);
+            });
+            this.on("success", function (file, response) {
+                console.log(file);
+                console.log(response);
+            });
+        }
+    };
+</script>

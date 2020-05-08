@@ -15,6 +15,13 @@
 </p>
 @endsection
 
+@isset($category)
+@section('page.buttons')
+    <a class="btn btn-primary mb-3" href="{{ route('category.show', ['category' => $category]) }}" role="button" target="_blank" rel="noopener noreferrer">
+        Voir la catégorie</a>
+@endsection
+@endisset
+
 @section('page.content')
 <a class="btn btn-outline-dark mb-3 py-0 px-2" href="{{ route('admin.categories', ['parent_id' => $parent ? $parent->id : null]) }}" role="button">
     Retour</a>

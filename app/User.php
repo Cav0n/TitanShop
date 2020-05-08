@@ -47,6 +47,14 @@ class User extends Authenticatable
     }
 
     /**
+     * Get addresses of the user
+     */
+    public function addresses()
+    {
+        return $this->hasMany('App\Address');
+    }
+
+    /**
      * Hashing password before save.
      */
     public function setPasswordAttributes($value)

@@ -5,8 +5,11 @@ namespace App\Http\Controllers\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
+use App\Mail\UserRegistered;
 use App\User;
+use Exception;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 
 class RegisterController extends Controller
 {
@@ -39,6 +42,13 @@ class RegisterController extends Controller
         $user->password = Hash::make($request['password']);;
         $user->save();
 
-        return redirect()->action('Auth\LoginController@login', [$request]);
+        try {
+            Mail::to($user->email)->send(
+                new UserRegistered($user));
+        } catch (Exception $e) {
+            // futur log
+        }
+
+        return redirect(route('customer-area.index', ['success' => ['Votre compte a été créé avec succés.']]));
     }
 }

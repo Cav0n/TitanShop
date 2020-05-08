@@ -28,7 +28,7 @@
         <div class="col-12 col-lg-4">
             <div class="bg-white shadow-sm p-3">
                 <p>{{ $cart->totalQuantity }} articles : {{ $cart->totalPriceFormatted }}</p>
-                <p>Frais de port : {{ \App\Setting::valueOrNull('SHIPPING_COSTS', true) }} €</p>
+                <p>Frais de port : {{ $cart->shippingCostsFormatted }}</p>
                 <p>Total : {{ $cart->totalPriceWithShippingCostsFormatted }}</p>
 
                 @yield('cart.summary.next-button')

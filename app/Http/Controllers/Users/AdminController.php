@@ -6,6 +6,8 @@ use App\Admin;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rule;
 
 class AdminController extends Controller
 {
@@ -16,7 +18,9 @@ class AdminController extends Controller
      */
     public function index()
     {
-        //
+        $administrators = Admin::all();
+
+        return view('themes.default.pages.admin.users.administrators')->with(['administrators' => $administrators]);
     }
 
     /**
@@ -26,7 +30,7 @@ class AdminController extends Controller
      */
     public function create()
     {
-        //
+        return view('themes.default.pages.admin.users.administrator');
     }
 
     /**
@@ -37,27 +41,22 @@ class AdminController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'firstname' => 'required|min:2',
-            'lastname' => 'required|min:2',
-            'pseudo' => 'required|unique:admins|min:5',
-            'email' => 'required|unique:admins|email:rfc,dns',
-            'password' => 'required|confirmed|min:8',
-            'role' => 'required'
-        ]);
+        $this->validator($request)->validate();
 
-        $admin = new Admin();
-        $admin->firstname = ucfirst($request['firstname']);
-        $admin->lastname = ucfirst($request['lastname']);
-        $admin->pseudo = strtolower($request['pseudo']);
-        $admin->email = strtolower($request['email']);
-        $admin->password = Hash::make($request['password']);
-        $admin->role = $request['role'];
-        $admin->save();
+        $administrator = new Admin();
+        $administrator->firstname = ucfirst($request['firstname']);
+        $administrator->lastname = ucfirst($request['lastname']);
+        $administrator->pseudo = strtolower($request['pseudo']);
+        $administrator->email = strtolower($request['email']);
+        $administrator->password = Hash::make($request['password']);
+        $administrator->role = $request['role'];
+        $administrator->save();
 
         if(isset($request['next_url'])) {
             return redirect($request['next_url']);
         }
+
+        return redirect(route('admin.users.administrator.edit', ['administrator' => $administrator]));
     }
 
     /**
@@ -74,12 +73,12 @@ class AdminController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Admin  $admin
+     * @param  \App\Admin  $administrator
      * @return \Illuminate\Http\Response
      */
-    public function edit(Admin $admin)
+    public function edit(Admin $administrator)
     {
-        //
+        return view('themes.default.pages.admin.users.administrator')->with(['administrator' => $administrator]);
     }
 
     /**
@@ -89,9 +88,24 @@ class AdminController extends Controller
      * @param  \App\Admin  $admin
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Admin $admin)
+    public function update(Request $request, Admin $administrator)
     {
-        //
+        $this->validator($request, $administrator)->validate();
+
+        $administrator->firstname = ucfirst($request['firstname']);
+        $administrator->lastname = ucfirst($request['lastname']);
+        $administrator->pseudo = strtolower($request['pseudo']);
+        $administrator->email = strtolower($request['email']);
+        $administrator->role = $request['role'];
+        $administrator->isActivated = $request['isActivated'] ? 1 : 0;
+        $administrator->save();
+
+        if (null !== $request['password']) {
+            $administrator->password = Hash::make($request['password']);
+            $administrator->save();
+        }
+
+        return redirect(route('admin.users.administrator.edit', ['administrator' => $administrator]));
     }
 
     /**
@@ -103,5 +117,48 @@ class AdminController extends Controller
     public function destroy(Admin $admin)
     {
         //
+    }
+
+    /**
+     * Administrator informations validator
+     *
+     * @param  mixed $request
+     * @param  mixed $administrator
+     * @return void
+     */
+    protected function validator(Request $request, $administrator = null)
+    {
+        $uniqueRule = isset($administrator) ? Rule::unique('admins')->ignore($administrator->id) : Rule::unique('admins');
+        $roleRule = Rule::in(Admin::ROLES);
+
+        return Validator::make($request->all(), array(
+            'firstname' => [
+                'required',
+                'min:2'
+            ],
+            'lastname' => [
+                'required',
+                'min:2'
+            ],
+            'email' => [
+                'required',
+                'email:filter',
+                $uniqueRule
+            ],
+            'pseudo' => [
+                'required',
+                'min:3',
+                $uniqueRule
+            ],
+            'role' => [
+                'required',
+                $roleRule
+            ],
+            'password' => [
+                'nullable',
+                'confirmed',
+                'min:8'
+            ]
+        ));
     }
 }

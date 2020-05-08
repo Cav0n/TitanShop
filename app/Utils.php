@@ -46,4 +46,25 @@ class Utils
 
         return;
     }
+
+    public static function input(
+        $type = 'string',
+        $id = 'id',
+        $value = null,
+        $help = null,
+        $placeholder = null,
+        $max = null,
+        $min = null,
+        $step = null)
+    {
+        return view('themes.default.components.inputs.' . $type, [
+            'id' => $id,
+            'value' => $value,
+            'help' => $help,
+            'placeholder' => $placeholder,
+            'max' => $max,
+            'min' => $min,
+            'step' => $step,
+        ]);
+    }
 }

@@ -3,20 +3,15 @@
 @section('page.title',  'Espace client - ' . App\Setting::valueOrNull('SHOP_NAME'))
 
 @section('page.content')
-    <div class="row mb-3">
-        <div class="col-12">
-            <p id="breadcrumb">
-                / <a href="{{ route('index') }}">Accueil</a>
-                / <a href="{{ route('customer-area.index') }}">Espace client</a>
-            </p>
-        </div>
-    </div>
-
     @include('themes.default.components.alerts.error')
     @include('themes.default.components.alerts.success')
 
     <div id="customer-area-container" class="bg-white p-3 shadow-sm row mx-0">
         <div id="customer-area-title" class="border-bottom pb-2 col-12 px-0">
+            <p id="breadcrumb">
+                / <a href="{{ route('index') }}">Accueil</a>
+                / <a href="{{ route('customer-area.index') }}">Espace client</a>
+            </p>
             <h1 class="h2">Bienvenue dans votre espace client</h1>
         </div>
 
@@ -68,7 +63,6 @@
                     type : 'GET',
                     dataType : 'html',
                     success : function(code_html, statut){
-                        console.log(code_html)
                         parent.append(code_html);
                         $(modalId).modal('show');
                     },

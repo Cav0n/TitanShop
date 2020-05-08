@@ -5,12 +5,12 @@
 @section('page.breadcrumb')
 <p id="breadcrumb">
     / <a href="{{ route('admin.index') }}">Accueil</a>
-    / <a href="{{ route('admin.users') }}">Clients</a>
+    / <a href="{{ route('admin.users.customers') }}">Clients</a>
 </p>
 @endsection
 
 @section('page.buttons')
-    <a class="btn btn-primary mb-3" href="{{ route('admin.user.create') }}" role="button">Créer un client</a>
+    <a class="btn btn-primary mb-3" href="{{ route('admin.users.customer.create') }}" role="button">Créer un client</a>
 @endsection
 
 @section('page.content')
@@ -28,24 +28,24 @@
             </tr>
         </thead>
         <tbody>
-            @foreach ($users as $user)
+            @foreach ($customers as $customer)
             <tr>
                 <td class="mobile-only d-table-cell d-md-none">
-                    <b>{{ $user->firstname }} {{ $user->lastname }}</b><br>
-                    {{ $user->email }}<br>
-                    {{ $user->phonePretty ?? 'Non indiqué'}}
+                    <b>{{ $customer->identity }}</b><br>
+                    {{ $customer->email }}<br>
+                    {{ $customer->phonePretty ?? 'Non indiqué'}}
                 </td>
                 <td class="align-middle d-none d-md-table-cell">
-                    {{ $user->created_at->format('d/m/Y') }}</td>
+                    {{ $customer->created_at->format('d/m/Y') }}</td>
                 <td class="align-middle d-none d-md-table-cell">
-                    {{ $user->firstname }} {{ $user->lastname }}</td>
+                    {{ $customer->identity }}</td>
                 <td class="align-middle d-none d-md-table-cell">
-                    {{ $user->email }}</td>
+                    {{ $customer->email }}</td>
                 <td class="align-middle d-none d-md-table-cell">
-                    {{ $user->phonePretty ?? 'Non indiqué'}}</td>
+                    {{ $customer->phonePretty ?? 'Non indiqué'}}</td>
 
                 <td class="text-right align-middle">
-                    <a class="btn btn-primary ml-auto" href="{{ route('admin.user.edit', ['user' => $user]) }}" role="button">Éditer</a>
+                    <a class="btn btn-primary ml-auto" href="{{ route('admin.users.customer.edit', ['customer' => $customer]) }}" role="button">Éditer</a>
                 </td>
             </tr>
             @endforeach

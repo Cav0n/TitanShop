@@ -11,6 +11,15 @@ class CartController extends Controller
     public function addAddresses(Request $request)
     {
         $cart = session('cart');
+
+        $request->validate([
+            'email' => 'required|email:filter',
+            'phone' => 'nullable|min:10'
+        ]);
+
+        $cart->email = $request['email'];
+        $cart->phone = $request['phone'];
+
         $shippingAddress = app('App\Http\Controllers\AddressController')->store($request['shipping']);
 
         if (isset($request['sameBillingAddress']) && $request['sameBillingAddress']) {

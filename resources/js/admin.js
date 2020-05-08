@@ -1,0 +1,1 @@
+dropzone = require('dropzone');

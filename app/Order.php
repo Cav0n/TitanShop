@@ -40,6 +40,14 @@ class Order extends Model
     }
 
     /**
+     * Get order statys
+     */
+    public function status()
+    {
+        return $this->belongsTo('App\OrderStatus');
+    }
+
+    /**
      * Get order total price
      *
      * @return void
@@ -116,6 +124,22 @@ class Order extends Model
     public function getTotalPriceWithShippingCostsFormattedAttribute()
     {
         return \number_format($this->totalPriceWithShippingCosts, 2, ",", " ") . ' €';
+    }
+
+    /**
+     * Get customer firstname and lastname.
+     * If customer was a connected user then it's the user firstname & lastname.
+     * Else it's the shipping address firstname & lastname.
+     *
+     * @return void
+     */
+    public function getCustomerIdentityAttribute()
+    {
+        if (null !== $this->user) {
+            return $this->user->identity;
+        }
+
+        return $this->shippingAddress->identity;
     }
 
     /**

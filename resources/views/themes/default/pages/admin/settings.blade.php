@@ -23,8 +23,9 @@
                 <label for="settings_{{ $setting->code }}">{{ $setting->title }}</label>
             </div>
             <div class="col-12 col-lg-9">
-                <input type="text" class="form-control" name="settings[{{ $setting->code }}]" id="settings_{{ $setting->code }}" aria-describedby="help{{ $setting->code }}" value="{{ $setting->value }}">
-                <small id="help{{ $setting->code }}" class="form-text text-muted">{{ $setting->help }}</small>
+
+                {{ $setting->input }}
+
             </div>
         </div>
         @endforeach

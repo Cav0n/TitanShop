@@ -18,6 +18,7 @@ class InstallController extends Controller
 
     public function install()
     {
+        session()->flush();
         return redirect(route('install.database'));
     }
 
@@ -39,7 +40,7 @@ class InstallController extends Controller
         ]);
 
         try {
-            Artisan::call('migrate:refresh', ['--quiet' => true]);
+            Artisan::call('migrate:fresh', ['--quiet' => true]);
         } catch (\Exception $e) {
             return back()
                     ->withErrors('<b>Erreur lors de l\'ajout de la base de donnée.</b><br>Erreur: ' . $e->getMessage())
@@ -77,6 +78,8 @@ class InstallController extends Controller
         $activatedSetting = new Setting();
         $activatedSetting->code = 'SHOP_ACTIVATED';
         $activatedSetting->value = true;
+        $activatedSetting->type = "bool";
+        $activatedSetting->isEditable = 0;
         $activatedSetting->save();
 
         return view('themes.default.tmp.install.success');

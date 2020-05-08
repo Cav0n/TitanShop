@@ -6,7 +6,13 @@ use App\Cart;
 use App\Order;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Mail\Admin\OrderCreated as AdminOrderCreated;
+use App\Mail\OrderCreated;
+use App\Mail\OrderStatusUpdated;
 use App\OrderItem;
+use Exception;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\Mail;
 
 class OrderController extends Controller
 {
@@ -17,7 +23,7 @@ class OrderController extends Controller
      */
     public function index()
     {
-        $orders = Order::all();
+        $orders = Order::orderBy('created_at', 'desc')->get();
         return view('themes.default.pages.admin.orders')->with(['orders' => $orders]);
     }
 
@@ -28,7 +34,9 @@ class OrderController extends Controller
      */
     public function create()
     {
-        //
+        $orderStatus = \App\OrderStatus::all();
+
+        return view('themes.default.pages.admin.order', ['orderStatus' => $orderStatus]);
     }
 
     /**
@@ -44,10 +52,13 @@ class OrderController extends Controller
         }
 
         $order = new Order();
-        $order->shippingCosts = \App\Setting::valueOrNull('SHIPPING_COSTS');
+        $order->email = $cart->email;
+        $order->phone = $cart->phone;
+        $order->shippingCosts = $cart->shippingCosts;
         $order->shipping_address_id = $cart->shippingAddress->id;
         $order->billing_address_id = $cart->billingAddress->id;
         $order->user_id = $cart->user_id;
+        $order->status_id = \App\OrderStatus::where('code', 'WAITING_PAYMENT')->first()->id;
         $order->generateTrackingNumber();
 
         $order->save();
@@ -61,6 +72,13 @@ class OrderController extends Controller
             $orderItem->order_id = $order->id;
 
             $orderItem->save();
+        }
+
+        try {
+            Mail::to($order->email)->send(new OrderCreated($order));
+            Mail::to(\App\Setting::valueOrNull('SHOP_EMAIL'))->send(new AdminOrderCreated($order));
+        } catch (Exception $e) {
+            throw $e;
         }
 
         return $order;
@@ -96,7 +114,9 @@ class OrderController extends Controller
      */
     public function edit(Order $order)
     {
-        //
+        $orderStatus = \App\OrderStatus::all();
+
+        return view('themes.default.pages.admin.order', ['order' => $order, 'orderStatus' => $orderStatus]);
     }
 
     /**
@@ -112,6 +132,28 @@ class OrderController extends Controller
     }
 
     /**
+     * Update the order's status
+     *
+     * @return void
+     */
+    public function updateStatus(Request $request, Order $order)
+    {
+        $order->status_id = \App\OrderStatus::where('code', $request['statusCode'])->first()->id;
+        $order->save();
+
+        try {
+            Mail::to($order->email)->send(new OrderStatusUpdated($order));
+        } catch (Exception $e) {
+            throw $e;
+        }
+
+        return response()->json([
+            'message' => 'Le statut de la commande a été mis à jour avec succés.',
+            'color' => $order->status->color
+        ]);
+    }
+
+    /**
      * Remove the specified resource from storage.
      *
      * @param  \App\Order  $order
@@ -120,5 +162,37 @@ class OrderController extends Controller
     public function destroy(Order $order)
     {
         //
+    }
+
+    public function tracking()
+    {
+        return view('themes.default.pages.public.order-tracking');
+    }
+
+    public function trackingAPI(Request $request)
+    {
+        $trackingNumber = ltrim(trim($request['t']), '#');
+
+        if (null === $trackingNumber) {
+            $message = 'Tracking number is required.';
+
+            return new JsonResponse(['error' => [
+                'message' => $message,
+                'feedback' => "<div class=\"invalid-feedback\">$message</div>"
+            ]], 422);
+        }
+
+        if (null === $order = Order::where('trackingNumber', $trackingNumber)->first()){
+            $message = 'No order found with this tracking number.';
+
+            return new JsonResponse(['error' => [
+                'message' => $message,
+                'feedback' => "<div class=\"invalid-feedback\">$message</div>",
+            ]], 404);
+        }
+
+        $result = ['view' => view('themes.default.components.layouts.order-minimal', ['order' => $order])->render()];
+
+        return $result;
     }
 }
