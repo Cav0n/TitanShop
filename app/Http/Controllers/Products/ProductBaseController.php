@@ -157,6 +157,14 @@ class ProductBaseController extends Controller
         return new JsonResponse(['image' => $image->path], 200);
     }
 
+    public function deleteImage(Request $request, ProductBase $product, \App\Image $image)
+    {
+        $image->delete();
+        //$product->images()->detach($image);
+
+        return new JsonResponse(['message' => 'Product image deleted successfully']);
+    }
+
     /**
      * Remove the specified resource from storage.
      *
