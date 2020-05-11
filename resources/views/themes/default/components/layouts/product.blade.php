@@ -1,7 +1,7 @@
-<div class="product-container d-flex flex-column bg-white border shadow-sm">
-    <a href="{{ route('product.show', ['product' => $product]) }}">
+<div class="product-container d-flex flex-column bg-white border shadow-sm h-100">
+    <a href="{{ route('product.show', ['product' => $product]) }}" class="h-100">
         <img
-            class="img-fluid w-100"
+            class="w-100 h-100 product-image"
             src="{{ asset($product->images->first()->path ?? null) }}"
             alt="{{ $product->images->first()->alt ?? $product->title }}"
             title="{{ $product->images->first()->alt ?? $product->title }}">
