@@ -56,6 +56,14 @@ class InstallController extends Controller
                     ->withInput();
         }
 
+        try {
+            (new SettingController)->install();
+        } catch (\Exception $e) {
+            return back()
+                    ->withErrors('Erreur lors de l\'ajout des paramètres : ' . $e->getMessage())
+                    ->withInput();
+        }
+
         return redirect(route('install.informations'));
     }
 
@@ -84,11 +92,8 @@ class InstallController extends Controller
 
     public function success()
     {
-        $activatedSetting = new Setting();
-        $activatedSetting->code = 'SHOP_ACTIVATED';
-        $activatedSetting->value = true;
-        $activatedSetting->type = "bool";
-        $activatedSetting->isEditable = 0;
+        $activatedSetting = \App\Setting::where('code', 'SHOP_ACTIVATED')->first();
+        $activatedSetting->value = 1;
         $activatedSetting->save();
 
         return view('themes.default.tmp.install.success');

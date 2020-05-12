@@ -91,7 +91,7 @@ class OrderStatusController extends Controller
      */
     public function install()
     {
-        $path = \base_path() . "/config/order_status.json";
+        $path = \base_path() . "/config/install/order_status.json";
 
         $json = json_decode(file_get_contents($path), true);
 
