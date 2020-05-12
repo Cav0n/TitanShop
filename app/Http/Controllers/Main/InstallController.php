@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Main;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Artisan;
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\OrderStatusController;
 use App\Http\Controllers\Settings\SettingController;
 use App\Setting;
 use Exception;
@@ -44,6 +45,14 @@ class InstallController extends Controller
         } catch (\Exception $e) {
             return back()
                     ->withErrors('<b>Erreur lors de l\'ajout de la base de donnée.</b><br>Erreur: ' . $e->getMessage())
+                    ->withInput();
+        }
+
+        try {
+            (new OrderStatusController)->install();
+        } catch (\Exception $e) {
+            return back()
+                    ->withErrors('Erreur lors de l\'ajout des status de commandes : ' . $e->getMessage())
                     ->withInput();
         }
 
