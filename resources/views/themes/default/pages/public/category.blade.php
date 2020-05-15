@@ -18,10 +18,10 @@
 
         {{-- Childs categories --}}
         @if (0 < count($category->childs))
-        <div class="col-12 mt-3">
+        <div class="col-12">
             <div class="row">
                 @foreach ($category->childs as $child)
-                <div class="col-6 col-sm-4 col-lg-3 d-flex">
+                <div class="col-6 col-sm-4 col-lg-3 mt-3 d-flex">
                     <a class="p-3 bg-white border shadow-sm w-100" href="{{ route('category.show', ['category' => $child]) }}">{{ $child->title }}</a>
                 </div>
                 @endforeach
@@ -31,10 +31,10 @@
 
         {{-- Category's products --}}
         @if (0 < count($category->products))
-        <div class="col-12 mt-3">
+        <div class="col-12">
             <div class="row">
                 @foreach ($category->products as $product)
-                <div class="col-6 col-sm-4 col-lg-3">
+                <div class="col-6 col-sm-4 col-lg-3 mt-3">
                     @include('themes.default.components.layouts.product', [
                         'product' => $product,
                     ])
