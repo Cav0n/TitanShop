@@ -21,7 +21,7 @@
         <div class="col-12">
             <div class="row">
                 @foreach ($category->childs as $child)
-                <div class="col-6 col-sm-4 col-lg-3 mt-3 d-flex">
+                <div class="col-12 col-sm-6 col-md-4 col-lg-3 mt-3 d-flex">
                     <a class="p-3 bg-white border shadow-sm w-100" href="{{ route('category.show', ['category' => $child]) }}">{{ $child->title }}</a>
                 </div>
                 @endforeach
@@ -34,7 +34,7 @@
         <div class="col-12">
             <div class="row">
                 @foreach ($category->products as $product)
-                <div class="col-6 col-sm-4 col-lg-3 mt-3">
+                <div class="col-12 col-sm-6 col-md-4 col-lg-3 mt-3">
                     @include('themes.default.components.layouts.product', [
                         'product' => $product,
                     ])
