@@ -75,6 +75,7 @@
 
     dropzone.options.imagesUpload = {
         paramName: "image", // The name that will be used to transfer the file
+        maxFilesize: 10, // MB
         accept: function(file, done) {
             done();
         },
