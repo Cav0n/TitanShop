@@ -3,6 +3,17 @@
 @section('page.title', $product->title . ' - ' . App\Setting::valueOrNull('SHOP_NAME'))
 @section('page.description', $product->description)
 
+@section('page.og')
+<meta property="og:type" content="website" />
+<meta property="og:title" content="{{ $product->name }}" />
+<meta property="og:description" content="{{ $product->description }}" />
+<meta property="og:image" content="{{ $product->images()->count() ? asset($product->images()->first()->path) : null }}" />
+<meta property="og:url" content="{{ route('product.show', ['product' => $product]) }}" />
+<meta property="og:site_name" content="{{ App\Setting::valueOrNull('SHOP_NAME') }}" />
+<meta property="product:price:amount" content="{{ $product->price }}" />
+<meta property="product:price:currency" content="EUR" />
+@endsection
+
 @section('page.content')
     <div id="breadcrumb" class="mb-3">
         <div class="col-12 offset-lg-4 col-lg-8 p-0">

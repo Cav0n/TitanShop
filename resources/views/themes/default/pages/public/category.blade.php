@@ -3,6 +3,15 @@
 @section('page.title', $category->title . ' - ' . App\Setting::valueOrNull('SHOP_NAME'))
 @section('page.description', $category->description)
 
+@section('page.og')
+<meta property="og:type" content="website" />
+<meta property="og:title" content="{{ $category->name }}" />
+<meta property="og:description" content="{{ $category->description }}" />
+<meta property="og:image" content="{{ $category->images()->count() ? asset($category->images()->first()->path) : null }}" />
+<meta property="og:url" content="{{ route('category.show', ['category' => $category]) }}" />
+<meta property="og:site_name" content="{{ App\Setting::valueOrNull('SHOP_NAME') }}" />
+@endsection
+
 @section('page.content')
     <div id="breadcrumb" class="row">
         <div class="col-12">
