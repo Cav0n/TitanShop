@@ -28,7 +28,7 @@
                 @endforeach
             </div>
         </div>
-        <div id="texts-container" class="col-lg-8 p-3 mt-3 mt-lg-0 bg-white shadow-sm">
+        <div id="texts-container" class="col-lg-8 p-3 mt-3 mt-lg-0 bg-white shadow-sm d-table">
 
             <div id="title-container">
                 <h1>{{ $product->title }}</h1>
