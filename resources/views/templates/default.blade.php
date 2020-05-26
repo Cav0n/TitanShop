@@ -19,7 +19,7 @@
 
     {{-- Title and description --}}
     <title>@yield('page.title', \App\Setting::valueOrNull('SHOP_NAME'))</title>
-    <meta name="description" content="@yield('page.description', 'Un site créé avec Titan Shop')"/>
+    <meta name="description" content="@yield('page.description', \App\Setting::valueOrNull('SHOP_DESCRIPTION') ?? 'Un site créé avec TitanShop CMS.')"/>
 </head>
 <body class="d-flex flex-column">
     {{-- JS --}}
