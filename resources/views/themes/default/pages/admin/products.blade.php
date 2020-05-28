@@ -10,11 +10,22 @@
 @endsection
 
 @section('page.buttons')
-    <a class="btn btn-primary mb-3" href="{{ route('admin.product.create') }}" role="button">Créer un produit</a>
+
+@if(\App\CategoryBase::count() <= 0)
+  <button type="button" class="btn btn-secondary button-popover" data-container="body" data-toggle="popover" data-placement="left" data-content="Vous devez d'abord créer au moins une catégorie." data-hover="trigger">
+      Créer un produit</button>
+@else
+<a class="btn btn-primary mb-3" href="{{ route('admin.product.create') }}" role="button">Créer un produit</a>
+@endif
+
 @endsection
 
 @section('page.content')
 <div class="bg-white p-3 shadow-sm">
+
+    @if(0 === count($products))
+    <p class="text-center">Aucun produit n'a été créé sur le site.</p>
+    @else
     <table class="table border mb-0">
         <thead class="thead thead-light">
             <tr>
@@ -37,5 +48,6 @@
             @endforeach
         </tbody>
     </table>
+    @endif
 </div>
 @endsection

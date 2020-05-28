@@ -1,0 +1,44 @@
+{
+    "status": [
+        {
+            "code": "WAITING_PAYMENT",
+            "color": "#dfed47",
+            "i18n": [
+                {
+                    "lang": "FR",
+                    "title": "En attente de paiement"
+                }
+            ]
+        },{
+            "code": "PROCESSING",
+            "color": "#4EB8F1",
+            "parent": "WAITING_PAYMENT",
+            "i18n": [
+                {
+                    "lang": "FR",
+                    "title": "En cours de préparation"
+                }
+            ]
+        },{
+            "code": "IN_DELIVERY",
+            "color": "#69E238",
+            "parent": "PROCESSING",
+            "i18n": [
+                {
+                    "lang": "FR",
+                    "title": "En cours de livraison"
+                }
+            ]
+        },{
+            "code": "DELIVERED",
+            "color": "#69E238",
+            "parent": "IN_DELIVERY",
+            "i18n": [
+                {
+                    "lang": "FR",
+                    "title": "Livrée"
+                }
+            ]
+        }
+    ]
+}

@@ -106,6 +106,12 @@
             });
         });
     </script>
+
+    <script>
+        $(document).ready(function () {
+            $('.button-popover').popover()
+        });
+    </script>
     @yield('scripts')
 </body>
 </html>

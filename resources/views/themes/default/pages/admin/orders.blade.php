@@ -11,6 +11,10 @@
 
 @section('page.content')
 <div class="bg-white p-3 shadow-sm">
+
+    @if(0 === count($orders))
+    <p class="text-center">Aucune commande n'a été passé sur le site pour le moment.</p>
+    @else
     <table class="table border mb-0">
         <thead class="thead thead-light">
             <tr>
@@ -63,5 +67,6 @@
             @endforeach
         </tbody>
     </table>
+    @endif
 </div>
 @endsection

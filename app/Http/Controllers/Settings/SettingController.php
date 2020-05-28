@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Settings;
 use App\Setting;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\SettingI18n;
 
 class SettingController extends Controller
 {
@@ -102,5 +103,48 @@ class SettingController extends Controller
     public function destroy(Setting $setting)
     {
         //
+    }
+
+    /**
+     * This is called during installation process.
+     *
+     * @return bool
+     */
+    public function install()
+    {
+        $path = \base_path() . "/config/install/settings.json";
+
+        $json = json_decode(file_get_contents($path), true);
+
+        foreach ($json['settings'] as $value) {
+            $setting = new Setting();
+
+            $setting->code = $value['code'];
+            $setting->type = $value['type'];
+            $setting->isEditable = $value['isEditable'];
+            $setting->save();
+
+            if (isset($value['value'])) {
+                $setting->value = $value['value'];
+            }
+
+            if (isset($value['i18n'])) {
+                foreach ($value['i18n'] as $valueI18n) {
+                    $settingI18n = new SettingI18n();
+
+                    $settingI18n->setting_id = $setting->id;
+                    $settingI18n->lang = $valueI18n['lang'];
+                    $settingI18n->title = $valueI18n['title'];
+                    $settingI18n->save();
+
+                    if (isset($valueI18n['help'])) {
+                        $settingI18n->help = $valueI18n['help'];
+                        $settingI18n->save();
+                    }
+                }
+            }
+        }
+
+        return true;
     }
 }

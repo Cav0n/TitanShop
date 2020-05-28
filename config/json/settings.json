@@ -1,0 +1,128 @@
+{
+    "settings": [
+        {
+            "code": "SHOP_ACTIVATED",
+            "type": "bool",
+            "isEditable": 0,
+            "value": 0
+        },{
+            "code": "EMAIL_ACTIVATED",
+            "type": "bool",
+            "isEditable": 0,
+            "value": 0
+        },{
+            "code": "SHOP_NAME",
+            "type": "string",
+            "isEditable": 1,
+            "i18n": [
+                {
+                    "lang": "FR",
+                    "title": "Nom de la boutique"
+                }
+            ]
+        },{
+            "code": "SHOP_DESCRIPTION",
+            "type": "string",
+            "isEditable": 1,
+            "i18n": [
+                {
+                    "lang": "FR",
+                    "title": "Description de la boutique",
+                    "help": "La description s'affiche sur la page d'accueil du site."
+                }
+            ]
+        },{
+            "code": "SHOP_URL",
+            "type": "string",
+            "isEditable": 1,
+            "i18n": [
+                {
+                    "lang": "FR",
+                    "title": "URL du site"
+                }
+            ]
+        },{
+            "code": "SHOP_EMAIL",
+            "type": "string",
+            "isEditable": 1,
+            "i18n": [
+                {
+                    "lang": "FR",
+                    "title": "Email de contact",
+                    "help": "Les messages envoyés à partir du formulaire de contact seront reçus à cette adresse mail."
+                }
+            ]
+        },{
+            "code": "SHIPPING_COSTS",
+            "type": "price",
+            "isEditable": 1,
+            "value": 0,
+            "i18n": [
+                {
+                    "lang": "FR",
+                    "title": "Frais de port",
+                    "help": "Les frais de port du site."
+                }
+            ]
+        },{
+            "code": "SHIPPING_COSTS_FROM_PRICE",
+            "type": "price",
+            "isEditable": 1,
+            "value": 0,
+            "i18n": [
+                {
+                    "lang": "FR",
+                    "title": "Les frais de ports sont gratuits à partir de :",
+                    "help": "Les frais de ports seront gratuits à partir de ce montant d'achat, indiqué 0 ou laisser vide pour toujours avoir les frais de port."
+                }
+            ]
+        },{
+            "code": "SFTP_HOST",
+            "type": "string",
+            "isEditable": 1,
+            "value": null,
+            "i18n":  [
+                {
+                    "lang": "FR",
+                    "title": "Hôte SMTP",
+                    "help": "L'adresse de votre hôte SMTP."
+                }
+            ]
+        },{
+            "code": "SFTP_PORT",
+            "type": "string",
+            "isEditable": 1,
+            "value": null,
+            "i18n":  [
+                {
+                    "lang": "FR",
+                    "title": "Port SMTP",
+                    "help": "Le port SMTP (en général il s'agit de 25, 465 ou 587)."
+                }
+            ]
+        },{
+            "code": "SFTP_USERNAME",
+            "type": "string",
+            "isEditable": 1,
+            "value": null,
+            "i18n":  [
+                {
+                    "lang": "FR",
+                    "title": "Login SMTP",
+                    "help": "Votre identifiant de connexion (en général il s'agit de l'adresse email)."
+                }
+            ]
+        },{
+            "code": "SFTP_PASSWORD",
+            "type": "string",
+            "isEditable": 1,
+            "value": null,
+            "i18n":  [
+                {
+                    "lang": "FR",
+                    "title": "Mot de passe SMTP"
+                }
+            ]
+        }
+    ]
+}
