@@ -11,6 +11,7 @@ use App\Mail\OrderCreated;
 use App\Mail\OrderStatusUpdated;
 use App\OrderItem;
 use Exception;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Mail;
 
@@ -78,7 +79,7 @@ class OrderController extends Controller
             Mail::to($order->email)->send(new OrderCreated($order));
             Mail::to(\App\Setting::valueOrNull('SHOP_EMAIL'))->send(new AdminOrderCreated($order));
         } catch (Exception $e) {
-            throw $e;
+            Log::alert('MAIL ERROR : ' . $e->getMessage());
         }
 
         return $order;
@@ -144,7 +145,7 @@ class OrderController extends Controller
         try {
             Mail::to($order->email)->send(new OrderStatusUpdated($order));
         } catch (Exception $e) {
-            throw $e;
+            Log::alert('MAIL ERROR : ' . $e->getMessage());
         }
 
         return response()->json([

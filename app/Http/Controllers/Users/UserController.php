@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Hash;
 use App\Http\Controllers\Controller;
 use App\Mail\UserRegistered;
 use Exception;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Mail;
@@ -63,7 +64,7 @@ class UserController extends Controller
             Mail::to($customer->email)->send(
                 new UserRegistered($customer));
         } catch (Exception $e) {
-            throw $e;
+            Log::alert('MAIL ERROR : ' . $e->getMessage());
         }
 
         return redirect()->back()->with(['success' => ['Votre compte a été créé avec succés.']]);

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Main;
 use App\Http\Controllers\Controller;
 use App\Mail\ContactMessage;
 use Exception;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 
@@ -37,7 +38,7 @@ class ContactController extends Controller
             Mail::to(\App\Setting::valueOrNull('SHOP_EMAIL'))->send(
                 new ContactMessage($request['name'], $request['email'], $request['message']));
         } catch (Exception $e) {
-            // futur log
+            Log::alert('MAIL ERROR : ' . $e->getMessage());
         }
 
         return redirect()->back()->with(['success' => ['Votre message a été envoyé avec succés.']]);

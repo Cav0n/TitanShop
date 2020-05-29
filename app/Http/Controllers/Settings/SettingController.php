@@ -112,7 +112,7 @@ class SettingController extends Controller
      */
     public function install()
     {
-        $path = \base_path() . "/config/install/settings.json";
+        $path = \base_path() . "/config/json/settings.json";
 
         $json = json_decode(file_get_contents($path), true);
 
