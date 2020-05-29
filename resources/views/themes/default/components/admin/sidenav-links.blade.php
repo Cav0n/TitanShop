@@ -63,7 +63,7 @@
         </div>
     </div>
 
-    <div class="row mx-0 mx-lg-2 mt-2 pt-2 border-top">
+    <div class="row mx-0 mx-lg-2 mt-2 pt-2 border-top text-muted">
         <div class="d-none d-lg-flex flex-column col-2 p-0">
             <img src="{{ asset('images/icons/logout-bw.svg') }}" alt="settings icon" class="svg w-100">
         </div>
