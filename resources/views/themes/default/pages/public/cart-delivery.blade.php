@@ -33,29 +33,29 @@
 
         <div class="form-group col-12 col-lg-6">
             <label for="shipping_lastname">Nom de famille du destinataire</label>
-            <input type="text" class="form-control" name="shipping[lastname]" id="shipping_lastname" value="{{ old('shipping')['lastname'] }}">
+            <input type="text" class="form-control" name="shipping[lastname]" id="shipping_lastname" value="{{ null !== old('shipping') ? old('shipping')['lastname'] : null }}">
         </div>
         <div class="form-group col-12 col-lg-6">
             <label for="shipping_firstname">Prénom du destinataire</label>
-            <input type="text" class="form-control" name="shipping[firstname]" id="shipping_firstname" value="{{ old('shipping')['firstname'] }}">
+            <input type="text" class="form-control" name="shipping[firstname]" id="shipping_firstname" value="{{ null !== old('shipping') ? old('shipping')['firstname'] : null }}">
         </div>
 
         <div class="form-group col-12">
             <label for="shipping_street">Rue</label>
-            <input type="text" class="form-control" name="shipping[street]" id="shipping_street" value="{{ old('shipping')['street'] }}">
+            <input type="text" class="form-control" name="shipping[street]" id="shipping_street" value="{{ null !== old('shipping') ? old('shipping')['street'] : null }}">
         </div>
         <div class="form-group col-12">
             <label for="shipping_street2">Complément d'adresse</label>
-            <input type="text" class="form-control" name="shipping[street2]" id="shipping_street2" aria-describedby="helpStreet2" value="{{ old('shipping')['street2'] }}">
+            <input type="text" class="form-control" name="shipping[street2]" id="shipping_street2" aria-describedby="helpStreet2" value="{{ null !== old('shipping') ? old('shipping')['street2'] : null }}">
             <small id="helpStreet2" class="form-text text-muted">Numéro d'appartement, nom de résidence...</small>
         </div>
         <div class="form-group col-12 col-lg-4">
             <label for="shipping_zipCode">Code postal</label>
-            <input type="text" class="form-control" name="shipping[zipCode]" id="shipping_zipCode" value="{{ old('shipping')['zipCode'] }}">
+            <input type="text" class="form-control" name="shipping[zipCode]" id="shipping_zipCode" value="{{ null !== old('shipping') ? old('shipping')['zipCode'] : null }}">
         </div>
         <div class="form-group col-12 col-lg-8">
             <label for="shipping_city">Ville</label>
-            <input type="text" class="form-control" name="shipping[city]" id="shipping_city" value="{{ old('shipping')['city'] }}">
+            <input type="text" class="form-control" name="shipping[city]" id="shipping_city" value="{{ null !== old('shipping') ? old('shipping')['city'] : null }}">
         </div>
         <div class="form-group col-12 text-center">
             <div class="form-check form-check-inline">
@@ -74,29 +74,29 @@
 
         <div class="form-group col-12 col-lg-6">
             <label for="billing_lastname">Nom de famille</label>
-            <input type="text" class="form-control" name="billing[lastname]" id="billing_lastname" value="{{ old('billing')['lastname'] }}">
+            <input type="text" class="form-control" name="billing[lastname]" id="billing_lastname" value="{{ null !== old('billing') ? old('billing')['lastname'] : null }}">
         </div>
         <div class="form-group col-12 col-lg-6">
             <label for="billing_firstname">Prénom</label>
-            <input type="text" class="form-control" name="billing[firstname]" id="billing_firstname" value="{{ old('billing')['firstname'] }}">
+            <input type="text" class="form-control" name="billing[firstname]" id="billing_firstname" value="{{ null !== old('billing') ? old('billing')['firstname'] : null }}">
         </div>
 
         <div class="form-group col-12">
             <label for="billing_street">Rue</label>
-            <input type="text" class="form-control" name="billing[street]" id="billing_street" value="{{ old('billing')['street'] }}">
+            <input type="text" class="form-control" name="billing[street]" id="billing_street" value="{{ null !== old('billing') ? old('billing')['street'] : null }}">
         </div>
         <div class="form-group col-12">
             <label for="billing_street2">Complément d'adresse</label>
-            <input type="text" class="form-control" name="billing[street2]" id="billing_street2" aria-describedby="helpStreet2" value="{{ old('billing')['street2'] }}">
+            <input type="text" class="form-control" name="billing[street2]" id="billing_street2" aria-describedby="helpStreet2" value="{{ null !== old('billing') ? old('billing')['street2'] : null }}">
             <small id="helpStreet2" class="form-text text-muted">Numéro d'appartement, nom de résidence...</small>
         </div>
         <div class="form-group col-12 col-lg-4">
             <label for="billing_zipCode">Code postal</label>
-            <input type="text" class="form-control" name="billing[zipCode]" id="billing_zipCode" value="{{ old('billing')['zipCode'] }}">
+            <input type="text" class="form-control" name="billing[zipCode]" id="billing_zipCode" value="{{ null !== old('billing') ? old('billing')['zipCode'] : null }}">
         </div>
         <div class="form-group col-12 col-lg-8">
             <label for="billing_city">Ville</label>
-            <input type="text" class="form-control" name="billing[city]" id="billing_city" value="{{ old('billing')['city'] }}">
+            <input type="text" class="form-control" name="billing[city]" id="billing_city" value="{{ null !== old('billing') ? old('billing')['city'] : null }}">
         </div>
     </div>
 
