@@ -45,17 +45,19 @@ class CategoryBaseController extends Controller
      */
     public function store(Request $request)
     {
+        CategoryI18n::validator($request->all())->validate();
+
+        $categoryI18n = new CategoryI18n();
+        $categoryI18n->title = $request['title'];
+        $categoryI18n->description = $request['description'];
+
         $categoryBase = new CategoryBase();
         $categoryBase->parent_id = $request['parent_id'];
         $categoryBase->isVisible = $request['isVisible'] ? 1 : 0;
 
         $categoryBase->save();
 
-        $categoryI18n = new CategoryI18n();
-        $categoryI18n->title = $request['title'];
-        $categoryI18n->description = $request['description'];
         $categoryI18n->category_base_id = $categoryBase->id;
-
         $categoryI18n->save();
 
         return redirect(route('admin.category.edit', ['categoryBase' => $categoryBase]));
@@ -92,6 +94,8 @@ class CategoryBaseController extends Controller
      */
     public function update(Request $request, CategoryBase $categoryBase)
     {
+        CategoryI18n::validator($request->all())->validate();
+
         $categoryBase->isVisible = $request['isVisible'] ? 1 : 0;
         $categoryBase->save();
 
