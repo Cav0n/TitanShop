@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Hash;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
+use Illuminate\Support\Str;
 
 class AdminController extends Controller
 {
@@ -53,6 +54,14 @@ class AdminController extends Controller
         $administrator->save();
 
         if(isset($request['next_url'])) {
+            if (route('install.success') === $request['next_url']) {
+                $token = Str::random(60);
+                $administrator->token = Hash::make($token);
+                $administrator->save();
+                $administrator->token = $token;
+                session(['admin' => $administrator]);
+            }
+
             return redirect($request['next_url']);
         }
 

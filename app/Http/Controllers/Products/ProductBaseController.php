@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Products;
 
+use App\CategoryBase;
+use App\CategoryI18n;
 use App\ProductBase;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -57,7 +59,23 @@ class ProductBaseController extends Controller
         $product->isVisible = $request['isVisible'] ? 1 : 0;
         $product->save();
 
-        $product->categories()->attach($request['category']);
+        if (isset($request['category'])) {
+            $product->categories()->attach($request['category']);
+        }
+
+        if (isset($request['categoryName'])) {
+            $categoryI18n = new CategoryI18n();
+            $categoryI18n->title = $request['categoryName'];
+            $categoryI18n->description = $request['categoryDescription'];
+
+            $categoryBase = new CategoryBase();
+            $categoryBase->parent_id = $request['parent_id'];
+            $categoryBase->isVisible = $request['isVisible'] ? 1 : 0;
+            $categoryBase->save();
+
+            $categoryI18n->category_base_id = $categoryBase->id;
+            $categoryI18n->save();
+        }
 
         $productI18n = new ProductI18n();
         $productI18n->product_base_id = $product->id;

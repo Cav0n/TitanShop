@@ -11,12 +11,7 @@
 
 @section('page.buttons')
 
-@if(\App\CategoryBase::count() <= 0)
-  <button type="button" class="btn btn-secondary button-popover" data-container="body" data-toggle="popover" data-placement="left" data-content="Vous devez d'abord créer au moins une catégorie." data-hover="trigger">
-      Créer un produit</button>
-@else
 <a class="btn btn-primary mb-3" href="{{ route('admin.product.create') }}" role="button">Créer un produit</a>
-@endif
 
 @endsection
 

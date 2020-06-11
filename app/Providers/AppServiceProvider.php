@@ -34,7 +34,11 @@ class AppServiceProvider extends ServiceProvider
                 return 'active';
             }
         });
-        
+
+        Blade::if('isAdmin', function () {
+            return \App\Admin::check();
+        });
+
         Blade::include('themes.default.components.hook', 'hook');
     }
 }
