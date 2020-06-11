@@ -2,12 +2,16 @@
 
 namespace App\Providers;
 
+use App\Hook;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\Request;
+use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
 {
+    const VIEW_PREFIX = 'themes.default.';
+
     /**
      * Register any application services.
      *
@@ -30,5 +34,11 @@ class AppServiceProvider extends ServiceProvider
                 return 'active';
             }
         });
+
+        Blade::if('isAdmin', function () {
+            return \App\Admin::check();
+        });
+
+        Blade::include('themes.default.components.hook', 'hook');
     }
 }

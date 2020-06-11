@@ -3,6 +3,8 @@
 @section('page.title',  'Espace client - ' . App\Setting::valueOrNull('SHOP_NAME'))
 
 @section('page.content')
+    @hook(['code' => 'customer-area.login.top'])
+
     <div id="breadcrumb">
         / <a href="{{ route('index') }}">Accueil</a>
         / <a href="{{ route('customer-area.index') }}">Espace client</a>
@@ -29,4 +31,6 @@
         </div>
         <button type="submit" class="btn btn-primary">Connexion</button>
     </form>
+
+    @hook(['code' => 'customer-area.login.bottom'])
 @endsection

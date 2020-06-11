@@ -3,6 +3,8 @@
 @section('page.title', 'Suivre une commande - ' . App\Setting::valueOrNull('SHOP_NAME'))
 
 @section('page.content')
+    @hook(['code' => 'public.order-tracking.top'])
+
     <div id="breadcrumb">
         / <a href="{{ route('index') }}">Accueil</a>
         / <a href="{{ route('order.tracking') }}">Suivre une commande</a>
@@ -20,6 +22,8 @@
             </div>
         </div>
     </div>
+
+    @hook(['code' => 'public.order-tracking.bottom'])
 @endsection
 
 @section('scripts')

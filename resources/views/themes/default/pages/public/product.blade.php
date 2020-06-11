@@ -15,6 +15,8 @@
 @endsection
 
 @section('page.content')
+    @hook(['code' => 'public.product.top'])
+
     <div id="breadcrumb" class="mb-3">
         <div class="col-12 offset-lg-4 col-lg-8 p-0">
             {!! $product->breadcrumb !!}
@@ -64,6 +66,8 @@
             </div>
         </div>
     </div>
+
+    @hook(['code' => 'public.product.bottom'])
 @endsection
 
 @section('scripts')

@@ -27,7 +27,7 @@
                             <div class="col-12 form-group">
                                 <label for="shop_url">Adresse du site</label>
                                 <input type="text" class="form-control" name="settings[SHOP_URL]" id="shop_url" aria-describedby="helpShopUrl"
-                                    value="{{ old('settings[SHOP_URL]', (\App\Setting::valueOrNull('SHOP_URL')) ) }}">
+                                    value="{{ old('settings[SHOP_URL]', (\App\Setting::valueOrNull('SHOP_URL', url('/'))) ) }}">
                                 <small id="helpShopUrl" class="form-text text-muted">Il semblerait que l'adresse soit : {{ url('/') }}</small>
                             </div>
 

@@ -3,6 +3,8 @@
 @section('page.title', 'Mon panier - ' . App\Setting::valueOrNull('SHOP_NAME'))
 
 @section('page.content')
+    @hook(['code' => 'public.cart.top'])
+
     <div class="row mb-3">
         <div class="col-12">
             <p id="breadcrumb">
@@ -48,4 +50,6 @@
 
         @endif
     </div>
+
+    @hook(['code' => 'public.cart.bottom'])
 @endsection

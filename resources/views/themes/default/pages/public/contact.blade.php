@@ -3,11 +3,13 @@
 @section('page.title', 'Contact - ' . App\Setting::valueOrNull('SHOP_NAME'))
 
 @section('page.content')
-<div id="breadcrumb">
-    / <a href="{{ route('index') }}">Accueil</a>
-    / <a href="{{ route('contact.show') }}">Contactez-nous</a>
-</div>
-<h1 class="h3">Contactez-nous</h1>
+    @hook(['code' => 'public.contact.top'])
+
+    <div id="breadcrumb">
+        / <a href="{{ route('index') }}">Accueil</a>
+        / <a href="{{ route('contact.show') }}">Contactez-nous</a>
+    </div>
+    <h1 class="h3">Contactez-nous</h1>
 
     @include('themes.default.components.alerts.error')
     @include('themes.default.components.alerts.success')
@@ -37,4 +39,6 @@
             <button type="submit" class="btn btn-primary">Envoyer</button>
         </form>
     </div>
+
+    @hook(['code' => 'public.contact.bottom'])
 @endsection

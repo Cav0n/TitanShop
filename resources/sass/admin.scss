@@ -16,6 +16,7 @@
 
 .sidenav .svg {
     fill: black;
+    max-height: 2.6rem;
 }
 
 .sidenav a.active {
@@ -45,4 +46,8 @@ a .svg {
 
 .text-muted .svg {
     fill: grey;
+}
+
+.text-muted a {
+    color: grey;
 }

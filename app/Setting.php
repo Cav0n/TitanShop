@@ -86,12 +86,20 @@ class Setting extends Model
         );
     }
 
-    public static function valueOrNull(string $code, $formatted = false)
+    public static function valueOrNull(string $code, $default = null, $formatted = false)
     {
         $setting = \App\Setting::where('code', $code)->first();
 
         if (null === $setting || ! \in_array($setting->type, self::TYPES)) {
+            if ($default !== null) {
+                return $default;
+            }
+
             return null;
+        }
+
+        if (null === $setting->value) {
+            return $default;
         }
 
         if ("price" === $setting->type && $formatted) {

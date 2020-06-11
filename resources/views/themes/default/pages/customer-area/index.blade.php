@@ -3,6 +3,8 @@
 @section('page.title',  'Espace client - ' . App\Setting::valueOrNull('SHOP_NAME'))
 
 @section('page.content')
+    @hook(['code' => 'customer-area.homepage.top'])
+
     @include('themes.default.components.alerts.error')
     @include('themes.default.components.alerts.success')
 
@@ -42,6 +44,7 @@
         </div>
     </div>
 
+    @hook(['code' => 'customer-area.homepage.bottom'])
 @endsection
 
 @section('scripts')
