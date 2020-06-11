@@ -6,6 +6,8 @@
     <h1>{{ App\Setting::valueOrNull('SHOP_NAME') }}</h1>
     <p>{{ App\Setting::valueOrNull('SHOP_DESCRIPTION') }}</p>
 
+    @hook(['code' => 'homepage.top'])
+
     @if(0 === count($products))
     <p class="h3 text-center">Aucun produit n'est en vente pour le moment</p>
     @endif
