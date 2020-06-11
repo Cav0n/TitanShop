@@ -1,62 +1,70 @@
 <form action="{{ route('admin.product.store') }}" method="POST">
     @csrf
-    <div class="form-group">
-        <label for="title">Titre</label>
-        <input type="text" class="form-control" name="title" id="title" aria-describedby="helpTitle" value="{{ old('title') }}" required>
-        <small id="helpTitle" class="form-text text-muted">Nom du produit</small>
-    </div>
-    <div class="form-group">
-        <label for="description">Description</label>
-        <textarea class="form-control" name="description" id="description" aria-describedby="helpDescription" rows="5" required>{{ old('description') }}</textarea>
-        <small id="helpDescription" class="form-text text-muted">Une description détaillée du produit</small>
-    </div>
+
+    @include('themes.default.components.forms.input', [
+        'name' => 'title',
+        'label' => 'Titre',
+        'required' => true
+    ])
+
+    @include('themes.default.components.forms.textarea', [
+        'name' => 'description',
+        'label' => 'Description',
+        'required' => true
+    ])
+
 
     <div class="row">
-        <div class="form-group col-md-6">
-            <label for="price">Prix</label>
-            <input type="number" class="form-control" name="price" id="price" aria-describedby="helpPrice" value="{{ old('price') }}" min="0.01" step="0.01" required>
-            <small id="helpPrice" class="form-text text-muted">Le prix de base du produit</small>
+        <div class="col-md-6">
+            @include('themes.default.components.forms.price', [
+                'name' => 'price',
+                'label' => 'Prix',
+                'min' => 0,
+                'step' => 0.01,
+                'required' => true
+            ])
         </div>
-        <div class="form-group col-md-6">
-            <label for="stock">Stock</label>
-            <input type="number" class="form-control" name="stock" id="stock" aria-describedby="helpStock" value="{{ old('stock') }}" min="0" step="1">
-            <small id="helpStock" class="form-text text-muted">La quantité disponible pour ce produit</small>
+
+        <div class="col-md-6">
+            @include('themes.default.components.forms.input', [
+                'name' => 'stock',
+                'label' => 'Stock',
+                'type' => 'number',
+                'min' => 0,
+                'step' => 1,
+                'required' => false
+            ])
         </div>
     </div>
 
     <div class="form-group">
-
         @if(isset($categories) && 0 < count($categories))
-        <label for="category-select">Catégorie</label>
-        <select id="category-select" class="custom-select" name="category">
-            <option selected="true" disabled="disabled">Veuillez choisir une catégorie</option>
-            @foreach ($categories as $category)
-                <option value="{{ $category->id }}">{{ $category->title }}</option>
-            @endforeach
-        </select>
+            @include('themes.default.components.forms.select', [
+                'name' => 'category',
+                'label' => 'Catégorie',
+                'value' => old('category'),
+                'options' => $categoriesOptions
+            ])
         @else
-        <div class="form-group">
-            <label for="category-name">Nom de la catégorie du produit</label>
-            <input type="text" class="form-control" name="categoryName" id="category-name" aria-describedby="helpCategoryName" required>
-            <small id="helpCategoryName" class="form-text text-muted">Le nom de la catégorie a créer avec le produit.</small>
-        </div>
+            @include('themes.default.components.forms.input', [
+                'name' => 'categoryName',
+                'label' => 'Nom de la catégorie du produit',
+                'required' => true
+            ])
 
-        <div class="form-group">
-            <label for="category-description">Description de la catégorie du produit</label>
-            <input type="text" class="form-control" name="categoryDescription" id="category-description" aria-describedby="helpCategoryDescription" required>
-            <small id="helpCategoryDescription" class="form-text text-muted">La description de la catégorie a créer avec le produit.</small>
-        </div>
+            @include('themes.default.components.forms.textarea', [
+                'name' => 'categoryDescription',
+                'label' => 'Description de la catégorie du produit',
+                'required' => true
+            ])
         @endif
     </div>
 
-    <div class="form-group mb-3">
-        <div class="form-check form-check-inline">
-            <label class="form-check-label">
-                <input class="form-check-input" type="checkbox" name="isVisible" id="isVisible" value="isVisible" @if(old('isVisible')) checked=checked @endif>
-                    Le produit est visible
-            </label>
-        </div>
-    </div>
+    @include('themes.default.components.forms.checkbox', [
+        'name' => 'isVisible',
+        'label' => 'Le produit est visible',
+        'checked' => old('isVisible'),
+    ])
 
     <input type="hidden" name="lang" value="FR">
 

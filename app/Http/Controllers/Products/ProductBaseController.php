@@ -33,7 +33,21 @@ class ProductBaseController extends Controller
     {
         $categories = \App\CategoryBase::where('isDeleted', 0)->get();
 
-        return view('themes.default.pages.admin.product', ['categories' => $categories]);
+        $categoriesOptions = array();
+        $categoriesOptions[] = [
+            'value' => null,
+            'text' => 'Selectionnez une catégorie',
+            'disabled' => true,
+        ];
+
+        foreach ($categories as $category) {
+            $categoriesOptions[] = [
+                'value' => $category->id,
+                'text' => $category->title,
+            ];
+        }
+
+        return view('themes.default.pages.admin.product', ['categories' => $categories, 'categoriesOptions' => $categoriesOptions]);
     }
 
     /**
