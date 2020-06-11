@@ -3,6 +3,8 @@
 @section('page.title', App\Setting::valueOrNull('SHOP_NAME'))
 
 @section('page.content')
+    @hook(['code' => 'public.homepage.top'])
+
     <h1>{{ App\Setting::valueOrNull('SHOP_NAME') }}</h1>
     <p>{{ App\Setting::valueOrNull('SHOP_DESCRIPTION') }}</p>
 
@@ -19,4 +21,6 @@
         </div>
         @endforeach
     </div>
+
+    @hook(['code' => 'public.homepage.bottom'])
 @endsection

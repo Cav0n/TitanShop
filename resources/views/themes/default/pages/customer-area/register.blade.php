@@ -3,6 +3,8 @@
 @section('page.title',  'Espace client - ' . App\Setting::valueOrNull('SHOP_NAME'))
 
 @section('page.content')
+    @hook(['code' => 'customer-area.register.top'])
+
     <div id="breadcrumb">
         / <a href="{{ route('index') }}">Accueil</a>
         / <a href="{{ route('customer-area.index') }}">Espace client</a>
@@ -42,4 +44,6 @@
         </div>
         <button type="submit" class="btn btn-primary">Créer mon compte</button>
     </form>
+
+    @hook(['code' => 'customer-area.register.bottom'])
 @endsection

@@ -3,6 +3,8 @@
 @section('page.title', 'Produit ajouté au panier - ' . App\Setting::valueOrNull('SHOP_NAME'))
 
 @section('page.content')
+    @hook(['code' => 'public.added-to-cart.top'])
+
     <h1 class="text-center h3">{{ $item->product->title }} a été ajouté au panier</h1>
 
     <div class="row bg-white shadow-sm p-3 mx-0">
@@ -39,4 +41,7 @@
             <a class="btn btn-primary w-100" href="{{ route('cart') }}" role="button">Aller au panier</a>
         </div>
     </div>
+
+    @hook(['code' => 'public.added-to-cart.bottom'])
+
 @endsection
