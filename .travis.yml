@@ -12,8 +12,7 @@ cache:
 before_script:
   - cp .env.travis .env
   - sudo mysql -e 'create database titanshop;'
-  - composer self-update
-  - composer install --prefer-source --no-interaction --dev
+  - composer install -q --no-ansi --no-interaction --no-scripts --no-suggest --no-progress --prefer-dist
   - php artisan key:generate
   - php artisan migrate
 script:
