@@ -32,7 +32,11 @@
         <div class="row justify-content-center">
             <div class="col-12 col-lg-10 col-xl-8">
 
+                @hook(['code' => 'public.template.top'])
+
                 @yield('page.content')
+
+                @hook(['code' => 'public.template.bottom'])
 
             </div>
         </div>

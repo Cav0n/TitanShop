@@ -13,6 +13,8 @@
 @endsection
 
 @section('page.content')
+    @hook(['code' => 'public.category.top'])
+
     <div id="breadcrumb" class="row">
         <div class="col-12">
             {!! $category->breadcrumb !!}
@@ -59,4 +61,6 @@
         </div>
         @endif
     </div>
+
+    @hook(['code' => 'public.category.bottom'])
 @endsection
