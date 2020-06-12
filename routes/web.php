@@ -13,6 +13,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::any('/test', 'Products\ProductBaseController@updateImageSorting');
+
 /**
  * INSTALLATION ROUTES
  */

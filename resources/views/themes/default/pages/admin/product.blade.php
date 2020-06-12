@@ -29,12 +29,8 @@
 @include('themes.default.components.alerts.success')
 
 <div class="bg-white p-3 shadow-sm">
-    @isset($product)
-        @include('themes.default.pages.admin.forms.product-edit', [
-            'product' => $product
-            ])
-    @else
-        @include('themes.default.pages.admin.forms.product-create')
-    @endisset
+    @include('themes.default.pages.admin.forms.product-edition', [
+            'product' => $product ?? null
+        ])
 </div>
 @endsection

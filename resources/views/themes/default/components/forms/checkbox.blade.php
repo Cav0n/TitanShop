@@ -8,7 +8,7 @@
                 name="{{$name}}"
                 id="{{$id ?? $name}}"
                 value="{{$value ?? null}}"
-                @if(isset($checked) && $checked)
+                @if(old($name, (isset($checked) && $checked)))
                     checked=checked
                 @endif>
                 {{$label}}

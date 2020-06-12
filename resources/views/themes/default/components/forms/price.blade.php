@@ -12,14 +12,14 @@
             id="{{$id ?? $name}}"
             placeholder="{{$placeholder ?? null}}"
             value="{{$value ?? old("$name")}}"
+            min="{{$min ?? 0}}"
+            step="{{$step ?? 0.01}}"
             @isset($help)
                 aria-describedby="help{{$name}}"
             @endisset
-            min={{$step ?? 0.01}}
             @isset($max)
                 max={{$max}}
             @endisset
-            step={{$step ?? 0.01}}
             @if(isset($required) && $required)
                 required="required"
             @endif
