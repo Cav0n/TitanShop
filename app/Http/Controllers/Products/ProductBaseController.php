@@ -33,7 +33,24 @@ class ProductBaseController extends Controller
     {
         $categories = \App\CategoryBase::where('isDeleted', 0)->get();
 
-        return view('themes.default.pages.admin.product', ['categories' => $categories]);
+        $categoriesOptions = array();
+        $categoriesOptions[] = [
+            'value' => null,
+            'text' => 'Selectionnez une catégorie',
+            'disabled' => true,
+        ];
+
+        foreach ($categories as $category) {
+            $categoriesOptions[] = [
+                'value' => $category->id,
+                'text' => $category->title,
+            ];
+        }
+
+        return view('themes.default.pages.admin.product', [
+            'categories' => $categories,
+            'categoriesOptions' => $categoriesOptions
+        ]);
     }
 
     /**
@@ -110,8 +127,23 @@ class ProductBaseController extends Controller
     {
         $categories = \App\CategoryBase::where('isDeleted', 0)->get();
 
+        $categoriesOptions = array();
+        $categoriesOptions[] = [
+            'value' => null,
+            'text' => 'Selectionnez une catégorie',
+            'disabled' => true,
+        ];
+
+        foreach ($categories as $category) {
+            $categoriesOptions[] = [
+                'value' => $category->id,
+                'text' => $category->title,
+            ];
+        }
+
         return view('themes.default.pages.admin.product', [
             'categories' => $categories,
+            'categoriesOptions' => $categoriesOptions,
             'product' => $product
         ]);
     }
@@ -193,5 +225,16 @@ class ProductBaseController extends Controller
     {
         $product->isDeleted = true;
         $product->save();
+    }
+
+    public function updateImageSorting(Request $request)
+    {
+        $images = ProductBase::where('id', $request['product_id'])->first()->images;
+
+        $requestedImage = $images->where('id', $request['image_id'])->first();
+
+        //TODO
+
+        //dd($requestedImage->pivot->rank);
     }
 }

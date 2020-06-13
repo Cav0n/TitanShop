@@ -20,6 +20,7 @@
     {{-- JS --}}
     <script src="{{ asset('js/app.js') }}"></script>
     <script src="{{ asset('js/admin.js') }}"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     @yield('page.js_import')
 
     @if (\App\Admin::check())
