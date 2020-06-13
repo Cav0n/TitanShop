@@ -14,7 +14,7 @@ class AdministratorTest extends TestCase
 
     public function testCompleteCreation()
     {
-        $administrator = self::createCompleteAdministrator();
+        $administrator = self::create();
 
         $administrator->save();
 
@@ -23,7 +23,7 @@ class AdministratorTest extends TestCase
 
     public function testExistingNicknameCreation()
     {
-        $administrator1 = self::createCompleteAdministrator(
+        $administrator1 = self::create(
             null,
             null,
             "fbernard",
@@ -34,7 +34,7 @@ class AdministratorTest extends TestCase
 
         $this->assertNotNull($administrator1);
 
-        $administrator2 = self::createCompleteAdministrator(
+        $administrator2 = self::create(
             null,
             null,
             "fbernard",
@@ -48,7 +48,7 @@ class AdministratorTest extends TestCase
 
     public function testExistingEmailCreation()
     {
-        $administrator1 = self::createCompleteAdministrator(
+        $administrator1 = self::create(
             null,
             null,
             "fbernard",
@@ -59,7 +59,7 @@ class AdministratorTest extends TestCase
 
         $this->assertNotNull($administrator1);
 
-        $administrator2 = self::createCompleteAdministrator(
+        $administrator2 = self::create(
             null,
             null,
             "lecoinks",
@@ -71,7 +71,7 @@ class AdministratorTest extends TestCase
         $administrator2->save();
     }
 
-    public static function createCompleteAdministrator(
+    public static function create(
         $firstname = null,
         $lastname = null,
         $nickname = null,
