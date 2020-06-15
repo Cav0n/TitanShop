@@ -20,11 +20,16 @@ class ImageTest extends TestCase
 
         $this->assertNotNull($image);
 
-        $imageI18n = self::createI18n();
+        $imageI18n = self::createI18n(
+            $image->id
+        );
 
         $imageI18n->save();
 
         $this->assertNotNull($imageI18n);
+
+        $this->assertEquals('image de test', $image->i18nValue('title'));
+        $this->assertEquals('image de test', $image->i18nValue('alt'));
     }
 
     public static function create(
@@ -44,9 +49,9 @@ class ImageTest extends TestCase
     ) {
         $imageI18n = new ImageI18n();
         $imageI18n->image_id = $image_id;
-        $imageI18n->lang = $lang;
-        $imageI18n->alt = $alt;
-        $imageI18n->title = $title;
+        $imageI18n->lang = $lang ?? 'fr';
+        $imageI18n->alt = $alt ?? 'image de test';
+        $imageI18n->title = $title ?? 'image de test';
 
         return $imageI18n;
     }  

@@ -9,19 +9,6 @@ class Administrator extends Model
 {
     const PASSWORD_REGEX = '^(?=.*[A-Z])(?=.*[!@#$&*])(?=.*[0-9])(?=.*[a-z]).{8}$';
 
-    public static function validator(array $data)
-    {
-        return Validator::make($data, [
-            'firstname' => 'required|min:2|max:255',
-            'lastname' => 'required|min:2|max:255',
-            'nickname' => 'required|min:2|max:255|unique:administrators',
-            'email' => 'required|unique:administrators',
-            'password' => 'required|confirmed|regex:/'.self::PASSWORD_REGEX.'/i',
-            'lang' => 'required',
-            'isActivated' => 'nullable',
-        ]);
-    }
-
     public function setFirstnameAttribute($value)
     {
         $this->attributes['firstname'] = ucfirst($value);
@@ -60,6 +47,19 @@ class Administrator extends Model
     public function getEmailAttribute($value)
     {
         return mb_strtolower($value);
+    }
+
+    public static function validator(array $data)
+    {
+        return Validator::make($data, [
+            'firstname' => 'required|min:2|max:255',
+            'lastname' => 'required|min:2|max:255',
+            'nickname' => 'required|min:2|max:255|unique:administrators',
+            'email' => 'required|unique:administrators',
+            'password' => 'required|confirmed|regex:/'.self::PASSWORD_REGEX.'/i',
+            'lang' => 'required',
+            'isActivated' => 'nullable',
+        ]);
     }
 
     public function storeValues(array $values)

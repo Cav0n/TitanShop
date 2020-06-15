@@ -7,6 +7,11 @@ use Illuminate\Support\Facades\Validator;
 
 class ImageI18n extends Model
 {
+    public function image()
+    {
+        return $this->belongsTo('App\Models\Image');
+    }
+
     public static function validator(array $data)
     {
         return Validator::make($data, [
@@ -15,11 +20,6 @@ class ImageI18n extends Model
             'alt' => 'nullable|min:2',
             'title' => 'nullable|min:2',
         ]);
-    }
-
-    public function image()
-    {
-        return $this->belongsTo('App\Image');
     }
 
     public function storeValues(array $values)
