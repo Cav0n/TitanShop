@@ -14,7 +14,7 @@ class Product extends Model
 
     public function images()
     {
-        return $this->belongsToMany('App\Models\Image');
+        return $this->belongsToMany('App\Models\Image', 'product_image')->withPivot('position');;
     }
 
     public function i18nValue($valueName, $lang = null)

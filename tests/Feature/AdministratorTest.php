@@ -79,8 +79,7 @@ class AdministratorTest extends TestCase
         $password = null,
         $lang = null,
         $isActivated = null
-    )
-    {
+    ) {
         $administrator = new Administrator();
         $administrator->firstname = $firstname ?? "Florian";
         $administrator->lastname = $lastname ?? "Bernard";

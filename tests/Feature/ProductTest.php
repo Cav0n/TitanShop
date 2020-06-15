@@ -18,23 +18,44 @@ class ProductTest extends TestCase
 
     public function testCompleteCreation()
     {
+        // Test simple product creation
         $product = self::create();
-
         $product->save();
-
         $this->assertNotNull($product);
 
-        $productI18n = self::createI18n(
-            $product->id
-        );
-
+        // Test i18n creation
+        $productI18n = self::createI18n($product->id);
         $productI18n->save();
-
         $this->assertNotNull($productI18n);
 
+        // Test relation between i18n and product
         $this->assertEquals(self::DEFAULT_TITLE, $product->i18nValue('title'));
         $this->assertEquals(self::DEFAULT_DESCRIPTION, $product->i18nValue('description'));
         $this->assertEquals(self::DEFAULT_SUMMARY, $product->i18nValue('summary'));
+
+        // Test image product
+        $image = ImageTest::create();
+        $image->save();
+        $product->images()->attach($image);
+        $this->assertEquals(1, count($product->images));
+    }
+
+    public function testImagesPosition()
+    {
+        $product = self::create();
+        $product->save();
+
+        $image = ImageTest::create();
+        $image->save();
+        $product->images()->attach($image, ['position' => 1]);
+
+        $image2 = ImageTest::create(public_path('images/utils/question-mark2.png'));
+        $image2->save();
+        $product->images()->attach($image2, ['position' => 3]);
+
+        // Test product images position
+        $this->assertEquals(1, $product->images[0]->pivot->position);
+        $this->assertEquals(3, $product->images[1]->pivot->position);
     }
 
     public static function create(
@@ -67,5 +88,5 @@ class ProductTest extends TestCase
         $productI18n->summary = $summary ?? self::DEFAULT_SUMMARY;
 
         return $productI18n;
-    }  
+    }
 }

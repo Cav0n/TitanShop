@@ -14,20 +14,17 @@ class ImageTest extends TestCase
 
     public function testCompleteCreation()
     {
+        // Test simple image creation
         $image = self::create();
-
         $image->save();
-
         $this->assertNotNull($image);
 
-        $imageI18n = self::createI18n(
-            $image->id
-        );
-
+        // Test i18n creation
+        $imageI18n = self::createI18n($image->id);
         $imageI18n->save();
-
         $this->assertNotNull($imageI18n);
 
+        // Test relation between i18n and image
         $this->assertEquals('image de test', $image->i18nValue('title'));
         $this->assertEquals('image de test', $image->i18nValue('alt'));
     }
