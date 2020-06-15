@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Utils\CustomString;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\App;
 
@@ -17,6 +18,15 @@ class Product extends Model
         return $this->belongsToMany('App\Models\Image', 'product_image')->withPivot('position');;
     }
 
+    public function setCodeAttribute($value)
+    {
+        if (null === $value) {
+            $this->attributes['code'] = CustomString::prepareStringForURL($this->i18nValue('title'));
+        } else {
+            $this->attributes['code'] = CustomString::prepareStringForURL($value);
+        }
+    }
+
     public function i18nValue($valueName, $lang = null)
     {
         if (!isset($lang)) {
@@ -26,19 +36,5 @@ class Product extends Model
         $i18n = $this->i18ns()->where('lang', $lang)->first();
 
         return $i18n->$valueName;
-    }
-
-    public static function generateCode($title, $sep = '-')
-    {
-        $title = self::stripAccents($title);
-        $title = strtolower($title);
-        $title = preg_replace('/[^[:alnum:]]/', '', $title);
-        $title = preg_replace('/[[:space:]]+/', $sep, $title);
-        return $title;
-
-    }
-
-    private static function stripAccents($stripAccents){
-        return strtr($stripAccents,'àáâãäçèéêëìíîïñòóôõöùúûüýÿÀÁÂÃÄÇÈÉÊËÌÍÎÏÑÒÓÔÕÖÙÚÛÜÝ','aaaaaceeeeiiiinooooouuuuyyAAAAACEEEEIIIINOOOOOUUUUY');
     }
 }

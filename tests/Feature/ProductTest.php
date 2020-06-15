@@ -66,7 +66,7 @@ class ProductTest extends TestCase
         $isDeleted = null
     ) {
         $product = new Product();
-        $product->code = $code ?? Product::generateCode($title ?? self::DEFAULT_TITLE);
+        $product->code = $code ?? self::DEFAULT_TITLE;
         $product->stock = $stock ?? 10;
         $product->price = $price ?? 19.99;
         $product->isVisible = $isVisible ?? true;
