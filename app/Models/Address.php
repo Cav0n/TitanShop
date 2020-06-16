@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Customer extends Model
+class Address extends Model
 {
     public function getFirstnameAttribute($value) {
         return ucfirst($value);
@@ -22,18 +22,8 @@ class Customer extends Model
         $this->attributes['lastname'] = ucfirst($value);
     }
 
-    public function carts()
+    public function customer()
     {
-        return $this->hasMany('App\Models\Cart');
-    }
-
-    public function activeCart()
-    {
-        return $this->hasOne('App\Models\Cart')->where('isActive', 1);
-    }
-
-    public function addresses()
-    {
-        return $this->hasMany('App\Models\PostalAdress');
+        return $this->belongsTo('App\Models\Customer');
     }
 }
