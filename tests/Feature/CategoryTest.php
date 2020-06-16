@@ -6,7 +6,6 @@ use App\Models\Category;
 use App\Models\CategoryI18n;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
-use Illuminate\Http\Request;
 
 class CategoryTest extends TestCase
 {
@@ -41,7 +40,6 @@ class CategoryTest extends TestCase
 
         $categoryI18n->title = 'test oui !';
         $categoryI18n->save();
-        dd($categoryI18n->category);
     }
 
     public function testImagesPosition()

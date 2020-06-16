@@ -6,7 +6,6 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 use App\Models\Image;
 use App\Models\ImageI18n;
-use Illuminate\Http\Request;
 
 class ImageTest extends TestCase
 {

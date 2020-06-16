@@ -6,7 +6,6 @@ use App\Models\Product;
 use App\Models\ProductI18n;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
-use Illuminate\Http\Request;
 
 class ProductTest extends TestCase
 {

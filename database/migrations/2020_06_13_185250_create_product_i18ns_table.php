@@ -15,7 +15,7 @@ class CreateProductI18nsTable extends Migration
     {
         Schema::create('product_i18ns', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('product_id')->constrained();
+            $table->foreignId('product_id')->constrained()->onDelete('cascade');
             $table->string('lang')->default('fr');
             $table->string('title');
             $table->text('description');

@@ -5,7 +5,6 @@ namespace Tests\Feature;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 use App\Models\Administrator;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
 class AdministratorTest extends TestCase

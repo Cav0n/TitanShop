@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CategoryImage extends Migration
+class CreateCartItemsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,11 @@ class CategoryImage extends Migration
      */
     public function up()
     {
-        Schema::create('category_image', function (Blueprint $table) {
+        Schema::create('cart_items', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('category_id')->constrained()->onDelete('cascade');
-            $table->foreignId('image_id')->constrained()->onDelete('cascade');
-            $table->integer('position')->default(0);
+            $table->foreignId('cart_id')->constrained()->onDelete('cascade');
+            $table->foreignId('product_id')->constrained()->onDelete('cascade');
+            $table->integer('quantity')->default(1);
 
             $table->timestamps();
         });
@@ -30,6 +30,6 @@ class CategoryImage extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('category_image');
+        Schema::dropIfExists('cart_items');
     }
 }
