@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\OrderItem;
+use App\Models\OrderItem;
 use Illuminate\Http\Request;
 
 class OrderItemController extends Controller

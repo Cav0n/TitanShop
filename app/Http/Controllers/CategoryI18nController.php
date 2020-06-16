@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\CategoryI18n;
+use App\Models\CategoryI18n;
 use Illuminate\Http\Request;
 
 class CategoryI18nController extends Controller
