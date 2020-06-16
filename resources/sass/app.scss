@@ -2,3 +2,30 @@
 @import 'variables';
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
+// Custom
+html {
+    background: white;
+}
+
+body {
+    background: white;
+    font-family: 'Open Sans', sans-serif;
+}
+
+.h1,
+.h2,
+.h3,
+h1,
+h2,
+h3 {
+    font-weight: 800;
+}
+
+.h4,
+.h5,
+.h6,
+h4,
+h5,
+h6 {
+    font-weight: 600;
+}
