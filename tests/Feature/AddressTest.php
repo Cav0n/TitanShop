@@ -7,7 +7,7 @@ use Tests\TestCase;
 use App\Models\Address;
 use Illuminate\Support\Facades\Hash;
 
-class AdressTest extends TestCase
+class AddressTest extends TestCase
 {
     use RefreshDatabase;
 
@@ -26,7 +26,7 @@ class AdressTest extends TestCase
 
         $customer = CustomerTest::create();
         $customer->save();
-        
+
         $address->customer_id = $customer->id;
         $address->save();
 
