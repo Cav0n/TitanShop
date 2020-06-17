@@ -2,6 +2,8 @@
 
 @section('page.content')
     <div class="col-12">
-        <h2>Bienvenue sur votre nouvelle boutique Titan Shop</h2>
+        @foreach (App\Models\Category::all() as $category)
+            <p>{{$category->title}}</p>
+        @endforeach
     </div>
 @endsection

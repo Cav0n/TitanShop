@@ -10,7 +10,7 @@
 
     <title>@yield('page.title',"TitanShop")</title>
 </head>
-<body class="container-fluid">
+<body id="public-body" class="container-fluid">
 
     @include('default.components.header')
 

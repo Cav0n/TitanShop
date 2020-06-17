@@ -29,3 +29,19 @@ h5,
 h6 {
     font-weight: 600;
 }
+
+p {
+    margin-bottom: 0;
+}
+
+#public-body {
+    max-width: 1300px;
+}
+
+input.search {
+    border: none;
+    box-shadow: none;
+    background: #EEE;
+    border-radius: 25px;
+    max-width: 600px;
+}
