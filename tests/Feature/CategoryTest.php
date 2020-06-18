@@ -66,7 +66,7 @@ class CategoryTest extends TestCase
         $isDeleted = null
     ) {
         $category = new Category();
-        $category->code = $code ?? null;
+        $category->code = $code ?? 'test';
         $category->isVisible = $isVisible ?? true;
         $category->isDeleted = $isDeleted ?? false;
 

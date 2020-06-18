@@ -15,7 +15,7 @@ class CategoryI18n extends Model
     public function setTitleAttribute($value)
     {
         if (null != $this->category) {
-            $this->category->setCodeAttribute(CustomString::prepareStringForURL($value));
+            $this->category->code = CustomString::prepareStringForURL($value);
             $this->category->save();
         }
 

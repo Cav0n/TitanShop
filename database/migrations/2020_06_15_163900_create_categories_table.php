@@ -16,8 +16,8 @@ class CreateCategoriesTable extends Migration
         Schema::create('categories', function (Blueprint $table) {
             $table->id();
             $table->string('code')->unique();
-            $table->boolean('isVisible');
-            $table->boolean('isDeleted');
+            $table->boolean('isVisible')->default(0);
+            $table->boolean('isDeleted')->default(0);
 
             $table->timestamps();
         });
