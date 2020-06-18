@@ -16,7 +16,7 @@ class CreateProductsTable extends Migration
         Schema::create('products', function (Blueprint $table) {
             $table->id();
             $table->string('code')->unique();
-            $table->integer('stock');
+            $table->integer('stock')->default(0);
             $table->double('price');
             $table->boolean('isVisible')->default(0);
             $table->boolean('isDeleted')->default(0);

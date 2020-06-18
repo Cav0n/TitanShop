@@ -6,7 +6,6 @@ use App\Console\Commands\TitanshopCommand;
 use App\Models\Category as ModelsCategory;
 use App\Models\CategoryI18n;
 use App\Models\Utils\CustomString;
-use Illuminate\Console\Command;
 
 class Category extends TitanshopCommand
 {
@@ -54,7 +53,7 @@ class Category extends TitanshopCommand
         $categoryI18n->title = $title;
         $categoryI18n->description = $description;
         $categoryI18n->summary = $summary;
-        $categoryI18n->lang = $lang ?? '';
+        $categoryI18n->lang = $lang ?? 'fr';
 
         $category = new ModelsCategory();
         $category->code = CustomString::prepareStringForURL($code ?? $title);

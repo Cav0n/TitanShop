@@ -18,8 +18,8 @@ class CreateProductI18nsTable extends Migration
             $table->foreignId('product_id')->constrained()->onDelete('cascade');
             $table->string('lang')->default('fr');
             $table->string('title');
-            $table->text('description');
-            $table->text('summary');
+            $table->text('description')->nullable();
+            $table->text('summary')->nullable();
 
             $table->timestamps();
         });
