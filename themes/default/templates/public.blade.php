@@ -15,7 +15,9 @@
     @include('default.components.header')
 
     <div class="row">
-        @yield('page.content')
+        <div class="col-12">
+            @yield('page.content')
+        </div>
     </div>
 
     @include('default.components.footer')

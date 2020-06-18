@@ -10,4 +10,9 @@ class NavigationController extends Controller
     {
         return view('default.pages.homepage');
     }
+
+    public function showCart()
+    {
+        return view('default.pages.cart');
+    }
 }

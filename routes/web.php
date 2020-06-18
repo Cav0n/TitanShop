@@ -14,3 +14,4 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', 'NavigationController@showHomepage')->name('homepage');
+Route::get('/cart', 'NavigationController@showCart')->name('cart');
