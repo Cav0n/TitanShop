@@ -5,7 +5,7 @@
                 <h1>TitanShop</h1>
             </a>
         </div>
-        <div class="header-right d-flex">
+        <div class="header-right d-none d-lg-flex">
             <div class="d-flex flex-column justify-content-center">
                 <input type="text" placeholder="Search" class="form-control search">
             </div>

@@ -1,6 +1,6 @@
-<a class="category-small-container col-lg-2 text-center">
+<a class="category-small-container col-lg-2 text-center" href="{{route('category.show', ['category' => $category->code])}}">
     <div class="category-small rounded transition noselect">
-        <p class="p-3">
+        <p class="p-3 text-dark">
             {{$category->i18nValue('title')}}
         </p>
     </div>

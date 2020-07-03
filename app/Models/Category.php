@@ -18,6 +18,11 @@ class Category extends Model
         return $this->belongsToMany('App\Models\Image', 'category_image')->withPivot('position');;
     }
 
+    public function products()
+    {
+        return $this->belongsToMany('App\Models\Product');
+    } 
+
     public function i18nValue($valueName, $lang = null)
     {
         if (!$this->i18ns()->exists()) {
