@@ -4,7 +4,7 @@
 @import '~bootstrap/scss/bootstrap';
 // Custom
 html {
-    background: white;
+    background: $dark;
 }
 
 body {
@@ -34,9 +34,13 @@ p {
     margin-bottom: 0;
 }
 
-#public-body {
+#main-container {
     max-width: 1300px;
 }
+
+#footer-inner {
+    max-width: 1300px;
+} 
 
 input.search {
     border: none;
@@ -63,13 +67,14 @@ input.search {
                                     supported by Chrome, Edge, Opera and Firefox */
   }
 
-.category-small {
+.category-small, .product-small{
     background: #EEE;
     cursor: pointer;
 } 
 
-.category-small:hover {
-    background: #DDD
+.category-small:hover, .product-small:hover {
+    background: #DDD;
+    box-shadow: 0 .125rem .25rem rgba(0,0,0,.075)!important;
 } 
 
 #cart-container {

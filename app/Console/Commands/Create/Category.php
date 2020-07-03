@@ -62,5 +62,7 @@ class Category extends TitanshopCommand
 
         $categoryI18n->category_id = $category->id;
         $categoryI18n->save();
+
+        $this->info('Category successfully created.');
     }
 }

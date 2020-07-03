@@ -18,6 +18,16 @@ class Product extends Model
         return $this->belongsToMany('App\Models\Image', 'product_image')->withPivot('position');;
     }
 
+    public function getFirstImageAttribute()
+    {
+        return $this->images()->orderBy('position')->first();
+    } 
+
+    public function getFormattedPriceAttribute()
+    {
+        return number_format($this->price, 2, ',', ' ') . '€';
+    }
+
     public function setCodeAttribute($value)
     {
         if (null === $value) {

@@ -10,15 +10,18 @@
 
     <title>@yield('page.title',"TitanShop")</title>
 </head>
-<body id="public-body" class="container-fluid">
+<body>
 
-    @include('default.components.header')
+    <div id="main-container" class="container-fluid">
+        @include('default.components.header')
 
-    <div class="row">
-        <div class="col-12">
-            @yield('page.content')
-        </div>
+        <div class="row">
+            <div class="col-12">
+                @yield('page.content')
+            </div>
+        </div>     
     </div>
+
 
     @include('default.components.footer')
 

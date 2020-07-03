@@ -3,13 +3,13 @@
 @section('page.content')
     <div class="row mb-3">
         @foreach (App\Models\Category::where('isVisible', 1)->get() as $category)
-        <a class="category-small-container col-lg-2 text-center">
-            <div class="category-small rounded transition noselect">
-                <p class="p-3">
-                    {{$category->i18nValue('title')}}
-                </p>
-            </div>
-        </a>
+        @include('default.components.category-small', ['category' => $category])
+        @endforeach
+    </div>
+
+    <div class="row mb-3">
+        @foreach (App\Models\Product::where('isVisible', 1)->get() as $product)
+        @include('default.components.product-small', ['product' => $product])
         @endforeach
     </div>
 @endsection

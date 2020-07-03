@@ -66,5 +66,7 @@ class Product extends TitanshopCommand
 
         $productI18n->product_id = $product->id;
         $productI18n->save();
+
+        $this->info('Product successfully created.');
     }
 }
