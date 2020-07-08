@@ -8,13 +8,14 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,600;0,800;1,300;1,600;1,800&display=swap">
     <link rel="stylesheet" href="{{asset('css/app.css')}}">
 
-    <title>@yield('page.title',"TitanShop")</title>
+    <title>@yield('page.title', "Accueil") - TitanShop</title>
 </head>
 <body>
 
     <div id="main-container" class="container-fluid">
         @include('default.components.header')
 
+        {{-- Content --}}
         <div class="row">
             <div class="col-12">
                 @yield('page.content')

@@ -18,6 +18,11 @@ class Product extends Model
         return $this->belongsToMany('App\Models\Image', 'product_image')->withPivot('position');;
     }
 
+    public function categories()
+    {
+        return $this->belongsToMany('App\Models\Category', 'category_product')->withPivot('position');
+    }
+
     public function getFirstImageAttribute()
     {
         return $this->images()->orderBy('position')->first();
@@ -47,4 +52,30 @@ class Product extends Model
 
         return $i18n->$valueName;
     }
+
+    public function generateBreadcrumb()
+    {
+        $breadcrumb = [];
+
+        $breadcrumb[] = [
+            'title' => 'Accueil',
+            'link'  => route('homepage')
+        ];
+
+        // Add product default category (first if not any default) and its parents to breadcrumb
+        if (count($this->categories)) {
+            $breadcrumb[] = [
+                'title' => $this->categories->first()->i18nValue('title'),
+                'link'  => route('category.show', ['category' => $this->categories->first()->code])
+            ];
+        }
+
+        // Add product to breadcrumb
+        $breadcrumb[] = [
+            'title' => $this->i18nValue('title'),
+            'link'  => route('product.show', ['product' => $this->code])
+        ];
+
+        return $breadcrumb;
+    } 
 }

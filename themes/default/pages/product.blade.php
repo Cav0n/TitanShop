@@ -1,6 +1,10 @@
 @extends('default.templates.public')
 
+@section('page.title', $product->i18nValue('title'))
+
 @section('page.content')
+    @include('default.components.breadcrumb', ['breadcrumb' => $product->generateBreadcrumb()])
+
     <div class="row justify-content-center my-5">
         <div class="col-lg-4">
             <img src="{{$product->firstImage ? asset($product->firstImage->path) : asset('images/utils/question-mark.png')}}" alt="{{$product->i18nValue('title')}}" class="w-100">

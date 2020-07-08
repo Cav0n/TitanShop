@@ -43,4 +43,20 @@ class Category extends Model
 
         return $i18n->$valueName;
     }
+
+    public function generateBreadcrumb()
+    {
+        $breadcrumb = [];
+        $breadcrumb[] = [
+            'title' => 'Accueil',
+            'link'  => route('homepage')
+        ];
+    
+        $breadcrumb[] = [
+            'title' => $this->i18nValue('title'),
+            'link'  => route('category.show', ['category' => $this->code])
+        ];
+
+        return $breadcrumb;
+    } 
 }
