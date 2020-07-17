@@ -17,3 +17,19 @@ Route::get('/', 'NavigationController@showHomepage')->name('homepage');
 Route::get('/cart', 'NavigationController@showCart')->name('cart');
 Route::get('/category/{category:code}', 'CategoryController@show')->name('category.show');
 Route::get('/product/{product:code}', 'ProductController@show')->name('product.show');
+Route::get('/customer-area/login', 'AuthController@showCustomerLoginPage')->name('customer-area.login');
+
+Route::name('admin.')->prefix('admin')->group(function () {
+
+    // Routes only for guests
+    Route::middleware('isNotAdmin')->group(function () {
+        Route::get('/login', 'AuthController@showAdminLoginPage')->name('login');
+        Route::post('/login', 'AuthController@adminLogin')->name('login');
+    });
+
+    // Routes only for admins
+    Route::middleware('isAdmin')->group(function () {
+        Route::get('/', 'NavigationController@showBackofficeHomepage')->name('homepage');
+        Route::get('/catalog/{category?}', 'CategoryController@index')->name('catalog');
+    });
+});

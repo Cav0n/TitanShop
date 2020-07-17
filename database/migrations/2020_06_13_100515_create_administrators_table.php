@@ -21,6 +21,8 @@ class CreateAdministratorsTable extends Migration
             $table->string('email')->unique();
             $table->string('password');
             $table->string('lang')->default('fr');
+            $table->string('lastIpAddress')->nullable();
+            $table->string('sessionToken')->nullable();
             $table->boolean('isActivated')->default(0);
             $table->boolean('isDeleted')->default(0);
 

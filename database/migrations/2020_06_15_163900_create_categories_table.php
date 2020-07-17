@@ -18,6 +18,9 @@ class CreateCategoriesTable extends Migration
             $table->string('code')->unique();
             $table->boolean('isVisible')->default(0);
             $table->boolean('isDeleted')->default(0);
+            $table->bigInteger('parent_id')->unsigned()->nullable();
+
+            $table->foreign('parent_id')->references('id')->on('categories');
 
             $table->timestamps();
         });

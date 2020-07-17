@@ -12,6 +12,12 @@
         </div>
     </div>
 
+    <div class="row mb-3">
+        @foreach ($category->visibleChilds as $child)
+            @include('default.components.category-small', ['category' => $child])
+        @endforeach
+    </div>
+
     <div class="row my-4">
         <div class="col-12">
             @if(0 === count($category->products))

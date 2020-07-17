@@ -13,6 +13,26 @@ class Category extends Model
         return $this->hasMany('App\Models\CategoryI18n');
     }
 
+    public function parent()
+    {
+        return $this->belongsTo('App\Models\Category', 'parent_id')->where('isDeleted', 0);
+    }
+
+    public function childs()
+    {
+        return $this->hasMany('App\Models\Category', 'parent_id')->where('isDeleted', 0);
+    }
+
+    public function visibleParent()
+    {
+        return $this->parent()->where('isVisible', 1);
+    }
+
+    public function visibleChilds()
+    {
+        return $this->childs()->where('isVisible', 1);
+    }
+
     public function images()
     {
         return $this->belongsToMany('App\Models\Image', 'category_image')->withPivot('position');;
@@ -47,15 +67,33 @@ class Category extends Model
     public function generateBreadcrumb()
     {
         $breadcrumb = [];
-        $breadcrumb[] = [
-            'title' => 'Accueil',
-            'link'  => route('homepage')
-        ];
+        $parents = [];
+        $parent = $this->visibleParent;
+
+        // Get all parent of the category
+        while ($parent !== null) {
+            $parents[] = [
+                'title' => $parent->i18nValue('title'),
+                'link'  => route('category.show', ['category' => $parent->code])
+            ];
+
+            $parent = $parent->visibleParent;
+        }
+
+        // Add parent to breadcrumb
+        $breadcrumb = array_reverse($parents);
     
+        // Add current category
         $breadcrumb[] = [
             'title' => $this->i18nValue('title'),
             'link'  => route('category.show', ['category' => $this->code])
         ];
+
+        // Prepend "home" link to breadcrumb
+        array_unshift($breadcrumb, [
+            'title' => 'Accueil',
+            'link'  => route('homepage')
+        ]);
 
         return $breadcrumb;
     } 

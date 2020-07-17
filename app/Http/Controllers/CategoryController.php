@@ -12,9 +12,17 @@ class CategoryController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Category $category = null)
     {
-        //
+        if (null !== $category) {
+            $categories = Category::where('isDeleted', 0)->where('parent', $category->id)->get();
+        } else {
+            $categories = Category::where('isDeleted', 0)->get();
+        } 
+
+        
+
+        return view('default.pages.backoffice.catalog', ['categories' => $categories]);
     }
 
     /**
