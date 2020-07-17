@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Cart;
 use App\Models\CartItem;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
 class CartItemController extends Controller
@@ -35,7 +37,29 @@ class CartItemController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $productId = $request['product_id'];
+        $quantity = $request['quantity'];
+
+        if (isset($request['cart_id'])) {
+            $cartId = $request['cart_id'];
+        } else {
+            $cartId = $request->session()->get('cart')->id;
+        }
+
+        if (null !== $item = CartItem::where('cart_id', $cartId)->where('product_id', $productId)->first()) {
+            $item->quantity += $quantity;
+            $item->save();
+            Cart::updateCartSession($request);
+            return JsonResponse::create(['success' => 'Cart item updated successfully.']);
+        }
+
+        $item = new CartItem();
+        $item->cart_id = $cartId;
+        $item->product_id = $productId;
+        $item->quantity = $quantity;
+        $item->save();
+        Cart::updateCartSession($request);
+        return JsonResponse::create(['success' => 'Cart item created successfully.']);
     }
 
     /**
