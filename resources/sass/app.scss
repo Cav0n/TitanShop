@@ -49,9 +49,24 @@ p {
     max-width: 1300px;
 } 
 
-input.search {
-    border: none;
+.form-control {
+    border: 1px solid #CCC;
     box-shadow: none;
+    border-radius: 0;
+
+    -webkit-transition: all .3s ease-in-out;
+    -moz-transition:    all .3s ease-in-out;
+    -o-transition:      all .3s ease-in-out;
+    -ms-transition:     all .3s ease-in-out;
+    transition:         all .3s ease-in-out;
+}
+
+.form-control:focus {
+    border: 1px solid #777;
+    box-shadow: 0 .125rem .25rem rgba(0,0,0,.075)!important;
+}
+
+.form-control.search {
     background: #EEE;
     border-radius: 25px;
     max-width: 600px;
@@ -82,9 +97,12 @@ input.search {
 .category-small:hover, .product-small:hover {
     background: #DDD;
     box-shadow: 0 .125rem .25rem rgba(0,0,0,.075)!important;
-} 
+}
 
-#cart-container {
+#cart-container #items-container,
+#cart-container #addresses-container,
+#cart-container #payment-container
+{
     background: #EEE;
 }
 

@@ -5,6 +5,11 @@
 @section('page.content')
     @include('default.components.breadcrumb', ['breadcrumb' => $product->generateBreadcrumb()])
 
+    @include('default.components.toast', [
+        'class' => 'product-added-toast',
+        'message' => $product->i18nValue('title') . ' a été ajouté à votre panier.'
+    ])
+
     <div class="row justify-content-center my-5">
         <div class="col-lg-4">
             <img src="{{$product->firstImage ? asset($product->firstImage->path) : asset('images/utils/question-mark.png')}}" alt="{{$product->i18nValue('title')}}" class="w-100">
@@ -37,7 +42,7 @@
                     quantity: 1
                 },
                 success : function(data, status){
-                    console.log('product added');
+                    $('.product-added-toast').toast('show');
                 },
                 error : function(data, status, error){
                     console.error('product not added : ' + error);

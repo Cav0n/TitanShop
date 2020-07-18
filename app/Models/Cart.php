@@ -8,6 +8,8 @@ use Illuminate\Support\Facades\Auth;
 
 class Cart extends Model
 {
+    const SHIPPING_PRICE = 5.90;
+
     public function customer()
     {
         return $this->belongsTo('App\Models\Customer');
@@ -29,7 +31,7 @@ class Cart extends Model
         return $quantity;
     }
 
-    public function getTotalPriceFormattedAttribute()
+    public function getItemsPriceAttribute()
     {
         $price = 0;
 
@@ -37,7 +39,32 @@ class Cart extends Model
             $price += $item->price;
         }
 
-        return number_format($price, 2, ',', ' ') . ' €';;
+        return $price;
+    }
+
+    public function getItemsPriceFormattedAttribute()
+    {
+        return number_format($this->itemsPrice, 2, ',', ' ') . ' €';
+    }
+
+    public function getShippingPriceAttribute()
+    {
+        return self::SHIPPING_PRICE;
+    }
+
+    public function getShippingPriceFormattedAttribute()
+    {
+        return number_format($this->shippingPrice, 2, ',', ' ') . ' €';
+    }
+
+    public function getTotalPriceAttribute()
+    {
+        return $this->itemsPrice + $this->shippingPrice;
+    }
+
+    public function getTotalPriceFormattedAttribute()
+    {
+        return number_format($this->totalPrice, 2, ',', ' ') . ' €';
     }
 
     public static function check(Request $request)
