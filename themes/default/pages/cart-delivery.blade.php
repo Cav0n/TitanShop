@@ -14,8 +14,7 @@
     @include('default.components.error')
 
     <div id="cart-container" class="row mx-0 mb-3">
-        @if (0 !== count($cart->items))
-        <form id="addresses-container" class="col-lg-8 p-3" action="" method="POST">
+        <form id="addresses-form" class="col-lg-8 p-3" action="{{route('cart.delivery')}}" method="POST">
             @csrf
             <div id="shipping-address" class="row">
                 <div class="col-lg-12">
@@ -114,14 +113,9 @@
                 </tbody>
             </table>
 
-            <button type="submit" class="btn btn-primary w-100 shadow-none border-0" form="addresses-container">
+            <button type="submit" class="btn btn-primary w-100 shadow-none border-0" form="addresses-form">
                 Passer au paiement</button>
         </div>
-        @else
-        <div class="col-12 text-center py-5">
-            <p>Votre panier est vide.</p>
-        </div>
-        @endif
     </div>
 @endsection
 

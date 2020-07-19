@@ -72,6 +72,13 @@ p {
     max-width: 600px;
 }
 
+.btn input[type=checkbox],
+.btn input[type=radio] {
+    position: fixed;
+    opacity: 0;
+    pointer-events: none;
+}
+
 .transition {
     -webkit-transition: all 0.3s ease-out;
     -moz-transition: all 0.3s ease-out;
@@ -100,8 +107,8 @@ p {
 }
 
 #cart-container #items-container,
-#cart-container #addresses-container,
-#cart-container #payment-container
+#cart-container #addresses-form,
+#cart-container #payment-form
 {
     background: #EEE;
 }

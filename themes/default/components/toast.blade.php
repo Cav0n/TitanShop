@@ -1,4 +1,4 @@
-<div aria-live="polite" aria-atomic="true" style="position: fixed; min-height: 200px;">
+<div aria-live="polite" aria-atomic="true" style="position: fixed; min-height: 200px;" class="toast-container">
     <!-- Position it -->
     <div style="position: fixed; top: 20px; right: 20px;">
 
@@ -18,6 +18,7 @@
 </div>
 
 <script>
+    $('.toast-container').hide();
     $(document).ready(function(){
       $('.toast').toast();
     });

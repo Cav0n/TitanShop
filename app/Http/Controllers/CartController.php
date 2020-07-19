@@ -37,7 +37,9 @@ class CartController extends Controller
                 $billingAddress->save();
                 $cart->billing_address_id = $billingAddress->id;
             }
-        }
+        } else {
+            $cart->billing_address_id = $shippingAddress->id;
+        } 
 
         $cart->save();
         Cart::updateCartSession($request);
@@ -48,5 +50,10 @@ class CartController extends Controller
     public function showPayment()
     {
         return view('default.pages.cart-payment');
+    }
+
+    public function handlePayment(Request $request)
+    {
+        dd($request->only('payment'));
     }
 }
