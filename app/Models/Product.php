@@ -55,9 +55,14 @@ class Product extends Model
 
     public function generateBreadcrumb()
     {
-        $defaultCategory = $this->categories()->where('isDefault', 1)->first();
-
-        $breadcrumb = $defaultCategory->generateBreadcrumb();
+        if (null !== $defaultCategory = $this->categories()->where('isDefault', 1)->first()) {
+            $breadcrumb = $defaultCategory->generateBreadcrumb();
+        } else {
+            $breadcrumb[] = [
+                'title' => 'Accueil',
+                'link'  => route('homepage')
+            ];
+        }
 
         // Add product to breadcrumb
         $breadcrumb[] = [

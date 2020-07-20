@@ -13,8 +13,17 @@ class CartController extends Controller
         return view('default.pages.cart');
     }
 
-    public function showDelivery()
+    public function showDelivery(Request $request)
     {
+        if (! Cart::check($request)) {
+            return redirect(route('cart'));
+        }
+
+        $cart = $request->session()->get('cart');
+        $cart->step = Cart::CART_STEP_DELIVERY;
+        $cart->save();
+        Cart::updateCartSession($request);
+
         return view('default.pages.cart-delivery');
     }
 
@@ -41,19 +50,38 @@ class CartController extends Controller
             $cart->billing_address_id = $shippingAddress->id;
         } 
 
+        $cart->step = Cart::CART_STEP_PAYMENT;
+
         $cart->save();
         Cart::updateCartSession($request);
 
         return redirect(route('cart.payment'));
     } 
 
-    public function showPayment()
+    public function showPayment(Request $request)
     {
+        if (! Cart::check($request) || $request->session()->get('cart')->step !== Cart::CART_STEP_PAYMENT) {
+            return redirect(route('cart'));
+        } 
+
         return view('default.pages.cart-payment');
     }
 
     public function handlePayment(Request $request)
     {
-        dd($request->only('payment'));
+        // TODO : validate email / payment method
+
+        if (! Cart::check($request) || $request->session()->get('cart')->step !== Cart::CART_STEP_PAYMENT) {
+            return redirect(route('cart'));
+        }   
+
+        $cart = $request->session()->get('cart');
+        $cart->email = $request['email'];
+        $cart->phone = $request['phone'];
+        $cart->paymentMethod = $request['payment'];
+        $cart->save();
+        Cart::updateCartSession($request);
+
+        return redirect(route(''));
     }
 }

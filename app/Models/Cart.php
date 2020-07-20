@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Exception;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -9,6 +10,9 @@ use Illuminate\Support\Facades\Auth;
 class Cart extends Model
 {
     const SHIPPING_PRICE = 5.90;
+    const CART_STEP_HOME = 'homepage';
+    const CART_STEP_DELIVERY = 'delivery';
+    const CART_STEP_PAYMENT = 'payment';
 
     public function customer()
     {
@@ -95,8 +99,15 @@ class Cart extends Model
 
         if ($request->session()->has('cart')) {
             $oldCart = $request->session()->get('cart');
-            $cart->shipping_address_id = $oldCart->shipping_address_id;
-            $cart->billing_address_id = $oldCart->billing_address_id;
+            $oldCart->isActive = false;
+            try {
+                $oldCart->save();
+            } catch (Exception $e) {
+                // TODO: Log the error
+            }
+
+            $cart->shipping_address_id = Address::where('id', $oldCart->shipping_address_id)->exists() ? $oldCart->shipping_address_id : null;
+            $cart->billing_address_id = Address::where('id', $oldCart->billing_address_id)->exists() ? $oldCart->billing_address_id : null;
         }
 
         $cart->save();

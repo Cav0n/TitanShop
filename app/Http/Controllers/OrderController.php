@@ -2,11 +2,32 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Cart;
 use App\Models\Order;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class OrderController extends Controller
 {
+    public function createFromCart(Request $request)
+    {
+        $cart = $request->session()->get('cart');
+
+        $order = new Order();
+        $order->token = Str::random(8);
+        $order->customer_id = $cart->customer_id;
+        $order->email = $cart->email;
+        $order->phone = $cart->phone;
+        $order->shipping_address_id = $cart->shipping_address_id;
+        $order->billing_address_id = $order->billing_address_id;
+        $order->paymentMethod = $cart->paymentMethod;
+        $order->save();
+        
+        Cart::generateNewCartSession($request);
+
+        return redirect();
+    }
+
     /**
      * Display a listing of the resource.
      *
