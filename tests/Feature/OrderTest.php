@@ -49,7 +49,8 @@ class OrderTest extends TestCase
         $shipping_address_id,
         $billing_address_id,
         $email = null,
-        $phone = null
+        $phone = null,
+        $paymentMethod = 'cheque'
     ) {
         $order = new Order();
         $order->token = $token ?? uniqid();
@@ -58,6 +59,7 @@ class OrderTest extends TestCase
         $order->billing_address_id = $billing_address_id;
         $order->email = $email ?? 'florian@test.fr';
         $order->phone = $phone;
+        $order->paymentMethod = $paymentMethod;
 
         return $order;
     }
@@ -77,5 +79,5 @@ class OrderTest extends TestCase
         $item->quantity = $quantity ?? 1;
 
         return $item;
-    }  
+    }
 }
