@@ -3,6 +3,7 @@
 namespace App\Exceptions;
 
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Symfony\Component\ErrorHandler\Exception\FlattenException;
 use Throwable;
 
 class Handler extends ExceptionHandler
@@ -48,18 +49,19 @@ class Handler extends ExceptionHandler
      *
      * @throws \Throwable
      */
-    public function render($request, Throwable $exception)
+    public function render($request, Throwable $e)
     {
-        if ($this->isHttpException($exception)) {
-            if ($exception->getStatusCode() == 404) {
-                return response()->view('default.errors.' . '404', [], 404);
-            }
+        $exception = FlattenException::create($e);
+        $statusCode = $exception->getStatusCode($exception);
 
-            if ($exception->getStatusCode() == 500) {
-                return response()->view('default.errors.' . '500', [], 500);
-            }
+        if ($exception->getStatusCode() == 404) {
+            return response()->view('default.errors.404', [], 404);
         }
 
-        return parent::render($request, $exception);
+        if ($exception->getStatusCode() == 500) {
+            return response()->view('default.errors.500', [], 404);
+        }
+        
+        return parent::render($request, $e);
     }
 }
