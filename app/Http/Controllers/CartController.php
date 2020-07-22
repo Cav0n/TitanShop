@@ -8,8 +8,13 @@ use Illuminate\Http\Request;
 
 class CartController extends Controller
 {
-    public function show()
+    public function show(Request $request)
     {
+        $cart = $request->session()->get('cart');
+        $cart->step = Cart::CART_STEP_HOME;
+        $cart->save();
+        Cart::updateCartSession($request);
+
         return view('default.pages.cart');
     }
 
@@ -48,7 +53,7 @@ class CartController extends Controller
             }
         } else {
             $cart->billing_address_id = $shippingAddress->id;
-        } 
+        }
 
         $cart->step = Cart::CART_STEP_PAYMENT;
 
@@ -56,13 +61,13 @@ class CartController extends Controller
         Cart::updateCartSession($request);
 
         return redirect(route('cart.payment'));
-    } 
+    }
 
     public function showPayment(Request $request)
     {
         if (! Cart::check($request) || $request->session()->get('cart')->step !== Cart::CART_STEP_PAYMENT) {
             return redirect(route('cart'));
-        } 
+        }
 
         return view('default.pages.cart-payment');
     }
@@ -73,7 +78,7 @@ class CartController extends Controller
 
         if (! Cart::check($request) || $request->session()->get('cart')->step !== Cart::CART_STEP_PAYMENT) {
             return redirect(route('cart'));
-        }   
+        }
 
         $cart = $request->session()->get('cart');
         $cart->email = $request['email'];

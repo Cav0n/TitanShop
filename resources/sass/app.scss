@@ -47,7 +47,7 @@ p {
 
 #footer-inner {
     max-width: 1300px;
-} 
+}
 
 .form-control {
     border: 1px solid #CCC;
@@ -84,7 +84,7 @@ p {
     -moz-transition: all 0.3s ease-out;
     -o-transition: all 0.3s ease-out;
     transition: all 0.3s ease-out;
-} 
+}
 
 .noselect {
     -webkit-touch-callout: none; /* iOS Safari */
@@ -99,7 +99,7 @@ p {
 .category-small, .product-small{
     background: #EEE;
     cursor: pointer;
-} 
+}
 
 .category-small:hover, .product-small:hover {
     background: #DDD;
@@ -111,6 +111,25 @@ p {
 #cart-container #payment-form
 {
     background: #EEE;
+}
+
+.cart-steps-container .cart-steps-list {
+    list-style-type:none;
+    padding: 0;
+    display: flex;
+}
+
+.cart-steps-container .cart-steps-list li.active {
+    font-weight: 600;
+}
+
+.cart-steps-container .cart-steps-list li.past {
+    opacity: 0.6;
+}
+
+.cart-steps-container .cart-steps-list li:not(:last-child)::after {
+    content: "→";
+    margin: 0 5px;
 }
 
 .category-small-container:hover, .product-small-container:hover {

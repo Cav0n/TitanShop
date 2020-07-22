@@ -11,6 +11,8 @@
         Mon panier - Paiement
     </h2>
 
+    @include('default.components.cart-steps')
+
     @include('default.components.error')
 
     <div id="cart-container" class="row mx-0 mb-3">
@@ -62,7 +64,7 @@
         </form>
         <div id='summary' class="col-lg-4 p-3">
             <h3>Résumé</h3>
-            
+
             <table class="table">
                 <tbody>
                     <tr>

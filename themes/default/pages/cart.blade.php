@@ -11,6 +11,8 @@
         Mon panier
     </h2>
 
+    @include('default.components.cart-steps')
+
     <div id="cart-container" class="row mx-0 mb-3">
         @if (0 !== count($cart->items))
         <div id="items-container" class="col-lg-8 p-3">
@@ -36,7 +38,7 @@
         </div>
         <div id='summary' class="col-lg-4 p-3">
             <h3>Résumé</h3>
-            
+
             <table class="table">
                 <tbody>
                     <tr>

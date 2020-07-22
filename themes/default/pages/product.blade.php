@@ -17,7 +17,7 @@
         <div class="col-lg-6">
             <h2>{{$product->i18nValue('title')}}</h2>
             <p>{{$product->i18nValue('description')}}</p>
-            
+
             <div class="buying-container mt-3">
                 <p class="h4">{{$product->formattedPrice}}</p>
                 <button name="add-to-cart-btn" id="add-to-cart-btn" class="btn btn-primary rounded-0 shadow-none border mt-3" role="button">
@@ -42,6 +42,7 @@
                     quantity: 1
                 },
                 success : function(data, status){
+                    $('.toast-container').show();
                     $('.product-added-toast').toast('show');
                 },
                 error : function(data, status, error){
