@@ -58,10 +58,10 @@ class Handler extends ExceptionHandler
             return response()->view('default.errors.404', [], 404);
         }
 
-        if ($exception->getStatusCode() == 500) {
+        if ($exception->getStatusCode() == 500 && config('app.debug') === false) {
             return response()->view('default.errors.500', [], 404);
         }
-        
+
         return parent::render($request, $e);
     }
 }
