@@ -104,6 +104,7 @@ p {
 .category-small:hover, .product-small:hover {
     background: #DDD;
     box-shadow: 0 .125rem .25rem rgba(0,0,0,.075)!important;
+    transform: scale(1.04);
 }
 
 #cart-container #items-container,
