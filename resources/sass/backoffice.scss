@@ -1,9 +1,5 @@
-html {
-    background: #e0e0e0 !important;
-}
-
-body {
-    background: #e0e0e0 !important;
+html, body {
+    background: white !important;
 }
 
 #backoffice-container {
@@ -14,20 +10,20 @@ body {
 #backoffice-sidenav {
     width: 15rem;
     height: inherit;
-    background: white;
+    background: #dcdcdc;
 }
 
 #backoffice-sidenav #sidenav-title {
     font-size: 1.5rem;
-} 
+}
 
 #backoffice-content {
     height: fit-content;
-} 
+}
 
 .sidenav-link-container {
     display: flex;
-}  
+}
 
 .table {
     margin-bottom: 0;
@@ -35,4 +31,4 @@ body {
 
 .table thead th {
     border-top: none;
-} 
+}
