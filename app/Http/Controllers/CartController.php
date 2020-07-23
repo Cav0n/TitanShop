@@ -87,6 +87,7 @@ class CartController extends Controller
         $cart->save();
         Cart::updateCartSession($request);
 
-        return redirect(route(''));
+        // Payment is valid, create order
+        return redirect(route('order.create-from-cart'));
     }
 }

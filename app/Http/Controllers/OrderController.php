@@ -4,28 +4,31 @@ namespace App\Http\Controllers;
 
 use App\Models\Cart;
 use App\Models\Order;
+use App\Models\OrderItem;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
 class OrderController extends Controller
 {
+    // TODO: HAS TO BE DONE IN AN EVENT
     public function createFromCart(Request $request)
     {
         $cart = $request->session()->get('cart');
 
-        $order = new Order();
-        $order->token = Str::random(8);
-        $order->customer_id = $cart->customer_id;
-        $order->email = $cart->email;
-        $order->phone = $cart->phone;
-        $order->shipping_address_id = $cart->shipping_address_id;
-        $order->billing_address_id = $order->billing_address_id;
-        $order->paymentMethod = $cart->paymentMethod;
+        $order = new Order($cart);
         $order->save();
-        
+
+        foreach ($cart->items as $cartItem) {
+            $orderItem = new OrderItem($cartItem, $order);
+            $orderItem->save();
+
+            $cartItem->product->stock -= $cartItem->quantity;
+            $cartItem->product->save();
+        }
+
         Cart::generateNewCartSession($request);
 
-        return redirect();
+        return redirect(route('cart'));
     }
 
     /**
