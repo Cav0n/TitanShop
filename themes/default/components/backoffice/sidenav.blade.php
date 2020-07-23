@@ -1,4 +1,4 @@
-<div id="backoffice-sidenav" class="p-3">
+<div id="backoffice-sidenav" class="p-3 border-right">
     <p id="sidenav-title" class="font-weight-bold">TitanShop</p>
     <div class="d-flex flex-column">
 

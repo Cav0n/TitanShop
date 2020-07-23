@@ -5,11 +5,11 @@
         <div class="col-12 p-0">
             <h1>Catalogue</h1>
         </div>
-        <div class="col-12 bg-white p-3 mb-3 border shadow-sm">
-            <h2 class="h4">Catégories</h2>
 
+        <h2 class="h4">Catégories</h2>
+        <div class="col-12 bg-white p-0 mb-3 border shadow-sm rounded">
             @if(isset($categories) && 0 < count($categories))
-            <table class="table table-striped table-inverse border">
+            <table class="table rounded">
                 <thead class="thead-default">
                     <tr>
                         <th class="text-center">ID</th>
@@ -48,11 +48,10 @@
 
         </div>
 
-        <div class="col-12 bg-white p-3 border shadow-sm">
-            <h2 class="h4">Produits sans catégories</h2>
-
+        <h2 class="h4">Produits sans catégories</h2>
+        <div class="col-12 bg-white p-0 border shadow-sm rounded">
             @if(isset($products) && 0 < count($products))
-                <table class="table table-striped table-inverse border">
+                <table class="table rounded">
                     <thead class="thead-default">
                     <tr>
                         <th class="text-center">ID</th>

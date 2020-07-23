@@ -5,11 +5,9 @@
         <div class="col-12 p-0">
             <h1>Commandes</h1>
         </div>
-        <div class="col-12 bg-white p-3 mb-3 border shadow-sm">
-            <h2 class="h4">Catégories</h2>
-
+        <div class="col-12 p-0 mb-3 border rounded shadow-sm backoffice-card">
             @if(isset($orders) && 0 < count($orders))
-                <table class="table table-striped table-inverse border">
+                <table class="table rounded bg-white">
                     <thead class="thead-default">
                     <tr>
                         <th>ID</th>

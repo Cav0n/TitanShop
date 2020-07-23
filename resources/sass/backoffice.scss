@@ -10,7 +10,6 @@ html, body {
 #backoffice-sidenav {
     width: 15rem;
     height: inherit;
-    background: #dcdcdc;
 }
 
 #backoffice-sidenav #sidenav-title {
@@ -19,6 +18,10 @@ html, body {
 
 #backoffice-content {
     height: fit-content;
+}
+
+.backoffice-card {
+    background: #f3f3f3;
 }
 
 .sidenav-link-container {
