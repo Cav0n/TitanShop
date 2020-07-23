@@ -54,11 +54,11 @@ class Handler extends ExceptionHandler
         $exception = FlattenException::createFromThrowable($e);
         $statusCode = $exception->getStatusCode();
 
-        if ($exception->getStatusCode() == 404) {
+        if ($statusCode == 404) {
             return response()->view('default.errors.404', [], 404);
         }
 
-        if ($exception->getStatusCode() == 500 && config('app.debug') === false) {
+        if ($statusCode == 500 && config('app.debug') === false) {
             return response()->view('default.errors.500', [], 404);
         }
 
