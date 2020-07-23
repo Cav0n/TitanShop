@@ -21,7 +21,7 @@
             <table class="table table-bordered mb-0 bg-white">
                 <tbody>
                     @foreach ($cart->items as $item)
-                    <tr>
+                    <tr class="cart-item">
                         <td>{{$item->product->i18nValue('title')}}</td>
                         <td class="text-center">x {{$item->quantity}}</td>
                         <td class="text-right">{{$item->priceFormatted}}</td>
