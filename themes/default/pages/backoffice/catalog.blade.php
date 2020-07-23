@@ -7,9 +7,9 @@
         </div>
 
         <h2 class="h4">Catégories</h2>
-        <div class="col-12 bg-white p-0 mb-3 border shadow-sm rounded">
+        <div class="col-12 bg-white p-0 mb-3 border shadow-sm backoffice-card">
             @if(isset($categories) && 0 < count($categories))
-            <table class="table rounded">
+            <table class="table">
                 <thead class="thead-default">
                     <tr>
                         <th class="text-center">ID</th>
@@ -49,9 +49,9 @@
         </div>
 
         <h2 class="h4">Produits sans catégories</h2>
-        <div class="col-12 bg-white p-0 border shadow-sm rounded">
+        <div class="col-12 bg-white p-0 border shadow-sm backoffice-card">
             @if(isset($products) && 0 < count($products))
-                <table class="table rounded">
+                <table class="table">
                     <thead class="thead-default">
                     <tr>
                         <th class="text-center">ID</th>

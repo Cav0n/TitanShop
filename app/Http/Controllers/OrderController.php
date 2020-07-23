@@ -19,7 +19,7 @@ class OrderController extends Controller
         $order->save();
 
         foreach ($cart->items as $cartItem) {
-            $orderItem = new OrderItem($cartItem, $order);
+            $orderItem = new OrderItem(null, $cartItem, $order);
             $orderItem->save();
 
             $cartItem->product->stock -= $cartItem->quantity;

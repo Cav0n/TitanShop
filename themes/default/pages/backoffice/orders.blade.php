@@ -5,9 +5,9 @@
         <div class="col-12 p-0">
             <h1>Commandes</h1>
         </div>
-        <div class="col-12 p-0 mb-3 border rounded shadow-sm backoffice-card">
+        <div class="col-12 p-0 mb-3 border shadow-sm backoffice-card">
             @if(isset($orders) && 0 < count($orders))
-                <table class="table rounded bg-white">
+                <table class="table bg-white">
                     <thead class="thead-default">
                     <tr>
                         <th>ID</th>
@@ -25,7 +25,7 @@
                             <td>{{$order->token}}</td>
                             <td>{{$order->email}} - {{$order->phone}}</td>
                             <td>{{$order->paymentMethod}}</td>
-                            <td>{{$order->created_at->format('d/m/Y h:i:s')}}</td>
+                            <td>{{$order->created_at->format('d/m/Y à H\hi')}}</td>
                             <td class="text-right">
                                 <a class="btn btn-primary text-white">Voir la commande</a>
                             </td>

@@ -59,9 +59,14 @@
             <a class="btn btn-primary w-100 shadow-none border-0" href="{{route('cart.delivery')}}" role="button">Passer à la livraison</a>
         </div>
         @else
-        <div class="col-12 text-center py-5">
-            <p>Votre panier est vide.</p>
-        </div>
+            <div class="col-lg-6">
+                <img src="{{asset('images/utils/empty-cart.svg')}}" alt="404">
+            </div>
+            <div class="col-lg-6 d-flex flex-column justify-content-center">
+                <h3>Votre panier est vide...</h3>
+                <a class="btn btn-primary text-white" style="width: fit-content" href="{{route('homepage')}}">
+                    Ajouter des produits à mon panier</a>
+            </div>
         @endif
     </div>
 @endsection
