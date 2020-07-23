@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Models\CartItem;
 use App\Models\Order;
 use App\Models\OrderItem;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -37,7 +38,7 @@ class OrderTest extends TestCase
         $product->save();
 
         // Test item creation
-        $item = self::createItem($order->id, $product->id);
+        $item = self::createItem($order, null, $product->id);
         $item->save();
         $this->assertNotNull($item);
         $this->assertEquals(1, count($order->items));
@@ -65,14 +66,14 @@ class OrderTest extends TestCase
     }
 
     public static function createItem(
-        $order_id,
+        Order $order,
+        CartItem $cartItem = null,
         $product_id = null,
         $title = null,
         $price = null,
         $quantity = null
     ) {
-        $item = new OrderItem();
-        $item->order_id = $order_id;
+        $item = new OrderItem(null, $cartItem, $order);
         $item->product_id = $product_id;
         $item->title = $title ?? 'Un produit de test';
         $item->price = $price ?? "10.99";
