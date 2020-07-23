@@ -6,7 +6,7 @@
             <a href="{{route('admin.homepage')}}">Accueil</a>
         </div>
         <div class="sidenav-link-container">
-            <a href="">Commandes</a>
+            <a href="{{route('admin.orders')}}">Commandes</a>
         </div>
         <div class="sidenav-link-container">
             <a href="{{route('admin.catalog')}}">Catalogue</a>

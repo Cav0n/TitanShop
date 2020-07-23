@@ -37,5 +37,6 @@ Route::name('admin.')->prefix('admin')->group(function () {
     Route::middleware('isAdmin')->group(function () {
         Route::get('/', 'NavigationController@showBackofficeHomepage')->name('homepage');
         Route::get('/catalog/{category?}', 'CategoryController@index')->name('catalog');
+        Route::get('/orders/{status?}', 'OrderController@index')->name('orders');
     });
 });

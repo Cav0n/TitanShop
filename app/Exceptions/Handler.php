@@ -51,8 +51,8 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Throwable $e)
     {
-        $exception = FlattenException::create($e);
-        $statusCode = $exception->getStatusCode($exception);
+        $exception = FlattenException::createFromThrowable($e);
+        $statusCode = $exception->getStatusCode();
 
         if ($exception->getStatusCode() == 404) {
             return response()->view('default.errors.404', [], 404);

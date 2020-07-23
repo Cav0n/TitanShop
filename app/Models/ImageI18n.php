@@ -7,6 +7,11 @@ use Illuminate\Support\Facades\Validator;
 
 class ImageI18n extends Model
 {
+    public function __construct(array $attributes = [])
+    {
+        parent::__construct($attributes);
+    }
+
     public function image()
     {
         return $this->belongsTo('App\Models\Image');

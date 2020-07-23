@@ -7,17 +7,19 @@ use Illuminate\Support\Str;
 
 class Order extends Model
 {
-    public function __construct(Cart $cart)
+    public function __construct(array $attributes = [], Cart $cart = null)
     {
         parent::__construct();
 
-        $this->token = Str::random(8);
-        $this->customer_id = $cart->customer_id;
-        $this->email = $cart->email;
-        $this->phone = $cart->phone;
-        $this->shipping_address_id = $cart->shipping_address_id;
-        $this->billing_address_id = $cart->billing_address_id;
-        $this->paymentMethod = $cart->paymentMethod;
+        if ($cart !== null) {
+            $this->token = Str::random(8);
+            $this->customer_id = $cart->customer_id;
+            $this->email = $cart->email;
+            $this->phone = $cart->phone;
+            $this->shipping_address_id = $cart->shipping_address_id;
+            $this->billing_address_id = $cart->billing_address_id;
+            $this->paymentMethod = $cart->paymentMethod;
+        }
     }
 
     public function customer()

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
+use App\Models\Product;
 use Illuminate\Http\Request;
 
 class CategoryController extends Controller
@@ -14,15 +15,19 @@ class CategoryController extends Controller
      */
     public function index(Category $category = null)
     {
-        if (null !== $category) {
-            $categories = Category::where('isDeleted', 0)->where('parent', $category->id)->get();
-        } else {
-            $categories = Category::where('isDeleted', 0)->get();
-        } 
+        $categories = Category::where('isDeleted', 0)->where('parent_id', null !== $category ? $category->id : null)->get();
 
-        
+        $products = null !== $category
+            ? $category->products
+            : Product::whereDoesntHave('categories', function($q) {
 
-        return view('default.pages.backoffice.catalog', ['categories' => $categories]);
+            })->get();
+
+        return view('default.pages.backoffice.catalog', [
+            'categories' => $categories,
+            'products' => $products
+            ]
+        );
     }
 
     /**

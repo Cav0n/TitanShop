@@ -15,7 +15,7 @@ class OrderController extends Controller
     {
         $cart = $request->session()->get('cart');
 
-        $order = new Order($cart);
+        $order = new Order([], $cart);
         $order->save();
 
         foreach ($cart->items as $cartItem) {
@@ -38,7 +38,9 @@ class OrderController extends Controller
      */
     public function index()
     {
-        //
+        $orders = Order::orderBy('created_at', 'DESC')->get();
+
+        return view('default.pages.backoffice.orders', ['orders' => $orders]);
     }
 
     /**
