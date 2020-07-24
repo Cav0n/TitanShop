@@ -15,7 +15,7 @@ class ProductController extends Controller
         $product->isVisible = !$product->isVisible;
         $product->save();
 
-        return new JsonResponse(['status' => 'success']);
+        return new JsonResponse(['status' => 'success', 'visible' => $product->isVisible]);
     }
 
     /**

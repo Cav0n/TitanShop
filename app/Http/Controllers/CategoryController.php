@@ -16,7 +16,7 @@ class CategoryController extends Controller
         $category->isVisible = !$category->isVisible;
         $category->save();
 
-        return new JsonResponse(['status' => 'success']);
+        return new JsonResponse(['status' => 'success', 'visible' => $category->isVisible]);
     }
 
     /**

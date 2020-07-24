@@ -113,7 +113,8 @@
                 },
                 success : function(data, status){
                     let labelText = '';
-                    if (checkboxInput.is(':checked')) {
+
+                    if (data.visible !== undefined && data.visible === true) {
                         labelText = 'Visible';
                     } else {
                         labelText = 'Non visible';
@@ -122,7 +123,7 @@
                     checkboxInput.siblings('.custom-control-label').text(labelText);
                 },
                 error : function(data, status, error){
-                    console.error('product not added : ' + error);
+                    console.error('Visibility can\'t be updatedss : ' + error);
                 }
             });
         });
