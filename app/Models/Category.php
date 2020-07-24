@@ -41,12 +41,12 @@ class Category extends Model
     public function products()
     {
         return $this->belongsToMany('App\Models\Product');
-    } 
+    }
 
     public function i18nValue($valueName, $lang = null)
     {
         if (!$this->i18ns()->exists()) {
-            return null;
+            return '[Aucun texte n\'existe]';
         }
 
         if (!isset($lang)) {
@@ -82,7 +82,7 @@ class Category extends Model
 
         // Add parent to breadcrumb
         $breadcrumb = array_reverse($parents);
-    
+
         // Add current category
         $breadcrumb[] = [
             'title' => $this->i18nValue('title'),
@@ -96,5 +96,5 @@ class Category extends Model
         ]);
 
         return $breadcrumb;
-    } 
+    }
 }

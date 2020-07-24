@@ -42,9 +42,17 @@ class Product extends TitanshopCommand
     {
         parent::handle();
 
+        $categories = [];
+        $categories[0] = 'Aucune catégorie';
+
+        foreach (\App\Models\Category::all() as $category) {
+            $categories[] = $category->code;
+        }
+
         $title = $this->ask('Title');
         $price = $this->ask('Price');
         $stock = $this->ask('Stock');
+        $category = $this->choice('Category of the product ?', $categories);
         $description = $this->ask('Description (could be empty)');
         $summary = $this->ask('Summary (could be empty)');
         $lang = $this->ask('Lang (could be empty for "fr")');
@@ -63,6 +71,10 @@ class Product extends TitanshopCommand
         $product->stock = $stock;
         $product->isVisible = $isVisible;
         $product->save();
+
+        if (null!== $categorySelected = \App\Models\Category::where('code', $category)->first()) {
+            $product->categories()->attach($categorySelected);
+        }
 
         $productI18n->product_id = $product->id;
         $productI18n->save();

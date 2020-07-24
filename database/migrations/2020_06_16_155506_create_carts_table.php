@@ -25,6 +25,7 @@ class CreateCartsTable extends Migration
             $table->unsignedBigInteger('shipping_address_id')->nullable();
             $table->unsignedBigInteger('billing_address_id')->nullable();
             $table->string('paymentMethod')->nullable();
+            $table->text('customerMessage')->nullable();
 
             $table->foreign('shipping_address_id')->references('id')->on('addresses');
             $table->foreign('billing_address_id')->references('id')->on('addresses');

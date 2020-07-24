@@ -26,7 +26,7 @@ class Product extends Model
     public function getFirstImageAttribute()
     {
         return $this->images()->orderBy('position')->first();
-    } 
+    }
 
     public function getFormattedPriceAttribute()
     {
@@ -48,7 +48,9 @@ class Product extends Model
             $lang = App::getLocale();
         }
 
-        $i18n = $this->i18ns()->where('lang', $lang)->first();
+        if (null === $i18n = $this->i18ns()->where('lang', $lang)->first()) {
+            return '[Aucun texte n\'existe]';
+        }
 
         return $i18n->$valueName;
     }
@@ -71,5 +73,5 @@ class Product extends Model
         ];
 
         return $breadcrumb;
-    } 
+    }
 }
