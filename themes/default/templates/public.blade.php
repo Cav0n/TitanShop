@@ -60,6 +60,7 @@
     <meta property="og:type" content="@yield('og.type', 'website')" />
     <meta property="og:url" content="@yield('og.url', request()->url())" />
     <meta property="og:image" content="@yield('og.image', asset('favicons/apple-icon.png'))" />
+    <meta property="og:description" content="@yield('og.description', 'Un site créé avec TitanShop, le CMS de SpaceShip.')" />
     {{-- --------------- --}}
 
     <title>@yield('page.title', "Accueil") - TitanShop</title>
