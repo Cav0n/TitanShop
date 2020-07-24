@@ -4,6 +4,7 @@
 /public/images/storage
 /storage/*.key
 /vendor
+/.idea
 .env
 .env.backup
 .env.testing
