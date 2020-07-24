@@ -55,6 +55,13 @@
     <meta name="theme-color" content="#ffffff">
     {{-- -------- --}}
 
+    {{-- Open Graph Meta --}}
+    <meta property="og:title" content="@yield('page.title', 'TitanShop')" />
+    <meta property="og:type" content="@yield('og.type', 'website')" />
+    <meta property="og:url" content="@yield('og.url', request()->url())" />
+    <meta property="og:image" content="@yield('og.image', asset('favicons/apple-icon.png'))" />
+    {{-- --------------- --}}
+
     <title>@yield('page.title', "Accueil") - TitanShop</title>
 </head>
 <body>
