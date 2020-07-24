@@ -59,6 +59,8 @@ class Product extends Model
     {
         if (null !== $defaultCategory = $this->categories()->where('isDefault', 1)->first()) {
             $breadcrumb = $defaultCategory->generateBreadcrumb();
+        } elseif (null !== $defaultCategory = $this->categories()->first()) {
+            $breadcrumb = $defaultCategory->generateBreadcrumb();
         } else {
             $breadcrumb[] = [
                 'title' => 'Accueil',
