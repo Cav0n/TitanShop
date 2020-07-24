@@ -2,5 +2,6 @@
     "/js/app.js": "/js/app.js",
     "/css/app.css": "/css/app.css",
     "/css/minimal.css": "/css/minimal.css",
-    "/css/backoffice.css": "/css/backoffice.css"
+    "/css/backoffice.css": "/css/backoffice.css",
+    "/css/components/burger.css": "/css/components/burger.css"
 }
