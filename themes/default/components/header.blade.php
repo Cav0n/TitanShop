@@ -1,4 +1,4 @@
-<header class="row">
+<header class="row border-bottom">
     <div class="col-12 d-flex justify-content-between py-3">
         <div class="header-left">
             <a href="{{route('homepage')}}" class="text-dark">
