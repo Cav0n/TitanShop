@@ -28,7 +28,7 @@ class OrderController extends Controller
 
         Cart::generateNewCartSession($request);
 
-        return redirect(route('cart'));
+        return redirect(route('cart.thanks'));
     }
 
     /**
