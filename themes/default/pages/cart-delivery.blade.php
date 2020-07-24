@@ -52,7 +52,7 @@
 
             <div class="form-check text-center">
                 <label class="form-check-label">
-                    <input type="checkbox" class="form-check-input" name="same_billing_address" id="same_billing_address">
+                    <input type="checkbox" class="form-check-input" name="same_billing_address" id="same_billing_address" @if(old('same_billing_address')) checked="checked" @endif>
                     Adresse de facturation identique
                 </label>
             </div>
@@ -123,12 +123,22 @@
 
 @section('page.scripts')
     <script>
-        $('#same_billing_address').change(function () {
-            if ($(this).is(":checked")) {
-                $('#billing-address').hide();
+        let sameBillingAddressCheckbox = $('#same_billing_address');
+        let billingAddressContainer = $('#billing-address');
+
+        function toggleBillingAddress(toggle)
+        {
+            if (toggle === true) {
+                billingAddressContainer.hide();
             } else {
-                $('#billing-address').show();
+                billingAddressContainer.show();
             }
+        }
+
+        toggleBillingAddress(sameBillingAddressCheckbox.is(":checked"))
+
+        sameBillingAddressCheckbox.change(function () {
+            toggleBillingAddress($(this).is(":checked"));
         });
     </script>
 @endsection
