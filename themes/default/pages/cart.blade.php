@@ -15,7 +15,7 @@
 
     <div id="cart-container" class="row mx-0 mb-3">
         @if (0 !== count($cart->items))
-        <div id="items-container" class="col-lg-8 p-3">
+        <div id="items-container" class="col-lg-8 p-3 shadow-sm">
             <h3>Produits</h3>
 
             <table class="table table-bordered mb-0 bg-white">
@@ -32,7 +32,7 @@
                 </tbody>
             </table>
 
-            <div class="form-group mt-3 mb-0">
+            <div class="form-group mt-3 pt-3 mb-0 border-top border-dark">
                 <label for="customer-message">Message pour votre commande</label>
                 <textarea class="form-control" name="customer-message" id="customer-message" aria-describedby="helpCustomerMessage" rows=4>{{$cart->customerMessage}}</textarea>
                 <small id="helpCustomerMessage" class="form-text text-muted">Vous pouvez indiquez des précisions pour votre commande ici.</small>

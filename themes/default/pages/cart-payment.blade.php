@@ -16,7 +16,7 @@
     @include('default.components.error')
 
     <div id="cart-container" class="row mx-0 mb-3">
-        <form id="payment-form" class="col-lg-8 p-3" action="{{route('cart.payment')}}" method="POST">
+        <form id="payment-form" class="col-lg-8 p-3 shadow-sm" action="{{route('cart.payment')}}" method="POST">
             @csrf
 
             <div class="row">

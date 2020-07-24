@@ -4,8 +4,8 @@
         <p class="p-2 text-center text-dark">
             {{$product->i18nValue('title')}}
         </p>
-        <p class="p-2 text-center text-dark">
-            {{$product->formattedPrice}} @if($product->stock <= 0) - RUPTURE DE STOCK @endif
+        <p class="p-2 text-center bg-primary text-white">
+            <b>{{$product->formattedPrice}}</b> @if($product->stock <= 0) - RUPTURE DE STOCK @endif
         </p>
     </div>
 </a>
