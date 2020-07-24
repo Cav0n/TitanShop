@@ -9,6 +9,37 @@ use Illuminate\Http\Request;
 
 class CartItemController extends Controller
 {
+    public function updateQuantity(Request $request)
+    {
+        /** @var CartItem $item */
+        if (null === $item = CartItem::where('id', $request['id'])->first()) {
+            return new JsonResponse([
+                'status' => 'error',
+                'message' => 'Cart item doesn\'t exists.'
+            ], 404);
+        }
+
+        if (intval($request['quantity']) === 0) {
+            $item->delete();
+        } else {
+            $item->quantity = $request['quantity'];
+            $item->save();
+        }
+
+        $newItemsPrice = $item->cart->itemsPriceFormatted;
+        $newShippingPrice = $item->cart->shippingPriceFormatted;
+        $newTotalPrice = $item->cart->totalPriceFormatted;
+
+        return new JsonResponse([
+            'status' => 'success',
+            'prices' => [
+                'items'     => $newItemsPrice,
+                'shipping'  => $newShippingPrice,
+                'total'     => $newTotalPrice
+            ]
+        ]);
+    }
+
     /**
      * Display a listing of the resource.
      *

@@ -4,7 +4,7 @@
 
 @extends('default.templates.public')
 
-@section('page.title', 'Mon panier')
+@section('page.title', 'Mon panier - Paiement')
 
 @section('page.content')
     <h2>

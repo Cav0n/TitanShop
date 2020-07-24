@@ -57,6 +57,10 @@ class ProductController extends Controller
      */
     public function show(Product $product)
     {
+        if ($product->isDeleted || !$product->isVisible) {
+            abort(404);
+        }
+
         return view('default.pages.product', ['product' => $product]);
     }
 

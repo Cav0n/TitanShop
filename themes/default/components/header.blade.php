@@ -12,10 +12,10 @@
                 </div>
             </div>
             <div class="header-link d-flex flex-column justify-content-center px-3">
-                <a href="#">Mon compte</a>
+                <a class="text-dark" href="#">Mon compte</a>
             </div>
             <div class="header-link d-flex flex-column justify-content-center px-3">
-                <a href="{{route('cart')}}">Mon panier</a>
+                <a class="text-dark" href="{{route('cart')}}">Mon panier</a>
             </div>
         </div>
     </div>

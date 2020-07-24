@@ -16,8 +16,8 @@ class AuthController extends Controller
 
     public function customerRegister(Request $request)
     {
-        
-    } 
+
+    }
 
     public function showCustomerLoginPage()
     {
@@ -39,11 +39,13 @@ class AuthController extends Controller
         $login = $request['login'];
         $password = $request['password'];
 
-        if (! Administrator::where('email', $login)->orWhere('nickname', $login)->exists()) {
+        if (null === $admin = Administrator::where('email', $login)->orWhere('nickname', $login)->first()) {
             return $this->redirectBackWithError();
         }
 
-        $admin = Administrator::where('email', $login)->orWhere('nickname', $login)->first();
+        if (!$admin->isActivated || $admin->isDeleted) {
+            return $this->redirectBackWithError('login', 'Votre compte a été supprimé ou désactivé.');
+        }
 
         if (! Hash::check($password, $admin->password)) {
             return $this->redirectBackWithError();
@@ -56,6 +58,14 @@ class AuthController extends Controller
         $request->session()->put('admin_token', $token);
 
         return redirect(route('admin.homepage'));
+    }
+
+    public function adminLogout(Request $request)
+    {
+        $request->session()->forget('admin_id');
+        $request->session()->forget('admin_token');
+
+        return redirect(route('homepage'));
     }
 
     protected function redirectBackWithError($inputName = 'login', $error = 'Aucun compte n\'existe avec ces identifiants')

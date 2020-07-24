@@ -92,6 +92,11 @@ class CartController extends Controller
         return redirect(route('order.create-from-cart'));
     }
 
+    public function showThanks()
+    {
+        return view('default.pages.cart-thanks');
+    }
+
     public function addCustomerMessage(Request $request)
     {
         $cart = $request->session()->get('cart');

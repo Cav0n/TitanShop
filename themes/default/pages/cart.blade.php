@@ -23,7 +23,9 @@
                     @foreach ($cart->items as $item)
                     <tr class="cart-item">
                         <td>{{$item->product->i18nValue('title')}}</td>
-                        <td class="text-center">x {{$item->quantity}}</td>
+                        <td class="text-center item-quantity-container">
+                            <input class="item-quantity" type="number" min="0" max="{{$item->product->stock}}" value="{{$item->quantity}}" data-id="{{$item->id}}" data-price="{{$item->price}}">
+                        </td>
                         <td class="text-right">{{$item->priceFormatted}}</td>
                     </tr>
                     @endforeach
@@ -43,15 +45,15 @@
                 <tbody>
                     <tr>
                         <td class="text-left">{{$cart->totalQuantity}} produits :</td>
-                        <td class="text-right">{{$cart->itemsPriceFormatted}}</td>
+                        <td class="text-right cart-items-price">{{$cart->itemsPriceFormatted}}</td>
                     </tr>
                     <tr>
                         <td class="text-left">Frais de port :</td>
-                        <td class="text-right">{{$cart->shippingPriceFormatted}}</td>
+                        <td class="text-right cart-shipping-price">{{$cart->shippingPriceFormatted}}</td>
                     </tr>
                     <tr>
                         <td class="text-left"><b>Total :</b></td>
-                        <td class="text-right"><b>{{$cart->totalPriceFormatted}}</b></td>
+                        <td class="text-right cart-total-price"><b>{{$cart->totalPriceFormatted}}</b></td>
                     </tr>
                 </tbody>
             </table>
@@ -72,6 +74,48 @@
 @endsection
 
 @section('page.scripts')
+    <script>
+        let quantityInputs = $('.item-quantity');
+
+        quantityInputs.on('change', function () {
+            $(this).attr('disabled', 'disabled');
+            updateItemQuantity($(this).data('id'), $(this).val());
+        });
+
+        $(document).on('itemQuantityUpdated', function (event, data) {
+            $('.cart-items-price').text(data.prices.items);
+            $('.cart-shipping-price').text(data.prices.shipping);
+            $('.cart-total-price').html('<b>' + data.prices.total + '</b>');
+
+            $('#items-container').find('.item-quantity[data-id='+data.itemId+']').removeAttr('disabled');
+        });
+
+        function updateItemQuantity(itemId, quantity = 1) {
+            $.ajax({
+                url : "{{route('cart.items.quantity.update')}}",
+                type : 'POST',
+                dataType : 'json',
+                headers : {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                data : {
+                    id: itemId,
+                    quantity: quantity
+                },
+                success : function(data, status){
+                    if (1 === $('.cart-item').length && 0 === parseInt(quantity)) {
+                        location.reload();
+                    }
+
+                    $(document).trigger('itemQuantityUpdated', {itemId: itemId, prices: data.prices});
+                },
+                error : function(data, status, error){
+                    console.error('Item quantity can\'t be updated : ' + error);
+                }
+            });
+        }
+    </script>
+
     <script>
         let customerMessageInput = $('#customer-message');
         let nextStepButton = $('#next-step-button');
@@ -104,7 +148,7 @@
                     $(document).trigger('messageAddedToCart');
                 },
                 error : function(data, status, error){
-                    console.error('Visibility can\'t be updatedss : ' + error);
+                    console.error('Customer message can\'t be updated : ' + error);
                 }
             });
         }
