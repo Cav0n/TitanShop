@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Address;
 use App\Models\Cart;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
 class CartController extends Controller
@@ -89,5 +90,15 @@ class CartController extends Controller
 
         // Payment is valid, create order
         return redirect(route('order.create-from-cart'));
+    }
+
+    public function addCustomerMessage(Request $request)
+    {
+        $cart = $request->session()->get('cart');
+        $cart->customerMessage = $request['message'];
+        $cart->save();
+        Cart::updateCartSession($request);
+
+        return new JsonResponse(['status' => 'success']);
     }
 }

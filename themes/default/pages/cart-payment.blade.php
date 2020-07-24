@@ -58,7 +58,7 @@
 
             <div class="form-group mt-3 mb-0 pt-3 border-top border-dark">
                 <label for="customer-message">Message pour votre commande</label>
-                <textarea class="form-control" name="customer-message" id="customer-message" aria-describedby="helpCustomerMessage" rows=4></textarea>
+                <textarea class="form-control" name="customer-message" id="customer-message" aria-describedby="helpCustomerMessage" rows=4>{{$cart->customerMessage}}</textarea>
                 <small id="helpCustomerMessage" class="form-text text-muted">Vous pouvez indiquez des précisions pour votre commande ici.</small>
             </div>
         </form>
@@ -82,13 +82,51 @@
                 </tbody>
             </table>
 
-            <button id="pay-button" type="submit" class="btn btn-primary w-100 shadow-none border-0" form="payment-form">
+            <button id="next-step-button" type="submit" class="btn btn-primary w-100 shadow-none border-0" form="payment-form">
                 Payer</button>
         </div>
     </div>
 @endsection
 
 @section('page.scripts')
+    <script>
+        let customerMessageInput = $('#customer-message');
+        let nextStepButton = $('#next-step-button');
+
+        $(document).on('messageAddedToCart', function () {
+            customerMessageInput.removeAttr('disabled');
+            nextStepButton.removeAttr('disabled').removeClass('disabled');
+        });
+
+        customerMessageInput.on('change', function () {
+            customerMessageInput.attr('disabled', 'disabled');
+            nextStepButton.attr('disabled', 'disabled').addClass('disabled');
+
+            addCustomerMessageToCart($(this).val());
+        });
+
+        async function addCustomerMessageToCart(message)
+        {
+            $.ajax({
+                url : "{{route('cart.customer-message.add')}}",
+                type : 'POST',
+                dataType : 'json',
+                headers : {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                data : {
+                    message: message
+                },
+                success : function(data, status){
+                    $(document).trigger('messageAddedToCart');
+                },
+                error : function(data, status, error){
+                    console.error('Visibility can\'t be updatedss : ' + error);
+                }
+            });
+        }
+    </script>
+
     <script>
         let paymentRadioSelection = $('.payment-radio-selection');
         let emailInput = $('#email');
@@ -98,9 +136,9 @@
             $(this).parent().addClass('active');
 
             if (paymentIsSelected()) {
-                $('#pay-button').removeAttr('disabled');
+                $('#next-step-button').removeAttr('disabled');
             } else {
-                $('#pay-button').attr('disabled', 'disabled');
+                $('#next-step-button').attr('disabled', 'disabled');
             }
         });
 
@@ -125,7 +163,16 @@
 
         $(document).ready(function () {
             if (! paymentIsSelected()) {
-                $('#pay-button').attr('disabled', 'disabled');
+                $('#next-step-button').attr('disabled', 'disabled');
+            }
+        });
+
+        $(document).on('messageAddedToCart', function () {
+            console.log(paymentIsSelected() && isValidEmailAddress($('#email').val()));
+            if (paymentIsSelected() && isValidEmailAddress($('#email').val())) {
+                $('#next-step-button').removeAttr('disabled');
+            } else {
+                $('#next-step-button').attr('disabled', 'disabled');
             }
         });
     </script>

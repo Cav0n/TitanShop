@@ -91,7 +91,7 @@
 
             <div class="form-group mt-3 mb-0 pt-3 border-top border-dark">
                 <label for="customer-message">Message pour votre commande</label>
-                <textarea class="form-control" name="customer-message" id="customer-message" aria-describedby="helpCustomerMessage" rows=4></textarea>
+                <textarea class="form-control" name="customer-message" id="customer-message" aria-describedby="helpCustomerMessage" rows=4>{{$cart->customerMessage}}</textarea>
                 <small id="helpCustomerMessage" class="form-text text-muted">Vous pouvez indiquez des précisions pour votre commande ici.</small>
             </div>
         </form>
@@ -115,13 +115,51 @@
                 </tbody>
             </table>
 
-            <button type="submit" class="btn btn-primary w-100 shadow-none border-0" form="addresses-form">
+            <button type="submit" class="btn btn-primary w-100 shadow-none border-0" form="addresses-form" id="next-step-button">
                 Passer au paiement</button>
         </div>
     </div>
 @endsection
 
 @section('page.scripts')
+    <script>
+        let customerMessageInput = $('#customer-message');
+        let nextStepButton = $('#next-step-button');
+
+        $(document).on('messageAddedToCart', function () {
+            customerMessageInput.removeAttr('disabled');
+            nextStepButton.removeAttr('disabled').removeClass('disabled');
+        });
+
+        customerMessageInput.on('change', function () {
+            customerMessageInput.attr('disabled', 'disabled');
+            nextStepButton.attr('disabled', 'disabled').addClass('disabled');
+
+            addCustomerMessageToCart($(this).val());
+        });
+
+        async function addCustomerMessageToCart(message)
+        {
+            $.ajax({
+                url : "{{route('cart.customer-message.add')}}",
+                type : 'POST',
+                dataType : 'json',
+                headers : {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                data : {
+                    message: message
+                },
+                success : function(data, status){
+                    $(document).trigger('messageAddedToCart');
+                },
+                error : function(data, status, error){
+                    console.error('Visibility can\'t be updatedss : ' + error);
+                }
+            });
+        }
+    </script>
+
     <script>
         let sameBillingAddressCheckbox = $('#same_billing_address');
         let billingAddressContainer = $('#billing-address');

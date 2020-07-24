@@ -19,6 +19,7 @@ class Order extends Model
             $this->shipping_address_id = $cart->shipping_address_id;
             $this->billing_address_id = $cart->billing_address_id;
             $this->paymentMethod = $cart->paymentMethod;
+            $this->customerMessage = $cart->customerMessage;
         }
     }
 

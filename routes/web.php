@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', 'NavigationController@showHomepage')->name('homepage');
 Route::any('/cart', 'CartController@show')->name('cart');
+Route::post('/cart/customer-message/add', 'CartController@addCustomerMessage')->name('cart.customer-message.add');
 Route::post('/cart/add-product', 'CartItemController@store')->name('cart.items.add');
 Route::get('/cart/delivery', 'CartController@showDelivery')->name('cart.delivery');
 Route::post('/cart/delivery', 'CartController@addDelivery')->name('cart.delivery');
