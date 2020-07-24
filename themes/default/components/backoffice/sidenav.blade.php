@@ -1,5 +1,6 @@
 <div id="backoffice-sidenav" class="p-3 border-right">
     <p id="sidenav-title" class="font-weight-bold">TitanShop</p>
+    <a href="{{route('homepage')}}" class="text-muted">Voir la boutique</a>
     <div class="d-flex flex-column">
 
         <div class="sidenav-link-container">

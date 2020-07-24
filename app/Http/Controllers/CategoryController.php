@@ -4,10 +4,21 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use App\Models\Product;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
 class CategoryController extends Controller
 {
+    public function toggleVisibility(Request $request)
+    {
+        $category = Category::where('id', $request['id'])->first();
+
+        $category->isVisible = !$category->isVisible;
+        $category->save();
+
+        return new JsonResponse(['status' => 'success']);
+    }
+
     /**
      * Display a listing of the resource.
      *

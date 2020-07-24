@@ -3,10 +3,21 @@
 namespace App\Http\Controllers;
 
 use App\Models\Product;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {
+    public function toggleVisibility(Request $request)
+    {
+        $product = Product::where('id', $request['id'])->first();
+
+        $product->isVisible = !$product->isVisible;
+        $product->save();
+
+        return new JsonResponse(['status' => 'success']);
+    }
+
     /**
      * Display a listing of the resource.
      *

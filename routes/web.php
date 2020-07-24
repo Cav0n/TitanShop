@@ -37,6 +37,8 @@ Route::name('admin.')->prefix('admin')->group(function () {
     Route::middleware('isAdmin')->group(function () {
         Route::get('/', 'NavigationController@showBackofficeHomepage')->name('homepage');
         Route::get('/catalog/{category?}', 'CategoryController@index')->name('catalog');
+        Route::post('/toggle-visibility/product', 'ProductController@toggleVisibility')->name('toggle-visibility.product');
+        Route::post('/toggle-visibility/category', 'CategoryController@toggleVisibility')->name('toggle-visibility.category');
         Route::get('/orders/{status?}', 'OrderController@index')->name('orders');
     });
 });

@@ -27,7 +27,7 @@
                         <td>{{$category->i18nValue('title')}}</td>
                         <td class="text-center">
                             <div class="custom-control custom-switch">
-                                <input type="checkbox" class="custom-control-input" id="categoryVisibilityToggle-{{$loop->index}}" {{$category->isVisible ? "checked" : null}}>
+                                <input type="checkbox" class="custom-control-input visibility-checkbox" id="categoryVisibilityToggle-{{$loop->index}}" {{$category->isVisible ? "checked" : null}} data-type="category" data-id="{{$category->id}}">
                                 <label class="custom-control-label" for="categoryVisibilityToggle-{{$loop->index}}">
                                     {{$category->isVisible ? "Visible" : "Non visible"}}</label>
                             </div>
@@ -69,7 +69,7 @@
                             <td>{{$product->i18nValue('title')}}</td>
                             <td class="text-center">
                                 <div class="custom-control custom-switch">
-                                    <input type="checkbox" class="custom-control-input" id="productVisibilityToggle-{{$loop->index}}" {{$product->isVisible ? "checked" : null}}>
+                                    <input type="checkbox" class="custom-control-input visibility-checkbox" id="productVisibilityToggle-{{$loop->index}}" {{$product->isVisible ? "checked" : null}} data-type="product" data-id="{{$product->id}}">
                                     <label class="custom-control-label" for="productVisibilityToggle-{{$loop->index}}">
                                         {{$product->isVisible ? "Visible" : "Non visible"}}</label>
                                 </div>
@@ -89,4 +89,42 @@
             @endif
         </div>
     </div>
+@endsection
+
+@section('page.scripts')
+    <script>
+        let visibilityCheckbox = $('.visibility-checkbox');
+
+        visibilityCheckbox.on('change', function () {
+            let checkboxInput = $(this);
+
+            $.ajax({
+                url : checkboxInput.data('type') === 'product' ? "{{route("admin.toggle-visibility.product")}}" : "{{route('admin.toggle-visibility.category')}}",
+                type : 'POST',
+                dataType : 'json',
+                headers : {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                data : {
+                    id: checkboxInput.data('id')
+                },
+                beforeSend : function(xhr) {
+                    checkboxInput.siblings('.custom-control-label').text('Chargement en cours...');
+                },
+                success : function(data, status){
+                    let labelText = '';
+                    if (checkboxInput.is(':checked')) {
+                        labelText = 'Visible';
+                    } else {
+                        labelText = 'Non visible';
+                    }
+
+                    checkboxInput.siblings('.custom-control-label').text(labelText);
+                },
+                error : function(data, status, error){
+                    console.error('product not added : ' + error);
+                }
+            });
+        });
+    </script>
 @endsection
