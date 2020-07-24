@@ -66,7 +66,17 @@ p {
 .form-control.search {
     background: #EEE;
     border-radius: 25px;
-    max-width: 600px;
+    width: 25%;
+    min-width: 200px;
+}
+
+.header-search:hover {
+    width: 100%;
+}
+
+.header-link {
+    width: 11rem;
+    text-align: center;
 }
 
 .btn input[type=checkbox],
