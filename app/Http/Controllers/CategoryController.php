@@ -70,6 +70,10 @@ class CategoryController extends Controller
      */
     public function show(Category $category)
     {
+        if ($category->isDeleted || !$category->isVisible) {
+            abort(404);
+        }
+
         return view('default.pages.category', ['category' => $category]);
     }
 
