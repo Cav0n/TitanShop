@@ -14,7 +14,7 @@
         <div class="col-lg-4">
             <img src="{{$product->firstImage ? asset($product->firstImage->path) : asset('images/utils/question-mark.png')}}" alt="{{$product->i18nValue('title')}}" class="w-100">
         </div>
-        <div class="col-lg-6">
+        <div class="col-lg-6 mt-3 mt-lg-0">
             <h2>{{$product->i18nValue('title')}}</h2>
             <p>{{$product->i18nValue('description')}}</p>
 
@@ -32,6 +32,7 @@
     </div>
 @endsection
 
+@if($product->stock > 0)
 @section('page.scripts')
     <script>
         $('#add-to-cart-btn').on('click', function () {
@@ -57,3 +58,4 @@
         });
     </script>
 @endsection
+@endif
