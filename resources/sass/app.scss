@@ -43,6 +43,14 @@ header {
     max-width: 1300px;
 }
 
+table tr td {
+    vertical-align: middle !important;
+}
+
+.superhuge {
+    font-size: 5rem;
+}
+
 #main-content-container {
     padding-top: 5rem;
 }
@@ -53,6 +61,10 @@ header {
 
 #main-container {
     max-width: 1300px;
+}
+
+.toast-container {
+    z-index: 1000;
 }
 
 #footer-inner {

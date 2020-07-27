@@ -51,7 +51,7 @@
             </div>
 
             <div class="form-check text-center">
-                <label class="form-check-label">
+                <label class="form-check-label noselect">
                     <input type="checkbox" class="form-check-input" name="same_billing_address" id="same_billing_address" @if(old('same_billing_address')) checked="checked" @endif>
                     Adresse de facturation identique
                 </label>
