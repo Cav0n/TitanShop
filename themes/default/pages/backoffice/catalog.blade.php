@@ -21,7 +21,7 @@
                 </thead>
                 <tbody>
                     @foreach ($categories as $category)
-                    <tr>
+                    <tr @if(! $category->isVisible) class="opacity-50" @endif>
                         <td scope="row" class="text-center">{{$category->id}}</td>
                         <td></td>
                         <td>{{$category->i18nValue('title')}}</td>
@@ -63,7 +63,7 @@
                     </thead>
                     <tbody>
                     @foreach ($products as $product)
-                        <tr>
+                        <tr @if(! $product->isVisible) class="opacity-50" @endif>
                             <td scope="row" class="text-center">{{$product->id}}</td>
                             <td></td>
                             <td>{{$product->i18nValue('title')}}</td>
@@ -113,17 +113,20 @@
                 },
                 success : function(data, status){
                     let labelText = '';
+                    let className = '';
 
                     if (data.visible !== undefined && data.visible === true) {
                         labelText = 'Visible';
+                        checkboxInput.closest('tr').removeClass('opacity-50');
                     } else {
                         labelText = 'Non visible';
+                        checkboxInput.closest('tr').addClass('opacity-50');
                     }
 
                     checkboxInput.siblings('.custom-control-label').text(labelText);
                 },
                 error : function(data, status, error){
-                    console.error('Visibility can\'t be updatedss : ' + error);
+                    console.error('Visibility can\'t be updated : ' + error);
                 }
             });
         });

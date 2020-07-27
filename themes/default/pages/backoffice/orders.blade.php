@@ -23,7 +23,10 @@
                         <tr>
                             <td>{{$order->id}}</td>
                             <td>{{$order->token}}</td>
-                            <td>{{$order->email}} - {{$order->phone}}</td>
+                            <td>
+                                <b>{{$order->shippingAddress->firstname}} {{$order->shippingAddress->lastname}}</b> <br>
+                                {{$order->email}} @if ($order->phone)- {{$order->phone}}@endif
+                            </td>
                             <td>{{$order->paymentMethod}}</td>
                             <td>{{$order->created_at->format('d/m/Y à H\hi')}}</td>
                             <td class="text-right">
