@@ -40,9 +40,24 @@ Route::name('admin.')->prefix('admin')->group(function () {
     Route::middleware('isAdmin')->group(function () {
         Route::get('/', 'NavigationController@showBackofficeHomepage')->name('homepage');
         Route::any('/logout', 'AuthController@adminLogout')->name('logout');
+
         Route::get('/catalog/{category?}', 'CategoryController@index')->name('catalog');
+
+        Route::get('/product/create', 'ProductController@create')->name('product.create');
+        Route::post('/product/create', 'ProductController@store')->name('product.create');
+        Route::get('/product/edit/{product}', 'ProductController@edit')->name('product.edit');
+        Route::post('/product/edit/{product}', 'ProductController@update')->name('product.edit');
+        Route::delete('/product/delete', 'ProductController@destroy')->name('product.delete');
+
+        Route::get('/category/create', 'CategoryController@create')->name('category.create');
+        Route::post('/category/create', 'CategoryController@store')->name('category.create');
+        Route::get('/category/edit/{category}', 'CategoryController@edit')->name('category.edit');
+        Route::post('/category/edit/{category}', 'CategoryController@update')->name('category.update');
+        Route::delete('/category/delete', 'CategoryController@destroy')->name('category.delete');
+
         Route::post('/toggle-visibility/product', 'ProductController@toggleVisibility')->name('toggle-visibility.product');
         Route::post('/toggle-visibility/category', 'CategoryController@toggleVisibility')->name('toggle-visibility.category');
+
         Route::get('/orders/{status?}', 'OrderController@index')->name('orders');
     });
 });

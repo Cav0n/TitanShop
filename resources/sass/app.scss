@@ -95,6 +95,10 @@ table tr td {
     min-width: 200px;
 }
 
+.form-group {
+    margin-bottom: .4rem;
+}
+
 .header-search:focus {
     width: 100%;
 }
@@ -205,4 +209,13 @@ table tr td {
 
 .category-small-container:hover, .product-small-container:hover {
     text-decoration: none;
+}
+
+.modal .modal-content {
+    border-radius: 0;
+    border: 0;
+}
+
+.modal .modal-content.modal-danger {
+    border-left: 4px solid red !important;
 }

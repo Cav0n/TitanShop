@@ -2,8 +2,15 @@
 
 @section('page.content')
     <div class="row mx-0">
-        <div class="col-12 p-0">
+        <div class="col-12 p-0 d-flex justify-content-between">
             <h1>Catalogue</h1>
+
+            <div class="btn-container d-flex">
+                <a class="btn btn-primary text-white mr-2" href="{{route('admin.category.create')}}">
+                    Créer une nouvelle catégorie</a>
+                <a class="btn btn-primary text-white" href="{{route('admin.product.create')}}">
+                    Créer un nouveau produit</a>
+            </div>
         </div>
 
         <h2 class="h4">Catégories</h2>
@@ -34,7 +41,12 @@
                         </td>
                         <td class="text-right">
                             <a name="edit-category" id="edit-category" class="btn btn-primary" href="#" role="button">Modifier</a>
-                            <a name="delete-category" id="delete-category" class="btn btn-danger" href="#" role="button">Supprimer</a>
+                            <button name="delete-category" class="btn btn-danger delete-item" role="button"
+                                    data-id="{{$category->id}}"
+                                    data-type="category"
+                                    data-title="Suppression de {{$category->i18nValue('title')}}"
+                                    data-text="Êtes-vous certain de vouloir supprimer <b>{{$category->i18nValue('title')}}</b> ?">
+                                Supprimer</button>
                         </td>
                     </tr>
                     @endforeach
@@ -42,7 +54,7 @@
             </table>
             @else
 
-            <p>Aucun catégorie ne semble exister.</p>
+            <p class="p-3 text-center">Aucun catégorie ne semble exister.</p>
 
             @endif
 
@@ -75,8 +87,13 @@
                                 </div>
                             </td>
                             <td class="text-right">
-                                <a name="edit-product" id="edit-product" class="btn btn-primary" href="#" role="button">Modifier</a>
-                                <a name="delete-product" id="delete-product" class="btn btn-danger" href="#" role="button">Supprimer</a>
+                                <a id="edit-product" class="btn btn-primary" href="#" role="button">Modifier</a>
+                                <button name="delete-product" class="btn btn-danger delete-item" role="button"
+                                    data-id="{{$product->id}}"
+                                    data-type="product"
+                                    data-title="Suppression de {{$product->i18nValue('title')}}"
+                                    data-text="Êtes-vous certain de vouloir supprimer <b>{{$product->i18nValue('title')}}</b> ?">
+                                    Supprimer</button>
                             </td>
                         </tr>
                     @endforeach
@@ -84,11 +101,17 @@
                 </table>
             @else
 
-                <p>Aucun produit ne semble exister.</p>
+                <p class="p-3 text-center">Aucun produit ne semble exister.</p>
 
             @endif
         </div>
     </div>
+
+    @include('default.components.modals.danger-modal', [
+        'id' => 'delete-item-modal',
+        'title' => 'Test',
+        'text' => 'Ceci est un test'
+    ])
 @endsection
 
 @section('page.scripts')
@@ -127,6 +150,55 @@
                 },
                 error : function(data, status, error){
                     console.error('Visibility can\'t be updated : ' + error);
+                }
+            });
+        });
+    </script>
+
+    <script>
+        let itemId = "";
+        let itemType = "";
+        let deletionRoutes = {
+            'product': "{{route('admin.product.delete')}}",
+            'category': "{{route('admin.category.delete')}}"
+        }
+
+        $('.delete-item').on('click', function () {
+            itemId = $(this).data('id');
+            itemType = $(this).data('type');
+
+            $('#delete-item-modal .modal-title').html($(this).data('title'));
+            $('#delete-item-modal .modal-body').html($(this).data('text'));
+            $('#delete-item-modal').modal('show');
+        });
+
+        $('#delete-item-modal .validate-btn').on('click', function () {
+            if ("" === itemId || "" === itemType) {
+                console.error('I don\'t know what is the item to delete...');
+                return;
+            }
+
+            $.ajax({
+                url : deletionRoutes[itemType],
+                type : 'DELETE',
+                dataType : 'json',
+                headers : {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                data : {
+                    id: itemId
+                },
+                beforeSend : function(xhr) {
+                    console.log('Sending deletion request...')
+                },
+                success : function(data, status){
+                    console.log(data);
+                    itemId = "";
+                    itemType = "";
+                    location.reload();
+                },
+                error : function(data, status, error){
+                    console.error('Item can\'t be deleted : ' + error);
                 }
             });
         });

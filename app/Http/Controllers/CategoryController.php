@@ -28,11 +28,9 @@ class CategoryController extends Controller
     {
         $categories = Category::where('isDeleted', 0)->where('parent_id', null !== $category ? $category->id : null)->get();
 
-        $products = null !== $category
-            ? $category->products
-            : Product::whereDoesntHave('categories', function($q) {
-
-            })->get();
+        $products = (null !== $category)
+            ? $category->products()->where('isDeleted', 0)->get()
+            : Product::where('isDeleted', 0)->whereDoesntHave('categories')->get();
 
         return view('default.pages.backoffice.catalog', [
             'categories' => $categories,
@@ -48,7 +46,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        //
+        return view('default.pages.backoffice.category');
     }
 
     /**
@@ -65,7 +63,7 @@ class CategoryController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Category  $category
+     * @param  \App\Models\Category  $category
      * @return \Illuminate\Http\Response
      */
     public function show(Category $category)
@@ -80,19 +78,19 @@ class CategoryController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Category  $category
+     * @param  \App\Models\Category  $category
      * @return \Illuminate\Http\Response
      */
     public function edit(Category $category)
     {
-        //
+        return view('default.pages.backoffice.category', ['category' => $category]);
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Category  $category
+     * @param  \App\Models\Category  $category
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Category $category)
@@ -103,11 +101,17 @@ class CategoryController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Category  $category
-     * @return \Illuminate\Http\Response
+     * @param  \App\Models\Category  $category
+     * @return JsonResponse
      */
-    public function destroy(Category $category)
+    public function destroy(Request $request, Category $category = null)
     {
-        //
+        if (isset($category) || null !== $category = Category::where('id', $request['id'])->first()) {
+            $category->isDeleted = true;
+            $category->save();
+            return new JsonResponse(['status' => 'success']);
+        }
+
+        return new JsonResponse(['status' => 'error', 'message' => 'Category doesn\'t exists'], 404);
     }
 }
