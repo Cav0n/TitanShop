@@ -7,18 +7,9 @@ html, body {
     min-height: 100vh;
 }
 
-#backoffice-sidenav {
-    width: 15rem;
-    height: inherit;
-    background: white;
-}
-
-#backoffice-sidenav #sidenav-title {
-    font-size: 1.5rem;
-}
-
 #backoffice-content {
     height: fit-content;
+    margin-left: 15rem;
 }
 
 .backoffice-card {
@@ -26,8 +17,50 @@ html, body {
     border-left: 4px solid #8487f3 !important;
 }
 
-.sidenav-link-container {
-    display: flex;
+#backoffice-sidenav {
+    width: 15rem;
+    height: 100vh;
+    position: fixed;
+    background: white;
+
+    & #sidenav-title {
+        font-size: 1.5rem;
+        line-height: 1.3rem;
+    }
+    & .sidenav-links-container {
+        padding-top: 1rem;
+
+        & .sidenav-link {
+            display: flex;
+            padding: 0.5rem;
+            margin-top: 0.2rem;
+            border-radius: 2px;
+            background: #EEE;
+            border: 1px solid #AAA;
+            color:black;
+
+            &:hover {
+                text-decoration: none;
+            }
+
+            &:hover:not(.active):not(.disabled) {
+                box-shadow: 0 .125rem .25rem rgba(0,0,0,.075);
+                border: 1px solid black;
+                border-left: 4px solid #8487f3!important;
+            }
+
+            &.active {
+                background: black;
+                border-color: black;
+                color: white;
+            }
+
+            &.disabled {
+                opacity: .5;
+                cursor: default;
+            }
+        }
+    }
 }
 
 .table {
