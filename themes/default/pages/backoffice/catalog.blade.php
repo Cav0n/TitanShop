@@ -40,7 +40,7 @@
                             </div>
                         </td>
                         <td class="text-right">
-                            <a name="edit-category" id="edit-category" class="btn btn-primary" href="#" role="button">Modifier</a>
+                            <a name="edit-category" id="edit-category" class="btn btn-primary" href="{{route('admin.category.edit', ['category' => $category])}}" role="button">Modifier</a>
                             <button name="delete-category" class="btn btn-danger delete-item" role="button"
                                     data-id="{{$category->id}}"
                                     data-type="category"
@@ -69,6 +69,8 @@
                         <th class="text-center">ID</th>
                         <th></th>
                         <th>Titre</th>
+                        <th>Prix</th>
+                        <th>Stock</th>
                         <th class="text-center">Visible</th>
                         <th class="text-right">Actions</th>
                     </tr>
@@ -79,6 +81,8 @@
                             <td scope="row" class="text-center">{{$product->id}}</td>
                             <td></td>
                             <td>{{$product->i18nValue('title')}}</td>
+                            <td>{{$product->formattedPrice}}</td>
+                            <td>{{$product->stock}}</td>
                             <td class="text-center">
                                 <div class="custom-control custom-switch">
                                     <input type="checkbox" class="custom-control-input visibility-checkbox" id="productVisibilityToggle-{{$loop->index}}" {{$product->isVisible ? "checked" : null}} data-type="product" data-id="{{$product->id}}">
@@ -87,7 +91,7 @@
                                 </div>
                             </td>
                             <td class="text-right">
-                                <a id="edit-product" class="btn btn-primary" href="#" role="button">Modifier</a>
+                                <a id="edit-product" class="btn btn-primary" href="{{route('admin.product.edit', ['product' => $product])}}" role="button">Modifier</a>
                                 <button name="delete-product" class="btn btn-danger delete-item" role="button"
                                     data-id="{{$product->id}}"
                                     data-type="product"

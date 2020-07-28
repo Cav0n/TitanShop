@@ -52,7 +52,7 @@ Route::name('admin.')->prefix('admin')->group(function () {
         Route::get('/category/create', 'CategoryController@create')->name('category.create');
         Route::post('/category/create', 'CategoryController@store')->name('category.create');
         Route::get('/category/edit/{category}', 'CategoryController@edit')->name('category.edit');
-        Route::post('/category/edit/{category}', 'CategoryController@update')->name('category.update');
+        Route::post('/category/edit/{category}', 'CategoryController@update')->name('category.edit');
         Route::delete('/category/delete', 'CategoryController@destroy')->name('category.delete');
 
         Route::post('/toggle-visibility/product', 'ProductController@toggleVisibility')->name('toggle-visibility.product');

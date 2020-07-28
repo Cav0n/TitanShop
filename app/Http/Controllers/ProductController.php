@@ -103,7 +103,25 @@ class ProductController extends Controller
      */
     public function update(Request $request, Product $product)
     {
-        //
+        if (null === $i18n = $product->i18ns()->where('lang', $request['lang'] ?? 'fr')->first()) {
+            $i18n = new ProductI18n();
+        }
+
+        $i18n->title = $request['title'];
+        $i18n->description = $request['title'];
+        $i18n->summary = $request['title'];
+        $i18n->lang = $request['lang'] ?? 'fr';
+
+        $product->code = CustomString::prepareStringForURL($request['code'] ?? $request['title']);
+        $product->isVisible = (isset($request['isVisible'])) ? true : false;
+        $product->price = $request['price'];
+        $product->stock = $request['stock'];
+        $product->save();
+
+        $i18n->product_id = $product->id;
+        $i18n->save();
+
+        return redirect(route('admin.catalog'));
     }
 
     /**

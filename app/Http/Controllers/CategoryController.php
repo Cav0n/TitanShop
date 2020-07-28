@@ -112,7 +112,23 @@ class CategoryController extends Controller
      */
     public function update(Request $request, Category $category)
     {
-        //
+        if (null === $i18n = $category->i18ns()->where('lang', $request['lang'] ?? 'fr')->first()) {
+            $i18n = new CategoryI18n();
+        }
+
+        $i18n->title = $request['title'];
+        $i18n->description = $request['title'];
+        $i18n->summary = $request['title'];
+        $i18n->lang = $request['lang'] ?? 'fr';
+
+        $category->code = CustomString::prepareStringForURL($request['code'] ?? $request['title']);
+        $category->isVisible = (isset($request['isVisible'])) ? true : false;
+        $category->save();
+
+        $i18n->category_id = $category->id;
+        $i18n->save();
+
+        return redirect(route('admin.catalog'));
     }
 
     /**
