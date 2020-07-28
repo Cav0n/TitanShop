@@ -7,7 +7,7 @@
             <h1>Produit</h1>
 
             <div class="btn-container d-flex">
-                <a class="btn btn-success text-white mr-2">Sauvegarder</a>
+                <button type="submit" class="btn btn-success">Sauvegarder</button>
             </div>
         </div>
 

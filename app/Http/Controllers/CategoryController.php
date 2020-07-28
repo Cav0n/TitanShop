@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
+use App\Models\CategoryI18n;
 use App\Models\Product;
+use App\Models\Utils\CustomString;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
@@ -57,7 +59,22 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $category = new Category();
+        $i18n = new CategoryI18n();
+
+        $i18n->title = $request['title'];
+        $i18n->description = $request['title'];
+        $i18n->summary = $request['title'];
+        $i18n->lang = $request['lang'] ?? 'fr';
+
+        $category->code = CustomString::prepareStringForURL($code ?? $request['title']);
+        $category->isVisible = (isset($request['isVisible'])) ? true : false;
+        $category->save();
+
+        $i18n->category_id = $category->id;
+        $i18n->save();
+
+        return redirect(route('admin.catalog'));
     }
 
     /**

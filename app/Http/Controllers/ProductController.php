@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Product;
+use App\Models\ProductI18n;
+use App\Models\Utils\CustomString;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
@@ -46,7 +48,24 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $product = new Product();
+        $i18n = new ProductI18n();
+
+        $i18n->title = $request['title'];
+        $i18n->description = $request['title'];
+        $i18n->summary = $request['title'];
+        $i18n->lang = $request['lang'] ?? 'fr';
+
+        $product->code = CustomString::prepareStringForURL($code ?? $request['title']);
+        $product->isVisible = (isset($request['isVisible'])) ? true : false;
+        $product->price = $request['price'];
+        $product->stock = $request['stock'];
+        $product->save();
+
+        $i18n->product_id = $product->id;
+        $i18n->save();
+
+        return redirect(route('admin.catalog'));
     }
 
     /**
