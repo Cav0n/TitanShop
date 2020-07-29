@@ -13,7 +13,7 @@
             </div>
         </div>
 
-        <h2 class="h4">Catégories</h2>
+        <h2 class="h4">{{ isset($parentCategory) ? "Sous catégories" : "Catégories" }}</h2>
         <div class="col-12 bg-white p-0 mb-3 border shadow-sm backoffice-card">
             @if(isset($categories) && 0 < count($categories))
             <table class="table">
@@ -62,7 +62,7 @@
 
         </div>
 
-        <h2 class="h4">Produits sans catégories</h2>
+        <h2 class="h4">{{ isset($parentCategory) ? "Produits" : "Produits sans catégorie" }}</h2>
         <div class="col-12 bg-white p-0 border shadow-sm backoffice-card">
             @if(isset($products) && 0 < count($products))
                 <table class="table">
