@@ -18,6 +18,16 @@ class Address extends Model
         'country'
     ];
 
+    public function __toString()
+    {
+        return "
+            <p>". $this->firstname . " " . $this->lastname ."</p>
+            <p>". $this->street ."</p>
+            <p>". $this->zipCode . ", " . $this->city ."</p>
+            <p>". $this->country ."</p>
+        ";
+    }
+
     public static function validator(array $data)
     {
         $rules = [

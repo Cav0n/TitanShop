@@ -24,13 +24,13 @@
                             <td>{{$order->id}}</td>
                             <td>{{$order->token}}</td>
                             <td>
-                                <b>{{$order->shippingAddress->firstname}} {{$order->shippingAddress->lastname}}</b> <br>
+                                <b>{{$order->customerIdentity}}</b> <br>
                                 {{$order->email}} @if ($order->phone)- {{$order->phone}}@endif
                             </td>
-                            <td>{{$order->paymentMethod}}</td>
+                            <td>{{$order->totalPriceFormatted}} - {{$order->paymentMethod}}</td>
                             <td>{{$order->created_at->format('d/m/Y à H\hi')}}</td>
                             <td class="text-right">
-                                <a class="btn btn-primary text-white">Voir la commande</a>
+                                <a class="btn btn-primary text-white" href="{{route('admin.order.show', ['order' => $order])}}">Voir la commande</a>
                             </td>
                         </tr>
                     @endforeach

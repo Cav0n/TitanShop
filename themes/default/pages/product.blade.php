@@ -21,10 +21,10 @@
             <div class="buying-container mt-3">
                 <p class="h4">{{$product->formattedPrice}}</p>
                 @if($product->stock > 0)
-                <button name="add-to-cart-btn" id="add-to-cart-btn" class="btn btn-primary rounded-0 shadow-none border mt-3" role="button">
+                <button name="add-to-cart-btn" id="add-to-cart-btn" class="btn btn-primary shadow-none border mt-3" role="button">
                     Ajouter au panier</button>
                 @else
-                <button name="no-stock-btn" id="no-stock-btn" class="btn btn-dark rounded-0 shadow-none border mt-3 disabled" role="button" disabled>
+                <button name="no-stock-btn" id="no-stock-btn" class="btn btn-dark shadow-none border mt-3 disabled" role="button" disabled>
                     Ce produit est en rupture de stock</button>
                 @endif
             </div>

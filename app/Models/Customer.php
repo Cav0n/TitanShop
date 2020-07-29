@@ -6,6 +6,11 @@ use Illuminate\Database\Eloquent\Model;
 
 class Customer extends Model
 {
+    public function __toString()
+    {
+        return $this->firstname . ' ' . $this->lastname;
+    }
+
     public function getFirstnameAttribute($value) {
         return ucfirst($value);
     }

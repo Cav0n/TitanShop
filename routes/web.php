@@ -59,5 +59,6 @@ Route::name('admin.')->prefix('admin')->group(function () {
         Route::post('/toggle-visibility/category', 'CategoryController@toggleVisibility')->name('toggle-visibility.category');
 
         Route::get('/orders/{status?}', 'OrderController@index')->name('orders');
+        Route::get('/order/{order}', 'OrderController@show')->name('order.show');
     });
 });

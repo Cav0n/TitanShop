@@ -72,7 +72,7 @@ class OrderController extends Controller
      */
     public function show(Order $order)
     {
-        //
+        return view('default.pages.backoffice.order', ['order' => $order]);
     }
 
     /**
