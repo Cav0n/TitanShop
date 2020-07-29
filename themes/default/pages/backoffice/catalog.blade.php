@@ -3,12 +3,12 @@
 @section('page.content')
     <div class="row mx-0">
         <div class="col-12 p-0 d-flex justify-content-between">
-            <h1>Catalogue</h1>
+            <h1>Catalogue @if(isset($parentCategory)) - {{$parentCategory->i18nValue('title')}} @endif</h1>
 
             <div class="btn-container d-flex">
-                <a class="btn btn-primary text-white mr-2" href="{{route('admin.category.create')}}">
-                    Créer une nouvelle catégorie</a>
-                <a class="btn btn-primary text-white" href="{{route('admin.product.create')}}">
+                <a class="btn btn-primary text-white mr-2" href="{{route('admin.category.create', ['parent' => $parentCategory])}}">
+                    Créer une nouvelle @if(isset($parentCategory)) sous @endif catégorie</a>
+                <a class="btn btn-primary text-white" href="{{route('admin.product.create', ['default_category' => $parentCategory])}}">
                     Créer un nouveau produit</a>
             </div>
         </div>
@@ -40,7 +40,9 @@
                             </div>
                         </td>
                         <td class="text-right">
-                            <a name="edit-category" id="edit-category" class="btn btn-primary" href="{{route('admin.category.edit', ['category' => $category])}}" role="button">Modifier</a>
+                            <a class="btn btn-primary" href="{{route('admin.catalog', ['category' => $category])}}">Parcourir</a>
+                            <a id="edit-category" class="btn btn-primary" href="{{route('admin.category.edit', ['category' => $category])}}">
+                                Modifier</a>
                             <button name="delete-category" class="btn btn-danger delete-item" role="button"
                                     data-id="{{$category->id}}"
                                     data-type="category"
@@ -91,12 +93,13 @@
                                 </div>
                             </td>
                             <td class="text-right">
-                                <a id="edit-product" class="btn btn-primary" href="{{route('admin.product.edit', ['product' => $product])}}" role="button">Modifier</a>
+                                <a id="edit-product" class="btn btn-primary" href="{{route('admin.product.edit', ['product' => $product])}}">
+                                    Modifier</a>
                                 <button name="delete-product" class="btn btn-danger delete-item" role="button"
-                                    data-id="{{$product->id}}"
-                                    data-type="product"
-                                    data-title="Suppression de {{$product->i18nValue('title')}}"
-                                    data-text="Êtes-vous certain de vouloir supprimer <b>{{$product->i18nValue('title')}}</b> ?">
+                                        data-id="{{$product->id}}"
+                                        data-type="product"
+                                        data-title="Suppression de {{$product->i18nValue('title')}}"
+                                        data-text="Êtes-vous certain de vouloir supprimer <b>{{$product->i18nValue('title')}}</b> ?">
                                     Supprimer</button>
                             </td>
                         </tr>

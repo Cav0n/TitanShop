@@ -3,6 +3,11 @@
 @section('page.content')
     <form class="row mx-0" action="{{isset($category) ? route('admin.category.edit', ['category' => $category]) : route('admin.category.create')}}" method="POST">
         @csrf
+
+        @if(isset($parent))
+            <input type="hidden" name="parentId" value="{{$parent}}">
+        @endif
+
         <div class="col-12 p-0 d-flex justify-content-between">
             <h1>{{isset($category) ? $category->i18nValue('title') : "Catégorie"}}</h1>
 

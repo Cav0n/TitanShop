@@ -3,6 +3,11 @@
 @section('page.content')
     <form class="row mx-0" action="{{isset($product) ? route('admin.product.edit', ['product' => $product]) : route('admin.product.create')}}" method="POST">
         @csrf
+
+        @if(isset($defaultCategory))
+            <input type="hidden" name="defaultCategory" value="{{$defaultCategory}}">
+        @endif
+
         <div class="col-12 p-0 d-flex justify-content-between">
             <h1>{{isset($product) ? $product->i18nValue('title') : "Nouveau produit"}}</h1>
 

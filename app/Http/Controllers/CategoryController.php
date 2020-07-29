@@ -35,6 +35,7 @@ class CategoryController extends Controller
             : Product::where('isDeleted', 0)->whereDoesntHave('categories')->get();
 
         return view('default.pages.backoffice.catalog', [
+            'parentCategory' => $category,
             'categories' => $categories,
             'products' => $products
             ]
@@ -46,9 +47,15 @@ class CategoryController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
-        return view('default.pages.backoffice.category');
+        $parent = null;
+
+        if (isset($request['parent'])) {
+            $parent = $request['parent'];
+        }
+
+        return view('default.pages.backoffice.category', ['parent' => $parent]);
     }
 
     /**
@@ -67,8 +74,9 @@ class CategoryController extends Controller
         $i18n->summary = $request['title'];
         $i18n->lang = $request['lang'] ?? 'fr';
 
-        $category->code = CustomString::prepareStringForURL($code ?? $request['title']);
+        $category->code = CustomString::prepareStringForURL($request['code'] ?? $request['title']);
         $category->isVisible = (isset($request['isVisible'])) ? true : false;
+        $category->parent_id = $request['parentId'] ?? null;
         $category->save();
 
         $i18n->category_id = $category->id;

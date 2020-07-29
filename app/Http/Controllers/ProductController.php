@@ -35,9 +35,15 @@ class ProductController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
-        return view('default.pages.backoffice.product');
+        $defaultCategory = null;
+
+        if (isset($request['default_category'])) {
+            $defaultCategory = $request['default_category'];
+        }
+
+        return view('default.pages.backoffice.product', ['defaultCategory' => $defaultCategory]);
     }
 
     /**
@@ -64,6 +70,10 @@ class ProductController extends Controller
 
         $i18n->product_id = $product->id;
         $i18n->save();
+
+        if (isset($request['defaultCategory'])) {
+            $product->categories()->attach($request['defaultCategory']);
+        }
 
         return redirect(route('admin.catalog'));
     }
