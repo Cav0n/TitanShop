@@ -2,6 +2,8 @@
 @import 'variables';
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
+// Font Awesome (icons)
+@import '~@fortawesome/fontawesome-free';
 // Custom
 html {
     background: $dark;

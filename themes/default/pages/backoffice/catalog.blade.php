@@ -94,6 +94,7 @@
                             </td>
                             <td class="text-right">
                                 <a id="edit-product" class="btn btn-primary" href="{{route('admin.product.edit', ['product' => $product])}}">
+                                    <i class="fas fa-angle-right"></i>
                                     Modifier</a>
                                 <button name="delete-product" class="btn btn-danger delete-item" role="button"
                                         data-id="{{$product->id}}"
