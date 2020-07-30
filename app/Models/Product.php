@@ -33,6 +33,15 @@ class Product extends Model
         return number_format($this->price, 2, ',', ' ') . ' €';
     }
 
+    public function getDefaultCategoryAttribute()
+    {
+        if (null !== $category = $this->categories()->where('isDefault', 1)->first()) {
+            return $category;
+        }
+
+        return $this->categories()->first();
+    }
+
     public function setCodeAttribute($value)
     {
         if (null === $value) {

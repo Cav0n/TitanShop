@@ -6,6 +6,14 @@
             <h1>Commande de {{$order->customerIdentity}}</h1>
         </div>
 
+        <div class="col-12 d-flex justify-content-between">
+            <div class="admin-breadcrumb mb-3">
+                <a href='{{ route('admin.homepage') }}'><i class="fa fa-home" aria-hidden="true"></i></a> /
+                <a href='{{ route('admin.orders') }}'>Commandes</a> /
+                <a href='{{ route('admin.order.show', ['order' => $order]) }}'>Commande de {{$order->customerIdentity}}</a>
+            </div>
+        </div>
+
         <div class="col-lg-6">
             <h2 class="h4">Livraison</h2>
             <div class="row bg-white p-3 mb-3 mx-0 border shadow-sm backoffice-card">

@@ -2,8 +2,9 @@
 
 @section('page.content')
     <div class="row mx-0">
-        <div class="col-12 p-0 d-flex justify-content-between">
-            <h1>Catalogue @if(isset($parentCategory)) - {{$parentCategory->i18nValue('title')}} @endif</h1>
+        <div class="col-12 d-flex justify-content-between">
+            <h1>Catalogue @if(isset($parentCategory)) - {{$parentCategory->i18nValue('title')}}
+                <a class="btn btn-primary" href="{{ route('admin.category.edit', ['category' => $parentCategory]) }}" role="button"><i class="fas fa-edit"></i></a> @endif</h1>
 
             <div class="btn-container d-flex">
                 <a class="btn btn-primary text-white mr-2" href="{{route('admin.category.create', ['parent' => $parentCategory])}}">
@@ -15,73 +16,90 @@
             </div>
         </div>
 
-        <h2 class="h4">{{ isset($parentCategory) ? "Sous catégories" : "Catégories" }}</h2>
-        <div class="col-12 bg-white p-0 mb-3 border shadow-sm backoffice-card">
-            @if(isset($categories) && 0 < count($categories))
-            <table class="table">
-                <thead class="thead-default">
-                    <tr>
-                        <th class="text-center">ID</th>
-                        <th></th>
-                        <th>Titre</th>
-                        <th class="text-center">Visible</th>
-                        <th class="text-right">Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach ($categories as $category)
-                    <tr @if(! $category->isVisible) class="opacity-50" @endif>
-                        <td scope="row" class="text-center">{{$category->id}}</td>
-                        <td></td>
-                        <td>{{$category->i18nValue('title')}}</td>
-                        <td class="text-center">
-                            <div class="custom-control custom-switch">
-                                <input type="checkbox" class="custom-control-input visibility-checkbox" id="categoryVisibilityToggle-{{$loop->index}}" {{$category->isVisible ? "checked" : null}} data-type="category" data-id="{{$category->id}}">
-                                <label class="custom-control-label" for="categoryVisibilityToggle-{{$loop->index}}">
-                                    {{$category->isVisible ? "Visible" : "Non visible"}}</label>
-                            </div>
-                        </td>
-                        <td class="text-right">
-                            <a class="btn btn-primary" href="{{route('admin.catalog', ['category' => $category])}}">
-                                <i class="fas fa-angle-right"></i>
-                                Parcourir</a>
-                            <a id="edit-category" class="btn btn-primary" href="{{route('admin.category.edit', ['category' => $category])}}">
-                                <i class="fas fa-edit"></i>
-                                Modifier</a>
-                            <button name="delete-category" class="btn btn-danger delete-item" role="button"
-                                    data-id="{{$category->id}}"
-                                    data-type="category"
-                                    data-title="Suppression de {{$category->i18nValue('title')}}"
-                                    data-text="Êtes-vous certain de vouloir supprimer <b>{{$category->i18nValue('title')}}</b> ?">
-                                <i class="fa fa-trash"></i>
-                                Supprimer</button>
-                        </td>
-                    </tr>
-                    @endforeach
-                </tbody>
-            </table>
-            @else
+        <div class="col-12 d-flex justify-content-between">
+            <div class="admin-breadcrumb mb-3">
+                <a href='{{ route('admin.homepage') }}'><i class="fa fa-home" aria-hidden="true"></i></a>
+                / <a href='{{ route('admin.catalog') }}'>Catalogue</a>
 
-            <p class="p-3 text-center">Aucun catégorie ne semble exister.</p>
+                @if (isset ($parentCategory) && null !== $parentCategory->parent)
+                / <a href='{{ route('admin.catalog', ['category' => $parentCategory->parent]) }}'>{{ $parentCategory->parent->i18nValue('title') }}</a>
+                @endif
 
-            @endif
-
+                @if (isset($parentCategory))
+                / <a href='{{ route('admin.catalog', ['category' => $parentCategory]) }}'>{{ $parentCategory->i18nValue('title') }}</a>
+                @endif
+            </div>
         </div>
 
-        <h2 class="h4">{{ isset($parentCategory) ? "Produits" : "Produits sans catégorie" }}</h2>
-        <div class="col-12 bg-white p-0 border shadow-sm backoffice-card">
-            @if(isset($products) && 0 < count($products))
+        <div class="col-lg-12">
+            <h2 class="h4">{{ isset($parentCategory) ? "Sous catégories" : "Catégories" }}</h2>
+            <div class="bg-white p-0 mb-3 border shadow-sm backoffice-card">
+                @if(isset($categories) && 0 < count($categories))
                 <table class="table">
                     <thead class="thead-default">
-                    <tr>
-                        <th class="text-center">ID</th>
-                        <th></th>
-                        <th>Titre</th>
-                        <th>Prix</th>
-                        <th>Stock</th>
-                        <th class="text-center">Visible</th>
-                        <th class="text-right">Actions</th>
-                    </tr>
+                        <tr>
+                            <th class="text-center">ID</th>
+                            <th></th>
+                            <th>Titre</th>
+                            <th class="text-center">Visible</th>
+                            <th class="text-right">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($categories as $category)
+                        <tr @if(! $category->isVisible) class="opacity-50" @endif>
+                            <td scope="row" class="text-center">{{$category->id}}</td>
+                            <td></td>
+                            <td>{{$category->i18nValue('title')}}</td>
+                            <td class="text-center">
+                                <div class="custom-control custom-switch">
+                                    <input type="checkbox" class="custom-control-input visibility-checkbox" id="categoryVisibilityToggle-{{$loop->index}}" {{$category->isVisible ? "checked" : null}} data-type="category" data-id="{{$category->id}}">
+                                    <label class="custom-control-label" for="categoryVisibilityToggle-{{$loop->index}}">
+                                        {{$category->isVisible ? "Visible" : "Non visible"}}</label>
+                                </div>
+                            </td>
+                            <td class="text-right">
+                                <a class="btn btn-primary" href="{{route('admin.catalog', ['category' => $category])}}">
+                                    <i class="fas fa-angle-right"></i>
+                                    Parcourir</a>
+                                <a id="edit-category" class="btn btn-primary" href="{{route('admin.category.edit', ['category' => $category])}}">
+                                    <i class="fas fa-edit"></i>
+                                    Modifier</a>
+                                <button name="delete-category" class="btn btn-danger delete-item" role="button"
+                                        data-id="{{$category->id}}"
+                                        data-type="category"
+                                        data-title="Suppression de {{$category->i18nValue('title')}}"
+                                        data-text="Êtes-vous certain de vouloir supprimer <b>{{$category->i18nValue('title')}}</b> ?">
+                                    <i class="fa fa-trash"></i>
+                                    Supprimer</button>
+                            </td>
+                        </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+                @else
+
+                <p class="p-3 text-center">Aucun catégorie ne semble exister.</p>
+
+                @endif
+            </div>
+        </div>
+
+        <div class="col-lg-12">
+            <h2 class="h4">{{ isset($parentCategory) ? "Produits" : "Produits sans catégorie" }}</h2>
+            <div class="col-12 bg-white p-0 border shadow-sm backoffice-card">
+                @if(isset($products) && 0 < count($products))
+                <table class="table">
+                    <thead class="thead-default">
+                        <tr>
+                            <th class="text-center">ID</th>
+                            <th></th>
+                            <th>Titre</th>
+                            <th>Prix</th>
+                            <th>Stock</th>
+                            <th class="text-center">Visible</th>
+                            <th class="text-right">Actions</th>
+                        </tr>
                     </thead>
                     <tbody>
                     @foreach ($products as $product)
@@ -114,11 +132,12 @@
                     @endforeach
                     </tbody>
                 </table>
-            @else
+                @else
 
                 <p class="p-3 text-center">Aucun produit ne semble exister.</p>
 
-            @endif
+                @endif
+            </div>
         </div>
     </div>
 

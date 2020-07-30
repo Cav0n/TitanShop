@@ -108,7 +108,7 @@ class CategoryController extends Controller
      */
     public function edit(Category $category)
     {
-        return view('default.pages.backoffice.category', ['category' => $category]);
+        return view('default.pages.backoffice.category', ['category' => $category, 'parent' => $category->parent]);
     }
 
     /**

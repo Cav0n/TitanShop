@@ -2,11 +2,18 @@
 
 @section('page.content')
     <div class="row mx-0">
-        <div class="col-12 p-0">
+        <div class="col-12 d-flex justify-content-between">
             <h1>Commandes</h1>
         </div>
-        <div class="col-12 p-0 mb-3 border shadow-sm backoffice-card">
-            @if(isset($orders) && 0 < count($orders))
+        <div class="col-12 d-flex justify-content-between">
+            <div class="admin-breadcrumb mb-3">
+                <a href='{{ route('admin.homepage') }}'><i class="fa fa-home" aria-hidden="true"></i></a> /
+                <a href='{{ route('admin.orders') }}'>Commandes</a>
+            </div>
+        </div>
+        <div class="col-lg-12">
+            <div class="bg-white p-0 mb-3 border shadow-sm backoffice-card">
+                @if(isset($orders) && 0 < count($orders))
                 <table class="table bg-white">
                     <thead class="thead-default">
                     <tr>
@@ -30,7 +37,9 @@
                             <td>{{$order->totalPriceFormatted}} - {{$order->paymentMethod}}</td>
                             <td>{{$order->created_at->format('d/m/Y à H\hi')}}</td>
                             <td class="text-right">
-                                <a class="btn btn-primary text-white" href="{{route('admin.order.show', ['order' => $order])}}">Voir la commande</a>
+                                <a class="btn btn-primary text-white" href="{{route('admin.order.show', ['order' => $order])}}">
+                                    <i class="fa fa-eye"></i>
+                                    Voir la commande</a>
                             </td>
                         </tr>
                     @endforeach
@@ -41,7 +50,7 @@
                 <p>Aucune commande n'a été passé sur la boutique pour le moment.</p>
 
             @endif
-
+            </div>
         </div>
     </div>
 @endsection

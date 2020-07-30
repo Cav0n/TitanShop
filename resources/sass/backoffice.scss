@@ -1,5 +1,12 @@
+// Variables
+@import 'variables';
+
 html, body {
     background: #eff3f5 !important;
+}
+
+.btn {
+    padding: 2px 10px !important;
 }
 
 #backoffice-container {
@@ -78,4 +85,8 @@ html, body {
 .btn-container .btn {
     height: fit-content;
     margin: auto 0;
+}
+
+.admin-breadcrumb a {
+    color: $muted;
 }

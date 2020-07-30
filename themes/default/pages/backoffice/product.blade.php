@@ -8,7 +8,7 @@
             <input type="hidden" name="defaultCategory" value="{{$defaultCategory}}">
         @endif
 
-        <div class="col-12 p-0 d-flex justify-content-between">
+        <div class="col-12 d-flex justify-content-between">
             <h1>{{isset($product) ? $product->i18nValue('title') : "Nouveau produit"}}</h1>
 
             <div class="btn-container d-flex">
@@ -16,54 +16,85 @@
             </div>
         </div>
 
-        <h2 class="h4">Textes</h2>
-        <div class="col-12 row bg-white p-3 mb-3 mx-0 border shadow-sm backoffice-card">
-            <div class="form-group col-lg-8">
-                <label for="title">Titre</label>
-                <input type="text" class="form-control" name="title" id="title" value="{{isset($product) ? $product->i18nValue('title') : null}}">
-            </div>
-            <div class="form-group col-lg-4">
-                <label for="code">Code</label>
-                <input type="text" class="form-control" name="code" id="code" aria-describedby="helpCode" value="{{isset($product) ? $product->code : null}}">
-                <small id="helpCode" class="form-text text-muted">Laissez vide si vous ne savez pas à quoi cela correspond 😉</small>
-            </div>
-            <div class="form-group col-12">
-                <label for="summary">Résumé</label>
-                <textarea class="form-control" name="summary" id="summary" rows=4>{{isset($product) ? $product->i18nValue('summary') : null}}</textarea>
-            </div>
-            <div class="form-group col-12">
-                <label for="description">Description</label>
-                <textarea class="form-control" name="description" id="description" rows=4>{{isset($product) ? $product->i18nValue('description') : null}}</textarea>
-            </div>
-            <div class="form-group col-12 mb-0">
-                <div class="form-check form-check-inline">
-                    <label class="form-check-label">
-                        <input class="form-check-input" type="checkbox" name="isVisible" id="isVisible" @if(isset($product) ? $product->isVisible : true) checked @endif> Le produit est visible
-                    </label>
-                </div>
+        <div class="col-12 d-flex justify-content-between">
+            <div class="admin-breadcrumb mb-3">
+                <a href='{{ route('admin.homepage') }}'><i class="fa fa-home" aria-hidden="true"></i></a>
+                / <a href='{{ route('admin.catalog') }}'>Catalogue</a>
+
+                @if (isset($product))
+                @if (null !== $product->defaultCategory)
+                / <a href='{{ route('admin.catalog', ['category' => $product->defaultCategory]) }}'>...</a>
+                @endif
+
+                / <a href='{{ route('admin.product.edit', ['product' => $product]) }}'>{{ $product->i18nValue('title') }}</a>
+                @endif
+
+                @if (isset($defaultCategory))
+                / <a href='{{ route('admin.catalog', ['category' => $defaultCategory]) }}'>...</a>
+                / <a href='{{ route('admin.product.create', ['default_category' => $defaultCategory]) }}'>Nouveau produit</a>
+                @endif
+
+                @if (!isset($product) && !isset($defaultCategory))
+                / <a href='{{ route('admin.product.create') }}'>Nouveau produit</a>
+                @endif
             </div>
         </div>
 
-        <h2 class="h4">Prix et stock</h2>
-        <div class="col-12 row bg-white p-3 mb-3 mx-0 border shadow-sm backoffice-card">
-            <div class="form-group col-lg-6">
-                <label for="price">Prix</label>
-                <div class="input-group mb-3">
-                    <input type="number" class="form-control" name="price" id="price" min=0.01 step=0.01 value="{{isset($product) ? $product->price : null}}">
-                    <div class="input-group-append">
-                        <span class="input-group-text">€</span>
+        <div class="col-lg-8">
+            <h2 class="h4">Textes</h2>
+            <div class="row bg-white p-3 mb-3 mx-0 border shadow-sm backoffice-card">
+                <div class="form-group col-lg-8">
+                    <label for="title">Titre</label>
+                    <input type="text" class="form-control" name="title" id="title" value="{{isset($product) ? $product->i18nValue('title') : null}}">
+                </div>
+                <div class="form-group col-lg-4">
+                    <label for="code">Code</label>
+                    <input type="text" class="form-control" name="code" id="code" aria-describedby="helpCode" value="{{isset($product) ? $product->code : null}}">
+                    <small id="helpCode" class="form-text text-muted">Laissez vide si vous ne savez pas à quoi cela correspond 😉</small>
+                </div>
+                <div class="form-group col-12">
+                    <label for="summary">Résumé</label>
+                    <textarea class="form-control" name="summary" id="summary" rows=4>{{isset($product) ? $product->i18nValue('summary') : null}}</textarea>
+                </div>
+                <div class="form-group col-12">
+                    <label for="description">Description</label>
+                    <textarea class="form-control" name="description" id="description" rows=4>{{isset($product) ? $product->i18nValue('description') : null}}</textarea>
+                </div>
+                <div class="form-group col-12 mb-0">
+                    <div class="form-check form-check-inline">
+                        <label class="form-check-label">
+                            <input class="form-check-input" type="checkbox" name="isVisible" id="isVisible" @if(isset($product) ? $product->isVisible : true) checked @endif> Le produit est visible
+                        </label>
                     </div>
                 </div>
             </div>
-            <div class="form-group col-lg-6">
-                <label for="stock">Stock</label>
-                <input type="number" class="form-control" name="stock" id="stock" min=0 step=1 value="{{isset($product) ? $product->stock : null}}">
+        </div>
+
+        <div class="col-lg-4">
+            <h2 class="h4">Prix et stock</h2>
+            <div class="row bg-white p-3 mb-3 mx-0 border shadow-sm backoffice-card">
+                <div class="form-group col-lg-6">
+                    <label for="price">Prix</label>
+                    <div class="input-group mb-3">
+                        <input type="number" class="form-control" name="price" id="price" min=0.01 step=0.01 value="{{isset($product) ? $product->price : null}}">
+                        <div class="input-group-append">
+                            <span class="input-group-text">€</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group col-lg-6">
+                    <label for="stock">Stock</label>
+                    <input type="number" class="form-control" name="stock" id="stock" min=0 step=1 value="{{isset($product) ? $product->stock : null}}">
+                </div>
             </div>
         </div>
 
-        <h2 class="h4">Images</h2>
-        <div class="col-12 row bg-white p-3 mx-0 border shadow-sm backoffice-card">
-            <p>Bientôt disponible</p>
+        <div class="col-lg-6">
+            <h2 class="h4">Images</h2>
+            <div class="col-12 row bg-white p-3 mx-0 border shadow-sm backoffice-card">
+                <p>Bientôt disponible</p>
+            </div>
         </div>
+
     </form>
 @endsection
