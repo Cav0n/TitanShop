@@ -58,10 +58,10 @@ class Category extends Model
         }
 
         if (null === $i18n) {
-            return nl2br($this->i18ns()->first()->$valueName);
+            return $this->i18ns()->first()->$valueName;
         }
 
-        return nl2br($i18n->$valueName);
+        return $i18n->$valueName;
     }
 
     public function generateBreadcrumb()

@@ -26,7 +26,10 @@
                 @endif
 
                 @if (isset($parentCategory))
-                / <a href='{{ route('admin.catalog', ['category' => $parentCategory]) }}'>{{ $parentCategory->i18nValue('title') }}</a>
+                / <a href='{{ route('admin.category.edit', ['category' => $parentCategory]) }}'>
+                    {{ $parentCategory->i18nValue('title') }}
+                    <i class="fas fa-edit"></i>
+                </a>
                 @endif
             </div>
         </div>

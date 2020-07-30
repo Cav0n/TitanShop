@@ -82,7 +82,7 @@ class CategoryController extends Controller
         $i18n->category_id = $category->id;
         $i18n->save();
 
-        return redirect(route('admin.catalog'));
+        return redirect(route('admin.category.edit', ['category' => $category]))->withSuccess('La catégorie a été sauvegardée avec succés.');
     }
 
     /**
@@ -136,7 +136,7 @@ class CategoryController extends Controller
         $i18n->category_id = $category->id;
         $i18n->save();
 
-        return redirect(route('admin.catalog'));
+        return back()->withSuccess('La catégorie a été sauvegardée avec succés.');
     }
 
     /**

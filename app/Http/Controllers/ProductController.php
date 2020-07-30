@@ -75,7 +75,7 @@ class ProductController extends Controller
             $product->categories()->attach($request['defaultCategory']);
         }
 
-        return redirect(route('admin.catalog'));
+        return redirect(route('admin.product.edit', ['product' => $product]))->withSuccess('Le produit a été sauvegardé avec succés.');
     }
 
     /**
@@ -131,7 +131,7 @@ class ProductController extends Controller
         $i18n->product_id = $product->id;
         $i18n->save();
 
-        return redirect(route('admin.catalog'));
+        return back()->withSuccess('Le produit a été sauvegardé avec succés.');
     }
 
     /**

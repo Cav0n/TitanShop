@@ -12,10 +12,16 @@
             <h1>{{isset($category) ? $category->i18nValue('title') : "Catégorie"}}</h1>
 
             <div class="btn-container d-flex">
-                <button type="submit" class="btn btn-success">Sauvegarder</button>
+                @isset($category)
+                <a type="button" class="btn btn-primary mr-2" href="{{ route('category.show', ['category' => $category]) }}" target="_blank" rel="noopener noreferrer">
+                    <i class="fas fa-eye"></i>
+                    Voir la catégorie</a>
+                @endisset
+                <button type="submit" class="btn btn-success">
+                    <i class="fas fa-save"></i>
+                    Sauvegarder</button>
             </div>
         </div>
-
 
         <div class="col-12 d-flex justify-content-between">
             <div class="admin-breadcrumb mb-3">
@@ -27,13 +33,21 @@
                 @endif
 
                 @if (isset($category))
-                / <a href='{{ route('admin.category.edit', ['category' => $category]) }}'>{{ $category->i18nValue('title') }}</a>
+                / <a href='{{ route('admin.catalog', ['category' => $category]) }}'>
+                    {{ $category->i18nValue('title') }}
+                    <i class="fas fa-eye"></i>
+                </a>
                 @endif
 
                 @if (!isset($category))
                 / <a href='{{ route('admin.product.create') }}'>Nouvelle catégorie</a>
                 @endif
             </div>
+        </div>
+
+        <div class="col-lg-12">
+            @include('default.components.alerts.success')
+            @include('default.components.alerts.errors')
         </div>
 
         <div class="col-lg-12">

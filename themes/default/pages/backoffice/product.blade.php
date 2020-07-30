@@ -12,7 +12,14 @@
             <h1>{{isset($product) ? $product->i18nValue('title') : "Nouveau produit"}}</h1>
 
             <div class="btn-container d-flex">
-                <button type="submit" class="btn btn-success">Sauvegarder</button>
+                @isset($product)
+                <a type="button" class="btn btn-primary mr-2" href="{{ route('product.show', ['product' => $product]) }}" target="_blank" rel="noopener noreferrer">
+                    <i class="fas fa-eye"></i>
+                    Voir le produit</a>
+                @endisset
+                <button type="submit" class="btn btn-success">
+                    <i class="fas fa-save"></i>
+                    Sauvegarder</button>
             </div>
         </div>
 
@@ -38,6 +45,11 @@
                 / <a href='{{ route('admin.product.create') }}'>Nouveau produit</a>
                 @endif
             </div>
+        </div>
+
+        <div class="col-lg-12">
+            @include('default.components.alerts.success')
+            @include('default.components.alerts.errors')
         </div>
 
         <div class="col-lg-8">

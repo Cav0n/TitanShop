@@ -5,9 +5,9 @@
 @section('page.content')
     <div class="d-flex flex-column justify-content-center mh-100">
         <div class="row justify-content-center">
-            <div class="col-lg-4">   
+            <div class="col-lg-4">
                 <h1>Titan Shop</h1>
-                @include('default.components.error')
+                @include('default.components.alerts.errors')
                 <form action="{{route('admin.login')}}" method="POST">
                     @csrf
                     <input type="text" class="form-control mb-3" name="login" id="login" placeholder="Email ou pseudo" value="{{old('login')}}">
