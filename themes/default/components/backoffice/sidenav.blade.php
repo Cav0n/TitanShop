@@ -5,15 +5,19 @@
         <div class="sidenav-links-container d-flex flex-column">
 
             <a href="{{route('admin.homepage')}}" class="sidenav-link transition @if(Route::current()->getName() == 'admin.homepage') active @endif">
+                <i class="fas fa-home"></i>
                 Accueil
             </a>
             <a href="{{route('admin.orders')}}" class="sidenav-link transition @if(Route::current()->getName() == 'admin.orders') active @endif">
+                <i class="fas fa-cubes"></i>
                 Commandes
             </a>
             <a href="{{route('admin.catalog')}}" class="sidenav-link transition @if(Route::current()->getName() =='admin.catalog') active @endif">
+                <i class="fas fa-book"></i>
                 Catalogue
             </a>
             <p class="sidenav-link transition disabled noselect">
+                <i class="fas fa-wrench"></i>
                 Paramètres
             </p>
 

@@ -66,6 +66,12 @@ html, body {
                 opacity: .5;
                 cursor: default;
             }
+
+            & i {
+                margin-top: auto;
+                margin-bottom: auto;
+                margin-right: 5px;
+            }
         }
     }
 }
