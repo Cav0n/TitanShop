@@ -21,8 +21,10 @@
                         <li>
                             <a href="{{route('homepage')}}">Mon compte</a>
                         </li>
-                        <li>
+                        <li class="d-flex">
                             <a href="{{route('cart')}}">Mon panier</a>
+                            <span class="cart-total-quantity badge badge-pill badge-dark my-auto ml-2 h-fit-content">
+                                {{ session()->get('cart')->totalQuantity }}</span>
                         </li>
                         @foreach(\App\Models\Category::where('isDeleted', 0)->where('isVisible', 1)->take(5)->get() as $category)
                         <li style="max-width: 12rem;">
