@@ -68,7 +68,8 @@
                 <div class="col-12 order-various">
                     <p><b>Commande effectuée le : </b> {{$order->created_at->format('d/m/Y à H\hi')}}</p>
 
-                    <p><b>Message du client :</b> {{$order->customerMessage ?? 'Le client n\'a laissé aucun message pour cette commande.'}}</p>
+                    <p><b>Message du client :</b> <br>
+                         {!! $order->customerMessage ?? 'Le client n\'a laissé aucun message pour cette commande.' !!}</p>
                 </div>
             </div>
         </div>

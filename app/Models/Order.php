@@ -52,6 +52,11 @@ class Order extends Model
         return $this->hasMany('App\Models\OrderItem');
     }
 
+    public function getCustomerMessageAttribute($value)
+    {
+        return nl2br($value);
+    }
+
     public function getTotalQuantityAttribute()
     {
         $quantity = 0;
