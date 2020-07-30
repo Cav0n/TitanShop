@@ -5,6 +5,7 @@
 /storage/*.key
 /vendor
 /.idea
+/.vscode
 .env
 .env.backup
 .env.testing

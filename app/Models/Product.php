@@ -61,7 +61,7 @@ class Product extends Model
             return '[Aucun texte n\'existe]';
         }
 
-        return $i18n->$valueName;
+        return nl2br($i18n->$valueName);
     }
 
     public function generateBreadcrumb()

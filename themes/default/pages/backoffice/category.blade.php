@@ -31,7 +31,7 @@
                 @endif
 
                 @if (!isset($category))
-                / <a href='{{ route('admin.product.create') }}'>Nouveau produit</a>
+                / <a href='{{ route('admin.product.create') }}'>Nouvelle catégorie</a>
                 @endif
             </div>
         </div>

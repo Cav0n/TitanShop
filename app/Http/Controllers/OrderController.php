@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Cart;
 use App\Models\Order;
 use App\Models\OrderItem;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
@@ -29,6 +30,37 @@ class OrderController extends Controller
         Cart::generateNewCartSession($request);
 
         return redirect(route('cart.thanks'));
+    }
+
+    public function track(Request $request)
+    {
+        if (null === $order = Order::where('token', $request['trackingNumber'])->first()) {
+            return new JsonResponse([
+                'status' => 'error',
+                'message' => 'No order with this tracking number.'
+            ], 404);
+        }
+
+        if (!isset($request['email']) || strtoupper($order->email) !== strtoupper($request['email'])) {
+            return new JsonResponse([
+                'status' => 'success',
+                'message' => 'An order has been found with this tracking number, but email is missing or incorrect.',
+                'order' => [
+                    'status'    => 'Not available at the moment...',
+                    'date'      => $order->created_at->format('d/m/Y')
+                ]
+            ], 200);
+        }
+
+        return new JsonResponse([
+            'status' => 'success',
+            'message' => 'An order has been found with this tracking number.',
+            'order' => [
+                'status'    => 'Not available at the moment...',
+                'date'      => $order->created_at->format('d/m/Y'),
+                'price'     => $order->totalPriceFormatted
+            ]
+        ], 200);
     }
 
     /**

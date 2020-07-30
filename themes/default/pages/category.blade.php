@@ -8,7 +8,7 @@
     <div class="row">
         <div class="col-lg-6">
             <h2>{{$category->i18nValue('title')}}</h2>
-            <p>{{$category->i18nValue('description')}}</p>
+            <p>{!! $category->i18nValue('description') !!}</p>
         </div>
     </div>
 

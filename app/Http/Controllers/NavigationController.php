@@ -15,4 +15,9 @@ class NavigationController extends Controller
     {
         return view('default.pages.backoffice.homepage');
     }
+
+    public function showOrderTrackingPage()
+    {
+        return view('default.pages.order-tracking');
+    }
 }

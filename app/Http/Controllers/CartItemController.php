@@ -40,6 +40,10 @@ class CartItemController extends Controller
                 'items'     => $newItemsPrice,
                 'shipping'  => $newShippingPrice,
                 'total'     => $newTotalPrice
+            ],
+            'item' => [
+                'id'    => $item->id,
+                'price' => $item->priceFormatted
             ]
         ]);
     }
@@ -85,7 +89,13 @@ class CartItemController extends Controller
             $item->quantity += $quantity;
             $item->save();
             Cart::updateCartSession($request);
-            return JsonResponse::create(['success' => 'Cart item updated successfully.']);
+            return new JsonResponse([
+                'status' => 'success',
+                'message' => 'Cart item updated successfully.',
+                'quantity' => [
+                    'total' => $item->cart->totalQuantity
+                ]
+                ]);
         }
 
         $item = new CartItem();
@@ -94,7 +104,13 @@ class CartItemController extends Controller
         $item->quantity = $quantity;
         $item->save();
         Cart::updateCartSession($request);
-        return JsonResponse::create(['success' => 'Cart item created successfully.']);
+        return new JsonResponse([
+            'status' => 'success',
+            'message' => 'Cart item created successfully.',
+            'quantity' => [
+                'total' => $item->cart->totalQuantity
+            ]
+        ]);
     }
 
     /**

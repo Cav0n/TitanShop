@@ -58,8 +58,8 @@ class ProductController extends Controller
         $i18n = new ProductI18n();
 
         $i18n->title = $request['title'];
-        $i18n->description = $request['title'];
-        $i18n->summary = $request['title'];
+        $i18n->description = $request['description'];
+        $i18n->summary = $request['summary'];
         $i18n->lang = $request['lang'] ?? 'fr';
 
         $product->code = CustomString::prepareStringForURL($code ?? $request['title']);
@@ -118,8 +118,8 @@ class ProductController extends Controller
         }
 
         $i18n->title = $request['title'];
-        $i18n->description = $request['title'];
-        $i18n->summary = $request['title'];
+        $i18n->description = $request['description'];
+        $i18n->summary = $request['summary'];
         $i18n->lang = $request['lang'] ?? 'fr';
 
         $product->code = CustomString::prepareStringForURL($request['code'] ?? $request['title']);

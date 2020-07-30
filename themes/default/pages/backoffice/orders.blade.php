@@ -47,7 +47,7 @@
                 </table>
             @else
 
-                <p>Aucune commande n'a été passé sur la boutique pour le moment.</p>
+                <p class="p-3 text-center">Aucune commande n'a été effectuée sur le site pour le moment.</p>
 
             @endif
             </div>

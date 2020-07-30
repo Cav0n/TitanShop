@@ -26,6 +26,10 @@ Route::get('/cart/thanks', 'CartController@showThanks')->name('cart.thanks');
 Route::get('/order/create-from-cart', 'OrderController@createFromCart')->name('order.create-from-cart');
 Route::get('/category/{category:code}', 'CategoryController@show')->name('category.show');
 Route::get('/product/{product:code}', 'ProductController@show')->name('product.show');
+
+Route::get('/order/tracking', 'NavigationController@showOrderTrackingPage')->name('order.tracking');
+Route::post('/order/tracking', 'OrderController@track')->name('order.tracking');
+
 Route::get('/customer-area/login', 'AuthController@showCustomerLoginPage')->name('customer-area.login');
 
 Route::name('admin.')->prefix('admin')->group(function () {

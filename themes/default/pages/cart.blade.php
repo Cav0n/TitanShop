@@ -24,9 +24,10 @@
                     <tr class="cart-item">
                         <td>{{$item->product->i18nValue('title')}}</td>
                         <td class="text-center item-quantity-container">
-                            <input class="item-quantity" type="number" min="0" max="{{$item->product->stock}}" value="{{$item->quantity}}" data-id="{{$item->id}}" data-price="{{$item->price}}">
+                            <input class="item-quantity" type="number" min="0" max="{{$item->product->stock}}" value="{{$item->quantity}}"
+                                data-id="{{$item->id}}" data-price="{{$item->price}}">
                         </td>
-                        <td class="text-right">{{$item->priceFormatted}}</td>
+                        <td id='item-price-{{ $item->id }}'>{{$item->priceFormatted}}</td>
                     </tr>
                     @endforeach
                 </tbody>
@@ -88,6 +89,8 @@
             $('.cart-shipping-price').text(data.prices.shipping);
             $('.cart-total-price').html('<b>' + data.prices.total + '</b>');
             $('.cart-total-quantity').text(data.quantity.total);
+            console.log('#item-price-' + data.item.id);
+            $('#item-price-' + data.item.id).text(data.item.price);
 
             $('#items-container').find('.item-quantity[data-id='+data.itemId+']').removeAttr('disabled');
         });
@@ -109,7 +112,7 @@
                         location.reload();
                     }
 
-                    $(document).trigger('itemQuantityUpdated', {itemId: itemId, prices: data.prices, quantity: data.quantity});
+                    $(document).trigger('itemQuantityUpdated', {itemId: itemId, prices: data.prices, quantity: data.quantity, item: data.item});
                 },
                 error : function(data, status, error){
                     console.error('Item quantity can\'t be updated : ' + error);

@@ -16,7 +16,7 @@
         </div>
         <div class="col-lg-6 mt-3 mt-lg-0">
             <h2>{{$product->i18nValue('title')}}</h2>
-            <p>{{$product->i18nValue('description')}}</p>
+            <p>{!! $product->i18nValue('description') !!}</p>
 
             <div class="buying-container mt-3">
                 <p class="h4">{{$product->formattedPrice}}</p>
@@ -50,6 +50,7 @@
                 success : function(data, status){
                     $('.toast-container').show();
                     $('.product-added-toast').toast('show');
+                    $('.cart-total-quantity').text(data.quantity.total);
                 },
                 error : function(data, status, error){
                     console.error('product not added : ' + error);

@@ -70,8 +70,8 @@ class CategoryController extends Controller
         $i18n = new CategoryI18n();
 
         $i18n->title = $request['title'];
-        $i18n->description = $request['title'];
-        $i18n->summary = $request['title'];
+        $i18n->description = $request['description'];
+        $i18n->summary = $request['summary'];
         $i18n->lang = $request['lang'] ?? 'fr';
 
         $category->code = CustomString::prepareStringForURL($request['code'] ?? $request['title']);
@@ -125,8 +125,8 @@ class CategoryController extends Controller
         }
 
         $i18n->title = $request['title'];
-        $i18n->description = $request['title'];
-        $i18n->summary = $request['title'];
+        $i18n->description = $request['description'];
+        $i18n->summary = $request['summary'];
         $i18n->lang = $request['lang'] ?? 'fr';
 
         $category->code = CustomString::prepareStringForURL($request['code'] ?? $request['title']);
