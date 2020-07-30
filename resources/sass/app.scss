@@ -3,7 +3,10 @@
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
 // Font Awesome (icons)
-@import '~@fortawesome/fontawesome-free';
+@import '~@fortawesome/fontawesome-free/scss/fontawesome';
+@import '~@fortawesome/fontawesome-free/scss/solid';
+@import '~@fortawesome/fontawesome-free/scss/brands';
+
 // Custom
 html {
     background: $dark;

@@ -7,8 +7,10 @@
 
             <div class="btn-container d-flex">
                 <a class="btn btn-primary text-white mr-2" href="{{route('admin.category.create', ['parent' => $parentCategory])}}">
+                    <i class="fa fa-plus" aria-hidden="true"></i>
                     Créer une nouvelle @if(isset($parentCategory)) sous @endif catégorie</a>
                 <a class="btn btn-primary text-white" href="{{route('admin.product.create', ['default_category' => $parentCategory])}}">
+                    <i class="fa fa-plus" aria-hidden="true"></i>
                     Créer un nouveau produit</a>
             </div>
         </div>
@@ -40,14 +42,18 @@
                             </div>
                         </td>
                         <td class="text-right">
-                            <a class="btn btn-primary" href="{{route('admin.catalog', ['category' => $category])}}">Parcourir</a>
+                            <a class="btn btn-primary" href="{{route('admin.catalog', ['category' => $category])}}">
+                                <i class="fas fa-angle-right"></i>
+                                Parcourir</a>
                             <a id="edit-category" class="btn btn-primary" href="{{route('admin.category.edit', ['category' => $category])}}">
+                                <i class="fas fa-edit"></i>
                                 Modifier</a>
                             <button name="delete-category" class="btn btn-danger delete-item" role="button"
                                     data-id="{{$category->id}}"
                                     data-type="category"
                                     data-title="Suppression de {{$category->i18nValue('title')}}"
                                     data-text="Êtes-vous certain de vouloir supprimer <b>{{$category->i18nValue('title')}}</b> ?">
+                                <i class="fa fa-trash"></i>
                                 Supprimer</button>
                         </td>
                     </tr>
@@ -94,13 +100,14 @@
                             </td>
                             <td class="text-right">
                                 <a id="edit-product" class="btn btn-primary" href="{{route('admin.product.edit', ['product' => $product])}}">
-                                    <i class="fas fa-angle-right"></i>
+                                    <i class="fas fa-edit"></i>
                                     Modifier</a>
                                 <button name="delete-product" class="btn btn-danger delete-item" role="button"
                                         data-id="{{$product->id}}"
                                         data-type="product"
                                         data-title="Suppression de {{$product->i18nValue('title')}}"
                                         data-text="Êtes-vous certain de vouloir supprimer <b>{{$product->i18nValue('title')}}</b> ?">
+                                    <i class="fa fa-trash"></i>
                                     Supprimer</button>
                             </td>
                         </tr>
