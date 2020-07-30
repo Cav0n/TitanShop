@@ -44,7 +44,7 @@
             <table class="table">
                 <tbody>
                     <tr>
-                        <td class="text-left">{{$cart->totalQuantity}} produits :</td>
+                        <td class="text-left"><span class="cart-total-quantity">{{$cart->totalQuantity}}</span> produits :</td>
                         <td class="text-right cart-items-price">{{$cart->itemsPriceFormatted}}</td>
                     </tr>
                     <tr>
@@ -83,9 +83,11 @@
         });
 
         $(document).on('itemQuantityUpdated', function (event, data) {
+            console.log(data);
             $('.cart-items-price').text(data.prices.items);
             $('.cart-shipping-price').text(data.prices.shipping);
             $('.cart-total-price').html('<b>' + data.prices.total + '</b>');
+            $('.cart-total-quantity').text(data.quantity.total);
 
             $('#items-container').find('.item-quantity[data-id='+data.itemId+']').removeAttr('disabled');
         });
@@ -107,7 +109,7 @@
                         location.reload();
                     }
 
-                    $(document).trigger('itemQuantityUpdated', {itemId: itemId, prices: data.prices});
+                    $(document).trigger('itemQuantityUpdated', {itemId: itemId, prices: data.prices, quantity: data.quantity});
                 },
                 error : function(data, status, error){
                     console.error('Item quantity can\'t be updated : ' + error);

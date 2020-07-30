@@ -29,9 +29,13 @@ class CartItemController extends Controller
         $newItemsPrice = $item->cart->itemsPriceFormatted;
         $newShippingPrice = $item->cart->shippingPriceFormatted;
         $newTotalPrice = $item->cart->totalPriceFormatted;
+        $totalQuantity = $item->cart->totalQuantity;
 
         return new JsonResponse([
             'status' => 'success',
+            'quantity' => [
+                'total' => $totalQuantity
+            ],
             'prices' => [
                 'items'     => $newItemsPrice,
                 'shipping'  => $newShippingPrice,

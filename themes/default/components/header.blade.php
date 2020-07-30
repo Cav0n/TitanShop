@@ -41,9 +41,14 @@
                     </div>
                 </div>
                 <div class="header-link d-flex flex-column justify-content-center px-3">
+                    <i class="fas fa-user"></i>
                     <a class="text-dark" href="#">Mon compte</a>
                 </div>
                 <div class="header-link d-flex flex-column justify-content-center px-3">
+                    <div class="d-flex justify-content-center">
+                        <i class="fas fa-shopping-cart"></i>
+                        <span class="cart-total-quantity badge badge-pill badge-light ml-1">{{ session()->get('cart')->totalQuantity }}</span>
+                    </div>
                     <a class="text-dark" href="{{route('cart')}}">Mon panier</a>
                 </div>
             </div>
