@@ -29,7 +29,7 @@ class CartItemController extends Controller
         $newItemsPrice = $item->cart->itemsPriceFormatted;
         $newShippingPrice = $item->cart->shippingPriceFormatted;
         $newTotalPrice = $item->cart->totalPriceFormatted;
-        $totalQuantity = $item->cart->totalQuantity;
+        $totalQuantity = $item->cart->totalQuantity > 99 ? '99+' : $item->cart->totalQuantity;
 
         return new JsonResponse([
             'status' => 'success',
@@ -89,11 +89,13 @@ class CartItemController extends Controller
             $item->quantity += $quantity;
             $item->save();
             Cart::updateCartSession($request);
+
+            $totalQuantity = $item->cart->totalQuantity > 99 ? '99+' : $item->cart->totalQuantity;
             return new JsonResponse([
                 'status' => 'success',
                 'message' => 'Cart item updated successfully.',
                 'quantity' => [
-                    'total' => $item->cart->totalQuantity
+                    'total' => $totalQuantity
                 ]
                 ]);
         }
@@ -104,11 +106,13 @@ class CartItemController extends Controller
         $item->quantity = $quantity;
         $item->save();
         Cart::updateCartSession($request);
+
+        $totalQuantity = $item->cart->totalQuantity > 99 ? '99+' : $item->cart->totalQuantity;
         return new JsonResponse([
             'status' => 'success',
             'message' => 'Cart item created successfully.',
             'quantity' => [
-                'total' => $item->cart->totalQuantity
+                'total' => $totalQuantity
             ]
         ]);
     }
