@@ -180,6 +180,7 @@ table tr td {
 
 #cart-container .cart-item .item-quantity-container {
     position: relative;
+    min-width: 3rem;
 }
 
 #cart-container .cart-item input.item-quantity {

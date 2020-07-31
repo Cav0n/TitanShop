@@ -2,6 +2,7 @@
 
 @section('page.content')
     <div class="row mx-0">
+        {{-- Title and buttons --}}
         <div class="col-12 d-flex justify-content-between">
             <h1>Catalogue @if(isset($parentCategory)) - {{$parentCategory->i18nValue('title')}}
                 <a class="btn btn-primary" href="{{ route('admin.category.edit', ['category' => $parentCategory]) }}" role="button"><i class="fas fa-edit"></i></a> @endif</h1>
@@ -16,6 +17,7 @@
             </div>
         </div>
 
+        {{-- Breadcrumb --}}
         <div class="col-12 d-flex justify-content-between">
             <div class="admin-breadcrumb mb-3">
                 <a href='{{ route('admin.homepage') }}'><i class="fa fa-home" aria-hidden="true"></i></a>
@@ -34,6 +36,7 @@
             </div>
         </div>
 
+        {{-- Categories --}}
         <div class="col-lg-12">
             <h2 class="h4">{{ isset($parentCategory) ? "Sous catégories" : "Catégories" }}</h2>
             <div class="bg-white p-0 mb-3 border shadow-sm backoffice-card">
@@ -88,6 +91,7 @@
             </div>
         </div>
 
+        {{-- Products --}}
         <div class="col-lg-12">
             <h2 class="h4">{{ isset($parentCategory) ? "Produits" : "Produits sans catégorie" }}</h2>
             <div class="col-12 bg-white p-0 border shadow-sm backoffice-card">
@@ -108,7 +112,9 @@
                     @foreach ($products as $product)
                         <tr @if(! $product->isVisible) class="opacity-50" @endif>
                             <td scope="row" class="text-center">{{$product->id}}</td>
-                            <td></td>
+                            <td class="image-container">
+                                <img src="{{$product->firstImage ? asset($product->firstImage->path) : asset('images/utils/question-mark.png')}}" alt="{{$product->i18nValue('title')}}" class="w-100">
+                            </td>
                             <td>{{$product->i18nValue('title')}}</td>
                             <td>{{$product->formattedPrice}}</td>
                             <td>{{$product->stock}}</td>
