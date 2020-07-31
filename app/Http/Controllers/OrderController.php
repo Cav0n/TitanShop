@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\Order\OrderPlacedEvent;
 use App\Models\Cart;
 use App\Models\Order;
 use App\Models\OrderItem;
@@ -29,7 +30,7 @@ class OrderController extends Controller
             $cartItem->product->save();
         }
 
-        Cart::generateNewCartSession($request);
+        event(new OrderPlacedEvent($order));
 
         return redirect(route('cart.thanks'));
     }
