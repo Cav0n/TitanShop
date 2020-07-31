@@ -66,8 +66,8 @@
             <h2 class="h4">Divers</h2>
             <div class="row bg-white p-3 mb-3 mx-0 border shadow-sm backoffice-card">
                 <div class="col-12 order-various">
+                    <p><b>Statut de la commande : </b> {!! $order->status->generateBadge() !!}</p>
                     <p><b>Commande effectuée le : </b> {{$order->created_at->format('d/m/Y à H\hi')}}</p>
-
                     <p><b>Message du client :</b> <br>
                         {!! nl2br($order->customerMessage) ?? 'Le client n\'a laissé aucun message pour cette commande.' !!}</p>
                 </div>

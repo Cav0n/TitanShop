@@ -18,10 +18,11 @@
                     <thead class="thead-default">
                     <tr>
                         <th>ID</th>
-                        <th>Token</th>
+                        <th>Commande passée le</th>
                         <th>Client</th>
                         <th>Paiement</th>
-                        <th>Commande passée le</th>
+                        <th>Status</th>
+                        <th>Token</th>
                         <th class="text-right">Actions</th>
                     </tr>
                     </thead>
@@ -29,13 +30,15 @@
                     @foreach ($orders as $order)
                         <tr>
                             <td>{{$order->id}}</td>
-                            <td>{{$order->token}}</td>
+                            <td>{{$order->created_at->format('d/m/Y à H\hi')}}</td>
                             <td>
                                 <b>{{$order->customerIdentity}}</b> <br>
                                 {{$order->email}} @if ($order->phone)- {{$order->phone}}@endif
                             </td>
                             <td>{{$order->totalPriceFormatted}} - {{$order->paymentMethod}}</td>
-                            <td>{{$order->created_at->format('d/m/Y à H\hi')}}</td>
+                            <td>{!! $order->status->generateBadge() !!}</td>
+                            <td>{{$order->token}}</td>
+
                             <td class="text-right">
                                 <a class="btn btn-primary text-white" href="{{route('admin.order.show', ['order' => $order])}}">
                                     <i class="fa fa-eye"></i>

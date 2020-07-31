@@ -52,6 +52,11 @@ class Order extends Model
         return $this->hasMany('App\Models\OrderItem');
     }
 
+    public function status()
+    {
+        return $this->belongsTo('App\Models\OrderStatus', 'order_status_id');
+    }
+
     public function getCustomerMessageAttribute($value)
     {
         return nl2br($value);

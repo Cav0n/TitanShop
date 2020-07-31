@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Cart;
 use App\Models\Order;
 use App\Models\OrderItem;
+use App\Models\OrderStatus;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
@@ -17,6 +18,7 @@ class OrderController extends Controller
         $cart = $request->session()->get('cart');
 
         $order = new Order([], $cart);
+        $order->order_status_id = $request['status_id'] ?? OrderStatus::where('code', 'WAITING_PAYMENT')->first()->id;
         $order->save();
 
         foreach ($cart->items as $cartItem) {
@@ -46,7 +48,7 @@ class OrderController extends Controller
                 'status' => 'success',
                 'message' => 'An order has been found with this tracking number, but email is missing or incorrect.',
                 'order' => [
-                    'status'    => 'Not available at the moment...',
+                    'status'    => $order->status->generateBadge(),
                     'date'      => $order->created_at->format('d/m/Y')
                 ]
             ], 200);
@@ -56,7 +58,7 @@ class OrderController extends Controller
             'status' => 'success',
             'message' => 'An order has been found with this tracking number.',
             'order' => [
-                'status'    => 'Not available at the moment...',
+                'status'    => $order->status->generateBadge(),
                 'date'      => $order->created_at->format('d/m/Y'),
                 'price'     => $order->totalPriceFormatted
             ]

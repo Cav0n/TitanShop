@@ -22,6 +22,7 @@ class CreateOrdersTable extends Migration
             $table->unsignedBigInteger('shipping_address_id');
             $table->unsignedBigInteger('billing_address_id');
             $table->string('paymentMethod');
+            $table->foreignId('order_status_id')->constrained()->onDelete('cascade');
             $table->text('customerMessage')->nullable();
 
             $table->foreign('shipping_address_id')->references('id')->on('addresses');

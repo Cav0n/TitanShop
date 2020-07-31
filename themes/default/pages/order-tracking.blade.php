@@ -13,18 +13,24 @@
 
     <div class="row mb-3">
         <div class="form-group col-lg-6">
-            <label for="tracking_number">Numéro de suivi</label>
-
-            <div class="input-group mb-3">
-                <div class="input-group-prepend">
-                    <span class="input-group-text">#</span>
+            <div class="form-group">
+                <label for="tracking_number">Numéro de suivi</label>
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">#</span>
+                    </div>
+                    <input type="text" class="form-control" name="tracking_number" id="tracking_number">
                 </div>
-                <input type="text" class="form-control" name="tracking_number" id="tracking_number">
             </div>
 
             <div class="form-group">
                 <label for="tracking_email">Email</label>
-                <input type="email" class="form-control" name="tracking_email" id="tracking_email" aria-describedby="helpEmail">
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">@</span>
+                    </div>
+                    <input type="email" class="form-control" name="tracking_email" id="tracking_email">
+                </div>
                 <small id="helpEmail" class="form-text text-muted">Email précisé lors du passage de la commande</small>
             </div>
 
@@ -61,7 +67,6 @@
 
             actualTrackingNumber = trackingNumber;
             actualEmail = email;
-            console.log(trackingNumber);
 
             $.ajax({
                 url : "{{ route('order.tracking') }}",
