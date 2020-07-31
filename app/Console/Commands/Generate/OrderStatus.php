@@ -88,6 +88,6 @@ class OrderStatus extends TitanshopCommand
             $orderStatusI18n->save();
         }
 
-        $this->info('Product successfully created.');
+        $this->info('Order status successfully generated.');
     }
 }
