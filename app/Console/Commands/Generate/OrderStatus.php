@@ -68,7 +68,7 @@ class OrderStatus extends TitanshopCommand
     {
         parent::handle();
 
-        if (count(OrderStatus::all()) > 0) {
+        if (count(OrderStatusModel::all()) > 0) {
              if (! $this->confirm('It looks like there is already some order status, are you sure you want to generate basics order status ?')) {
                  return;
              }
