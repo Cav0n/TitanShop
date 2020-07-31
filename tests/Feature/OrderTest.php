@@ -51,7 +51,8 @@ class OrderTest extends TestCase
         $billing_address_id,
         $email = null,
         $phone = null,
-        $paymentMethod = 'cheque'
+        $paymentMethod = 'cheque',
+        $status_id = null
     ) {
         $order = new Order();
         $order->token = $token ?? uniqid();
@@ -61,6 +62,8 @@ class OrderTest extends TestCase
         $order->email = $email ?? 'florian@test.fr';
         $order->phone = $phone;
         $order->paymentMethod = $paymentMethod;
+
+        $order->order_status_id = ($status_id !== null) ? $status_id : OrderStatusTest::create('TEST', '#FFFFFF', 'Statut de test')->id;
 
         return $order;
     }

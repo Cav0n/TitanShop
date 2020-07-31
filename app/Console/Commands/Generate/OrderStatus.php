@@ -1,15 +1,12 @@
 <?php
 
-namespace App\Console\Commands\Create;
+namespace App\Console\Commands\Generate;
 
 use App\Console\Commands\TitanshopCommand;
-use App\Models\OrderStatus;
+use App\Models\OrderStatus as OrderStatusModel;
 use App\Models\OrderStatusI18n;
-use App\Models\Product as ModelsProduct;
-use App\Models\ProductI18n;
-use App\Models\Utils\CustomString;
 
-class Product extends TitanshopCommand
+class OrderStatus extends TitanshopCommand
 {
     const BASIC_ORDER_STATUS = [
         'WAITING_PAYMENT'   => [
@@ -80,7 +77,7 @@ class Product extends TitanshopCommand
         $this->info('Generating all order status, please wait...');
 
         foreach (self::BASIC_ORDER_STATUS as $code => $values) {
-            $orderStatus = new OrderStatus();
+            $orderStatus = new OrderStatusModel();
             $orderStatus->code = $code;
             $orderStatus->color = $values['color'];
             $orderStatus->save();
