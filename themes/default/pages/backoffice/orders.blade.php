@@ -22,7 +22,7 @@
                         <th>Client</th>
                         <th>Paiement</th>
                         <th>Status</th>
-                        <th>Token</th>
+                        <th class="text-center">Token</th>
                         <th class="text-right">Actions</th>
                     </tr>
                     </thead>
@@ -37,7 +37,7 @@
                             </td>
                             <td>{{$order->totalPriceFormatted}} - {{$order->paymentMethod}}</td>
                             <td>{!! $order->status->generateBadge() !!}</td>
-                            <td>{{$order->token}}</td>
+                            <td class="text-center"><span class="order-token">{{$order->token}}</span></td>
 
                             <td class="text-right">
                                 <a class="btn btn-primary text-white" href="{{route('admin.order.show', ['order' => $order])}}">

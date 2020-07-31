@@ -96,3 +96,11 @@ html, body {
 .admin-breadcrumb a {
     color: $muted;
 }
+
+.order-token {
+    text-align: center;
+    border: 1px solid darkgrey;
+    padding: 4px 8px;
+    background: #EEEEEE;
+    border-radius: .15rem;
+}

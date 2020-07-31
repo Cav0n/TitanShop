@@ -68,6 +68,7 @@
                 <div class="col-12 order-various">
                     <p><b>Statut de la commande : </b> {!! $order->status->generateBadge() !!}</p>
                     <p><b>Commande effectuée le : </b> {{$order->created_at->format('d/m/Y à H\hi')}}</p>
+                    <p><b>Numéro de suivi (token) : </b> {{ $order->token }}</p>
                     <p><b>Message du client :</b> <br>
                         {!! nl2br($order->customerMessage) ?? 'Le client n\'a laissé aucun message pour cette commande.' !!}</p>
                 </div>
