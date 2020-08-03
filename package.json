@@ -21,6 +21,7 @@
     },
     "dependencies": {
         "@fortawesome/fontawesome-free": "^5.14.0",
+        "@yaireo/tagify": "^3.16.3",
         "bootstrap": "^4.4.1",
         "jquery": "^3.4.1",
         "popper.js": "^1.16.1"

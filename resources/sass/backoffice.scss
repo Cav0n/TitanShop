@@ -28,6 +28,10 @@ html, body {
     border-left: 4px solid $primary !important;
 }
 
+.tag-input {
+    height: unset;
+}
+
 #backoffice-sidenav {
     width: 15rem;
     height: 100vh;
