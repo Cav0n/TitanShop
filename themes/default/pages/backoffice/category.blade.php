@@ -13,7 +13,7 @@
 
             <div class="btn-container d-flex">
                 @isset($category)
-                <a type="button" class="btn btn-primary mr-2" href="{{ route('category.show', ['category' => $category]) }}" target="_blank" rel="noopener noreferrer">
+                <a class="btn btn-primary mr-2" href="{{ route('category.show', ['category' => $category]) }}" target="_blank" rel="noopener noreferrer">
                     <i class="fas fa-eye"></i>
                     Voir la catégorie</a>
                 @endisset

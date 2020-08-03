@@ -1,7 +1,5 @@
 // Variables
 @import 'variables';
-// Bootstrap
-@import '~bootstrap/scss/bootstrap';
 
 html, body {
     background: #eff3f5 !important;
@@ -109,22 +107,4 @@ html, body {
     padding: 4px 8px;
     background: #EEEEEE;
     border-radius: .15rem;
-}
-
-
-@include media-breakpoint-down(sm) {
-    #backoffice-content {
-        background: #eff3f5;
-        min-height: 100vh;
-        margin-left: 0;
-        z-index: 1000;
-    }
-
-    #backoffice-sidenav {
-        width: 100vw;
-        height: 100vh;
-        position: fixed;
-        background: white;
-        z-index: -1;
-    }
 }

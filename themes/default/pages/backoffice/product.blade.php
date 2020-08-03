@@ -13,7 +13,7 @@
 
             <div class="btn-container d-flex">
                 @isset($product)
-                <a type="button" class="btn btn-primary mr-2" href="{{ route('product.show', ['product' => $product]) }}" target="_blank" rel="noopener noreferrer">
+                <a class="btn btn-primary mr-2" href="{{ route('product.show', ['product' => $product]) }}" target="_blank" rel="noopener noreferrer">
                     <i class="fas fa-eye"></i>
                     Voir le produit</a>
                 @endisset

@@ -34,7 +34,7 @@
                 <small id="helpEmail" class="form-text text-muted">Email précisé lors du passage de la commande</small>
             </div>
 
-            <button id="track-btn" type="button" class="btn btn-primary">Obtenir le suivi</button>
+            <button id="track-btn" class="btn btn-primary">Obtenir le suivi</button>
         </div>
 
         <div id="order-tracking-content" class="col-lg-6 bg-light shadow-sm p-3 text-center d-flex flex-column justify-content-center">
