@@ -66,6 +66,31 @@ class OrderController extends Controller
         ], 200);
     }
 
+    public function updateStatus(Request $request, Order $order)
+    {
+        if (! isset($request['new_status_id'])) {
+            return new JsonResponse(['status' => 'error', 'message' => 'The new status ID is missing.'], 500);
+        }
+
+        if (null === $status = OrderStatus::where('id', $request['new_status_id'])->first()) {
+            return new JsonResponse(['status' => 'error', 'message' => 'The selected status doesn\'t exists.'], 404);
+        }
+
+        $order->order_status_id = $status->id;
+        $order->save();
+
+        return new JsonResponse([
+            'status' => 'success',
+            'message' => 'Order status updated successfully',
+            'order_status' => [
+                'id' => $status->id,
+                'code' => $status->code,
+                'title' => $status->i18nValue('title'),
+                'badge' => $status->generateBadge()
+            ]
+        ], 200);
+    }
+
     /**
      * Display a listing of the resource.
      *
