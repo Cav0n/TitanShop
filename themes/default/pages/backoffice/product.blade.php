@@ -1,7 +1,7 @@
 @extends('default.templates.backoffice')
 
 @section('page.content')
-    <form class="row mx-0" action="{{isset($product) ? route('admin.product.edit', ['product' => $product]) : route('admin.product.create')}}" method="POST">
+    <form class="row mx-0" action="{{isset($product) ? route('admin.product.update', ['product' => $product]) : route('admin.product.store')}}" method="POST">
         @csrf
 
         @if(isset($defaultCategory))

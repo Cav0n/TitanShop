@@ -18,17 +18,17 @@ Route::any('/cart', 'CartController@show')->name('cart');
 Route::post('/cart/customer-message/add', 'CartController@addCustomerMessage')->name('cart.customer-message.add');
 Route::post('/cart/items/quantity/update', 'CartItemController@updateQuantity')->name('cart.items.quantity.update');
 Route::post('/cart/add-product', 'CartItemController@store')->name('cart.items.add');
-Route::get('/cart/delivery', 'CartController@showDelivery')->name('cart.delivery');
-Route::post('/cart/delivery', 'CartController@addDelivery')->name('cart.delivery');
-Route::get('/cart/payment', 'CartController@showPayment')->name('cart.payment');
-Route::post('/cart/payment', 'CartController@handlePayment')->name('cart.payment');
+UpdRoute::get('/cart/delivery', 'CartController@showDelivery')->name('cart.delivery.show');
+Route::post('/cart/delivery', 'CartController@addDelivery')->name('cart.delivery.add');
+Route::get('/cart/payment', 'CartController@showPayment')->name('cart.payment.show');
+Route::post('/cart/payment', 'CartController@handlePayment')->name('cart.payment.handle');
 Route::get('/cart/thanks', 'CartController@showThanks')->name('cart.thanks');
 Route::get('/order/create-from-cart', 'OrderController@createFromCart')->name('order.create-from-cart');
 Route::get('/category/{category:code}', 'CategoryController@show')->name('category.show');
 Route::get('/product/{product:code}', 'ProductController@show')->name('product.show');
 
-Route::get('/order/tracking', 'NavigationController@showOrderTrackingPage')->name('order.tracking');
-Route::post('/order/tracking', 'OrderController@track')->name('order.tracking');
+Route::get('/order/tracking', 'NavigationController@showOrderTrackingPage')->name('order.tracking.show');
+Route::post('/order/tracking', 'OrderController@track')->name('order.tracking.handle');
 
 Route::get('/customer-area/login', 'AuthController@showCustomerLoginPage')->name('customer-area.login');
 
@@ -48,15 +48,15 @@ Route::name('admin.')->prefix('admin')->group(function () {
         Route::get('/catalog/{category?}', 'CategoryController@index')->name('catalog');
 
         Route::get('/product/create', 'ProductController@create')->name('product.create');
-        Route::post('/product/create', 'ProductController@store')->name('product.create');
+        Route::post('/product/create', 'ProductController@store')->name('product.store');
         Route::get('/product/edit/{product}', 'ProductController@edit')->name('product.edit');
-        Route::post('/product/edit/{product}', 'ProductController@update')->name('product.edit');
+        Route::post('/product/edit/{product}', 'ProductController@update')->name('product.update');
         Route::delete('/product/delete', 'ProductController@destroy')->name('product.delete');
 
         Route::get('/category/create', 'CategoryController@create')->name('category.create');
-        Route::post('/category/create', 'CategoryController@store')->name('category.create');
+        Route::post('/category/create', 'CategoryController@store')->name('category.store');
         Route::get('/category/edit/{category}', 'CategoryController@edit')->name('category.edit');
-        Route::post('/category/edit/{category}', 'CategoryController@update')->name('category.edit');
+        Route::post('/category/edit/{category}', 'CategoryController@update')->name('category.update');
         Route::delete('/category/delete', 'CategoryController@destroy')->name('category.delete');
 
         Route::post('/toggle-visibility/product', 'ProductController@toggleVisibility')->name('toggle-visibility.product');

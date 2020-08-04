@@ -3,7 +3,7 @@
 @section('page.title', 'Suivi de commande')
 
 @section('page.content')
-    @include('default.components.breadcrumb', ['breadcrumb' => [['link' => route('homepage'), 'title' => 'Accueil'], ['link' => route('order.tracking'), 'title' => 'Suivi de commande']] ])
+    @include('default.components.breadcrumb', ['breadcrumb' => [['link' => route('homepage'), 'title' => 'Accueil'], ['link' => route('order.tracking.show'), 'title' => 'Suivi de commande']] ])
 
     <div class="row">
         <div class="col-lg-6">
@@ -69,7 +69,7 @@
             actualEmail = email;
 
             $.ajax({
-                url : "{{ route('order.tracking') }}",
+                url : "{{ route('order.tracking.handle') }}",
                 type : 'POST',
                 dataType : 'json',
                 headers : {

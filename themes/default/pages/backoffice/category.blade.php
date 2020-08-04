@@ -1,7 +1,7 @@
 @extends('default.templates.backoffice')
 
 @section('page.content')
-    <form class="row mx-0" action="{{isset($category) ? route('admin.category.edit', ['category' => $category]) : route('admin.category.create')}}" method="POST">
+    <form class="row mx-0" action="{{isset($category) ? route('admin.category.update', ['category' => $category]) : route('admin.category.store')}}" method="POST">
         @csrf
 
         @if(isset($parent))

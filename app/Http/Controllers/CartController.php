@@ -61,7 +61,7 @@ class CartController extends Controller
         $cart->save();
         Cart::updateCartSession($request);
 
-        return redirect(route('cart.payment'));
+        return redirect(route('cart.payment.show'));
     }
 
     public function showPayment(Request $request)

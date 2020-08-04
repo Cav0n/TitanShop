@@ -59,7 +59,7 @@
                 </tbody>
             </table>
 
-            <a class="btn btn-primary w-100 shadow-none border-0" href="{{route('cart.delivery')}}" role="button" id="next-step-button">Passer à la livraison</a>
+            <a class="btn btn-primary w-100 shadow-none border-0" href="{{route('cart.delivery.add')}}" role="button" id="next-step-button">Passer à la livraison</a>
         </div>
         @else
             <div class="col-lg-6">
