@@ -36,8 +36,8 @@ Route::name('admin.')->prefix('admin')->group(function () {
 
     // Routes only for guests
     Route::middleware('isNotAdmin')->group(function () {
-        Route::get('/login', 'AuthController@showAdminLoginPage')->name('login');
-        Route::post('/login', 'AuthController@adminLogin')->name('login');
+        Route::get('/login', 'AuthController@showAdminLoginPage')->name('login.show');
+        Route::post('/login', 'AuthController@adminLogin')->name('login.handle');
     });
 
     // Routes only for admins

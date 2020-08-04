@@ -18,7 +18,7 @@ class IsAdmin
     public function handle(Request $request, Closure $next)
     {
         if (! \App\Models\Administrator::check($request)) {
-            return redirect(route('admin.login'));
+            return redirect(route('admin.login.show'));
         }
 
         return $next($request);
