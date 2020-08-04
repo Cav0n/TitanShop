@@ -18,7 +18,7 @@ Route::any('/cart', 'CartController@show')->name('cart');
 Route::post('/cart/customer-message/add', 'CartController@addCustomerMessage')->name('cart.customer-message.add');
 Route::post('/cart/items/quantity/update', 'CartItemController@updateQuantity')->name('cart.items.quantity.update');
 Route::post('/cart/add-product', 'CartItemController@store')->name('cart.items.add');
-UpdRoute::get('/cart/delivery', 'CartController@showDelivery')->name('cart.delivery.show');
+Route::get('/cart/delivery', 'CartController@showDelivery')->name('cart.delivery.show');
 Route::post('/cart/delivery', 'CartController@addDelivery')->name('cart.delivery.add');
 Route::get('/cart/payment', 'CartController@showPayment')->name('cart.payment.show');
 Route::post('/cart/payment', 'CartController@handlePayment')->name('cart.payment.handle');
