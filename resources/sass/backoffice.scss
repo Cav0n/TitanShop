@@ -38,6 +38,22 @@ html, body {
     position: fixed;
     background: white;
 
+    & #sidenav-top {
+        overflow-y: scroll;
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+
+        &::-webkit-scrollbar {
+            display: none;
+        }
+    }
+
+    & #sidenav-bottom {
+        margin-top: .5rem;
+        padding-top: .1rem;
+        border-top: 1px solid #CCC;
+    }
+
     & #sidenav-title {
         font-size: 1.5rem;
         line-height: 1.3rem;

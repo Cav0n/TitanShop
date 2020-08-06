@@ -1,5 +1,5 @@
 <div id="backoffice-sidenav" class="p-3 border-right d-flex flex-column justify-content-between">
-    <div class="sidenav-top">
+    <div id="sidenav-top">
         <p id="sidenav-title" class="font-weight-bold">TitanShop</p>
         <a href="{{route('homepage')}}" class="text-muted">Voir la boutique</a>
         <div class="sidenav-links-container d-flex flex-column">
@@ -33,7 +33,7 @@
         </div>
     </div>
 
-    <div class="sidenav-bottom text-center">
+    <div id="sidenav-bottom"  class="text-center">
         <a class="text-muted" href="{{route('admin.logout')}}">← Déconnexion</a>
     </div>
 
