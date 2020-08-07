@@ -13,7 +13,7 @@
                 Commandes
             </a>
             <a href="{{route('admin.catalog')}}" class="sidenav-link transition
-                @if(
+                @if (
                     Route::current()->getName() === 'admin.catalog'             ||
                     Route::current()->getName() === ('admin.product.create')    ||
                     Route::current()->getName() === ('admin.product.edit')      ||
@@ -24,6 +24,16 @@
                 @endif">
                 <i class="fas fa-book"></i>
                 Catalogue
+            </a>
+            <a href="{{ route('admin.customers') }}" class="sidenav-link transition
+                @if (
+                    Route::current()->getName() === 'admin.customers'       ||
+                    Route::current()->getName() === 'admin.customer.show'
+                )
+                    active
+                @endif">
+                <i class="fas fa-user"></i>
+                Clients
             </a>
             <p class="sidenav-link transition disabled noselect">
                 <i class="fas fa-wrench"></i>

@@ -228,3 +228,12 @@ table tr td {
 .modal .modal-content.modal-danger {
     border-left: 4px solid red !important;
 }
+
+.order-tiny {
+    background: $light;
+    padding: 1rem;
+
+    &:not(:last-child) {
+        margin-bottom: 1rem;
+    }
+}

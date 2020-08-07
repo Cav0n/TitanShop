@@ -78,5 +78,8 @@ Route::name('admin.')->prefix('admin')->group(function () {
         Route::get('/orders/{status?}', 'OrderController@index')->name('orders');
         Route::get('/order/{order}', 'OrderController@show')->name('order.show');
         Route::patch('/order/{order}/status/update', 'OrderController@updateStatus')->name('order.status.update');
+
+        Route::get('/customers', 'CustomerController@index')->name('customers');
+        Route::get('/customer/{customer}', 'CustomerController@show')->name('customer.show');
     });
 });

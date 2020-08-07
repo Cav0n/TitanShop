@@ -43,6 +43,16 @@ class Customer extends Model
         return $this->hasMany('App\Models\PostalAdress');
     }
 
+    public function orders()
+    {
+        return $this->hasMany('App\Models\Order');
+    }
+
+    public function getLatestOrderAttribute()
+    {
+        return $this->orders()->orderBy('created_at', 'desc')->first();
+    }
+
     public static function check(\Illuminate\Http\Request $request): bool
     {
         if (! $request->session()->has('customer_id')) {

@@ -3,7 +3,11 @@
 @section('page.content')
     <div class="row mx-0">
         <div class="col-12 d-flex justify-content-between">
-            <h1>Commande de {{$order->customerIdentity}}</h1>
+            <h1>Commande de
+                {!! $order->customer != null
+                    ? "<a href='" . route('admin.customer.show', ['customer' => $order->customer]) . " '>" . $order->customerIdentity . "</a>"
+                    : $order->customerIdentity !!}
+            </h1>
         </div>
 
         <div class="col-12 d-flex justify-content-between">

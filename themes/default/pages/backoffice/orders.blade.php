@@ -32,7 +32,10 @@
                             <td>{{$order->id}}</td>
                             <td>{{$order->created_at->format('d/m/Y à H\hi')}}</td>
                             <td>
-                                <b>{{$order->customerIdentity}}</b> <br>
+                                <b>
+                                    {!! $order->customer != null
+                                        ? "<a href='" . route('admin.customer.show', ['customer' => $order->customer]) . " '>" . $order->customerIdentity . "</a>"
+                                        : $order->customerIdentity !!}</b> <br>
                                 {{$order->email}} @if ($order->phone)- {{$order->phone}}@endif
                             </td>
                             <td>{{$order->totalPriceFormatted}} - {{$order->paymentMethod}}</td>
