@@ -63,3 +63,26 @@
         text-decoration: underline;
     }
 }
+
+#customer-area {
+    & .big-links-container {
+        & a {
+            color: black;
+
+            &:hover {
+                text-decoration: none;
+
+                & p {
+                    text-decoration: underline;
+                }
+                & small {
+                    text-decoration: none;
+                }
+            }
+
+            & small {
+                text-decoration: none;
+            }
+        }
+    }
+}

@@ -54,3 +54,23 @@
   text-decoration: underline;
 }
 
+#customer-area .big-links-container a {
+  color: black;
+}
+
+#customer-area .big-links-container a:hover {
+  text-decoration: none;
+}
+
+#customer-area .big-links-container a:hover p {
+  text-decoration: underline;
+}
+
+#customer-area .big-links-container a:hover small {
+  text-decoration: none;
+}
+
+#customer-area .big-links-container a small {
+  text-decoration: none;
+}
+

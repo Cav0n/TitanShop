@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Customer;
 use Illuminate\Http\Request;
 
 class NavigationController extends Controller
@@ -11,9 +12,15 @@ class NavigationController extends Controller
         return view('default.pages.homepage');
     }
 
-    public function showCustomerAreaHomepage()
+    public function showCustomerAreaHomepage(Request $request)
     {
-        return view('default.pages.customer-area.homepage');
+        if (! Customer::check($request)) {
+            abort(404);
+        }
+
+        $customer = Customer::where('id', session()->get('customer_id'))->first();
+
+        return view('default.pages.customer-area.homepage', ['customer' => $customer]);
     }
 
     public function showBackofficeHomepage()
