@@ -24,7 +24,12 @@
                         <li class="d-flex">
                             <a href="{{route('cart')}}">Mon panier</a>
                             <span class="cart-total-quantity badge badge-pill badge-dark my-auto ml-2 h-fit-content">
-                                {{ session()->get('cart')->totalQuantity > 99 ? '99+' : session()->get('cart')->totalQuantity }}</span>
+                                @if(session()->get('cart') !== null)
+                                {{ session()->get('cart')->totalQuantity > 99 ? '99+' : session()->get('cart')->totalQuantity }}
+                                @else
+                                0
+                                @endif
+                            </span>
                         </li>
                         @foreach(\App\Models\Category::where('isDeleted', 0)->where('isVisible', 1)->take(5)->get() as $category)
                         <li style="max-width: 12rem;">
@@ -49,7 +54,13 @@
                 <div class="header-link d-flex flex-column justify-content-center px-3">
                     <div class="d-flex justify-content-center">
                         <i class="fas fa-shopping-cart"></i>
-                        <span class="cart-total-quantity badge badge-pill badge-light ml-1">{{ session()->get('cart')->totalQuantity > 99 ? '99+' : session()->get('cart')->totalQuantity }}</span>
+                        <span class="cart-total-quantity badge badge-pill badge-light ml-1">
+                            @if(session()->get('cart') !== null)
+                            {{ session()->get('cart')->totalQuantity > 99 ? '99+' : session()->get('cart')->totalQuantity }}
+                            @else
+                            0
+                            @endif
+                        </span>
                     </div>
                     <a class="text-dark" href="{{route('cart')}}">Mon panier</a>
                 </div>
