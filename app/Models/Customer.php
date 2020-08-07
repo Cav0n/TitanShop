@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Hash;
 
 class Customer extends Model
 {
@@ -40,5 +41,30 @@ class Customer extends Model
     public function addresses()
     {
         return $this->hasMany('App\Models\PostalAdress');
+    }
+
+    public static function check(\Illuminate\Http\Request $request): bool
+    {
+        if (! $request->session()->has('customer_id')) {
+            return false;
+        }
+
+        if (! $request->session()->has('customer_hash')) {
+            return false;
+        }
+
+        $id = $request->session()->get('customer_id');
+        $hash = $request->session()->get('customer_hash');
+        // $currentIpAddress = $request->ip(); // Maybe not a good idea
+
+        if (null === $customer = Customer::where('id', $id)->first()) {
+            return false;
+        }
+
+        if (! Hash::check($customer->email . $customer->password, $hash)) {
+            return false;
+        }
+
+        return true;
     }
 }

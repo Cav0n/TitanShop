@@ -21,7 +21,7 @@ class AuthController extends Controller
 
     public function showCustomerLoginPage()
     {
-
+        return view('default.pages.customer-area.login');
     }
 
     public function customerLogin(Request $request)

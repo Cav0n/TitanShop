@@ -30,7 +30,17 @@ Route::get('/product/{product:code}', 'ProductController@show')->name('product.s
 Route::get('/order/tracking', 'NavigationController@showOrderTrackingPage')->name('order.tracking.show');
 Route::post('/order/tracking', 'OrderController@track')->name('order.tracking.handle');
 
-Route::get('/customer-area/login', 'AuthController@showCustomerLoginPage')->name('customer-area.login');
+Route::name('customer-area.')->prefix('customer-area')->group(function () {
+    Route::middleware('isCustomerNotConnected')->group(function () {
+        Route::get('/login', 'AuthController@showCustomerLoginPage')->name('login.show');
+        Route::post('/login', 'AuthController@customerLogin')->name('login.handle');
+    });
+
+    Route::middleware('isCustomerConnected')->group(function () {
+        Route::get('/', 'NavigationController@showCustomerAreaHomepage')->name('homepage');
+    });
+});
+
 
 Route::name('admin.')->prefix('admin')->group(function () {
 

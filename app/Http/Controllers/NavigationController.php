@@ -11,6 +11,11 @@ class NavigationController extends Controller
         return view('default.pages.homepage');
     }
 
+    public function showCustomerAreaHomepage()
+    {
+        return view('default.pages.homepage');
+    }
+
     public function showBackofficeHomepage()
     {
         return view('default.pages.backoffice.homepage');

@@ -4,6 +4,8 @@ namespace App\Http;
 
 use App\Http\Middleware\CheckCartValidity;
 use App\Http\Middleware\IsAdmin;
+use App\Http\Middleware\IsCustomerConnected;
+use App\Http\Middleware\IsCustomerNotConnected;
 use App\Http\Middleware\IsNotAdmin;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
@@ -39,7 +41,7 @@ class Kernel extends HttpKernel
             \Illuminate\View\Middleware\ShareErrorsFromSession::class,
             \App\Http\Middleware\VerifyCsrfToken::class,
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
-            
+
             // TitanShop Middlewares
             CheckCartValidity::class
         ],
@@ -68,9 +70,11 @@ class Kernel extends HttpKernel
         'signed' => \Illuminate\Routing\Middleware\ValidateSignature::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
-        
+
         // TitanShop Middlewares
         'isAdmin' => IsAdmin::class,
-        'isNotAdmin' => IsNotAdmin::class
+        'isNotAdmin' => IsNotAdmin::class,
+        'isCustomerConnected' => IsCustomerConnected::class,
+        'isCustomerNotConnected' => IsCustomerNotConnected::class
     ];
 }
