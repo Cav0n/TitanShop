@@ -51,7 +51,7 @@
                 </table>
             @else
 
-                <p class="p-3 text-center">Aucune client n'est inscrit sur le site pour le moment.</p>
+                <p class="p-3 text-center">Aucun client n'est inscrit sur le site pour le moment.</p>
 
             @endif
             </div>

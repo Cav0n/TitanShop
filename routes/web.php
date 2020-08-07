@@ -41,6 +41,10 @@ Route::name('customer-area.')->prefix('customer-area')->group(function () {
     Route::middleware('isCustomerConnected')->group(function () {
         Route::get('/', 'NavigationController@showCustomerAreaHomepage')->name('homepage');
         Route::any('/logout', 'AuthController@customerLogout')->name('logout');
+
+        Route::post('/informations/update', 'CustomerController@update')->name('informations.update');
+        Route::get('/password/edit', 'CustomerController@editPassword')->name('password.edit');
+        Route::post('/password/update', 'CustomerController@updatePassword')->name('password.update');
     });
 });
 

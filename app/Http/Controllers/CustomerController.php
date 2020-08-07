@@ -3,10 +3,45 @@
 namespace App\Http\Controllers;
 
 use App\Models\Customer;
+use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class CustomerController extends Controller
 {
+    public function editPassword(Request $request)
+    {
+        if (! Customer::check($request)) {
+            abort(404);
+        }
+
+        $customer = Customer::where('id', session()->get('customer_id'))->first();
+
+        return view('default.pages.customer-area.password-edition', ['customer' => $customer]);
+    }
+
+    public function updatePassword(Request $request)
+    {
+        if (! Customer::check($request)) {
+            return back()->withErrors(['Vous devez être connecté pour modifier vos informations personnelles.']);
+        }
+
+        if (null === $customer = Customer::where('id', $request->session()->get('customer_id'))->first()) {
+            return back()->withErrors(['Vous devez être connecté pour modifier vos informations personnelles.']);
+        }
+
+        if (! Hash::check($request['actual_password'], $customer->password)) {
+            return back()->withErrors(['Mot de passe actuel incorrect.']);
+        }
+
+        $customer->password = Hash::make($request['new_password']);
+        $customer->save();
+
+        $request->session()->put('customer_hash', Hash::make($customer->email . $customer->password));
+
+        return back()->withSuccess('Mot de passe modifié avec succès.');
+    } 
+
     /**
      * Display a listing of the resource.
      *
@@ -69,9 +104,28 @@ class CustomerController extends Controller
      * @param  \App\Customer  $customer
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Customer $customer)
+    public function update(Request $request, Customer $customer = null)
     {
-        //
+        if (null === $customer) {
+            if (! Customer::check($request)) {
+                return back()->withErrors(['Vous devez être connecté pour modifier vos informations personnelles.']);
+            }
+
+            if (null === $customer = Customer::where('id', $request->session()->get('customer_id'))->first()) {
+                return back()->withErrors(['Vous devez être connecté pour modifier vos informations personnelles.']);
+            }
+        }
+
+        $customer->firstname = $request['firstname'];
+        $customer->lastname = $request['lastname'];
+        $customer->phone = $request['phone'];
+        $customer->save();
+        
+        if ($customer->email !== $request['email']) {
+            // SEND EMAIL TO ACTUAL EMAIL ADDRESS
+        }
+        
+        return back()->withSuccess('Informations personnelles modifiées avec succès.');
     }
 
     /**
