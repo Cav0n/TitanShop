@@ -13,7 +13,7 @@ class NavigationController extends Controller
 
     public function showCustomerAreaHomepage()
     {
-        return view('default.pages.homepage');
+        return view('default.pages.customer-area.homepage');
     }
 
     public function showBackofficeHomepage()

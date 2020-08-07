@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Events\Order\OrderPlacedEvent;
 use App\Models\Cart;
+use App\Models\Customer;
 use App\Models\Order;
 use App\Models\OrderItem;
 use App\Models\OrderStatus;
@@ -28,6 +29,11 @@ class OrderController extends Controller
 
             $cartItem->product->stock -= $cartItem->quantity;
             $cartItem->product->save();
+        }
+
+        if (Customer::check($request)) {
+            $order->customer_id = $request->session()->get('customer_id');
+            $order->save();
         }
 
         event(new OrderPlacedEvent($order));

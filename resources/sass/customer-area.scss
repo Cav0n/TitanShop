@@ -9,7 +9,7 @@
         background: -webkit-linear-gradient(261deg, rgba(152,42,218,1) 0%, rgba(91,0,255,1) 100%);
         background: linear-gradient(261deg, rgba(152,42,218,1) 0%, rgba(91,0,255,1) 100%);
         filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#982ada",endColorstr="#5b00ff",GradientType=1);
-    } 
+    }
 
     & #right-side {
         & #login-form {
@@ -24,9 +24,42 @@
 
     & a:hover {
         text-decoration: none;
-    } 
+    }
 
     & a:hover p{
         text-decoration: underline;
-    } 
+    }
+}
+
+#customer-area-register {
+    height: 100vh;
+
+    & #left-side {
+        color:black;
+
+        background: rgb(218,154,42);
+        background: -moz-linear-gradient(148deg, rgba(218,154,42,1) 0%, rgba(255,222,0,1) 100%);
+        background: -webkit-linear-gradient(148deg, rgba(218,154,42,1) 0%, rgba(255,222,0,1) 100%);
+        background: linear-gradient(148deg, rgba(218,154,42,1) 0%, rgba(255,222,0,1) 100%);
+        filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#da9a2a",endColorstr="#ffde00",GradientType=1);
+    }
+
+    & #right-side {
+        & #login-form {
+            width: 80%;
+            max-width: 500px;
+        }
+    }
+
+    & p {
+        line-height: 1;
+    }
+
+    & a:hover {
+        text-decoration: none;
+    }
+
+    & a:hover p{
+        text-decoration: underline;
+    }
 }

@@ -113,7 +113,7 @@ class Cart extends Model
         $cart->save();
         session(['cart' => $cart]);
     }
-    
+
     public static function updateCartSession(Request $request)
     {
         $cart = $request->session()->get('cart');
@@ -121,5 +121,23 @@ class Cart extends Model
         $updatedCart = Cart::where('id', $cart->id)->first();
 
         session(['cart' => $updatedCart]);
+    }
+
+
+    public static function addCustomerToCartSession(Request $request, Customer $customer)
+    {
+        if (null !== $customerActiveCarts = self::where('customer_id', $customer->id)->where('isActive', 1)->get()) {
+            foreach ($customerActiveCarts as $customerActiveCart) {
+                $customerActiveCart->isActive = 0;
+                $customerActiveCart->save();
+            }
+        }
+
+        $cart = $request->session()->get('cart');
+
+        $cart->customer_id = $customer->id;
+        $cart->save();
+
+        self::updateCartSession($request);
     }
 }

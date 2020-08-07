@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Customer;
 use App\Models\Administrator;
+use App\Models\Cart;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
@@ -11,12 +13,31 @@ class AuthController extends Controller
 {
     public function showCustomerRegisterPage()
     {
-        return view('default.pages.customer-area-login');
+        return view('default.pages.customer-area.register');
     }
 
     public function customerRegister(Request $request)
     {
+        $customer = new Customer();
+        $customer->firstname = $request['firstname'];
+        $customer->lastname = $request['lastname'];
+        $customer->email = $request['email'];
+        $customer->phone = $request['phone'];
+        $customer->password = Hash::make($request['password']);
+        $customer->lang = $request['lang'] ?? 'fr';
+        $customer->isActivated = $request['isActivated'] ?? true;
+        try {
+            $customer->save();
+        } catch (Exception $e) {
+            return $this->redirectBackWithError(null, 'Une erreur est survenu lors de la création de votre compte.');
+        }
 
+        $request->session()->put('customer_id', $customer->id);
+        $request->session()->put('customer_hash', Hash::make($customer->email . $customer->password));
+
+        Cart::addCustomerToCartSession($request, $customer);
+
+        return redirect(route('customer-area.homepage'));
     }
 
     public function showCustomerLoginPage()
@@ -26,7 +47,35 @@ class AuthController extends Controller
 
     public function customerLogin(Request $request)
     {
-        return $this->redirectBackWithError();
+        $email = $request['email'];
+        $password = $request['password'];
+
+        if (null === $customer = Customer::where('email', $email)->first()) {
+            return $this->redirectBackWithError();
+        }
+
+        if (! $customer->isActivated) {
+            return $this->redirectBackWithError('login', 'Votre compte a été supprimé ou désactivé.');
+        }
+
+        if (! Hash::check($password, $customer->password)) {
+            return $this->redirectBackWithError();
+        }
+
+        $request->session()->put('customer_id', $customer->id);
+        $request->session()->put('customer_hash', Hash::make($customer->email . $customer->password));
+
+        Cart::addCustomerToCartSession($request, $customer);
+
+        return redirect(route('customer-area.homepage'));
+    }
+
+    public function customerLogout(Request $request)
+    {
+        $request->session()->forget('customer_id');
+        $request->session()->forget('customer_hash');
+
+        return redirect(route('homepage'));
     }
 
     public function showAdminLoginPage()
@@ -51,11 +100,8 @@ class AuthController extends Controller
             return $this->redirectBackWithError();
         }
 
-        $id = $admin->id;
-        $token = $admin->generateSessionToken();
-
-        $request->session()->put('admin_id', $id);
-        $request->session()->put('admin_token', $token);
+        $request->session()->put('admin_id', $admin->id);
+        $request->session()->put('admin_token', $admin->generateSessionToken());
 
         return redirect(route('admin.homepage'));
     }
@@ -68,10 +114,10 @@ class AuthController extends Controller
         return redirect(route('homepage'));
     }
 
-    protected function redirectBackWithError($inputName = 'login', $error = 'Aucun compte n\'existe avec ces identifiants')
+    protected function redirectBackWithError($inputName = null, $error = 'Aucun compte n\'existe avec ces identifiants')
     {
         return back()
-            ->withErrors([$inputName => $error])
+            ->withErrors($inputName !== null ? [$inputName => $error] : $error)
             ->withInput();
     }
 }

@@ -34,10 +34,13 @@ Route::name('customer-area.')->prefix('customer-area')->group(function () {
     Route::middleware('isCustomerNotConnected')->group(function () {
         Route::get('/login', 'AuthController@showCustomerLoginPage')->name('login.show');
         Route::post('/login', 'AuthController@customerLogin')->name('login.handle');
+        Route::get('/register', 'AuthController@showCustomerRegisterPage')->name('register.show');
+        Route::post('/register', 'AuthController@customerRegister')->name('register.handle');
     });
 
     Route::middleware('isCustomerConnected')->group(function () {
         Route::get('/', 'NavigationController@showCustomerAreaHomepage')->name('homepage');
+        Route::any('/logout', 'AuthController@customerLogout')->name('logout');
     });
 });
 

@@ -1,7 +1,3 @@
-@php
-    $cart = session()->get('cart');
-@endphp
-
 @extends('default.templates.public')
 
 @section('page.title', 'Mon panier')
