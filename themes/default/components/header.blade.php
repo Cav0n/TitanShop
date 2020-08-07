@@ -44,7 +44,7 @@
             <div class="d-none d-lg-flex">
                 <div class="d-flex flex-column justify-content-center w-100">
                     <div class="search-container d-flex justify-content-end">
-                        <input type="text" placeholder="Search" class="form-control search header-search transition">
+                        <input type="text" placeholder="Rechercher" class="form-control search header-search transition">
                     </div>
                 </div>
                 <div class="header-link d-flex flex-column justify-content-center px-3">
