@@ -1,0 +1,28 @@
+#customer-area-login {
+  height: 100vh;
+}
+
+#customer-area-login #left-side {
+  color: white;
+  background: #982ada;
+  background: linear-gradient(261deg, #982ada 0%, #5b00ff 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#982ada",endColorstr="#5b00ff",GradientType=1);
+}
+
+#customer-area-login #right-side #login-form {
+  width: 80%;
+  max-width: 500px;
+}
+
+#customer-area-login p {
+  line-height: 1;
+}
+
+#customer-area-login a:hover {
+  text-decoration: none;
+}
+
+#customer-area-login a:hover p {
+  text-decoration: underline;
+}
+

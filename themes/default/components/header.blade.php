@@ -19,7 +19,7 @@
                             <a href="{{route('homepage')}}">Accueil</a>
                         </li>
                         <li>
-                            <a href="{{route('homepage')}}">Mon compte</a>
+                            <a href="{{route('customer-area.homepage')}}">Mon compte</a>
                         </li>
                         <li class="d-flex">
                             <a href="{{route('cart')}}">Mon panier</a>
@@ -44,7 +44,7 @@
                 </div>
                 <div class="header-link d-flex flex-column justify-content-center px-3">
                     <i class="fas fa-user"></i>
-                    <a class="text-dark" href="#">Mon compte</a>
+                    <a class="text-dark" href="{{route('customer-area.homepage')}}">Mon compte</a>
                 </div>
                 <div class="header-link d-flex flex-column justify-content-center px-3">
                     <div class="d-flex justify-content-center">

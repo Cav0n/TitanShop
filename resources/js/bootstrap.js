@@ -8,7 +8,6 @@ try {
     window.Popper = require('popper.js').default;
     window.$ = window.jQuery = require('jquery');
 
-    require('@yaireo/tagify/src/tagify');
     require('bootstrap');
 } catch (e) {
     console.error('Error while loading bootstrap js. [resources/js/bootstrap.js]');

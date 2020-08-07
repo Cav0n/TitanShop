@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,600;0,800;1,300;1,600;1,800&display=swap">
     <link rel="stylesheet" href="{{asset('css/app.css')}}">
     <link rel="stylesheet" href="{{asset('css/minimal.css')}}">
+    <link rel="stylesheet" href="{{asset('css/customer-area.css')}}">
 
     <title>@yield('page.title', "Accueil") - TitanShop</title>
 </head>

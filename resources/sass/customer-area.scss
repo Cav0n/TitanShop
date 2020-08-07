@@ -1,0 +1,32 @@
+#customer-area-login {
+    height: 100vh;
+
+    & #left-side {
+        color:white;
+
+        background: rgb(152,42,218);
+        background: -moz-linear-gradient(261deg, rgba(152,42,218,1) 0%, rgba(91,0,255,1) 100%);
+        background: -webkit-linear-gradient(261deg, rgba(152,42,218,1) 0%, rgba(91,0,255,1) 100%);
+        background: linear-gradient(261deg, rgba(152,42,218,1) 0%, rgba(91,0,255,1) 100%);
+        filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#982ada",endColorstr="#5b00ff",GradientType=1);
+    } 
+
+    & #right-side {
+        & #login-form {
+            width: 80%;
+            max-width: 500px;
+        }
+    }
+
+    & p {
+        line-height: 1;
+    }
+
+    & a:hover {
+        text-decoration: none;
+    } 
+
+    & a:hover p{
+        text-decoration: underline;
+    } 
+}
