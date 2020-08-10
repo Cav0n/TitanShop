@@ -14,6 +14,7 @@
             <div class="admin-breadcrumb mb-3">
                 <a href='{{ route('admin.homepage') }}'><i class="fa fa-home" aria-hidden="true"></i></a> /
                 <a href='{{ route('admin.orders') }}'>Commandes</a> /
+                <a href='{{ route('admin.orders', ['status' => $order->status]) }}'>{{ $order->status->i18nValue('title') }}</a> /
                 <a href='{{ route('admin.order.show', ['order' => $order]) }}'>Commande de {{$order->customerIdentity}}</a>
             </div>
         </div>
@@ -23,9 +24,9 @@
                 <div class="form-group">
                     <label id="status">Status de la commande</label>
                     <select class="form-control custom-select status-selector backoffice-select" name="status" id="status">
-                        @foreach (\App\Models\OrderStatus::all() as $status)
-                            <option value="{{ $status->id }}" @if($status->id === $order->status->id) selected @endif>
-                                {{ $status->i18nValue('title') }}
+                        @foreach (\App\Models\OrderStatus::all() as $statusToChange)
+                            <option value="{{ $statusToChange->id }}" @if($statusToChange->id === $order->status->id) selected @endif>
+                                {{ $statusToChange->i18nValue('title') }}
                             </option>
                         @endforeach
                     </select>

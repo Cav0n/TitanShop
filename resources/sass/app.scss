@@ -57,7 +57,7 @@ table tr td {
 }
 
 #main-content-container {
-    padding-top: 5rem;
+    padding-top: 4.6rem;
 }
 
 .mh-100 {
@@ -243,5 +243,24 @@ table tr td {
 
     &:not(:last-child) {
         margin-bottom: 1rem;
+    }
+}
+
+span.text-with-background {
+    z-index: 100;
+    display: inline-block;
+    position: relative;
+    line-height: 1;
+
+    &::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        height: 120%;
+        width: 100%;
+        background-color: #8486f3;
+        top: -3px;
+        z-index: -1;
+        transform: rotate(1deg) scaleX(1.03);
     }
 }

@@ -21,13 +21,14 @@
                     show
                 @endif">
 
-                <a class="sublink transition {{ !isset($status) ? 'active' : '' }}" href="{{ route('admin.orders') }}">
-                    Tout types
+                <a class="sublink transition noselect {{ !isset($status) ? 'active' : '' }}" href="{{ route('admin.orders') }}">
+                    Tout types <span class="badge badge-primary">{{ count(\App\Models\Order::all()) }}</span>
                 </a>
 
                 @foreach (\App\Models\OrderStatus::all() as $orderStatus)
-                <a class="sublink transition {{ (isset($status) && $status->id === $orderStatus->id) ? 'active' : '' }}" href="{{ route('admin.orders', ['status' => $orderStatus] ) }}">
-                    {{ $orderStatus->i18nValue('title') }}
+                <a class="sublink transition noselect {{ (isset($status) && $status->id === $orderStatus->id) ? 'active' : '' }} {{ count(\App\Models\Order::where('order_status_id', $orderStatus->id)->get()) <= 0 ? 'disabled' : '' }}"
+                    @if (count(\App\Models\Order::where('order_status_id', $orderStatus->id)->get()) > 0) href="{{ route('admin.orders', ['status' => $orderStatus] ) }}" @endif>
+                    {{ $orderStatus->i18nValue('title') }} <span class="badge badge-primary">{{ count(\App\Models\Order::where('order_status_id', $orderStatus->id)->get()) }}</span>
                 </a>
                 @endforeach
             </div>

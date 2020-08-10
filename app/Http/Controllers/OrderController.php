@@ -146,7 +146,7 @@ class OrderController extends Controller
      */
     public function show(Order $order)
     {
-        return view('default.pages.backoffice.order', ['order' => $order]);
+        return view('default.pages.backoffice.order', ['order' => $order, 'status' => $order->status]);
     }
 
     /**

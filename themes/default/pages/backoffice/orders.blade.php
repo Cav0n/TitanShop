@@ -3,12 +3,15 @@
 @section('page.content')
     <div class="row mx-0">
         <div class="col-12 d-flex justify-content-between">
-            <h1>Commandes</h1>
+            <h1>Commandes {!! isset($status) ? '- <span class="text-with-background">' . $status->i18nValue('title') . '</span>': ''  !!}</h1>
         </div>
         <div class="col-12 d-flex justify-content-between">
             <div class="admin-breadcrumb mb-3">
                 <a href='{{ route('admin.homepage') }}'><i class="fa fa-home" aria-hidden="true"></i></a> /
                 <a href='{{ route('admin.orders') }}'>Commandes</a>
+                @if (isset($status))
+                / <a href='{{ route('admin.orders', ['status' => $status]) }}'>{{ $status->i18nValue('title') }}</a>
+                @endif
             </div>
         </div>
         <div class="col-lg-12">

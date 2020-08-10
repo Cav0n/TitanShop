@@ -106,7 +106,8 @@ html, body {
             flex-direction: column;
             background: #EEE;
             border-top: 0;
-            border-radius: 0 0 4px 4px;
+            border-radius: 4px;
+            margin-top: .2rem;
 
             &.show {
                 display: flex;
@@ -120,6 +121,10 @@ html, body {
                 border-left: 1px solid #AAA;
                 text-decoration: none;
                 cursor: pointer;
+
+                &:first-child {
+                    border-radius: 4px 4px 0 0;
+                }
 
                 &:last-child {
                     border-radius: 0 0 4px 4px;
