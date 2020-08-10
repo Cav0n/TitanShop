@@ -239,6 +239,7 @@ table tr td {
 .order-tiny {
     background: $light;
     padding: 1rem;
+    border: 1px solid #AAA;
 
     &:not(:last-child) {
         margin-bottom: 1rem;

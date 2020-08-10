@@ -14,7 +14,7 @@
             </div>
         </div>
 
-        <div class="col-lg-6">
+        <div class="col-lg-4">
             <h2 class="h4">Identité</h2>
             <div class="row bg-white p-3 mb-3 mx-0 border shadow-sm backoffice-card">
                 <div class="col-12 identity">
@@ -30,7 +30,7 @@
         </div>
 
         @if (count($customer->orders) > 0)
-        <div class="col-lg-6">
+        <div class="col-lg-8">
             <h2 class="h4">Commandes de ce client</h2>
             <div class="row bg-white p-3 mb-3 mx-0 border shadow-sm backoffice-card">
                 @foreach ($customer->orders as $order)
@@ -46,7 +46,7 @@
                             <p>Produits commandés :</p>
                             <ul class="order-items-list mb-0">
                                 @foreach ($order->items as $item)
-                                <li>{{ $item->title }} x {{ $item->quantity }} | <b>{{ $item->priceFormatted }}</b></li>
+                                <li>{{ $item->title }} : {{ $item->unitPriceFormatted }} x {{ $item->quantity }} | <b>{{ $item->priceFormatted }}</b></li>
                                 @endforeach
                             </ul>
                         </div>
