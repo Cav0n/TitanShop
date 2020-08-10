@@ -102,11 +102,19 @@ class OrderController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request, OrderStatus $status = null)
     {
-        $orders = Order::orderBy('created_at', 'DESC')->get();
+        $data = [];
+        $orders = Order::orderBy('created_at', 'DESC');
 
-        return view('default.pages.backoffice.orders', ['orders' => $orders]);
+        if (isset($status)) {
+            $orders = $orders->where('order_status_id', $status->id);
+            $data['status'] = $status;
+        }
+
+        $data['orders'] = $orders->get();
+
+        return view('default.pages.backoffice.orders', $data);
     }
 
     /**

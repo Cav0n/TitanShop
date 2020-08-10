@@ -8,10 +8,30 @@
                 <i class="fas fa-home"></i>
                 Accueil
             </a>
+
             <a href="{{route('admin.orders')}}" class="sidenav-link transition @if(Route::current()->getName() === 'admin.orders' || Route::current()->getName() === 'admin.order.show') active @endif">
                 <i class="fas fa-cubes"></i>
                 Commandes
             </a>
+            <div class="sublinks-container
+                @if (
+                    Route::current()->getName() === 'admin.orders' ||
+                    Route::current()->getName() === 'admin.order.show'
+                )
+                    show
+                @endif">
+
+                <a class="sublink transition {{ !isset($status) ? 'active' : '' }}" href="{{ route('admin.orders') }}">
+                    Tout types
+                </a>
+
+                @foreach (\App\Models\OrderStatus::all() as $orderStatus)
+                <a class="sublink transition {{ (isset($status) && $status->id === $orderStatus->id) ? 'active' : '' }}" href="{{ route('admin.orders', ['status' => $orderStatus] ) }}">
+                    {{ $orderStatus->i18nValue('title') }}
+                </a>
+                @endforeach
+            </div>
+
             <a href="{{route('admin.catalog')}}" class="sidenav-link transition
                 @if (
                     Route::current()->getName() === 'admin.catalog'             ||
@@ -25,6 +45,7 @@
                 <i class="fas fa-book"></i>
                 Catalogue
             </a>
+
             <a href="{{ route('admin.customers') }}" class="sidenav-link transition
                 @if (
                     Route::current()->getName() === 'admin.customers'       ||
@@ -35,6 +56,7 @@
                 <i class="fas fa-user"></i>
                 Clients
             </a>
+
             <p class="sidenav-link transition disabled noselect">
                 <i class="fas fa-wrench"></i>
                 Paramètres

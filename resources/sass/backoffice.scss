@@ -64,11 +64,14 @@ html, body {
         & .sidenav-link {
             display: flex;
             padding: 0.5rem;
-            margin-top: 0.2rem;
             border-radius: 2px;
             background: #EEE;
             border: 1px solid #AAA;
             color:black;
+
+            &:not(:first-child) {
+                margin-top: 0.2rem;
+            }
 
             &:hover {
                 text-decoration: none;
@@ -95,6 +98,60 @@ html, body {
                 margin-top: auto;
                 margin-bottom: auto;
                 margin-right: 5px;
+            }
+        }
+
+        & .sublinks-container {
+            display: none;
+            flex-direction: column;
+            background: #EEE;
+            border-top: 0;
+            border-radius: 0 0 4px 4px;
+
+            &.show {
+                display: flex;
+            }
+
+            & .sublink {
+                color: black;
+                padding: 0 7px;
+                border-bottom: 1px solid #AAA;
+                border-right: 1px solid #AAA;
+                border-left: 1px solid #AAA;
+                text-decoration: none;
+                cursor: pointer;
+
+                &:last-child {
+                    border-radius: 0 0 4px 4px;
+                }
+
+                &:hover {
+                    text-decoration: none;
+                }
+
+                &:hover:not(.active):not(.disabled) {
+                    box-shadow: 0 .125rem .25rem rgba(0,0,0,.075);
+                    border-bottom: 1px solid black;
+                    border-right: 1px solid black;
+                    border-left: 4px solid $primary !important;
+                }
+
+                &.active {
+                    background: black;
+                    border-color: black;
+                    color: white;
+                }
+
+                &.disabled {
+                    opacity: .5;
+                    cursor: default;
+                }
+
+                & i {
+                    margin-top: auto;
+                    margin-bottom: auto;
+                    margin-right: 5px;
+                }
             }
         }
     }
