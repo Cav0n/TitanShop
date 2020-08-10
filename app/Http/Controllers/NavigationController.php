@@ -23,6 +23,20 @@ class NavigationController extends Controller
         return view('default.pages.customer-area.homepage', ['customer' => $customer]);
     }
 
+    public function showCustomerOrders(Request $request)
+    {
+        if (! Customer::check($request)) {
+            abort(404);
+        }
+
+        $customer = Customer::where('id', session()->get('customer_id'))->first();
+
+        return view('default.pages.customer-area.orders', [
+                'customer'  => $customer,
+                'orders'    => $customer->orders
+            ]);
+    } 
+
     public function showBackofficeHomepage()
     {
         return view('default.pages.backoffice.homepage');

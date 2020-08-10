@@ -22,7 +22,7 @@
             </a>
         </div>
         <div class="col-lg-4">
-            <a class="border p-3 rounded d-flex justify-content-between" href='{{ route('customer-area.homepage') }}'>
+            <a class="border p-3 rounded d-flex justify-content-between" href='{{ route('customer-area.orders') }}'>
                 <div class="left d-flex flex-column justify-content-center">
                     <p>Historique de commandes</p>
                     <small>Vous avez effectué {{ count($customer->orders) }} commandes.</small>

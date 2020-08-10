@@ -32,6 +32,16 @@ class OrderItem extends Model
         return $this->belongsTo('App\Models\Product');
     }
 
+    public function getUnitPriceAttribute()
+    {
+        return $this->product->price;
+    } 
+
+    public function getUnitPriceFormattedAttribute()
+    {
+        return  number_format($this->product->price, 2, ',', ' ') . ' €';
+    }
+
     public function getPriceAttribute()
     {
         return $this->product->price * $this->quantity;

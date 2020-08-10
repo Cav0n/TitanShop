@@ -45,6 +45,7 @@ Route::name('customer-area.')->prefix('customer-area')->group(function () {
         Route::post('/informations/update', 'CustomerController@update')->name('informations.update');
         Route::get('/password/edit', 'CustomerController@editPassword')->name('password.edit');
         Route::post('/password/update', 'CustomerController@updatePassword')->name('password.update');
+        Route::get('/orders', 'NavigationController@showCustomerOrders')->name('orders');
     });
 });
 

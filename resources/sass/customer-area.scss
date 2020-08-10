@@ -85,4 +85,17 @@
             }
         }
     }
+
+    & .order-recap .order-items {
+        margin-top: .5rem;
+    }
+
+    & .order-recap:not(:last-child) {
+        padding-bottom: .5rem;
+        border-bottom: 1px solid #CCC;
+    }
+
+    & .order-recap:not(:first-child) {
+        padding-top: .5rem;
+    }
 }
