@@ -1,6 +1,6 @@
 @extends('default.templates.public')
 
-@section('page.title', 'Mon panier')
+@section('page.title', 'Espace client - Historique de commandes')
 
 @section('page.content')
 <div id="customer-area">
@@ -12,8 +12,8 @@
         ]
     ])
 
-    <h2 class="mb-0">Votre espace client</h2>
-    <p>Bienvenue {{ $customer->firstname }} {{ $customer->lastname }}</p>
+    <h2>Historique de commande</h2>
+
     <a href="{{ route('customer-area.homepage') }}">
         <i class="fas fa-arrow-left"></i>
         Espace client
@@ -26,9 +26,7 @@
         </div>
 
         <div class="col-lg-12">
-            <h3>Historique de commande</h3>
-
-            <div class="row bg-light border shadow-sm py-3 mx-0">
+            <div class="row bg-light border rounded shadow-sm py-3 mx-0">
             @foreach ($orders as $order)
                 <div class="col-lg-12 order-recap">
                     <h4 class="mb-0">Commande du {{$order->created_at->format('d/m/Y à H\hi')}} {!!$order->status->generateBadge()!!}</h4>

@@ -1,6 +1,6 @@
 @extends('default.templates.public')
 
-@section('page.title', 'Mon panier')
+@section('page.title', 'Espace client')
 
 @section('page.content')
 <div id="customer-area">
@@ -41,8 +41,8 @@
         </div>
 
         <div class="col-lg-12">
-            <h3>Mes informations personnelles</h3>
-            <form action="{{ route('customer-area.informations.update') }}" class="row py-3 bg-light border shadow-sm mx-0" method="POST">
+            <h3 class="h4">Mes informations personnelles</h3>
+            <form action="{{ route('customer-area.informations.update') }}" class="row py-3 bg-light border rounded shadow-sm mx-0" method="POST">
                 @csrf
 
                 <div class="form-group col-lg-5">

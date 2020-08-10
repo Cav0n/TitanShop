@@ -1,6 +1,6 @@
 <header class="row border-bottom">
     <div class="col-12 d-flex justify-content-between py-3">
-        <div class="header-left w-100">
+        <div class="header-left">
             <a href="{{route('homepage')}}" class="text-dark">
                 <h1>TitanShop</h1>
             </a>

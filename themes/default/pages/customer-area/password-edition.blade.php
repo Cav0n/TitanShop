@@ -1,6 +1,6 @@
 @extends('default.templates.public')
 
-@section('page.title', 'Mon panier')
+@section('page.title', 'Espace client - Mon mot de passe')
 
 @section('page.content')
 <div id="customer-area">
@@ -12,8 +12,8 @@
         ]
     ])
 
-    <h2 class="mb-0">Votre espace client</h2>
-    <p>Bienvenue {{ $customer->firstname }} {{ $customer->lastname }}</p>
+    <h2>Mon mot de passe</h2>
+
     <a href="{{ route('customer-area.homepage') }}">
         <i class="fas fa-arrow-left"></i>
         Espace client
@@ -26,8 +26,7 @@
         </div>
 
         <div class="col-lg-12">
-            <h3>Mon mot de passe</h3>
-            <form action="{{ route('customer-area.password.update') }}" class="row py-3 bg-light border shadow-sm mx-0" method="POST">
+            <form action="{{ route('customer-area.password.update') }}" class="row py-3 bg-light border rounded shadow-sm mx-0" method="POST">
                 @csrf
 
                 <div class="form-group col-lg-7">
