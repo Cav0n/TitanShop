@@ -17,26 +17,32 @@
                 <table class="table bg-white">
                     <thead class="thead-default">
                     <tr>
-                        <th>ID</th>
-                        <th>Nom</th>
-                        <th>Prénom</th>
-                        <th>Date d'inscription</th>
-                        <th>Date de la dernière commande</th>
-                        <th>Montant de la dernière commande</th>
+                        <th class="d-table-cell d-lg-none">Résumé</th>
+                        <th class="d-none d-lg-table-cell">ID</th>
+                        <th class="d-none d-lg-table-cell">Nom</th>
+                        <th class="d-none d-lg-table-cell">Prénom</th>
+                        <th class="d-none d-lg-table-cell">Date d'inscription</th>
+                        <th class="d-none d-lg-table-cell">Date de la dernière commande</th>
+                        <th class="d-none d-lg-table-cell">Montant de la dernière commande</th>
                         <th class="text-right">Actions</th>
                     </tr>
                     </thead>
                     <tbody>
                     @foreach ($customers as $customer)
                         <tr>
-                            <td>{{ $customer->id }}</td>
-                            <td>{{ $customer->lastname }}</td>
-                            <td>{{ $customer->firstname }}</td>
-                            <td>{{ $customer->created_at->format('d/m/Y à H\hi') }}</td>
-                            <td class="{{ count($customer->orders) <= 0 ? 'text-muted' : null }}">
+                            <td class="d-table-cell d-lg-none">
+                                <p><b>{{ $customer->firstname }} {{ $customer->lastname }}</b></p>
+                                <p>Inscrit le {{ $customer->created_at->format('d/m/Y à H\hi') }}</p>
+                            </td>
+
+                            <td class="d-none d-lg-table-cell">{{ $customer->id }}</td>
+                            <td class="d-none d-lg-table-cell">{{ $customer->lastname }}</td>
+                            <td class="d-none d-lg-table-cell">{{ $customer->firstname }}</td>
+                            <td class="d-none d-lg-table-cell">{{ $customer->created_at->format('d/m/Y à H\hi') }}</td>
+                            <td class="d-none d-lg-table-cell {{ count($customer->orders) <= 0 ? 'text-muted' : null }}">
                                 {{ count($customer->orders) > 0 ? $customer->latestOrder->created_at->format('d/m/Y à H\hi') : 'Aucune commande pour ce client' }}
                             </td>
-                            <td class="{{ count($customer->orders) <= 0 ? 'text-muted' : null }}">
+                            <td class="d-none d-lg-table-cell {{ count($customer->orders) <= 0 ? 'text-muted' : null }}">
                                 {{ count($customer->orders) > 0 ? $customer->latestOrder->totalPriceFormatted : 'Aucune commande pour ce client' }}
                             </td>
 

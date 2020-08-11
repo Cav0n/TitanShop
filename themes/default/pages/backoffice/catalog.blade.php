@@ -44,20 +44,20 @@
                 <table class="table">
                     <thead class="thead-default">
                         <tr>
-                            <th class="text-center">ID</th>
-                            <th></th>
+                            <th class="text-center d-none d-md-table-cell">ID</th>
+                            <th class="d-none d-md-table-cell"></th>
                             <th>Titre</th>
-                            <th class="text-center">Visible</th>
+                            <th class="text-center d-none d-md-table-cell">Visible</th>
                             <th class="text-right">Actions</th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach ($categories as $category)
                         <tr @if(! $category->isVisible) class="opacity-50" @endif>
-                            <td scope="row" class="text-center">{{$category->id}}</td>
-                            <td></td>
+                            <td scope="row" class="text-center d-none d-md-table-cell">{{$category->id}}</td>
+                            <td class="d-none d-md-table-cell"></td>
                             <td>{{$category->i18nValue('title')}}</td>
-                            <td class="text-center">
+                            <td class="text-center d-none d-md-table-cell">
                                 <div class="custom-control custom-switch">
                                     <input type="checkbox" class="custom-control-input visibility-checkbox" id="categoryVisibilityToggle-{{$loop->index}}" {{$category->isVisible ? "checked" : null}} data-type="category" data-id="{{$category->id}}">
                                     <label class="custom-control-label" for="categoryVisibilityToggle-{{$loop->index}}">
@@ -65,13 +65,13 @@
                                 </div>
                             </td>
                             <td class="text-right">
-                                <a class="btn btn-primary" href="{{route('admin.catalog', ['category' => $category])}}">
+                                <a class="btn btn-primary mb-2 mb-lg-0" href="{{route('admin.catalog', ['category' => $category])}}">
                                     <i class="fas fa-angle-right"></i>
                                     Parcourir</a>
-                                <a id="edit-category" class="btn btn-primary" href="{{route('admin.category.edit', ['category' => $category])}}">
+                                <a id="edit-category" class="btn btn-primary mb-2 mb-lg-0" href="{{route('admin.category.edit', ['category' => $category])}}">
                                     <i class="fas fa-edit"></i>
                                     Modifier</a>
-                                <button name="delete-category" class="btn btn-danger delete-item" role="button"
+                                <button name="delete-category" class="btn btn-danger delete-item mb-2 mb-lg-0" role="button"
                                         data-id="{{$category->id}}"
                                         data-type="category"
                                         data-title="Suppression de {{$category->i18nValue('title')}}"
@@ -99,26 +99,26 @@
                 <table class="table">
                     <thead class="thead-default">
                         <tr>
-                            <th class="text-center">ID</th>
-                            <th></th>
+                            <th class="text-center d-none d-md-table-cell">ID</th>
+                            <th class="d-none d-md-table-cell"></th>
                             <th>Titre</th>
-                            <th>Prix</th>
-                            <th>Stock</th>
-                            <th class="text-center">Visible</th>
+                            <th class="d-none d-md-table-cell">Prix</th>
+                            <th class="d-none d-md-table-cell">Stock</th>
+                            <th class="text-center d-none d-md-table-cell">Visible</th>
                             <th class="text-right">Actions</th>
                         </tr>
                     </thead>
                     <tbody>
                     @foreach ($products as $product)
                         <tr @if(! $product->isVisible) class="opacity-50" @endif>
-                            <td scope="row" class="text-center">{{$product->id}}</td>
-                            <td class="image-container">
+                            <td scope="row" class="text-center d-none d-md-table-cell">{{$product->id}}</td>
+                            <td class="image-container d-none d-md-table-cell">
                                 <img src="{{$product->firstImage ? asset($product->firstImage->path) : asset('images/utils/question-mark.png')}}" alt="{{$product->i18nValue('title')}}" class="w-100">
                             </td>
                             <td>{{$product->i18nValue('title')}}</td>
-                            <td>{{$product->formattedPrice}}</td>
-                            <td>{{$product->stock}}</td>
-                            <td class="text-center">
+                            <td class="d-none d-md-table-cell">{{$product->formattedPrice}}</td>
+                            <td class="d-none d-md-table-cell">{{$product->stock}}</td>
+                            <td class="text-center d-none d-md-table-cell">
                                 <div class="custom-control custom-switch">
                                     <input type="checkbox" class="custom-control-input visibility-checkbox" id="productVisibilityToggle-{{$loop->index}}" {{$product->isVisible ? "checked" : null}} data-type="product" data-id="{{$product->id}}">
                                     <label class="custom-control-label" for="productVisibilityToggle-{{$loop->index}}">
@@ -126,10 +126,10 @@
                                 </div>
                             </td>
                             <td class="text-right">
-                                <a id="edit-product" class="btn btn-primary" href="{{route('admin.product.edit', ['product' => $product])}}">
+                                <a id="edit-product" class="btn btn-primary mb-2 mb-lg-0" href="{{route('admin.product.edit', ['product' => $product])}}">
                                     <i class="fas fa-edit"></i>
                                     Modifier</a>
-                                <button name="delete-product" class="btn btn-danger delete-item" role="button"
+                                <button name="delete-product" class="btn btn-danger delete-item mb-2 mb-lg-0" role="button"
                                         data-id="{{$product->id}}"
                                         data-type="product"
                                         data-title="Suppression de {{$product->i18nValue('title')}}"

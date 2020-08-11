@@ -89,8 +89,10 @@
                     <p><b>Statut de la commande : </b> <span class='order-status-badge'>{!! $order->status->generateBadge() !!}</span></p>
                     <p><b>Commande effectuée le : </b> {{$order->created_at->format('d/m/Y à H\hi')}}</p>
                     <p><b>Numéro de suivi (token) : </b> {{ $order->token }}</p>
+                    @if (null !== $order->customerMessage && !empty($order->customerMessage))
                     <p><b>Message du client :</b> <br>
                         {!! nl2br($order->customerMessage) ?? 'Le client n\'a laissé aucun message pour cette commande.' !!}</p>
+                    @endif
                 </div>
             </div>
         </div>

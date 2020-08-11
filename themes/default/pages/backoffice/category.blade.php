@@ -8,16 +8,16 @@
             <input type="hidden" name="parentId" value="{{$parent}}">
         @endif
 
-        <div class="col-12 d-flex justify-content-between">
+        <div class="col-12 d-flex flex-column flex-lg-row justify-content-between">
             <h1>{{isset($category) ? $category->i18nValue('title') : "Catégorie"}}</h1>
 
-            <div class="btn-container d-flex">
+            <div class="btn-container d-flex flex-column flex-lg-row">
                 @isset($category)
-                <a class="btn btn-primary mr-2" href="{{ route('category.show', ['category' => $category]) }}" target="_blank" rel="noopener noreferrer">
+                <a class="btn btn-primary mr-lg-2 mb-2" href="{{ route('category.show', ['category' => $category]) }}" target="_blank" rel="noopener noreferrer">
                     <i class="fas fa-eye"></i>
                     Voir la catégorie</a>
                 @endisset
-                <button type="submit" class="btn btn-success">
+                <button type="submit" class="btn btn-success mb-2">
                     <i class="fas fa-save"></i>
                     Sauvegarder</button>
             </div>

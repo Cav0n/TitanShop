@@ -2,11 +2,11 @@
 
 @section('page.content')
     <div id="customer-area-login" class="row">
-        <div id="left-side" class="col-lg-6 d-flex flex-column justify-content-center">
+        <div id="left-side" class="col-md-6 d-flex flex-column justify-content-center">
             <h1 class="text-center mb-0">Connexion à votre espace client</h1>
             <span class="text-center">TitanShop</span>
         </div>
-        <div id="right-side" class="col-lg-6 d-flex flex-column justify-content-center">
+        <div id="right-side" class="col-md-6 d-flex flex-column justify-content-center">
             <form action="{{ route('customer-area.login.handle') }}" method="POST" id="login-form" class="mx-auto">
                 @include('default.components.alerts.errors')
                 @csrf

@@ -29,7 +29,7 @@
             <div class="row bg-light border rounded shadow-sm py-3 mx-0">
             @foreach ($orders as $order)
                 <div class="col-lg-12 order-recap">
-                    <h4 class="mb-0">Commande du {{$order->created_at->format('d/m/Y à H\hi')}} {!!$order->status->generateBadge()!!}</h4>
+                    <h4 class="mb-0 h5">Commande du {{$order->created_at->format('d/m/Y à H\hi')}} {!!$order->status->generateBadge()!!}</h4>
                     <p>Prix total des produits : {{$order->itemsPriceFormatted}}</p>
                     <p>Frais de port : {{$order->shippingPriceFormatted}}</p>
                     <p>Prix total de la commande : {{$order->totalPriceFormatted}}</p>

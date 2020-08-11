@@ -11,7 +11,7 @@
 
     <div class="row my-3 big-links-container">
         <div class="col-lg-4">
-            <a class="border p-3 rounded d-flex justify-content-between" href='{{ route('customer-area.password.edit') }}'>
+            <a class="border p-3 mb-3 mb-lg-3 rounded d-flex justify-content-between" href='{{ route('customer-area.password.edit') }}'>
                 <div class="left d-flex flex-column justify-content-center">
                     <p>Mon mot de passe</p>
                     <small>Modifier mon mot de passe.</small>

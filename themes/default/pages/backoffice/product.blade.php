@@ -8,7 +8,7 @@
             <input type="hidden" name="defaultCategory" value="{{$defaultCategory}}">
         @endif
 
-        <div class="col-12 d-flex justify-content-between">
+        <div class="col-12 d-flex flex-column flex-lg-row justify-content-between">
             <h1>{{isset($product) ? $product->i18nValue('title') : "Nouveau produit"}}</h1>
 
             <div class="btn-container d-flex">
@@ -17,7 +17,7 @@
                     <i class="fas fa-eye"></i>
                     Voir le produit</a>
                 @endisset
-                <button type="submit" class="btn btn-success">
+                <button type="submit" class="btn btn-success my-3 my-lg-0">
                     <i class="fas fa-save"></i>
                     Sauvegarder</button>
             </div>

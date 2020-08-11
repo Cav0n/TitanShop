@@ -42,7 +42,7 @@
                             <p>Prix total de la commande : {{ $order->totalPriceFormatted }}</p>
                         </div>
 
-                        <div class="col-lg-7 border-left border-dark">
+                        <div class="col-lg-7 mt-3 mt-lg-0 border-left border-dark">
                             <p>Produits commandés :</p>
                             <ul class="order-items-list mb-0">
                                 @foreach ($order->items as $item)

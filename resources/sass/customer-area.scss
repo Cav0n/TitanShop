@@ -99,3 +99,16 @@
         padding-top: .5rem;
     }
 }
+
+@media (max-width: 767.98px) {
+    #customer-area-login, #customer-area-register {
+        & #left-side {
+            min-height: 11rem;
+            height: 30vh;
+        }
+
+        & #right-side {
+            height: 70vh;
+        }
+    }
+ }

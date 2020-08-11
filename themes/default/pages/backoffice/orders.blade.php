@@ -20,30 +20,44 @@
                 <table class="table bg-white">
                     <thead class="thead-default">
                     <tr>
-                        <th>ID</th>
-                        <th>Commande passée le</th>
-                        <th>Client</th>
-                        <th>Paiement</th>
-                        <th>Status</th>
-                        <th class="text-center">Token</th>
+                        <th class="d-table-cell d-md-none">Résumé</th>
+                        <th class="d-none d-md-table-cell">ID</th>
+                        <th class="d-none d-md-table-cell">Commande passée le</th>
+                        <th class="d-none d-md-table-cell">Client</th>
+                        <th class="d-none d-md-table-cell">Paiement</th>
+                        <th class="d-none d-md-table-cell">Status</th>
+                        <th class="text-center d-none d-md-table-cell">Token</th>
                         <th class="text-right">Actions</th>
                     </tr>
                     </thead>
                     <tbody>
                     @foreach ($orders as $order)
                         <tr>
-                            <td>{{$order->id}}</td>
-                            <td>{{$order->created_at->format('d/m/Y à H\hi')}}</td>
-                            <td>
+                            <td class="d-table-cell d-md-none">
+                                <p>{{$order->created_at->format('d/m/Y à H\hi')}}</p>
+                                <p>{!! $order->status->generateBadge() !!}</p>
+                                <p>
+                                    <b>
+                                        {!! $order->customer != null
+                                            ? "<a href='" . route('admin.customer.show', ['customer' => $order->customer]) . " '>" . $order->customerIdentity . "</a>"
+                                            : $order->customerIdentity !!}
+                                    </b>
+                                </p>
+                                <p>{{$order->totalPriceFormatted}} - {{$order->paymentMethod}}</p>
+                            </td>
+
+                            <td class="d-none d-md-table-cell">{{$order->id}}</td>
+                            <td class="d-none d-md-table-cell">{{$order->created_at->format('d/m/Y à H\hi')}}</td>
+                            <td class="d-none d-md-table-cell">
                                 <b>
                                     {!! $order->customer != null
                                         ? "<a href='" . route('admin.customer.show', ['customer' => $order->customer]) . " '>" . $order->customerIdentity . "</a>"
                                         : $order->customerIdentity !!}</b> <br>
                                 {{$order->email}} @if ($order->phone)- {{$order->phone}}@endif
                             </td>
-                            <td>{{$order->totalPriceFormatted}} - {{$order->paymentMethod}}</td>
-                            <td>{!! $order->status->generateBadge() !!}</td>
-                            <td class="text-center"><span class="order-token">{{$order->token}}</span></td>
+                            <td class="d-none d-md-table-cell">{{$order->totalPriceFormatted}} - {{$order->paymentMethod}}</td>
+                            <td class="d-none d-md-table-cell">{!! $order->status->generateBadge() !!}</td>
+                            <td class="text-center d-none d-md-table-cell"><span class="order-token">{{$order->token}}</span></td>
 
                             <td class="text-right">
                                 <a class="btn btn-primary text-white" href="{{route('admin.order.show', ['order' => $order])}}">
