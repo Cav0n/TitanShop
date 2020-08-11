@@ -1,4 +1,4 @@
-<div id="backoffice-sidenav" class="p-3 border-right d-flex flex-column justify-content-between">
+<div id="backoffice-sidenav" class="p-3 border-right d-flex flex-column justify-content-between transition">
     <div id="sidenav-top">
         <p id="sidenav-title" class="font-weight-bold">TitanShop</p>
         <a href="{{route('homepage')}}" class="text-muted">Voir la boutique</a>

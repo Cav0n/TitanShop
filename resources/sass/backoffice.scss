@@ -12,11 +12,17 @@ html, body {
 #backoffice-container {
     padding: 0;
     min-height: 100vh;
+    overflow-x: hidden;
 }
 
 #backoffice-content {
     height: fit-content;
     margin-left: 15rem;
+
+    & #sidenav-open-btn {
+        padding: 5px 10px !important;
+        display: none;
+    }
 }
 
 .backoffice-card {
@@ -194,3 +200,30 @@ html, body {
     background: #EEEEEE;
     border-radius: .15rem;
 }
+
+@media (max-width: 767.98px) {
+    #backoffice-sidenav {
+        left: -15rem;
+
+        &.open {
+            left: 0;
+        }
+    }
+
+    #backoffice-content {
+        height: fit-content;
+        position: relative;
+        margin-left: 0;
+        left: 0;
+        top: 0;
+
+        &.open {
+            left: 15rem;
+        }
+
+        & #sidenav-open-btn {
+            padding: 5px 10px !important;
+            display: flex;
+        }
+    }
+ }

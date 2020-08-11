@@ -3,15 +3,15 @@
 @section('page.content')
     <div class="row mx-0">
         {{-- Title and buttons --}}
-        <div class="col-12 d-flex justify-content-between">
+        <div class="col-12 d-flex flex-column flex-lg-row justify-content-between">
             <h1>Catalogue @if(isset($parentCategory)) - {{$parentCategory->i18nValue('title')}}
                 <a class="btn btn-primary" href="{{ route('admin.category.edit', ['category' => $parentCategory]) }}" role="button"><i class="fas fa-edit"></i></a> @endif</h1>
 
-            <div class="btn-container d-flex">
-                <a class="btn btn-primary text-white mr-2" href="{{route('admin.category.create', ['parent' => $parentCategory])}}">
+            <div class="btn-container d-flex flex-column flex-lg-row flex-wrap">
+                <a class="btn btn-primary text-white mr-lg-2 mb-2 mb-lg-0" href="{{route('admin.category.create', ['parent' => $parentCategory])}}">
                     <i class="fa fa-plus" aria-hidden="true"></i>
                     Créer une nouvelle @if(isset($parentCategory)) sous @endif catégorie</a>
-                <a class="btn btn-primary text-white" href="{{route('admin.product.create', ['default_category' => $parentCategory])}}">
+                <a class="btn btn-primary text-white mb-2 mb-lg-0" href="{{route('admin.product.create', ['default_category' => $parentCategory])}}">
                     <i class="fa fa-plus" aria-hidden="true"></i>
                     Créer un nouveau produit</a>
             </div>

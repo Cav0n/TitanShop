@@ -1,1 +1,27 @@
-html{background:#fff!important}#minimal-container{min-height:100vh}#minimal-container #left-side{background:#ff0;min-height:100vh}#minimal-container input,#minimal-container select,#minimal-container textarea{border:none;background:#f2f2f2;border-radius:.5rem;box-shadow:none}#minimal-container label{margin-bottom:.1rem;font-weight:600}
+html {
+  background: white !important;
+}
+
+#minimal-container {
+  min-height: 100vh;
+}
+
+#minimal-container #left-side {
+  background: yellow;
+  min-height: 100vh;
+}
+
+#minimal-container input,
+#minimal-container textarea,
+#minimal-container select {
+  border: none;
+  background: #f2f2f2;
+  border-radius: 0.5rem;
+  box-shadow: none;
+}
+
+#minimal-container label {
+  margin-bottom: 0.1rem;
+  font-weight: 600;
+}
+
