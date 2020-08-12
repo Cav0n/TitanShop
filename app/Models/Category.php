@@ -38,6 +38,11 @@ class Category extends Model
         return $this->belongsToMany('App\Models\Image', 'category_image')->withPivot('position');;
     }
 
+    public function getFirstImageAttribute()
+    {
+        return $this->images()->orderBy('position')->first();
+    }
+
     public function products()
     {
         return $this->belongsToMany('App\Models\Product');

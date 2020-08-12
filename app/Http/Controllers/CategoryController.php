@@ -4,10 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use App\Models\CategoryI18n;
+use App\Models\Image;
 use App\Models\Product;
 use App\Models\Utils\CustomString;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class CategoryController extends Controller
 {
@@ -82,6 +84,30 @@ class CategoryController extends Controller
         $i18n->category_id = $category->id;
         $i18n->save();
 
+        if ($request['imagePaths']) {
+            $images = [];
+
+            foreach ($request['imagePaths'] as $index => $oldImagePath) {
+                // Check if image already exists for the product
+                if ($category->images()->where('path', $oldImagePath)->exists()) {
+                    continue;
+                }
+
+                $imageTitle = $category->code . '-' . uniqid() . '.' . pathinfo($oldImagePath)['extension'];
+                Storage::move($oldImagePath, 'images/categories/' .$imageTitle);
+
+                //TODO: Create image in an event
+                $image = new Image();
+                $image->path = asset('storage/images/categories/' . $imageTitle);
+                $image->size = Storage::size('/images/categories/' .$imageTitle);
+                $image->save();
+
+                $images[$image->id] = ['position' => $index];
+            }
+        }
+
+        $category->images()->sync($images);
+
         return redirect(route('admin.category.edit', ['category' => $category]))->withSuccess('La catégorie a été sauvegardée avec succés.');
     }
 
@@ -135,6 +161,30 @@ class CategoryController extends Controller
 
         $i18n->category_id = $category->id;
         $i18n->save();
+
+        if ($request['imagePaths']) {
+            $images = [];
+
+            foreach ($request['imagePaths'] as $index => $oldImagePath) {
+                // Check if image already exists for the product
+                if ($category->images()->where('path', $oldImagePath)->exists()) {
+                    continue;
+                }
+
+                $imageTitle = $category->code . '-' . uniqid() . '.' . pathinfo($oldImagePath)['extension'];
+                Storage::move($oldImagePath, 'images/categories/' .$imageTitle);
+
+                //TODO: Create image in an event
+                $image = new Image();
+                $image->path = asset('storage/images/categories/' . $imageTitle);
+                $image->size = Storage::size('/images/categories/' .$imageTitle);
+                $image->save();
+
+                $images[$image->id] = ['position' => $index];
+            }
+        }
+
+        $category->images()->sync($images);
 
         return back()->withSuccess('La catégorie a été sauvegardée avec succés.');
     }

@@ -19230,7 +19230,14 @@ table tr td {
 .category-small,
 .product-small {
   background: #EEE;
+  background-size: cover;
   cursor: pointer;
+}
+
+.category-small p {
+  background: rgba(0, 0, 0, 0.4);
+  font-weight: 600;
+  color: white;
 }
 
 .product-small.no-stock {
@@ -19241,6 +19248,7 @@ table tr td {
 .category-small:hover,
 .product-small:not(.no-stock):hover {
   background: #DDD;
+  background-size: cover;
   box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075) !important;
   transform: scale(1.04);
 }
