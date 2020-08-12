@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Image;
 use App\Models\Product;
 use App\Models\ProductI18n;
 use App\Models\Utils\CustomString;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class ProductController extends Controller
 {
@@ -71,9 +73,43 @@ class ProductController extends Controller
         $i18n->product_id = $product->id;
         $i18n->save();
 
-        if (isset($request['defaultCategory'])) {
-            $product->categories()->attach($request['defaultCategory']);
+        $categoryIds = [];
+
+        if (null !== $request['categories']) {
+            foreach (json_decode($request['categories'], true) as $category) {
+                if (isset($request['default_category']) && json_decode($request['default_category'], true)[0]['id'] === $category['id']) {
+                    $categoryIds[$category['id']] = ['isDefault' => 1];
+                } else {
+                    $categoryIds[] = $category['id'];
+                }
+            }
         }
+
+        $product->categories()->sync($categoryIds);
+
+        if ($request['imagePaths']) {
+            $images = [];
+
+            foreach ($request['imagePaths'] as $index => $oldImagePath) {
+                // Check if image already exists for the product
+                if ($product->images()->where('path', $oldImagePath)->exists()) {
+                    continue;
+                }
+
+                $imageTitle = $product->code . '-' . uniqid() . '.' . pathinfo($oldImagePath)['extension'];
+                Storage::move($oldImagePath, 'images/products/' .$imageTitle);
+
+                //TODO: Create image in an event
+                $image = new Image();
+                $image->path = asset('storage/images/products/' . $imageTitle);
+                $image->size = Storage::size('/images/products/' .$imageTitle);
+                $image->save();
+
+                $images[$image->id] = ['position' => $index];
+            }
+        }
+
+        $product->images()->sync($images);
 
         return redirect(route('admin.product.edit', ['product' => $product]))->withSuccess('Le produit a été sauvegardé avec succés.');
     }
@@ -113,6 +149,20 @@ class ProductController extends Controller
      */
     public function update(Request $request, Product $product)
     {
+        $categoryIds = [];
+
+        if (null !== $request['categories']) {
+            foreach (json_decode($request['categories'], true) as $category) {
+                if (isset($request['default_category']) && json_decode($request['default_category'], true)[0]['id'] === $category['id']) {
+                    $categoryIds[$category['id']] = ['isDefault' => 1];
+                } else {
+                    $categoryIds[] = $category['id'];
+                }
+            }
+        }
+
+        $product->categories()->sync($categoryIds);
+
         if (null === $i18n = $product->i18ns()->where('lang', $request['lang'] ?? 'fr')->first()) {
             $i18n = new ProductI18n();
         }
@@ -130,6 +180,31 @@ class ProductController extends Controller
 
         $i18n->product_id = $product->id;
         $i18n->save();
+
+        if ($request['imagePaths']) {
+            $images = [];
+
+            foreach ($request['imagePaths'] as $index => $oldImagePath) {
+                // Check if image already exists for the product
+                if (null !== $image = $product->images()->where('path', $oldImagePath)->first()) {
+                    $images[$image->id] = ['position' => $index];
+                    continue;
+                }
+
+                $imageTitle = $product->code . '-' . uniqid() . '.' . pathinfo($oldImagePath)['extension'];
+                Storage::move($oldImagePath, 'images/products/' .$imageTitle);
+
+                //TODO: Create image in an event
+                $image = new Image();
+                $image->path = asset('storage/images/products/' . $imageTitle);
+                $image->size = Storage::size('/images/products/' .$imageTitle);
+                $image->save();
+
+                $images[$image->id] = ['position' => $index];
+            }
+
+            $product->images()->sync($images);
+        }
 
         return back()->withSuccess('Le produit a été sauvegardé avec succés.');
     }

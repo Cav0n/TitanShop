@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Image;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
 class ImageController extends Controller
@@ -35,7 +36,9 @@ class ImageController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $filename = $request->file('file')->store('tmp');
+
+        return new JsonResponse(['path' => $filename]);
     }
 
     /**

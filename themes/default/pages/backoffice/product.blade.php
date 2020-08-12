@@ -13,7 +13,7 @@
 
             <div class="btn-container d-flex">
                 @isset($product)
-                <a class="btn btn-primary mr-2" href="{{ route('product.show', ['product' => $product]) }}" target="_blank" rel="noopener noreferrer">
+                <a class="btn btn-primary mr-2 my-lg-0" href="{{ route('product.show', ['product' => $product]) }}" target="_blank" rel="noopener noreferrer">
                     <i class="fas fa-eye"></i>
                     Voir le produit</a>
                 @endisset
@@ -87,6 +87,12 @@
                 <h2 class="h4">Images</h2>
                 <div class="col-12 row bg-white p-3 mx-0 border shadow-sm backoffice-card">
                     <p>Bientôt disponible</p>
+
+                    <div id='product-images' class="dropzone-container col-12 px-0">
+                        <div id="product-dropzone" class="dropzone">
+
+                        </div>
+                    </div>
                 </div>
             </div>
 
@@ -112,8 +118,13 @@
                 <h2 class="h4">Catégories</h2>
                 <div class="row bg-white p-3 mb-3 mx-0 border shadow-sm backoffice-card">
                     <div class="form-group col-lg-12">
-                        <label for="test">Catégories du produit</label>
-                        <input type="text" class="form-control tag-input" name="test" id="test">
+                        <label for="categories">Catégories du produit</label>
+                        <input type="text" class="form-control tag-input" name="categories" id="categories">
+                    </div>
+
+                    <div class="form-group col-lg-12">
+                        <label for="default_category">Catégorie par défaut</label>
+                        <input type="text" class="form-control tag-input-default-category" name="default_category" id="default_category">
                     </div>
                 </div>
             </div>
@@ -127,22 +138,81 @@
         let categories = [];
 
         @foreach(\App\Models\Category::where('isDeleted', 0)->get() as $category)
-        categories.push("{{ $category->i18nValue('title') }}");
+        categories.push({'id':"{{ $category->id }}", 'value':"{{ $category->i18nValue('title') }}"});
         @endforeach
 
         // The DOM element you wish to replace with Tagify
         var tagInput = document.querySelector('.tag-input');
 
         // initialize Tagify on the above input node reference
-        new Tagify(tagInput, {
+        let tags = new Tagify(tagInput, {
             whitelist: categories,
             enforceWhitelist: true,
             dropdown: {
                 maxItems: Infinity,           // <- mixumum allowed rendered suggestions
                 classname: "tags-look", // <- custom classname for this dropdown, so it could be targeted
                 enabled: 0,             // <- show suggestions on focus
-                closeOnSelect: false    // <- do not hide the suggestions dropdown once an item has been selected
+                closeOnSelect: false,    // <- do not hide the suggestions dropdown once an item has been selected
+                mapValueTo: 'value'
             }
-        })
+        });
+
+        @isset($product)
+        tags.addTags({!! $product->categoriesForTagify !!});
+        @endisset
+    </script>
+
+    <script>
+
+        // The DOM element you wish to replace with Tagify
+        var tagInput = document.querySelector('.tag-input-default-category');
+
+        // initialize Tagify on the above input node reference
+        let tagForDefaultCategory = new Tagify(tagInput, {
+            maxTags: 1,
+            whitelist: categories,
+            enforceWhitelist: true,
+            dropdown: {
+                maxItems: Infinity,           // <- mixumum allowed rendered suggestions
+                classname: "tags-look", // <- custom classname for this dropdown, so it could be targeted
+                enabled: 0,             // <- show suggestions on focus
+                closeOnSelect: false,    // <- do not hide the suggestions dropdown once an item has been selected
+                mapValueTo: 'value'
+            }
+        });
+
+        @if(isset($product) && null !== $product->defaultCategoryForTagify)
+        tagForDefaultCategory.addTags([{!! $product->defaultCategoryForTagify !!}]);
+        @endif
+    </script>
+
+    <script>
+        Dropzone.autoDiscover = false;
+        let imagePath = '';
+        let mockfiles = [];
+
+        @isset($product) @foreach($product->images as $image)
+        mockfiles.push({ name: "{{ $product->i18nValue('title') }}", size: {{ $image->size }}, path: "{{ $image->path }}" });
+        @endforeach @endisset
+
+        let productDropzone = $(".dropzone").dropzone({
+            url: "{{ route('admin.images.upload') }}",
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            maxFilesize: 10,
+            init: function () {
+                mockfiles.forEach(function(mockfile) {
+                    this.displayExistingFile(mockfile, mockfile.path);
+                    $('#product-images').append('<input type="hidden" id="imagePaths" name="imagePaths[]" value="'+ mockfile.path +'">');
+                }, this);
+            },
+            success: function (data, response) {
+                imagePath = response.path;
+                $('#product-images').append('<input type="hidden" id="imagePaths" name="imagePaths[]" value="'+ imagePath +'">');
+            }
+        });
+
+
     </script>
 @endsection

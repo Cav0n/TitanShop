@@ -11,8 +11,15 @@
     ])
 
     <div class="row justify-content-center my-5">
-        <div class="col-lg-4">
-            <img src="{{$product->firstImage ? asset($product->firstImage->path) : asset('images/utils/question-mark.png')}}" alt="{{$product->i18nValue('title')}}" class="w-100">
+        <div class="col-lg-6">
+            <img id="big-image" src="{{$product->firstImage ? asset($product->firstImage->path) : asset('images/utils/question-mark.png')}}" alt="{{$product->i18nValue('title')}}" class="w-100">
+            <div id="thumbnails-container" class="row mt-2">
+                @foreach ($product->images as $image)
+                    <div class="thumbnail col-lg-3 col-4">
+                        <img src="{{ $image->path }}" alt="{{ $product->i18nValue('title') }}" title="{{$product->i18nValue('title')}}" class="w-100 thumbnail-image rounded {{ $loop->index === 0 ? "selected" : "" }}">
+                    </div>
+                @endforeach
+            </div>
         </div>
         <div class="col-lg-6 mt-3 mt-lg-0">
             <h2>{{$product->i18nValue('title')}}</h2>
@@ -56,6 +63,14 @@
                     console.error('product not added : ' + error);
                 }
             });
+        });
+    </script>
+
+    <script>
+        $('.thumbnail-image').on('click', function () {
+            $('#big-image').attr('src', $(this).attr('src'));
+            $('.thumbnail-image').removeClass('selected');
+            $(this).addClass('selected');
         });
     </script>
 @endsection

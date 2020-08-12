@@ -265,3 +265,14 @@ span.text-with-background {
         transform: rotate(1deg) scaleX(1.03);
     }
 }
+
+.thumbnail-image {
+    cursor: pointer;
+    border: 1px solid transparent;
+    opacity: .7;
+
+    &.selected {
+        border: 1px solid black;
+        opacity: 1;
+    }
+}

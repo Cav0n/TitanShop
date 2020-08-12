@@ -7,7 +7,7 @@
             <h1>Catalogue @if(isset($parentCategory)) - {{$parentCategory->i18nValue('title')}}
                 <a class="btn btn-primary" href="{{ route('admin.category.edit', ['category' => $parentCategory]) }}" role="button"><i class="fas fa-edit"></i></a> @endif</h1>
 
-            <div class="btn-container d-flex flex-column flex-lg-row flex-wrap">
+            <div class="btn-container d-flex flex-column flex-lg-row flex-wrap justify-content-end">
                 <a class="btn btn-primary text-white mr-lg-2 mb-2 mb-lg-0" href="{{route('admin.category.create', ['parent' => $parentCategory])}}">
                     <i class="fa fa-plus" aria-hidden="true"></i>
                     Créer une nouvelle @if(isset($parentCategory)) sous @endif catégorie</a>

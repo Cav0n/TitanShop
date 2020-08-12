@@ -23,6 +23,34 @@ class Product extends Model
         return $this->belongsToMany('App\Models\Category', 'category_product')->withPivot('position')->withPivot('isDefault');
     }
 
+    public function getCategoriesForTagifyAttribute()
+    {
+        $categories = [];
+
+        foreach ($this->categories as $index => $category) {
+            $categories[$index]['id'] = "$category->id";
+            $categories[$index]['value'] = $category->i18nValue('title');
+        }
+
+        return json_encode($categories);
+    }
+
+    public function getDefaultCategoryForTagifyAttribute()
+    {
+        $defaultCategoryArray = [];
+
+        if (null === $defaultCategory = $this->categories()->wherePivot('isDefault', 1)->first()) {
+            if (null === $defaultCategory = $this->categories->first()) {
+                return null;
+            }
+        }
+
+        $defaultCategoryArray['id'] = $defaultCategory->id;
+        $defaultCategoryArray['value'] = $defaultCategory->i18nValue('title');
+
+        return json_encode($defaultCategoryArray);
+    }
+
     public function getFirstImageAttribute()
     {
         return $this->images()->orderBy('position')->first();

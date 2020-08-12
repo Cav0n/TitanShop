@@ -63,6 +63,8 @@ Route::name('admin.')->prefix('admin')->group(function () {
         Route::get('/', 'NavigationController@showBackofficeHomepage')->name('homepage');
         Route::any('/logout', 'AuthController@adminLogout')->name('logout');
 
+        Route::post('/images/upload', 'ImageController@store')->name('images.upload');
+
         Route::get('/catalog/{category?}', 'CategoryController@index')->name('catalog');
 
         Route::get('/product/create', 'ProductController@create')->name('product.create');
