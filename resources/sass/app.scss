@@ -274,13 +274,22 @@ span.text-with-background {
     }
 }
 
-.thumbnail-image {
-    cursor: pointer;
-    border: 1px solid transparent;
-    opacity: .7;
+#thumbnails-container {
+    overflow-y: auto;
+    display: flex;
+    flex-wrap: unset;
+    padding-bottom: .5rem;
 
-    &.selected {
-        border: 1px solid black;
-        opacity: 1;
+    & .thumbnail-image {
+        cursor: pointer;
+        border: 1px solid transparent;
+        opacity: .7;
+        height: 6rem;
+        object-fit: cover;
+
+        &.selected {
+            border: 1px solid black;
+            opacity: 1;
+        }
     }
 }

@@ -19344,13 +19344,23 @@ span.text-with-background::after {
   transform: rotate(1deg) scaleX(1.03);
 }
 
-.thumbnail-image {
+#thumbnails-container {
+  overflow-y: auto;
+  display: flex;
+  flex-wrap: unset;
+  padding-bottom: 0.5rem;
+}
+
+#thumbnails-container .thumbnail-image {
   cursor: pointer;
   border: 1px solid transparent;
   opacity: 0.7;
+  height: 6rem;
+  -o-object-fit: cover;
+     object-fit: cover;
 }
 
-.thumbnail-image.selected {
+#thumbnails-container .thumbnail-image.selected {
   border: 1px solid black;
   opacity: 1;
 }
