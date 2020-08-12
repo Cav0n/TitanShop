@@ -10,7 +10,7 @@
         'message' => $product->i18nValue('title') . ' a été ajouté à votre panier.'
     ])
 
-    <div class="row justify-content-center my-5">
+    <div class="row justify-content-center mb-3">
         <div class="col-lg-6">
             <img id="big-image" src="{{$product->firstImage ? asset($product->firstImage->path) : asset('images/utils/question-mark.png')}}" alt="{{$product->i18nValue('title')}}" class="w-100">
             <div id="thumbnails-container" class="row mt-2">
