@@ -133,33 +133,40 @@
 
 /* Apparition effect on links */
 
-.main-nav a {
+.main-nav a,
+.main-nav span {
   opacity: 0;
   transform: translateY(-10px);
 }
 
-.main-nav.is-open a {
+.main-nav.is-open a,
+.main-nav.is-open span {
   opacity: 1;
   transform: translateY(0);
 }
 
-.main-nav li:nth-child(1) a {
+.main-nav li:nth-child(1) a,
+.main-nav li:nth-child(1) span {
   transition: all 275ms 175ms;
 }
 
-.main-nav li:nth-child(2) a {
+.main-nav li:nth-child(2) a,
+.main-nav li:nth-child(2) span {
   transition: all 275ms 225ms;
 }
 
-.main-nav li:nth-child(3) a {
+.main-nav li:nth-child(3) a,
+.main-nav li:nth-child(3) span {
   transition: all 275ms 275ms;
 }
 
-.main-nav li:nth-child(4) a {
+.main-nav li:nth-child(4) a,
+.main-nav li:nth-child(4) span {
   transition: all 275ms 325ms;
 }
 
-.main-nav li:nth-child(5) a {
+.main-nav li:nth-child(5) a,
+.main-nav li:nth-child(5) span {
   transition: all 275ms 375ms;
 }
 
