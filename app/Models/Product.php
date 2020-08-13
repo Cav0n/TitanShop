@@ -61,6 +61,11 @@ class Product extends Model
         return number_format($this->price, 2, ',', ' ') . ' €';
     }
 
+    public function getFormattedPromoPriceAttribute()
+    {
+        return number_format($this->promoPrice, 2, ',', ' ') . ' €';
+    }
+
     public function getDefaultCategoryAttribute()
     {
         if (null !== $category = $this->categories()->where('isDefault', 1)->first()) {

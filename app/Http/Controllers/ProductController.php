@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use App\Models\Image;
 use App\Models\Product;
 use App\Models\ProductI18n;
@@ -42,7 +43,7 @@ class ProductController extends Controller
         $defaultCategory = null;
 
         if (isset($request['default_category'])) {
-            $defaultCategory = $request['default_category'];
+            $defaultCategory = Category::where('id', $request['default_category'])->first();
         }
 
         return view('default.pages.backoffice.product', ['defaultCategory' => $defaultCategory]);
@@ -67,6 +68,8 @@ class ProductController extends Controller
         $product->code = CustomString::prepareStringForURL($code ?? $request['title']);
         $product->isVisible = (isset($request['isVisible'])) ? true : false;
         $product->price = $request['price'];
+        $product->isInPromo = $request['isInPromo'] != null;
+        $product->promoPrice = $request['promoPrice'];
         $product->stock = $request['stock'];
         $product->save();
 
@@ -175,6 +178,8 @@ class ProductController extends Controller
         $product->code = CustomString::prepareStringForURL($request['code'] ?? $request['title']);
         $product->isVisible = (isset($request['isVisible'])) ? true : false;
         $product->price = $request['price'];
+        $product->isInPromo = $request['isInPromo'] != null;
+        $product->promoPrice = $request['promoPrice'];
         $product->stock = $request['stock'];
         $product->save();
 
@@ -187,7 +192,11 @@ class ProductController extends Controller
             foreach ($request['imagePaths'] as $index => $oldImagePath) {
                 // Check if image already exists for the product
                 if (null !== $image = $product->images()->where('path', $oldImagePath)->first()) {
-                    $images[$image->id] = ['position' => $index];
+                    if (isset($request['image-position'])) {
+                        $images[$image->id] = ['position' => $request['image-position']["'".$image->id."'"]];
+                    } else {
+                        $images[$image->id] = ['position' => $index];
+                    }
                     continue;
                 }
 

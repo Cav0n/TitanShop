@@ -285,6 +285,26 @@ img.cover {
     object-fit: cover;
 }
 
+.crossed {
+    position: relative;
+
+    &::after {
+        position: absolute;
+        content: "";
+        left: -2px;
+        top: 48%;
+        right: 0;
+        border-top: 2px solid;
+        border-color: red;
+        -webkit-transform: rotate(-5deg);
+        -moz-transform: rotate(-5deg);
+        -ms-transform: rotate(-5deg);
+        -o-transform: rotate(-5deg);
+        width: 108%;
+        transform: rotate(-7deg);
+    }
+}
+
 #thumbnails-container {
     overflow-y: auto;
     display: flex;

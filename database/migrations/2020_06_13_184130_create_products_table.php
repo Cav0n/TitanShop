@@ -18,6 +18,8 @@ class CreateProductsTable extends Migration
             $table->string('code')->unique();
             $table->integer('stock')->default(0);
             $table->double('price');
+            $table->double('promoPrice')->nullable();
+            $table->boolean('isInPromo')->nullable();
             $table->boolean('isVisible')->default(0);
             $table->boolean('isDeleted')->default(0);
 

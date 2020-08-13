@@ -12,7 +12,7 @@
 
     <div class="row justify-content-center mb-3">
         <div class="col-lg-6">
-            <img id="big-image" src="{{$product->firstImage ? asset($product->firstImage->path) : asset('images/utils/question-mark.png')}}" alt="{{$product->i18nValue('title')}}" class="w-100">
+            <img id="big-image" src="{{$product->firstImage ? asset($product->firstImage->path) : asset('images/utils/question-mark.png')}}" alt="{{$product->i18nValue('title')}}" title="{{$product->i18nValue('title')}}" class="w-100">
             <div id="thumbnails-container" class="row mt-2">
                 @foreach ($product->images as $image)
                     <div class="thumbnail col-lg-3 col-6 col-sm-4">
@@ -26,7 +26,13 @@
             <p>{!! nl2br($product->i18nValue('description')) !!}</p>
 
             <div class="buying-container mt-3">
-                <p class="h4">{{$product->formattedPrice}}</p>
+                <p class="h4 mb-0">
+                    @if($product->isInPromo && $product->promoPrice !== null)
+                        <span class="crossed mr-2">{{$product->formattedPrice}}</span> <b>{{$product->formattedPromoPrice}}</b>
+                    @else
+                        <b>{{$product->formattedPrice}}</b>
+                    @endif
+                </p>
                 @if($product->stock > 0)
                 <button name="add-to-cart-btn" id="add-to-cart-btn" class="btn btn-primary shadow-none border mt-3" role="button">
                     Ajouter au panier</button>

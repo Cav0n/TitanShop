@@ -204,6 +204,19 @@ body {
   border-radius: 0.15rem;
 }
 
+.image-informations-container {
+  background: #EDEDED;
+  margin: 0;
+  padding: 0 1rem 1rem;
+}
+
+.image-informations-container label {
+  margin: 0;
+  padding: 0.4rem 0;
+  text-align: center;
+  width: 100%;
+}
+
 @media (max-width: 767.98px) {
   #backoffice-sidenav {
     left: -15rem;

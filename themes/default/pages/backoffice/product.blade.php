@@ -4,10 +4,6 @@
     <form class="row mx-0" action="{{isset($product) ? route('admin.product.update', ['product' => $product]) : route('admin.product.store')}}" method="POST">
         @csrf
 
-        @if(isset($defaultCategory))
-            <input type="hidden" name="defaultCategory" value="{{$defaultCategory}}">
-        @endif
-
         <div class="col-12 d-flex flex-column flex-lg-row justify-content-between">
             <h1>{{isset($product) ? $product->i18nValue('title') : "Nouveau produit"}}</h1>
 
@@ -105,8 +101,12 @@
 
                     <div id="images-list" class="row">
                         @isset($product) @foreach($product->images as $image)
-                            <div class="col-6 col-sm-4 col-lg-3 mt-2">
+                            <div class="col-12 col-sm-6 col-md-4 col-lg-3 mt-2">
                                 <img src={{ $image->path }} class="w-100">
+                                <div class="image-informations-container form-group">
+                                    <label>Position de l'image</label>
+                                    <input type="number" class="form-control" name="image-position['{{ $image->id }}']" min="0" max="{{ count($product->images) - 1 }}" value="{{ $image->pivot->position }}">
+                                </div>
                             </div>
                             <input type="hidden" id="imagePaths" name="imagePaths[]" value="{{ $image->path }}">
                         @endforeach @endisset
@@ -127,6 +127,17 @@
                             </div>
                         </div>
                     </div>
+                    <div class="form-group col-lg-6 d-flex flex-column justify-content-center">
+                        <div class="form-check form-check-inline mt-3">
+                            <label class="form-check-label noselect">
+                                <input class="form-check-input" type="checkbox" name="isInPromo" id="isInPromo" {{ isset($product) && $product->isInPromo ? 'checked=checked' : null }}> En promo ?
+                            </label>
+                        </div>
+                    </div>
+                    <div id="promo-price-container" class="form-group col-lg-6 {{ !isset($product) || !$product->isInPromo ? 'd-none' : null }}">
+                      <label for="promoPrice">Prix en promo</label>
+                      <input type="text" class="form-control" name="promoPrice" id="promoPrice" aria-describedby="helpId" value="{{isset($product) ? $product->promoPrice : null}}">
+                    </div>
                     <div class="form-group col-lg-6">
                         <label for="stock">Stock</label>
                         <input type="number" class="form-control" name="stock" id="stock" min=0 step=1 value="{{isset($product) ? $product->stock : null}}">
@@ -137,12 +148,12 @@
                 <div class="row bg-white p-3 mb-3 mx-0 border shadow-sm backoffice-card">
                     <div class="form-group col-lg-12">
                         <label for="categories">Catégories du produit</label>
-                        <input type="text" class="form-control tag-input" name="categories" id="categories">
+                        <input type="text" class="form-control tag-input" name="categories" id="categories" @if(!isset($product) && isset($defaultCategory)) value="{{ $defaultCategory->i18nValue('title') }}" @endif>
                     </div>
 
                     <div class="form-group col-lg-12">
                         <label for="default_category">Catégorie par défaut</label>
-                        <input type="text" class="form-control tag-input-default-category" name="default_category" id="default_category">
+                        <input type="text" class="form-control tag-input-default-category" name="default_category" id="default_category" @if(!isset($product) && isset($defaultCategory)) value="{{ $defaultCategory->i18nValue('title') }}" @endif>
                     </div>
                 </div>
             </div>
@@ -159,6 +170,12 @@
 @endsection
 
 @section('page.scripts')
+    <script>
+        $('#isInPromo').on('change', function () {
+            $('#promo-price-container').toggleClass('d-none');
+        });
+    </script>
+
     <script>
         let categories = [];
 

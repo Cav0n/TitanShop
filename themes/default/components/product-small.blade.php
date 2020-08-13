@@ -7,7 +7,13 @@
             {{$product->i18nValue('title')}}
         </p>
         <p class="p-2 text-center bg-primary text-white">
-            <b>{{$product->formattedPrice}}</b> @if($product->stock <= 0) - RUPTURE DE STOCK @endif
+            @if($product->isInPromo && $product->promoPrice !== null)
+                <span class="crossed mr-2">{{$product->formattedPrice}}</span> <b>{{$product->formattedPromoPrice}}</b>
+            @else
+                <b>{{$product->formattedPrice}}</b>
+            @endif
+
+            @if($product->stock <= 0) - RUPTURE DE STOCK @endif
         </p>
     </div>
 </a>
