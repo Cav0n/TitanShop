@@ -86,13 +86,9 @@
 
                 <h2 class="h4">Images</h2>
                 <div class="col-12 row bg-white p-3 mx-0 border shadow-sm backoffice-card">
-                    <p>Bientôt disponible</p>
-
-                    <div id='product-images' class="dropzone-container col-12 px-0">
-                        <div id="product-dropzone" class="dropzone">
-
-                        </div>
-                    </div>
+                    @include('default.components.backoffice.dropzone', [
+                        'objectWithImage' => $product ?? null
+                    ])
                 </div>
             </div>
 
@@ -184,35 +180,5 @@
         @if(isset($product) && null !== $product->defaultCategoryForTagify)
         tagForDefaultCategory.addTags([{!! $product->defaultCategoryForTagify !!}]);
         @endif
-    </script>
-
-    <script>
-        Dropzone.autoDiscover = false;
-        let imagePath = '';
-        let mockfiles = [];
-
-        @isset($product) @foreach($product->images as $image)
-        mockfiles.push({ name: "{{ $product->i18nValue('title') }}", size: {{ $image->size }}, path: "{{ $image->path }}" });
-        @endforeach @endisset
-
-        let productDropzone = $(".dropzone").dropzone({
-            url: "{{ route('admin.images.upload') }}",
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            },
-            maxFilesize: 10,
-            init: function () {
-                mockfiles.forEach(function(mockfile) {
-                    this.displayExistingFile(mockfile, mockfile.path);
-                    $('#product-images').append('<input type="hidden" id="imagePaths" name="imagePaths[]" value="'+ mockfile.path +'">');
-                }, this);
-            },
-            success: function (data, response) {
-                imagePath = response.path;
-                $('#product-images').append('<input type="hidden" id="imagePaths" name="imagePaths[]" value="'+ imagePath +'">');
-            }
-        });
-
-
     </script>
 @endsection

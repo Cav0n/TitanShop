@@ -83,46 +83,10 @@
         <div class="col-lg-12">
             <h2 class="h4">Images</h2>
             <div class="row bg-white p-3 mx-0 border shadow-sm backoffice-card">
-                <p>Bientôt disponible</p>
-
-                <div id='category-images' class="dropzone-container col-12 px-0">
-                        <div id="category-dropzone" class="dropzone">
-
-                        </div>
-                    </div>
+                @include('default.components.backoffice.dropzone', [
+                    'objectWithImage' => $category ?? null
+                ])
             </div>
         </div>
     </form>
-@endsection
-
-@section('page.scripts')
-    <script>
-        Dropzone.autoDiscover = false;
-        let imagePath = '';
-        let mockfiles = [];
-
-        @isset($category) @foreach($category->images as $image)
-        mockfiles.push({ name: "{{ $category->i18nValue('title') }}", size: {{ $image->size }}, path: "{{ $image->path }}" });
-        @endforeach @endisset
-
-        let categoryDropzone = $(".dropzone").dropzone({
-            url: "{{ route('admin.images.upload') }}",
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            },
-            maxFilesize: 10,
-            init: function () {
-                mockfiles.forEach(function(mockfile) {
-                    this.displayExistingFile(mockfile, mockfile.path);
-                    $('#category-images').append('<input type="hidden" id="imagePaths" name="imagePaths[]" value="'+ mockfile.path +'">');
-                }, this);
-            },
-            success: function (data, response) {
-                imagePath = response.path;
-                $('#category-images').append('<input type="hidden" id="imagePaths" name="imagePaths[]" value="'+ imagePath +'">');
-            }
-        });
-
-
-    </script>
 @endsection
