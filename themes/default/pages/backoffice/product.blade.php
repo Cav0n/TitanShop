@@ -17,7 +17,7 @@
                     <i class="fas fa-eye"></i>
                     Voir le produit</a>
                 @endisset
-                <button type="submit" class="btn btn-success my-3 my-lg-0">
+                <button type="submit" class="save-btn btn btn-success my-3 my-lg-0">
                     <i class="fas fa-save"></i>
                     Sauvegarder</button>
             </div>
@@ -85,15 +85,37 @@
                 </div>
 
                 <h2 class="h4">Images</h2>
-                <div class="col-12 row bg-white p-3 mx-0 border shadow-sm backoffice-card">
-                    @include('default.components.backoffice.dropzone', [
-                        'objectWithImage' => $product ?? null
-                    ])
+                @include('default.components.alerts.info', [
+                    'message' => '
+                        <i class="fas fa-info-circle mr-1"></i>
+                        TitanShop vous recommande de toujours utiliser la même taille d\'image pour garder une boutique bien homogène.
+                    '
+                ])
+                <div id="images-container" class="col-12 row bg-white p-3 mx-0 border shadow-sm backoffice-card">
+                    <div class="col-12 px-0">
+                        <label class="btn btn-primary" for="upload-image">
+                            <span class="glyphicon glyphicon-folder-open px-2" aria-hidden="true">
+                                <i class="fas fa-upload"></i>
+                                Uploader de nouvelles images
+                            </span>
+                            <input type="file" id="upload-image" style="display:none" multiple>
+                        </label>
+                    </div>
+
+
+                    <div id="images-list" class="row">
+                        @isset($product) @foreach($product->images as $image)
+                            <div class="col-6 col-sm-4 col-lg-3 mt-2">
+                                <img src={{ $image->path }} class="w-100">
+                            </div>
+                            <input type="hidden" id="imagePaths" name="imagePaths[]" value="{{ $image->path }}">
+                        @endforeach @endisset
+                    </div>
                 </div>
             </div>
 
             {{-- Right --}}
-            <div class="col-lg-4">
+            <div class="col-lg-4 mt-3 mt-lg-0">
                 <h2 class="h4">Prix et stock</h2>
                 <div class="row bg-white p-3 mb-3 mx-0 border shadow-sm backoffice-card">
                     <div class="form-group col-lg-6">
@@ -125,8 +147,15 @@
                 </div>
             </div>
         </div>
-
     </form>
+
+    @include('default.components.modals.info-modal', [
+        'id'        => 'upload-loading-modal',
+        'title'     => 'L\'image est en cours de téléversement sur le site.',
+        'text'      => 'Veuillez patienter le temps que l\'image s\'upload svp...',
+        'noFooter'  => true,
+        'noClose'   => true
+    ])
 @endsection
 
 @section('page.scripts')
@@ -180,5 +209,54 @@
         @if(isset($product) && null !== $product->defaultCategoryForTagify)
         tagForDefaultCategory.addTags([{!! $product->defaultCategoryForTagify !!}]);
         @endif
+    </script>
+
+    <script>
+        $(document).ready(function() {
+            $('#upload-image').change(function() {
+                Array.prototype.forEach.call(this.files, function (image) {
+                    uploadImage(image);
+                    readURL(image);
+                });
+            });
+        });
+
+        function readURL(image) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                $('#images-list').append(`
+                    <div class="col-6 col-sm-4 col-lg-3 mt-2">
+                        <img src="`+ e.target.result +`" class="w-100">
+                    </div>
+                `);
+            }
+
+            reader.readAsDataURL(image);
+        }
+
+        function uploadImage(image) {
+            var formData = new FormData();
+            formData.append('file', image);
+
+            $.ajax({
+                url: "{{ route('admin.images.upload') }}",
+                type: 'POST',
+                data: formData,
+                processData: false,
+                contentType: false,
+                beforeSend: function() {
+                    $('.save-btn').attr('disabled', 'disabled');
+                    $('#upload-loading-modal').modal('show');
+                },
+                complete: function(data, response) {
+                    $('.save-btn').removeAttr('disabled');
+                    $('#upload-loading-modal').modal('hide');
+                },
+                success: function(data, response){
+                    $('#images-list').append('<input type="hidden" id="imagePaths" name="imagePaths[]" value="'+ data.path +'">');
+                }
+            });
+        }
     </script>
 @endsection
