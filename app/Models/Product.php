@@ -15,7 +15,7 @@ class Product extends Model
 
     public function images()
     {
-        return $this->belongsToMany('App\Models\Image', 'product_image')->withPivot('position');;
+        return $this->belongsToMany('App\Models\Image', 'product_image')->withPivot('position')->orderBy('product_image.position');
     }
 
     public function categories()

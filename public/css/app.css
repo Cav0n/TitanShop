@@ -19236,8 +19236,13 @@ table tr td {
 }
 
 .category-small p {
-  background: rgba(0, 0, 0, 0.4);
+  background: #cccccc;
   font-weight: 600;
+  color: black;
+}
+
+.category-small:hover p {
+  background: rgba(0, 0, 0, 0.3);
   color: white;
 }
 
