@@ -4,6 +4,7 @@
     </div>
 </div>
 
+<script src="https://cdn.jsdelivr.net/npm/dropzone@5.7.2/dist/dropzone.min.js"></script>
 <script>
     Dropzone.autoDiscover = false;
     let imagePath = '';
