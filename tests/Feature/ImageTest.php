@@ -29,11 +29,14 @@ class ImageTest extends TestCase
     }
 
     public static function create(
-        $path = null
+        $path = null,
+        $url = null,
+        $size = null
     ) {
         $image = new Image();
         $image->path = $path ?? public_path('images/utils/question-mark.png');
-        $image->url = $url ?? asset('images/utils/question-mark.png');
+        $image->url = $url ?? asset('images/utils/question-mark.png') . '?randomize=' . rand(0,5000);
+        $image->size = $size ?? rand(100000, 5000000);
 
         return $image;
     }
