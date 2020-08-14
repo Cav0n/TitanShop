@@ -136,8 +136,13 @@
                         </div>
                     </div>
                     <div id="promo-price-container" class="form-group col-lg-6 {{ !isset($product) || !$product->isInPromo ? 'd-none' : null }}">
-                      <label for="promoPrice">Prix en promo</label>
-                      <input type="text" class="form-control" name="promoPrice" id="promoPrice" aria-describedby="helpId" value="{{isset($product) ? $product->promoPrice : null}}">
+                        <label for="promoPrice">Prix en promo</label>
+                        <div class="input-group mb-3">
+                            <input type="number" class="form-control" name="promoPrice" id="promoPrice" min=0.01 step=0.01 value="{{isset($product) ? $product->promoPrice : null}}">
+                            <div class="input-group-append">
+                                <span class="input-group-text">€</span>
+                            </div>
+                        </div>
                     </div>
                     <div class="form-group col-lg-6">
                         <label for="stock">Stock</label>
