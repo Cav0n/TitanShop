@@ -58,6 +58,18 @@
                 Clients
             </a>
 
+            <a href="{{ route('admin.administrators') }}" class="sidenav-link transition
+            @if (
+                Route::current()->getName() === 'admin.administrators'      ||
+                Route::current()->getName() === 'admin.administrator.create'||
+                Route::current()->getName() === 'admin.administrator.edit'
+            )
+                active
+            @endif">
+            <i class="fas fa-user-shield"></i>
+            Administrateurs
+        </a>
+
             <p class="sidenav-link transition disabled noselect">
                 <i class="fas fa-wrench"></i>
                 Paramètres

@@ -40,7 +40,7 @@
                 @endif
 
                 @if (!isset($category))
-                / <a href='{{ route('admin.product.create') }}'>Nouvelle catégorie</a>
+                / <a href='{{ route('admin.category.create') }}'>Nouvelle catégorie</a>
                 @endif
             </div>
         </div>
@@ -50,7 +50,7 @@
             @include('default.components.alerts.errors')
         </div>
 
-        <div class="col-lg-12">
+        <div class="col-lg-8">
             <h2 class="h4">Textes</h2>
             <div class="row bg-white p-3 mb-3 mx-0 border shadow-sm backoffice-card">
                 <div class="form-group col-lg-8">

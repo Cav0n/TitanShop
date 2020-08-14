@@ -85,7 +85,7 @@ class Administrator extends Model
 
         if (! $request->session()->has('admin_token')) {
             return false;
-        } 
+        }
 
         $id = $request->session()->get('admin_id');
         $token = $request->session()->get('admin_token');
@@ -93,12 +93,16 @@ class Administrator extends Model
 
         if (null === $admin = Administrator::where('id', $id)->first()) {
             return false;
-        } 
+        }
 
         if (! Hash::check($token, $admin->sessionToken)) {
             return false;
         }
-        
+
+        if (!$admin->isActivated) {
+            return false;
+        }
+
         return true;
     }
 

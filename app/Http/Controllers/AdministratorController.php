@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Administrator;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class AdministratorController extends Controller
 {
@@ -14,7 +15,8 @@ class AdministratorController extends Controller
      */
     public function index()
     {
-        //
+        $administrators = Administrator::where('isDeleted', 0)->get();
+        return view('default.pages.backoffice.administrators', ['administrators' => $administrators]);
     }
 
     /**
@@ -24,7 +26,7 @@ class AdministratorController extends Controller
      */
     public function create()
     {
-        //
+        return view('default.pages.backoffice.administrator');
     }
 
     /**
@@ -35,10 +37,17 @@ class AdministratorController extends Controller
      */
     public function store(Request $request)
     {
-        Administrator::validator($request->all())->validate();
-
         $administrator = new Administrator();
-        $administrator->storeValues($request->all());
+
+        $administrator->firstname = $request['firstname'];
+        $administrator->lastname = $request['lastname'];
+        $administrator->nickname = $request['nickname'];
+        $administrator->email = $request['email'];
+        $administrator->isActivated = $request['isActivated'] !== null;
+        $administrator->password = Hash::make($request['password']);
+        $administrator->save();
+
+        return redirect(route('admin.administrator.edit', ['administrator' => $administrator]))->withSuccess('Le compte administrateur a été créé avec succés.');
     }
 
     /**
@@ -60,7 +69,7 @@ class AdministratorController extends Controller
      */
     public function edit(Administrator $administrator)
     {
-        //
+        return view('default.pages.backoffice.administrator', ['administrator' => $administrator]);
     }
 
     /**
@@ -72,9 +81,19 @@ class AdministratorController extends Controller
      */
     public function update(Request $request, Administrator $administrator)
     {
-        Administrator::validator($request->all())->validate();
+        $administrator->firstname = $request['firstname'];
+        $administrator->lastname = $request['lastname'];
+        $administrator->nickname = $request['nickname'];
+        $administrator->email = $request['email'];
+        $administrator->isActivated = $request['isActivated'] !== null;
 
-        $administrator->storeValues($request->all());
+        if ($request['password'] !== null) {
+            $administrator->password = Hash::make($request['password']);
+        }
+
+        $administrator->save();
+
+        return redirect(route('admin.administrator.edit', ['administrator' => $administrator]))->withSuccess('Le compte administrateur a été mis à jour avec succés.');
     }
 
     /**

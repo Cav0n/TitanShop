@@ -88,5 +88,11 @@ Route::name('admin.')->prefix('admin')->group(function () {
 
         Route::get('/customers', 'CustomerController@index')->name('customers');
         Route::get('/customer/{customer}', 'CustomerController@show')->name('customer.show');
+
+        Route::get('/administrators', 'AdministratorController@index')->name('administrators');
+        Route::get('/administrator/create', 'AdministratorController@create')->name('administrator.create');
+        Route::post('/administrator/create', 'AdministratorController@store')->name('administrator.store');
+        Route::get('/administrator/edit/{administrator}', 'AdministratorController@edit')->name('administrator.edit');
+        Route::post('/administrator/edit/{administrator}', 'AdministratorController@update')->name('administrator.update');
     });
 });
