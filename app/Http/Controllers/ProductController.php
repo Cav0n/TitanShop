@@ -104,7 +104,8 @@ class ProductController extends Controller
 
                 //TODO: Create image in an event
                 $image = new Image();
-                $image->path = asset('storage/images/products/' . $imageTitle);
+                $image->path = 'public/storage/images/products/' . $imageTitle;
+                $image->url = asset('storage/images/products/' . $imageTitle);
                 $image->size = Storage::size('/images/products/' .$imageTitle);
                 $image->save();
 
@@ -205,7 +206,8 @@ class ProductController extends Controller
 
                 //TODO: Create image in an event
                 $image = new Image();
-                $image->path = asset('storage/images/products/' . $imageTitle);
+                $image->path = 'public/storage/images/products/' . $imageTitle;
+                $image->url = asset('storage/images/products/' . $imageTitle);
                 $image->size = Storage::size('/images/products/' .$imageTitle);
                 $image->save();
 

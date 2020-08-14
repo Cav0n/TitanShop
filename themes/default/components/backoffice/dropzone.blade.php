@@ -10,7 +10,7 @@
     let mockfiles = [];
 
     @isset($objectWithImage) @foreach($objectWithImage->images as $image)
-    mockfiles.push({ name: "{{ $objectWithImage->i18nValue('title') }}", size: {{ $image->size }}, path: "{{ $image->path }}" });
+    mockfiles.push({ name: "{{ $objectWithImage->i18nValue('title') }}", size: {{ $image->size }}, path: "{{ $image->url }}" });
     @endforeach @endisset
 
     let dropzone = $(".dropzone").dropzone({

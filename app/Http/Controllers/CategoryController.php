@@ -98,7 +98,8 @@ class CategoryController extends Controller
 
                 //TODO: Create image in an event
                 $image = new Image();
-                $image->path = asset('storage/images/categories/' . $imageTitle);
+                $image->path = 'public/storage/images/categories/' . $imageTitle;
+                $image->url = asset('storage/images/categories/' . $imageTitle);
                 $image->size = Storage::size('/images/categories/' .$imageTitle);
                 $image->save();
 
@@ -176,7 +177,8 @@ class CategoryController extends Controller
 
                 //TODO: Create image in an event
                 $image = new Image();
-                $image->path = asset('storage/images/categories/' . $imageTitle);
+                $image->path = 'public/storage/images/categories/' . $imageTitle;
+                $image->url = asset('storage/images/categories/' . $imageTitle);
                 $image->size = Storage::size('/images/categories/' .$imageTitle);
                 $image->save();
 

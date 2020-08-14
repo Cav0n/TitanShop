@@ -12,11 +12,11 @@
 
     <div class="row justify-content-center mb-3">
         <div class="col-lg-6">
-            <img id="big-image" src="{{$product->firstImage ? asset($product->firstImage->path) : asset('images/utils/question-mark.png')}}" alt="{{$product->i18nValue('title')}}" title="{{$product->i18nValue('title')}}" class="w-100">
+            <img id="big-image" src="{{$product->firstImage ? $product->firstImage->url : asset('images/utils/question-mark.png')}}" alt="{{$product->i18nValue('title')}}" title="{{$product->i18nValue('title')}}" class="w-100">
             <div id="thumbnails-container" class="row mt-2">
                 @foreach ($product->images as $image)
                     <div class="thumbnail col-lg-3 col-6 col-sm-4">
-                        <img src="{{ $image->path }}" alt="{{ $product->i18nValue('title') }}" title="{{$product->i18nValue('title')}}" class="w-100 thumbnail-image rounded {{ $loop->index === 0 ? "selected" : "" }}">
+                        <img src="{{ $image->url }}" alt="{{ $product->i18nValue('title') }}" title="{{$product->i18nValue('title')}}" class="w-100 thumbnail-image rounded {{ $loop->index === 0 ? "selected" : "" }}">
                     </div>
                 @endforeach
             </div>

@@ -99,13 +99,14 @@
                     </div>
 
 
-                    <div id="images-list" class="row">
+                    <div id="images-list" class="row w-100">
                         @isset($product) @foreach($product->images as $image)
                             <div class="col-12 col-sm-6 col-md-4 col-lg-3 mt-2">
-                                <img src={{ $image->path }} class="w-100">
+                                <img src={{ $image->url }} class="w-100">
                                 <div class="image-informations-container form-group">
                                     <label>Position de l'image</label>
                                     <input type="number" class="form-control" name="image-position['{{ $image->id }}']" min="0" max="{{ count($product->images) - 1 }}" value="{{ $image->pivot->position }}">
+                                    <button type="button" class="btn btn-danger mt-2 w-100">Supprimer</button>
                                 </div>
                             </div>
                             <input type="hidden" id="imagePaths" name="imagePaths[]" value="{{ $image->path }}">

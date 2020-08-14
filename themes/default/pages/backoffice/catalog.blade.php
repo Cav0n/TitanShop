@@ -113,7 +113,7 @@
                         <tr @if(! $product->isVisible) class="opacity-50" @endif>
                             <td scope="row" class="text-center d-none d-md-table-cell">{{$product->id}}</td>
                             <td class="image-container d-none d-md-table-cell">
-                                <img src="{{$product->firstImage ? asset($product->firstImage->path) : asset('images/utils/question-mark.png')}}" alt="{{$product->i18nValue('title')}}" class="w-100">
+                                <img src="{{$product->firstImage ? $product->firstImage->url : asset('images/utils/question-mark.png')}}" alt="{{$product->i18nValue('title')}}" class="w-100">
                             </td>
                             <td>{{$product->i18nValue('title')}}</td>
                             <td class="d-none d-md-table-cell">{{$product->formattedPrice}}</td>

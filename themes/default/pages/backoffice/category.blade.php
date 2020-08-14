@@ -100,9 +100,9 @@
                 <div id="images-list" class="row">
                     @isset($category) @foreach($category->images as $image)
                         <div class="col-6 col-sm-4 col-lg-3 mt-2">
-                            <img src={{ $image->path }} class="w-100">
+                            <img src={{ $image->url }} class="w-100">
                         </div>
-                        <input type="hidden" id="imagePaths" name="imagePaths[]" value="{{ $image->path }}">
+                        <input type="hidden" id="imagePaths" name="imagePaths[]" value="{{ $image->url }}">
                     @endforeach @endisset
                 </div>
             </div>

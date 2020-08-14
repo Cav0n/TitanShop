@@ -33,6 +33,7 @@ class ImageTest extends TestCase
     ) {
         $image = new Image();
         $image->path = $path ?? public_path('images/utils/question-mark.png');
+        $image->url = $url ?? asset('images/utils/question-mark.png');
 
         return $image;
     }
@@ -50,5 +51,5 @@ class ImageTest extends TestCase
         $imageI18n->title = $title ?? 'image de test';
 
         return $imageI18n;
-    }  
+    }
 }
