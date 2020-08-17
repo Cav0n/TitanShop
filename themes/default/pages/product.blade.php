@@ -2,9 +2,9 @@
 
 @section('page.title', $product->i18nValue('title'))
 @section('page.description', $product->i18nValue('summary'))
+@section('page.image', $product->firstImage->url)
 
 @section('og.type', 'product')
-@section('og.image', $product->firstImage->url)
 @section('og.additional')
     <meta property="product:price:amount" content="{{ $product->price }}">
     <meta property="product:price:currency" content="EUR">

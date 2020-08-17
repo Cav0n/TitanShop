@@ -1,5 +1,7 @@
 @extends('default.templates.minimal')
 
+@section('page.title', "Connexion à votre espace client")
+
 @section('page.content')
     <div id="customer-area-login" class="row">
         <div id="left-side" class="col-md-6 d-flex flex-column justify-content-center">

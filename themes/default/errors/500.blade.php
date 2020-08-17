@@ -1,5 +1,9 @@
 @extends('default.templates.public')
 
+@section('page.title', '500 | Une erreur est survenue')
+@section('page.description', 'Une erreur est survenue sur cette page, toutes nos excuses pour la gène occasionnée.')
+@section('page.image', asset('images/utils/500.svg'))
+
 @section('page.content')
     <div class="row justify-content-center">
         <div class="col-lg-6 text-center pt-3">

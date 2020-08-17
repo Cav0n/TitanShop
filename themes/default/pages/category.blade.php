@@ -1,6 +1,8 @@
 @extends('default.templates.public')
 
 @section('page.title', $category->i18nValue('title'))
+@section('page.description', $category->i18nValue('summary'))
+@section('page.image', $category->firstImage->url)
 
 @section('page.content')
     @include('default.components.breadcrumb', ['breadcrumb' => $category->generateBreadcrumb()])

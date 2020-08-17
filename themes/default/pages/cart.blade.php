@@ -5,6 +5,7 @@
 @extends('default.templates.public')
 
 @section('page.title', 'Mon panier')
+@section('page.description', 'Retrouvez ici votre panier et passez commande sur notre boutique.')
 
 @section('page.content')
     <h2>

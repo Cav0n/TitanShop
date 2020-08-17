@@ -1,6 +1,7 @@
 @extends('default.templates.public')
 
 @section('page.title', 'Suivi de commande')
+@section('page.description', 'Sur cette page vous pouvez suivre l\'avancement de votre commande.')
 
 @section('page.content')
     @include('default.components.breadcrumb', ['breadcrumb' => [['link' => route('homepage'), 'title' => 'Accueil'], ['link' => route('order.tracking.show'), 'title' => 'Suivi de commande']] ])

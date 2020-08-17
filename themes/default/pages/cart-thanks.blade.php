@@ -1,6 +1,6 @@
 @extends('default.templates.public')
 
-@section('page.title', 'Mon panier')
+@section('page.title', 'Merci pour votre commande')
 
 @section('page.content')
     <h2>

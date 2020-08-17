@@ -1,5 +1,7 @@
 @extends('default.templates.minimal')
 
+@section('page.title', "Création de votre compte client")
+
 @section('page.content')
     <div id="customer-area-register" class="row">
         <div id="left-side" class="col-md-6 d-flex flex-column justify-content-center">
