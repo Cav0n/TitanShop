@@ -18,6 +18,8 @@ class AuthController extends Controller
 
     public function customerRegister(Request $request)
     {
+        Customer::validator($request->toArray())->validate();
+
         $customer = new Customer();
         $customer->firstname = $request['firstname'];
         $customer->lastname = $request['lastname'];

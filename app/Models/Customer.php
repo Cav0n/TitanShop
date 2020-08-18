@@ -60,9 +60,9 @@ class Customer extends Model
     public static function validator(array $data, Customer $customer = null)
     {
         if (null !== $customer) {
-            $uniqueRule = Rule::unique('categories')->ignore($customer->id);
+            $uniqueRule = Rule::unique('customers')->ignore($customer->id);
         } else {
-            $uniqueRule = Rule::unique('categories');
+            $uniqueRule = Rule::unique('customers');
         }
 
         return Validator::make($data, [
@@ -71,7 +71,7 @@ class Customer extends Model
             'email' => ['required', $uniqueRule],
             'phone' => ['nullable', 'string', 'size:10'],
             'password' => ['required', 'confirmed', 'regex:/'.self::PASSWORD_REGEX.'/i'],
-            'lang' => ['required'],
+            'lang' => ['nullable'],
             'isActivated' => ['nullable']
         ]);
     }

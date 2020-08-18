@@ -15,15 +15,18 @@
 
                 <div class="form-group">
                     <label for="firstname">Prénom</label>
-                    <input type="text" class="form-control" name="firstname" id="firstname" value="{{ old('firstname') }}">
+                    <input type="text" class="form-control" name="firstname" id="firstname"
+                        value="{{ old('firstname') }}">
                 </div>
                 <div class="form-group">
                     <label for="lastname">Nom de famille</label>
-                    <input type="text" class="form-control" name="lastname" id="lastname" value="{{ old('lastname') }}">
+                    <input type="text" class="form-control" name="lastname" id="lastname"
+                        value="{{ old('lastname') }}">
                 </div>
                 <div class="form-group">
                     <label for="email">Email</label>
-                    <input type="email" class="form-control" name="email" id="email" value="{{ old('email') }}">
+                    <input type="email" class="form-control" name="email" id="email"
+                        value="{{ old('email') }}">
                 </div>
                 <div class="form-group">
                     <label for="password">Mot de passe</label>
