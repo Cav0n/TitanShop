@@ -37,6 +37,8 @@ class AdministratorController extends Controller
      */
     public function store(Request $request)
     {
+        Administrator::validator($request->toArray())->validate();
+
         $administrator = new Administrator();
 
         $administrator->firstname = $request['firstname'];
@@ -81,6 +83,8 @@ class AdministratorController extends Controller
      */
     public function update(Request $request, Administrator $administrator)
     {
+        Administrator::validator($request->toArray(), $administrator)->validate();
+
         $administrator->firstname = $request['firstname'];
         $administrator->lastname = $request['lastname'];
         $administrator->nickname = $request['nickname'];

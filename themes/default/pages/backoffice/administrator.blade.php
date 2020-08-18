@@ -3,6 +3,7 @@
 @section('page.content')
     <form class="row mx-0" action="{{isset($administrator) ? route('admin.administrator.update', ['administrator' => $administrator]) : route('admin.administrator.store')}}" method="POST">
         @csrf
+        <input type="hidden" name="lang" value="fr">
 
         <div class="col-12 d-flex flex-column flex-lg-row justify-content-between">
             <h1>{{isset($administrator) ? $administrator->firstname . ' ' . $administrator->lastname : "Nouvel administrateur"}}</h1>
@@ -41,24 +42,33 @@
             <div class="row bg-white p-3 mb-3 mx-0 border shadow-sm backoffice-card">
                 <div class="form-group col-lg-3">
                     <label for="firstname">Prénom</label>
-                    <input type="text" class="form-control" name="firstname" id="firstname" value="{{ isset($administrator) ? $administrator->firstname : null }}">
+                    <input type="text" name="firstname" id="firstname"
+                        class="form-control @error('firstname') is-invalid @enderror"
+                        value="{{ old('firstname', isset($administrator) ? $administrator->firstname : null) }}">
                 </div>
                 <div class="form-group col-lg-3">
                     <label for="lastname">Nom de famille</label>
-                    <input type="text" class="form-control" name="lastname" id="lastname" value="{{ isset($administrator) ? $administrator->lastname : null }}">
+                    <input type="text" name="lastname" id="lastname"
+                        class="form-control @error('lastname') is-invalid @enderror"
+                        value="{{ old('lastname', isset($administrator) ? $administrator->lastname : null) }}">
                 </div>
                 <div class="form-group col-lg-3">
                     <label for="email">Adresse email</label>
-                    <input type="email" class="form-control" name="email" id="email" value="{{ isset($administrator) ? $administrator->email : null }}">
+                    <input type="email" name="email" id="email"
+                        class="form-control @error('email') is-invalid @enderror"
+                        value="{{ old('email', isset($administrator) ? $administrator->email : null) }}">
                 </div>
                 <div class="form-group col-lg-3">
                     <label for="nickname">Pseudo</label>
-                    <input type="text" class="form-control" name="nickname" id="nickname" value="{{ isset($administrator) ? $administrator->nickname : null }}">
+                    <input type="text" name="nickname" id="nickname"
+                        class="form-control @error('nickname') is-invalid @enderror"
+                        value="{{ old('nickname', isset($administrator) ? $administrator->nickname : null)}}">
                 </div>
                 <div class="form-group col-lg-12">
                     <div class="form-check form-check-inline">
                         <label class="form-check-label">
-                            <input class="form-check-input" type="checkbox" name="isActivated" id="isActivated" {{ (isset($administrator) ? ($administrator->isActivated ? 'checked' : '') : 'checked') }}> Le compte est activé ?
+                            <input class="form-check-input" type="checkbox" name="isActivated" id="isActivated"
+                                {{ (isset($administrator) ? ($administrator->isActivated ? 'checked' : '') : 'checked') }}> Le compte est activé ?
                         </label>
                     </div>
                 </div>
@@ -68,11 +78,13 @@
             <div class="row bg-white p-3 mb-3 mx-0 border shadow-sm backoffice-card">
                 <div class="form-group col-lg-6">
                     <label for="password">Mot de passe</label>
-                    <input type="password" class="form-control" name="password" id="password">
+                    <input type="password" name="password" id="password"
+                        class="form-control @error('password') is-invalid @enderror">
                 </div>
                 <div class="form-group col-lg-6">
                     <label for="password_confirmation">Confirmation du mot de passe</label>
-                    <input type="password" class="form-control" name="password_confirmation" id="password_confirmation" aria-describedby="helpId" placeholder="">
+                    <input type="password" name="password_confirmation" id="password_confirmation"
+                        class="form-control @error('password_confirmation') is-invalid @enderror">
                 </div>
             </div>
         </div>

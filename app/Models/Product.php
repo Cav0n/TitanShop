@@ -5,6 +5,8 @@ namespace App\Models;
 use App\Models\Utils\CustomString;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rule;
 
 class Product extends Model
 {
@@ -82,6 +84,25 @@ class Product extends Model
         } else {
             $this->attributes['code'] = CustomString::prepareStringForURL($value);
         }
+    }
+
+    public static function validator(array $data, Product $product = null)
+    {
+        if (null !== $product) {
+            $uniqueRule = Rule::unique('products')->ignore($product->id);
+        } else {
+            $uniqueRule = Rule::unique('products');
+        }
+
+        return Validator::make($data, [
+            'code' => ['nullable', $uniqueRule],
+            'stock' => ['required', 'integer', 'min:0'],
+            'price' => ['required', 'numeric', 'min:0.01'],
+            'isInPromo' => ['nullable'],
+            'promoPrice' => ['required_with:isInPromo', 'lt:price'],
+            'isVisible' => ['nullable'],
+            'isDeleted' => ['nullable'],
+        ]);
     }
 
     public function i18nValue($valueName, $lang = null)

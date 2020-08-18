@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rule;
 
 class Administrator extends Model
 {
@@ -51,14 +52,22 @@ class Administrator extends Model
         return mb_strtolower($value);
     }
 
-    public static function validator(array $data)
+    public static function validator(array $data, Administrator $administrator = null)
     {
+        if (null !== $administrator) {
+            $uniqueRule = Rule::unique('administrators')->ignore($administrator->id);
+            $passwordRegexRule = (null !== $data['password']) ? 'regex:/'.self::PASSWORD_REGEX.'/i' : null;
+        } else {
+            $uniqueRule = Rule::unique('administrators');
+            $passwordRegexRule = 'regex:/'.self::PASSWORD_REGEX.'/i';
+        }
+
         return Validator::make($data, [
             'firstname' => 'required|min:2|max:255',
             'lastname' => 'required|min:2|max:255',
-            'nickname' => 'required|min:2|max:255|unique:administrators',
-            'email' => 'required|unique:administrators',
-            'password' => 'required|confirmed|regex:/'.self::PASSWORD_REGEX.'/i',
+            'nickname' => ['required','min:2','max:255', $uniqueRule],
+            'email' => ['required','email:filter', $uniqueRule],
+            'password' => [Rule::requiredIf(null === $administrator),'confirmed',$passwordRegexRule],
             'lang' => 'required',
             'isActivated' => 'nullable',
         ]);

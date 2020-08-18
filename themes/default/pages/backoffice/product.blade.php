@@ -3,6 +3,7 @@
 @section('page.content')
     <form class="row mx-0" action="{{isset($product) ? route('admin.product.update', ['product' => $product]) : route('admin.product.store')}}" method="POST">
         @csrf
+        <input type="hidden" name="lang" value="fr">
 
         <div class="col-12 d-flex flex-column flex-lg-row justify-content-between">
             <h1>{{isset($product) ? $product->i18nValue('title') : "Nouveau produit"}}</h1>
@@ -56,20 +57,28 @@
                 <div class="row bg-white p-3 mb-3 mx-0 border shadow-sm backoffice-card">
                     <div class="form-group col-lg-8">
                         <label for="title">Titre</label>
-                        <input type="text" class="form-control" name="title" id="title" value="{{isset($product) ? $product->i18nValue('title') : null}}">
+                        <input type="text" name="title" id="title"
+                            class="form-control @error('title') is-invalid @enderror"
+                            value="{{old('title', isset($product) ? $product->i18nValue('title') : null)}}">
                     </div>
                     <div class="form-group col-lg-4">
                         <label for="code">Code</label>
-                        <input type="text" class="form-control" name="code" id="code" aria-describedby="helpCode" value="{{isset($product) ? $product->code : null}}">
+                        <input type="text" name="code" id="code" aria-describedby="helpCode"
+                            class="form-control @error('code') is-invalid @enderror"
+                            value="{{old('code', isset($product) ? $product->code : null)}}">
                         <small id="helpCode" class="form-text text-muted">Laissez vide si vous ne savez pas à quoi cela correspond 😉</small>
                     </div>
                     <div class="form-group col-12">
                         <label for="summary">Résumé</label>
-                        <textarea class="form-control" name="summary" id="summary" rows=4>{{isset($product) ? $product->i18nValue('summary') : null}}</textarea>
+                        <textarea class="form-control" name="summary" id="summary" rows=4
+                            class="form-control @error('summary') is-invalid @enderror"
+                            >{{old('summary', isset($product) ? $product->i18nValue('summary') : null)}}</textarea>
                     </div>
                     <div class="form-group col-12">
                         <label for="description">Description</label>
-                        <textarea class="form-control tag-in" name="description" id="description" rows=4>{{isset($product) ? $product->i18nValue('description') : null}}</textarea>
+                        <textarea name="description" id="description" rows=4
+                            class="form-control @error('description') is-invalid @enderror"
+                            >{{old('description', isset($product) ? $product->i18nValue('description') : null)}}</textarea>
                     </div>
                     <div class="form-group col-12 mb-0">
                         <div class="form-check form-check-inline">
@@ -122,7 +131,9 @@
                     <div class="form-group col-lg-6">
                         <label for="price">Prix</label>
                         <div class="input-group mb-3">
-                            <input type="number" class="form-control" name="price" id="price" min=0.01 step=0.01 value="{{isset($product) ? $product->price : null}}">
+                            <input type="number" name="price" id="price" min=0.01 step=0.01
+                                class="form-control @error('price') is-invalid @enderror"
+                                value="{{old('price', isset($product) ? $product->price : null)}}">
                             <div class="input-group-append">
                                 <span class="input-group-text">€</span>
                             </div>
@@ -131,14 +142,17 @@
                     <div class="form-group col-lg-6 d-flex flex-column justify-content-center">
                         <div class="form-check form-check-inline mt-3">
                             <label class="form-check-label noselect">
-                                <input class="form-check-input" type="checkbox" name="isInPromo" id="isInPromo" {{ isset($product) && $product->isInPromo ? 'checked=checked' : null }}> En promo ?
+                                <input class="form-check-input" type="checkbox" name="isInPromo" id="isInPromo"
+                                    {{ old('isInPromo') !== null ? 'checked=checked' : (isset($product) && $product->isInPromo ? 'checked=checked' : null) }}> En promo ?
                             </label>
                         </div>
                     </div>
                     <div id="promo-price-container" class="form-group col-lg-6 {{ !isset($product) || !$product->isInPromo ? 'd-none' : null }}">
                         <label for="promoPrice">Prix en promo</label>
                         <div class="input-group mb-3">
-                            <input type="number" class="form-control" name="promoPrice" id="promoPrice" min=0.01 step=0.01 value="{{isset($product) ? $product->promoPrice : null}}">
+                            <input type="number" name="promoPrice" id="promoPrice" min=0.01 step=0.01
+                                class="form-control @error('promoPrice') is-invalid @enderror"
+                                value="{{old('promoPrice', isset($product) ? $product->promoPrice : null)}}">
                             <div class="input-group-append">
                                 <span class="input-group-text">€</span>
                             </div>
@@ -146,7 +160,9 @@
                     </div>
                     <div class="form-group col-lg-6">
                         <label for="stock">Stock</label>
-                        <input type="number" class="form-control" name="stock" id="stock" min=0 step=1 value="{{isset($product) ? $product->stock : null}}">
+                        <input type="number" name="stock" id="stock" min=0 step=1
+                            class="form-control @error('stock') is-invalid @enderror"
+                            value="{{old('stock', isset($product) ? $product->stock : null)}}">
                     </div>
                 </div>
 
@@ -177,6 +193,10 @@
 
 @section('page.scripts')
     <script>
+        if ($('#isInPromo').is(':checked')) {
+            $('#promo-price-container').removeClass('d-none');
+        }
+
         $('#isInPromo').on('change', function () {
             $('#promo-price-container').toggleClass('d-none');
         });

@@ -68,6 +68,9 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
+        Category::validator($request->toArray())->validate();
+        CategoryI18n::validator($request->toArray())->validate();
+
         $category = new Category();
         $i18n = new CategoryI18n();
 
@@ -84,8 +87,8 @@ class CategoryController extends Controller
         $i18n->category_id = $category->id;
         $i18n->save();
 
+        $images = [];
         if ($request['imagePaths']) {
-            $images = [];
 
             foreach ($request['imagePaths'] as $index => $oldImagePath) {
                 // Check if image already exists for the product

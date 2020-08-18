@@ -18,30 +18,6 @@ class Address extends Model
         'country'
     ];
 
-    public function __toString()
-    {
-        return "
-            <p>". $this->firstname . " " . $this->lastname ."</p>
-            <p>". $this->street ."</p>
-            <p>". $this->zipCode . ", " . $this->city ."</p>
-            <p>". $this->country ."</p>
-        ";
-    }
-
-    public static function validator(array $data)
-    {
-        $rules = [
-            'lastname' => ['required', 'string', 'min:2', 'max:255'],
-            'firstname' => ['required', 'string', 'min:2', 'max:255'],
-            'street' => ['required', 'string', 'min:2', 'max:255'],
-            'zipCode' => ['required', 'string', 'min:5', 'max:5'],
-            'city' => ['required', 'string', 'min:2', 'max:255'],
-            'country' => ['required', 'string', 'min:2', 'max:255']
-        ];
-
-        return Validator::make($data, $rules);
-    }
-
     public function getFirstnameAttribute($value)
     {
         return ucfirst($value);
@@ -65,5 +41,27 @@ class Address extends Model
     public function customer()
     {
         return $this->belongsTo('App\Models\Customer');
+    }
+
+    public function __toString()
+    {
+        return "
+            <p>". $this->firstname . " " . $this->lastname ."</p>
+            <p>". $this->street ."</p>
+            <p>". $this->zipCode . ", " . $this->city ."</p>
+            <p>". $this->country ."</p>
+        ";
+    }
+
+    public static function validator(array $data)
+    {
+        return Validator::make($data, [
+            'lastname' => ['required', 'string', 'min:2', 'max:255'],
+            'firstname' => ['required', 'string', 'min:2', 'max:255'],
+            'street' => ['required', 'string', 'min:2', 'max:255'],
+            'zipCode' => ['required', 'string', 'min:5', 'max:5'],
+            'city' => ['required', 'string', 'min:2', 'max:255'],
+            'country' => ['required', 'string', 'min:2', 'max:255']
+        ]);
     }
 }

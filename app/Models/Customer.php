@@ -4,9 +4,13 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rule;
 
 class Customer extends Model
 {
+    const PASSWORD_REGEX = '^(?=.*[A-Z])(?=.*[!@#$&*])(?=.*[0-9])(?=.*[a-z]).{8}$';
+
     public function __toString()
     {
         return $this->firstname . ' ' . $this->lastname;
@@ -51,6 +55,25 @@ class Customer extends Model
     public function getLatestOrderAttribute()
     {
         return $this->orders()->orderBy('created_at', 'desc')->first();
+    }
+
+    public static function validator(array $data, Customer $customer = null)
+    {
+        if (null !== $customer) {
+            $uniqueRule = Rule::unique('categories')->ignore($customer->id);
+        } else {
+            $uniqueRule = Rule::unique('categories');
+        }
+
+        return Validator::make($data, [
+            'firstname' => ['required', 'string'],
+            'lastname' => ['required', 'string'],
+            'email' => ['required', $uniqueRule],
+            'phone' => ['nullable', 'string', 'size:10'],
+            'password' => ['required', 'confirmed', 'regex:/'.self::PASSWORD_REGEX.'/i'],
+            'lang' => ['required'],
+            'isActivated' => ['nullable']
+        ]);
     }
 
     public static function check(\Illuminate\Http\Request $request): bool

@@ -5,6 +5,8 @@ namespace App\Models;
 use App\Models\Utils\CustomString;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rule;
 
 class Category extends Model
 {
@@ -67,6 +69,22 @@ class Category extends Model
         }
 
         return $i18n->$valueName;
+    }
+
+    public static function validator(array $data, Category $category = null)
+    {
+        if (null !== $category) {
+            $uniqueRule = Rule::unique('categories')->ignore($category->id);
+        } else {
+            $uniqueRule = Rule::unique('categories');
+        }
+
+        return Validator::make($data, [
+            'code' => ['nullable', $uniqueRule],
+            'isVisible' => ['nullable'],
+            'isDeleted' => ['nullable'],
+            'parent_id' => ['nullable', 'exists:categories,id']
+        ]);
     }
 
     public function generateBreadcrumb()

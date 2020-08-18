@@ -57,6 +57,9 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
+        Product::validator($request->toArray())->validate();
+        ProductI18n::validator($request->toArray())->validate();
+
         $product = new Product();
         $i18n = new ProductI18n();
 
@@ -90,9 +93,8 @@ class ProductController extends Controller
 
         $product->categories()->sync($categoryIds);
 
+        $images = [];
         if ($request['imagePaths']) {
-            $images = [];
-
             foreach ($request['imagePaths'] as $index => $oldImagePath) {
                 // Check if image already exists for the product
                 if ($product->images()->where('path', $oldImagePath)->exists()) {
@@ -153,6 +155,9 @@ class ProductController extends Controller
      */
     public function update(Request $request, Product $product)
     {
+        Product::validator($request->toArray(), $product)->validate();
+        ProductI18n::validator($request->toArray())->validate();
+
         $categoryIds = [];
 
         if (null !== $request['categories']) {
