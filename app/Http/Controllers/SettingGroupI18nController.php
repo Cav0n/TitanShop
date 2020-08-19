@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Setting;
+use App\Models\SettingGroupI18n;
 use Illuminate\Http\Request;
 
-class SettingController extends Controller
+class SettingGroupI18nController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,9 +14,7 @@ class SettingController extends Controller
      */
     public function index()
     {
-        $settings = Setting::where('isEditable', '1')->get();
-
-        return view('default.pages.backoffice.settings', ['settings' => $settings]);
+        //
     }
 
     /**
@@ -43,10 +41,10 @@ class SettingController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Setting  $setting
+     * @param  \App\SettingGroupI18n  $settingGroupI18n
      * @return \Illuminate\Http\Response
      */
-    public function show(Setting $setting)
+    public function show(SettingGroupI18n $settingGroupI18n)
     {
         //
     }
@@ -54,10 +52,10 @@ class SettingController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Setting  $setting
+     * @param  \App\SettingGroupI18n  $settingGroupI18n
      * @return \Illuminate\Http\Response
      */
-    public function edit(Setting $setting)
+    public function edit(SettingGroupI18n $settingGroupI18n)
     {
         //
     }
@@ -66,10 +64,10 @@ class SettingController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Setting  $setting
+     * @param  \App\SettingGroupI18n  $settingGroupI18n
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Setting $setting)
+    public function update(Request $request, SettingGroupI18n $settingGroupI18n)
     {
         //
     }
@@ -77,10 +75,10 @@ class SettingController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Setting  $setting
+     * @param  \App\SettingGroupI18n  $settingGroupI18n
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Setting $setting)
+    public function destroy(SettingGroupI18n $settingGroupI18n)
     {
         //
     }

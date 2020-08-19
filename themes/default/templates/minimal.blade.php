@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="{{asset('css/minimal.css')}}">
     <link rel="stylesheet" href="{{asset('css/customer-area.css')}}">
 
-    <title>@yield('page.title', "Accueil") - TitanShop</title>
+    <title>@yield('page.title', "Accueil") - {{ setting('shop_name') }}</title>
 </head>
 <body>
 

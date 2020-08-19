@@ -61,7 +61,7 @@
     {{-- -------- --}}
 
     {{-- Open Graph Meta --}}
-    <meta property="og:title"       content="@yield('page.title', 'TitanShop')" />
+    <meta property="og:title"       content="@yield('page.title', setting('shop_name'))" />
     <meta property="og:description" content="@yield('page.description', 'Un site créé avec TitanShop, le CMS de SpaceShip.')" />
     <meta property="og:image"       content="@yield('page.image', asset('favicons/apple-icon.png'))" />
     <meta property="og:type"        content="@yield('og.type', 'website')" />
@@ -71,13 +71,13 @@
 
     {{-- Twitter Card --}}
     <meta name="twitter:card"           content="summary">
-    <meta name="twitter:title"          content="@yield('page.title', 'TitanShop')">
+    <meta name="twitter:title"          content="@yield('page.title', setting('shop_name'))">
     <meta name="twitter:description"    content="@yield('page.description', 'Un site créé avec TitanShop, le CMS de SpaceShip.')">
     <meta name="twitter:image"          content="@yield('page.image', asset('favicons/apple-icon.png'))">
     @yield('twitter.additional')
     {{-- ------------ --}}
 
-    <title>@yield('page.title', "Accueil") - TitanShop</title>
+    <title>@yield('page.title', "Accueil") - {{ setting('shop_name') }}</title>
     <meta name="description" content="@yield('page.description', 'Un site créé avec TitanShop, le CMS de SpaceShip.')">
 </head>
 <body>

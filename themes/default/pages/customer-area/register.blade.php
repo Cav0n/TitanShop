@@ -6,7 +6,7 @@
     <div id="customer-area-register" class="row">
         <div id="left-side" class="col-md-6 d-flex flex-column justify-content-center">
             <h1 class="text-center mb-0">Création de votre compte client</h1>
-            <span class="text-center">TitanShop</span>
+            <span class="text-center">{{ setting('shop_name') }}</span>
         </div>
         <div id="right-side" class="col-md-6 d-flex flex-column justify-content-center">
             <form action="{{ route('customer-area.register.handle') }}" method="POST" id="login-form" class="mx-auto">

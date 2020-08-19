@@ -59,21 +59,26 @@
             </a>
 
             <a href="{{ route('admin.administrators') }}" class="sidenav-link transition
-            @if (
-                Route::current()->getName() === 'admin.administrators'      ||
-                Route::current()->getName() === 'admin.administrator.create'||
-                Route::current()->getName() === 'admin.administrator.edit'
-            )
-                active
-            @endif">
-            <i class="fas fa-user-shield"></i>
-            Administrateurs
-        </a>
+                @if (
+                    Route::current()->getName() === 'admin.administrators'      ||
+                    Route::current()->getName() === 'admin.administrator.create'||
+                    Route::current()->getName() === 'admin.administrator.edit'
+                )
+                    active
+                @endif">
+                <i class="fas fa-user-shield"></i>
+                Administrateurs
+            </a>
 
-            <p class="sidenav-link transition disabled noselect">
+            <a href="{{ route('admin.settings') }}" class="sidenav-link transition
+                @if (
+                    Route::current()->getName() === 'admin.settings'
+                )
+                    active
+                @endif">
                 <i class="fas fa-wrench"></i>
                 Paramètres
-            </p>
+            </a>
 
         </div>
     </div>
