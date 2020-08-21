@@ -2,7 +2,7 @@
 
 @section('page.title', $product->i18nValue('title'))
 @section('page.description', $product->i18nValue('summary'))
-@section('page.image', $product->firstImage->url)
+@section('page.image', $product->firstImage ? $product->firstImage->url : asset('images/utils/question-mark.png'))
 
 @section('og.type', 'product')
 @section('og.additional')

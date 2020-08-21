@@ -1,0 +1,28 @@
+{
+    "groups": [
+        {
+            "code": "system",
+            "i18n": [
+                {
+                    "lang": "fr",
+                    "title": "Système"
+                }
+            ],
+            "settings": [
+                {
+                    "code": "shop_name",
+                    "type": "string",
+                    "isEditable": true,
+                    "value": "TitanShop",
+                    "i18n": [
+                        {
+                            "lang": "fr",
+                            "title": "Nom de la boutique",
+                            "help": null
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

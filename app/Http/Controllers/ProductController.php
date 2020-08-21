@@ -83,11 +83,7 @@ class ProductController extends Controller
 
         if (null !== $request['categories']) {
             foreach (json_decode($request['categories'], true) as $category) {
-                if (isset($request['default_category']) && json_decode($request['default_category'], true)[0]['id'] === $category['id']) {
-                    $categoryIds[$category['id']] = ['isDefault' => 1];
-                } else {
-                    $categoryIds[] = $category['id'];
-                }
+                $categoryIds[] = $category['id'];
             }
         }
 

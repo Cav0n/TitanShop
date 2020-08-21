@@ -99,7 +99,7 @@ class Product extends Model
             'stock' => ['required', 'integer', 'min:0'],
             'price' => ['required', 'numeric', 'min:0.01'],
             'isInPromo' => ['nullable'],
-            'promoPrice' => ['required_with:isInPromo', 'lt:price'],
+            'promoPrice' => ['nullable', 'required_with:isInPromo', 'lt:price'],
             'isVisible' => ['nullable'],
             'isDeleted' => ['nullable'],
         ]);
