@@ -96,5 +96,6 @@ Route::name('admin.')->prefix('admin')->group(function () {
         Route::post('/administrator/edit/{administrator}', 'AdministratorController@update')->name('administrator.update');
 
         Route::get('/settings', 'SettingGroupController@index')->name('settings');
+        Route::post('/settings/update', 'SettingController@updateAll')->name('settings.update');
     });
 });

@@ -2,8 +2,14 @@
 
 @section('page.content')
     <div class="row mx-0">
-        <div class="col-12 d-flex justify-content-between">
+        <div class="col-12 d-flex flex-column flex-lg-row justify-content-between">
             <h1>Paramètres</h1>
+
+            <div class="btn-container d-flex">
+                <button type="submit" class="save-btn btn btn-success my-3 my-lg-0" form="settings-form">
+                    <i class="fas fa-save"></i>
+                    Sauvegarder</button>
+            </div>
         </div>
         <div class="col-12 d-flex justify-content-between">
             <div class="admin-breadcrumb mb-3">
@@ -11,7 +17,16 @@
                 <a href='{{ route('admin.settings') }}'>Paramètres</a>
             </div>
         </div>
+
+        <div class="col-lg-12">
+            @include('default.components.alerts.success')
+            @include('default.components.alerts.errors')
+        </div>
+
         @if(isset($settingGroups) && 0 < count($settingGroups))
+        <form id="settings-form" class="col-12 row" method="post" action="{{ route('admin.settings.update') }}">
+            @csrf
+
             @foreach ($settingGroups as $settingGroup)
                 @if(count($settingGroup->settings) > 0)
                 <div class="col-lg-8">
@@ -29,6 +44,8 @@
                 </div>
                 @endif
             @endforeach
+
+        </form>
         @endif
     </div>
 @endsection

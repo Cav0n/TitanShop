@@ -74,6 +74,22 @@ class SettingController extends Controller
         //
     }
 
+    public function updateAll(Request $request)
+    {
+        $data = $request->except(['token']);
+
+        foreach ($data as $key => $value) {
+            if (null !== $setting = Setting::where('code', $key)->first()) {
+                if ($setting->value !== $value) {
+                    $setting->value = $value;
+                    $setting->save();
+                }
+            }
+        }
+
+        return back()->withSuccess('Les paramètres ont été mis à jour avec succés.');
+    }
+
     /**
      * Remove the specified resource from storage.
      *

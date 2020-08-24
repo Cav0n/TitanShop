@@ -46,6 +46,11 @@ header {
     z-index: 100;
     background: white;
     max-width: 1300px;
+
+    & .header-left a {
+        overflow: hidden;
+        white-space: nowrap;
+    }
 }
 
 table tr td {
