@@ -64,6 +64,7 @@ Route::name('admin.')->prefix('admin')->group(function () {
         Route::any('/logout', 'AuthController@adminLogout')->name('logout');
 
         Route::post('/images/upload', 'ImageController@store')->name('images.upload');
+        Route::delete('/image/delete', 'ImageController@destroy')->name('image.delete');
 
         Route::get('/catalog/{category?}', 'CategoryController@index')->name('catalog');
 

@@ -110,12 +110,12 @@
 
                     <div id="images-list" class="row w-100">
                         @isset($product) @foreach($product->images as $image)
-                            <div class="col-12 col-sm-6 col-md-4 col-lg-3 mt-2">
+                            <div id="product-image-container-{{ $image->id }}" class="col-12 col-sm-6 col-md-4 col-lg-3 mt-2">
                                 <img src={{ $image->url }} class="w-100">
                                 <div class="image-informations-container form-group">
                                     <label>Position de l'image</label>
                                     <input type="number" class="form-control" name="image-position['{{ $image->id }}']" min="0" max="{{ count($product->images) - 1 }}" value="{{ $image->pivot->position }}">
-                                    <button type="button" class="btn btn-danger mt-2 w-100">Supprimer</button>
+                                    <button type="button" class="btn btn-danger mt-2 w-100 delete-product-image" data-product_id="{{ $product->id }}" data-image_id="{{ $image->id }}">Supprimer</button>
                                 </div>
                             </div>
                             <input type="hidden" id="imagePaths" name="imagePaths[]" value="{{ $image->path }}">
@@ -170,12 +170,12 @@
                 <div class="row bg-white p-3 mb-3 mx-0 border shadow-sm backoffice-card">
                     <div class="form-group col-lg-12">
                         <label for="categories">Catégories du produit</label>
-                        <input type="text" class="form-control tag-input" name="categories" id="categories" @if(!isset($product) && isset($defaultCategory)) value="{{ $defaultCategory->i18nValue('title') }}" @endif>
+                        <input type="text" class="form-control tag-input" name="categories" id="categories">
                     </div>
 
                     <div class="form-group col-lg-12">
                         <label for="default_category">Catégorie par défaut</label>
-                        <input type="text" class="form-control tag-input-default-category" name="default_category" id="default_category" @if(!isset($product) && isset($defaultCategory)) value="{{ $defaultCategory->i18nValue('title') }}" @endif>
+                        <input type="text" class="form-control tag-input-default-category" name="default_category" id="default_category">
                     </div>
                 </div>
             </div>
@@ -208,6 +208,10 @@
         @foreach(\App\Models\Category::where('isDeleted', 0)->get() as $category)
         categories.push({'id':"{{ $category->id }}", 'value':"{{ $category->i18nValue('title') }}"});
         @endforeach
+
+        @isset($defaultCategory)
+        categories.push($defaultCategory->tagify);
+        @endisset
 
         // The DOM element you wish to replace with Tagify
         var tagInput = document.querySelector('.tag-input');
@@ -262,6 +266,10 @@
                     readURL(image);
                 });
             });
+
+            $('.delete-product-image').on('click', function () {
+                deleteImage($(this).data('image_id'));
+            });
         });
 
         function readURL(image) {
@@ -298,6 +306,23 @@
                 },
                 success: function(data, response){
                     $('#images-list').append('<input type="hidden" id="imagePaths" name="imagePaths[]" value="'+ data.path +'">');
+                }
+            });
+        }
+
+        function deleteImage(imageId) {
+            let imageContainer = $('#product-image-container-' + imageId);
+
+            console.log(imageId);
+
+            $.ajax({
+                url: "{{ route('admin.image.delete') }}" + "?id=" + imageId,
+                type: 'DELETE',
+                complete: function(data, response) {
+                    console.log(data);
+                },
+                success: function(data, response){
+                    imageContainer.remove();
                 }
             });
         }

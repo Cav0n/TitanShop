@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Image;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use PHPUnit\Util\Json;
 
 class ImageController extends Controller
 {
@@ -81,8 +82,14 @@ class ImageController extends Controller
      * @param  \App\Models\Image  $image
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Image $image)
+    public function destroy(Request $request, Image $image = null)
     {
-        //
+        if (isset($image) || null !== $image = Image::where('id', $request['id'])->first()) {
+            unlink(base_path($image->path));
+            $image->delete();
+            return new JsonResponse(['status' => 'success', 'message' => 'Image successfully deleted.']);
+        }
+
+        return new JsonResponse(['status' => 'error', 'message' => 'Image doesn\'t exists or no image id in request.', 'id' => Image::where('id', $request['id'])->first()], 404);
     }
 }

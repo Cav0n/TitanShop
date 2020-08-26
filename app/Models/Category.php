@@ -50,6 +50,16 @@ class Category extends Model
         return $this->belongsToMany('App\Models\Product');
     }
 
+    public function getTagifyAttribute()
+    {
+        $category = [];
+
+        $category[]['id'] = "$this->id";
+        $category[]['value'] = $this->i18nValue('title');
+
+        return json_encode($category);
+    }
+
     public function i18nValue($valueName, $lang = null)
     {
         if (!$this->i18ns()->exists()) {
