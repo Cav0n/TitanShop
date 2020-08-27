@@ -210,7 +210,7 @@
         @endforeach
 
         @isset($defaultCategory)
-        categories.push($defaultCategory->tagify);
+        categories.push({!! $defaultCategory->tagify !!});
         @endisset
 
         // The DOM element you wish to replace with Tagify
