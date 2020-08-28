@@ -19,7 +19,7 @@ class CreateSettingsTable extends Migration
             $table->text('value')->nullable();
             $table->string('type')->default('text');
             $table->boolean('isEditable')->nullable()->default(1);
-            $table->foreignId('setting_group_id')->constrained()->onDelete('cascade');
+            $table->foreignId('setting_group_id')->nullable()->constrained()->onDelete('cascade');
 
             $table->timestamps();
         });
