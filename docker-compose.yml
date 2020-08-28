@@ -1,0 +1,46 @@
+version: "3.1"
+services:
+
+    mailhog:
+      image: mailhog/mailhog:latest
+      container_name: titanshop-mailhog
+      ports:
+        - "8001:8025"
+
+    redis:
+      image: redis:alpine
+      container_name: titanshop-redis
+
+    mariadb:
+      image: mariadb:10.4
+      container_name: titanshop-mariadb
+      working_dir: /application
+      volumes:
+        - .:/application
+        - .docker/mysql-data:/var/lib/mysql
+      environment:
+        - MYSQL_ROOT_PASSWORD=root
+        - MYSQL_DATABASE=titanshop
+        - MYSQL_USER=titanshop
+        - MYSQL_PASSWORD=titanshop
+      ports:
+        - "8003:3306"
+
+    webserver:
+      image: nginx:alpine
+      container_name: titanshop-webserver
+      working_dir: /application
+      volumes:
+          - .:/application:cached
+          - .docker/nginx/nginx.conf:/etc/nginx/conf.d/default.conf
+      ports:
+       - "8000:80"
+
+    php-fpm:
+      build: .docker/php-fpm
+      container_name: titanshop-php-fpm
+      working_dir: /application
+      volumes:
+        - .:/application
+        - .docker/php-fpm/php-ini-overrides.ini:/etc/php/7.4/fpm/conf.d/99-overrides.ini
+
