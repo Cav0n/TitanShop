@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Image;
+use App\Models\Image;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use PHPUnit\Util\Json;
 
 class ImageController extends Controller
 {
@@ -14,9 +16,7 @@ class ImageController extends Controller
      */
     public function index()
     {
-        $images = Image::all();
-
-        return $images;
+        //
     }
 
     /**
@@ -37,13 +37,15 @@ class ImageController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $filename = $request->file('file')->store('tmp');
+
+        return new JsonResponse(['path' => $filename]);
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Image  $image
+     * @param  \App\Models\Image  $image
      * @return \Illuminate\Http\Response
      */
     public function show(Image $image)
@@ -54,7 +56,7 @@ class ImageController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Image  $image
+     * @param  \App\Models\Image  $image
      * @return \Illuminate\Http\Response
      */
     public function edit(Image $image)
@@ -66,7 +68,7 @@ class ImageController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Image  $image
+     * @param  \App\Models\Image  $image
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Image $image)
@@ -77,11 +79,17 @@ class ImageController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Image  $image
+     * @param  \App\Models\Image  $image
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Image $image)
+    public function destroy(Request $request, Image $image = null)
     {
-        //
+        if (isset($image) || null !== $image = Image::where('id', $request['id'])->first()) {
+            unlink(base_path($image->path));
+            $image->delete();
+            return new JsonResponse(['status' => 'success', 'message' => 'Image successfully deleted.']);
+        }
+
+        return new JsonResponse(['status' => 'error', 'message' => 'Image doesn\'t exists or no image id in request.', 'id' => Image::where('id', $request['id'])->first()], 404);
     }
 }

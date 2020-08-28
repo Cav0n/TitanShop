@@ -1,7 +1,8 @@
 {
-    "/js/admin.js": "/js/admin.js",
     "/js/app.js": "/js/app.js",
-    "/css/bootstrap.css": "/css/bootstrap.css",
     "/css/app.css": "/css/app.css",
-    "/css/admin.css": "/css/admin.css"
+    "/css/minimal.css": "/css/minimal.css",
+    "/css/backoffice.css": "/css/backoffice.css",
+    "/css/customer-area.css": "/css/customer-area.css",
+    "/css/components/burger.css": "/css/components/burger.css"
 }

@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\OrderStatusI18n;
+use App\Models\OrderStatusI18n;
 use Illuminate\Http\Request;
 
 class OrderStatusI18nController extends Controller
@@ -41,7 +41,7 @@ class OrderStatusI18nController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\OrderStatusI18n  $orderStatusI18n
+     * @param  \App\Models\OrderStatusI18n  $orderStatusI18n
      * @return \Illuminate\Http\Response
      */
     public function show(OrderStatusI18n $orderStatusI18n)
@@ -52,7 +52,7 @@ class OrderStatusI18nController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\OrderStatusI18n  $orderStatusI18n
+     * @param  \App\Models\OrderStatusI18n  $orderStatusI18n
      * @return \Illuminate\Http\Response
      */
     public function edit(OrderStatusI18n $orderStatusI18n)
@@ -64,7 +64,7 @@ class OrderStatusI18nController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\OrderStatusI18n  $orderStatusI18n
+     * @param  \App\Models\OrderStatusI18n  $orderStatusI18n
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, OrderStatusI18n $orderStatusI18n)
@@ -75,7 +75,7 @@ class OrderStatusI18nController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\OrderStatusI18n  $orderStatusI18n
+     * @param  \App\Models\OrderStatusI18n  $orderStatusI18n
      * @return \Illuminate\Http\Response
      */
     public function destroy(OrderStatusI18n $orderStatusI18n)

@@ -13,123 +13,90 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::any('/test', 'Products\ProductBaseController@updateImageSorting');
+Route::get('/', 'NavigationController@showHomepage')->name('homepage');
+Route::any('/cart', 'CartController@show')->name('cart');
+Route::post('/cart/customer-message/add', 'CartController@addCustomerMessage')->name('cart.customer-message.add');
+Route::post('/cart/items/quantity/update', 'CartItemController@updateQuantity')->name('cart.items.quantity.update');
+Route::post('/cart/add-product', 'CartItemController@store')->name('cart.items.add');
+Route::get('/cart/delivery', 'CartController@showDelivery')->name('cart.delivery.show');
+Route::post('/cart/delivery', 'CartController@addDelivery')->name('cart.delivery.add');
+Route::get('/cart/payment', 'CartController@showPayment')->name('cart.payment.show');
+Route::post('/cart/payment', 'CartController@handlePayment')->name('cart.payment.handle');
+Route::get('/cart/thanks', 'CartController@showThanks')->name('cart.thanks');
+Route::get('/order/create-from-cart', 'OrderController@createFromCart')->name('order.create-from-cart');
+Route::get('/category/{category:code}', 'CategoryController@show')->name('category.show');
+Route::get('/product/{product:code}', 'ProductController@show')->name('product.show');
 
-/**
- * INSTALLATION ROUTES
- */
-Route::middleware('shopIsNotInstalled')->group(function() {
-    Route::get('/install', 'Main\InstallController@index')->name('install');
-    Route::get('/install/database', 'Main\InstallController@databaseStep')->name('install.database');
-    Route::post('/install/database', 'Main\InstallController@databaseUpdate')->name('settings.database.update');
-    Route::get('/install/informations', 'Main\InstallController@informationsStep')->name('install.informations');
-    Route::post('/install/informations', 'Main\InstallController@informationsUpdate')->name('settings.updateOrCreate');
-    Route::get('/install/admin', 'Main\InstallController@adminStep')->name('install.admin');
-    Route::post('/install/admin', 'Users\AdminController@store')->name('install.admin.post');
-    Route::get('/install/success', 'Main\InstallController@success')->name('install.success');
+Route::get('/order/tracking', 'NavigationController@showOrderTrackingPage')->name('order.tracking.show');
+Route::post('/order/tracking', 'OrderController@track')->name('order.tracking.handle');
+
+Route::name('customer-area.')->prefix('customer-area')->group(function () {
+    Route::middleware('isCustomerNotConnected')->group(function () {
+        Route::get('/login', 'AuthController@showCustomerLoginPage')->name('login.show');
+        Route::post('/login', 'AuthController@customerLogin')->name('login.handle');
+        Route::get('/register', 'AuthController@showCustomerRegisterPage')->name('register.show');
+        Route::post('/register', 'AuthController@customerRegister')->name('register.handle');
+    });
+
+    Route::middleware('isCustomerConnected')->group(function () {
+        Route::get('/', 'NavigationController@showCustomerAreaHomepage')->name('homepage');
+        Route::any('/logout', 'AuthController@customerLogout')->name('logout');
+
+        Route::post('/informations/update', 'CustomerController@update')->name('informations.update');
+        Route::get('/password/edit', 'CustomerController@editPassword')->name('password.edit');
+        Route::post('/password/update', 'CustomerController@updatePassword')->name('password.update');
+        Route::get('/orders', 'NavigationController@showCustomerOrders')->name('orders');
+    });
 });
-/** --------------------- */
 
 
-Route::middleware('shopIsInstalled')->group(function() {
-    Route::get('/', 'Main\MainController@index')->name('index');
-    Route::get('/product/{product}', 'Products\ProductBaseController@show')->name('product.show');
-    Route::get('/category/{category}', 'Categories\CategoryBaseController@show')->name('category.show');
-    Route::get('/order/tracking', 'Orders\OrderController@tracking')->name('order.tracking');
-    Route::get('/contact', 'Main\ContactController@show')->name('contact.show');
-    Route::post('/contact', 'Main\ContactController@sendMessage')->name('contact.sendMessage');
+Route::name('admin.')->prefix('admin')->group(function () {
 
-    /**
-     * CART
-     */
-    Route::group(['prefix' => 'cart'], function () {
-        Route::get('', 'Cart\CartStepController@showCurrent')->name('cart');
-
-        Route::get('items/add', 'Cart\CartItemController@store')->name('cart.items.add');
-        Route::get('item/added/{item}', 'Cart\CartItemController@notificationPage')->name('cart.item.added');
-        Route::get('delivery', 'Cart\CartStepController@showDelivery')->name('cart.delivery');
-        Route::post('delivery/add-addresses', 'Cart\CartController@addAddresses')->name('cart.delivery.add-addresses');
-        Route::get('payment', 'Cart\CartStepController@showPayment')->name('cart.payment');
-        Route::post('payment', 'Cart\CartController@doPayment')->name('cart.payment.post');
-        Route::get('payment/cheque', 'Cart\CartController@chequeInstructions')->name('cart.payment.cheque');
-        Route::get('create-order', 'Cart\CartController@createOrder')->name('cart.create-order');
-        Route::get('thanks/{order:trackingNumber}', 'Cart\CartStepController@showThanks')->name('cart.thanks');
+    // Routes only for guests
+    Route::middleware('isNotAdmin')->group(function () {
+        Route::get('/login', 'AuthController@showAdminLoginPage')->name('login.show');
+        Route::post('/login', 'AuthController@adminLogin')->name('login.handle');
     });
-     /** --------------------- */
 
-    /**
-     * CUSTOMER AREA
-     */
-    Route::group(['prefix' => 'customer-area'], function () {
-        Route::middleware('guest')->group(function() {
-            Route::get('login', 'Auth\LoginController@show')->name('customer-area.login');
-            Route::post('login', 'Auth\LoginController@login')->name('customer-area.login.post');
-            Route::get('register', 'Auth\RegisterController@show')->name('customer-area.register');
-            Route::post('register', 'Auth\RegisterController@register')->name('customer-area.register.post');
-        });
+    // Routes only for admins
+    Route::middleware('isAdmin')->group(function () {
+        Route::get('/', 'NavigationController@showBackofficeHomepage')->name('homepage');
+        Route::any('/logout', 'AuthController@adminLogout')->name('logout');
 
-        Route::middleware('auth')->group(function() {
-            Route::get('', 'Auth\CustomerAreaController@show')->name('customer-area.index');
-            Route::post('update/personal-informations', 'Users\UserController@update')->name('user.update.personal-informations.post');
-            Route::post('update/password', 'Users\UserController@updatePassword')->name('user.update.password.post');
+        Route::post('/images/upload', 'ImageController@store')->name('images.upload');
+        Route::delete('/image/delete', 'ImageController@destroy')->name('image.delete');
 
-            Route::get('modal/personal-informations', 'Auth\CustomerAreaController@personalInformationsModal')->name('customer-area.modal.personal-informations');
-            Route::get('modal/password', 'Auth\CustomerAreaController@passwordModal')->name('customer-area.modal.password');
-            Route::any('logout', 'Auth\LoginController@logout')->name('customer-area.logout');
-        });
+        Route::get('/catalog/{category?}', 'CategoryController@index')->name('catalog');
+
+        Route::get('/product/create', 'ProductController@create')->name('product.create');
+        Route::post('/product/create', 'ProductController@store')->name('product.store');
+        Route::get('/product/edit/{product}', 'ProductController@edit')->name('product.edit');
+        Route::post('/product/edit/{product}', 'ProductController@update')->name('product.update');
+        Route::delete('/product/delete', 'ProductController@destroy')->name('product.delete');
+
+        Route::get('/category/create', 'CategoryController@create')->name('category.create');
+        Route::post('/category/create', 'CategoryController@store')->name('category.store');
+        Route::get('/category/edit/{category}', 'CategoryController@edit')->name('category.edit');
+        Route::post('/category/edit/{category}', 'CategoryController@update')->name('category.update');
+        Route::delete('/category/delete', 'CategoryController@destroy')->name('category.delete');
+
+        Route::post('/toggle-visibility/product', 'ProductController@toggleVisibility')->name('toggle-visibility.product');
+        Route::post('/toggle-visibility/category', 'CategoryController@toggleVisibility')->name('toggle-visibility.category');
+
+        Route::get('/orders/{status?}', 'OrderController@index')->name('orders');
+        Route::get('/order/{order}', 'OrderController@show')->name('order.show');
+        Route::patch('/order/{order}/status/update', 'OrderController@updateStatus')->name('order.status.update');
+
+        Route::get('/customers', 'CustomerController@index')->name('customers');
+        Route::get('/customer/{customer}', 'CustomerController@show')->name('customer.show');
+
+        Route::get('/administrators', 'AdministratorController@index')->name('administrators');
+        Route::get('/administrator/create', 'AdministratorController@create')->name('administrator.create');
+        Route::post('/administrator/create', 'AdministratorController@store')->name('administrator.store');
+        Route::get('/administrator/edit/{administrator}', 'AdministratorController@edit')->name('administrator.edit');
+        Route::post('/administrator/edit/{administrator}', 'AdministratorController@update')->name('administrator.update');
+
+        Route::get('/settings', 'SettingGroupController@index')->name('settings');
+        Route::post('/settings/update', 'SettingController@updateAll')->name('settings.update');
     });
-     /** --------------------- */
-
-    /**
-     * ADMIN BACKOFFICE
-     */
-    Route::group(['prefix' => 'admin'], function () {
-        Route::middleware('notAdmin')->group(function() {
-            Route::get('login', 'Admin\Auth\LoginController@showLoginPage')->name('admin.login');
-            Route::post('login', 'Admin\Auth\LoginController@login')->name('admin.post');
-        });
-
-        Route::middleware('admin')->group(function() {
-            Route::get('', 'Admin\AdminController@index')->name('admin.index');
-            Route::any('logout', 'Admin\Auth\LoginController@logout')->name('admin.logout');
-            Route::post('order/{order}/update-status', 'Orders\OrderController@updateStatus')->name('admin.order.updateStatus');
-
-            Route::get('products', 'Products\ProductBaseController@index')->name('admin.products');
-            Route::get('categories', 'Categories\CategoryBaseController@index')->name('admin.categories');
-            Route::get('orders', 'Orders\OrderController@index')->name('admin.orders');
-            Route::get('users/customers', 'Users\UserController@index')->name('admin.users.customers');
-            Route::get('users/administrators', 'Users\AdminController@index')->name('admin.users.administrators');
-            Route::get('settings', 'Settings\SettingController@index')->name('admin.settings');
-
-            Route::get('order/new', 'Orders\OrderController@create')->name('admin.order.create');
-            Route::post('order/new', 'Orders\OrderController@store')->name('admin.order.store');
-            Route::get('order/{order}', 'Orders\OrderController@edit')->name('admin.order.edit');
-            Route::post('order/{order}', 'Orders\OrderController@update')->name('admin.order.update');
-
-            Route::get('product/new', 'Products\ProductBaseController@create')->name('admin.product.create');
-            Route::post('product/new', 'Products\ProductBaseController@store')->name('admin.product.store');
-            Route::get('product/{product}', 'Products\ProductBaseController@edit')->name('admin.product.edit');
-            Route::post('product/{product}', 'Products\ProductBaseController@update')->name('admin.product.update');
-            Route::post('product/{product}/images/add', 'Products\ProductBaseController@addImage')->name('admin.product.images.add');
-            Route::delete('product/{product}/images/{image}/delete', 'Products\ProductBaseController@deleteImage')->name('admin.product.images.delete');
-
-            Route::get('category/new', 'Categories\CategoryBaseController@create')->name('admin.category.create');
-            Route::post('category/new', 'Categories\CategoryBaseController@store')->name('admin.category.store');
-            Route::get('category/{categoryBase}', 'Categories\CategoryBaseController@edit')->name('admin.category.edit');
-            Route::post('category/{categoryBase}', 'Categories\CategoryBaseController@update')->name('admin.category.update');
-
-            Route::get('users/customer/new', 'Users\UserController@create')->name('admin.users.customer.create');
-            Route::post('users/customer/new', 'Users\UserController@store')->name('admin.users.customer.store');
-            Route::get('users/customer/{customer}', 'Users\UserController@edit')->name('admin.users.customer.edit');
-            Route::post('users/customer/{customer}', 'Users\UserController@update')->name('admin.users.customer.update');
-
-            Route::get('users/administrator/new', 'Users\AdminController@create')->name('admin.users.administrator.create');
-            Route::post('users/administrator/new', 'Users\AdminController@store')->name('admin.users.administrator.store');
-            Route::get('users/administrator/{administrator}', 'Users\AdminController@edit')->name('admin.users.administrator.edit');
-            Route::post('users/administrator/{administrator}', 'Users\AdminController@update')->name('admin.users.administrator.update');
-
-            Route::post('settings/update', 'Settings\SettingController@updateOrCreate')->name('admin.settings.update');
-        });
-    });
-     /** --------------------- */
 });

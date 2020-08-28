@@ -1,0 +1,67 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Validator;
+
+class Address extends Model
+{
+    protected $fillable = [
+        'lastname',
+        'firstname',
+        'company',
+        'street',
+        'additional',
+        'zipCode',
+        'city',
+        'country'
+    ];
+
+    public function getFirstnameAttribute($value)
+    {
+        return ucfirst($value);
+    }
+
+    public function setFirstnameAttribute($value)
+    {
+        $this->attributes['firstname'] = ucfirst($value);
+    }
+
+    public function getLastnameAttribute($value)
+    {
+        return ucfirst($value);
+    }
+
+    public function setLastnameAttribute($value)
+    {
+        $this->attributes['lastname'] = ucfirst($value);
+    }
+
+    public function customer()
+    {
+        return $this->belongsTo('App\Models\Customer');
+    }
+
+    public function __toString()
+    {
+        return "
+            <p>". $this->firstname . " " . $this->lastname ."</p>
+            <p>". $this->street ."</p>
+            <p>". $this->zipCode . ", " . $this->city ."</p>
+            <p>". $this->country ."</p>
+        ";
+    }
+
+    public static function validator(array $data)
+    {
+        return Validator::make($data, [
+            'lastname' => ['required', 'string', 'min:2', 'max:255'],
+            'firstname' => ['required', 'string', 'min:2', 'max:255'],
+            'street' => ['required', 'string', 'min:2', 'max:255'],
+            'zipCode' => ['required', 'string', 'min:5', 'max:5'],
+            'city' => ['required', 'string', 'min:2', 'max:255'],
+            'country' => ['required', 'string', 'min:2', 'max:255']
+        ]);
+    }
+}

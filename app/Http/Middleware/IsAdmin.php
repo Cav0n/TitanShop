@@ -2,8 +2,9 @@
 
 namespace App\Http\Middleware;
 
-use App\Admin;
+use App\Models\Administrator;
 use Closure;
+use \Illuminate\Http\Request;
 
 class IsAdmin
 {
@@ -14,12 +15,12 @@ class IsAdmin
      * @param  \Closure  $next
      * @return mixed
      */
-    public function handle($request, Closure $next)
+    public function handle(Request $request, Closure $next)
     {
-        if (null !== session('admin') && Admin::check()) {
-            return $next($request);
+        if (! \App\Models\Administrator::check($request)) {
+            return redirect(route('admin.login.show'));
         }
 
-        return redirect(route('admin.login'));
+        return $next($request);
     }
 }

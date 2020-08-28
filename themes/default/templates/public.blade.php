@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+
+<!--
+ /$$$$$$$$ /$$   /$$
+|__  $$__/|__/  | $$
+   | $$    /$$ /$$$$$$    /$$$$$$  /$$$$$$$
+   | $$   | $$|_  $$_/   |____  $$| $$__  $$
+   | $$   | $$  | $$      /$$$$$$$| $$  \ $$
+   | $$   | $$  | $$ /$$ /$$__  $$| $$  | $$
+   | $$   | $$  |  $$$$/|  $$$$$$$| $$  | $$
+   |__/   |__/   \___/   \_______/|__/  |__/
+
+
+
+  /$$$$$$  /$$
+ /$$__  $$| $$
+| $$  \__/| $$$$$$$   /$$$$$$   /$$$$$$
+|  $$$$$$ | $$__  $$ /$$__  $$ /$$__  $$
+ \____  $$| $$  \ $$| $$  \ $$| $$  \ $$
+ /$$  \ $$| $$  | $$| $$  | $$| $$  | $$
+|  $$$$$$/| $$  | $$|  $$$$$$/| $$$$$$$/
+ \______/ |__/  |__/ \______/ | $$____/
+                              | $$
+                              | $$
+                              |__/
+-->
+
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"               content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta http-equiv="X-UA-Compatible"  content="ie=edge">
+    <meta name="csrf-token"             content="{{ csrf_token() }}">
+
+    {{-- CSS Styles --}}
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,600;0,800;1,300;1,600;1,800&display=swap">
+    <link rel="stylesheet" href="{{asset('css/app.css')}}">
+    <link rel="stylesheet" href="{{asset('css/customer-area.css')}}">
+    <link rel="stylesheet" href="{{asset('css/components/burger.css')}}">
+    {{-- ---------- --}}
+
+    {{-- Favicons --}}
+    <link rel="manifest"                                href="{{asset('favicons/manifest.jso')}}n">
+    <link rel="apple-touch-icon"        sizes="57x57"   href="{{asset('favicons/apple-icon-57x57.png')}}">
+    <link rel="apple-touch-icon"        sizes="60x60"   href="{{asset('favicons/apple-icon-60x60.png')}}">
+    <link rel="apple-touch-icon"        sizes="72x72"   href="{{asset('favicons/apple-icon-72x72.png')}}">
+    <link rel="apple-touch-icon"        sizes="76x76"   href="{{asset('favicons/apple-icon-76x76.png')}}">
+    <link rel="apple-touch-icon"        sizes="114x114" href="{{asset('favicons/apple-icon-114x114.png')}}">
+    <link rel="apple-touch-icon"        sizes="120x120" href="{{asset('favicons/apple-icon-120x120.png')}}">
+    <link rel="apple-touch-icon"        sizes="144x144" href="{{asset('favicons/apple-icon-144x144.png')}}">
+    <link rel="apple-touch-icon"        sizes="152x152" href="{{asset('favicons/apple-icon-152x152.png')}}">
+    <link rel="apple-touch-icon"        sizes="180x180" href="{{asset('favicons/apple-icon-180x180.png')}}">
+    <link rel="icon" type="image/png" sizes="192x192"   href="{{asset('favicons/android-icon-192x192.png')}}">
+    <link rel="icon" type="image/png" sizes="32x32"     href="{{asset('favicons/favicon-32x32.png')}}">
+    <link rel="icon" type="image/png" sizes="96x96"     href="{{asset('favicons/favicon-96x96.png')}}">
+    <link rel="icon" type="image/png" sizes="16x16"     href="{{asset('favicons/favicon-16x16.png')}}">
+    <meta name="theme-color"                content="#ffffff">
+    <meta name="msapplication-TileColor"    content="#ffffff">
+    <meta name="msapplication-TileImage"    content="{{asset('favicons/ms-icon-144x144.png')}}">
+    {{-- -------- --}}
+
+    {{-- Open Graph Meta --}}
+    <meta property="og:title"       content="@yield('page.title', setting('shop_name'))" />
+    <meta property="og:description" content="@yield('page.description', 'Un site créé avec TitanShop, le CMS de SpaceShip.')" />
+    <meta property="og:image"       content="@yield('page.image', asset('favicons/apple-icon.png'))" />
+    <meta property="og:type"        content="@yield('og.type', 'website')" />
+    <meta property="og:url"         content="@yield('og.url', request()->url())" />
+    @yield('og.additional')
+    {{-- --------------- --}}
+
+    {{-- Twitter Card --}}
+    <meta name="twitter:card"           content="summary">
+    <meta name="twitter:title"          content="@yield('page.title', setting('shop_name'))">
+    <meta name="twitter:description"    content="@yield('page.description', 'Un site créé avec TitanShop, le CMS de SpaceShip.')">
+    <meta name="twitter:image"          content="@yield('page.image', asset('favicons/apple-icon.png'))">
+    @yield('twitter.additional')
+    {{-- ------------ --}}
+
+    <title>@yield('page.title', "Accueil") - {{ setting('shop_name') }}</title>
+    <meta name="description" content="@yield('page.description', 'Un site créé avec TitanShop, le CMS de SpaceShip.')">
+</head>
+<body>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+
+    <div id="main-container" class="container-fluid">
+        @include('default.components.header')
+
+        {{-- Content --}}
+        <div id="main-content-container" class="row">
+            <div class="col-12">
+                @yield('page.content')
+            </div>
+        </div>
+    </div>
+
+    @include('default.components.footer')
+
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+    @yield('page.scripts')
+</body>
+</html>

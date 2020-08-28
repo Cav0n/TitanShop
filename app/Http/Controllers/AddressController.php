@@ -2,10 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Address;
+use App\Models\Address;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Validator;
-use Illuminate\Validation\Rule;
 
 class AddressController extends Controller
 {
@@ -16,7 +14,7 @@ class AddressController extends Controller
      */
     public function index()
     {
-        return Address::where('isDeleted', 0)->get();
+        //
     }
 
     /**
@@ -32,24 +30,12 @@ class AddressController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request|array  $request
-     * @return Address
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
      */
-    public function store($request)
+    public function store(Request $request)
     {
-        $this->validator($request)->validate();
-
-        $address = new Address();
-        $address->firstname = $request['firstname'];
-        $address->lastname = $request['lastname'];
-        $address->street = $request['street'];
-        $address->street2 = $request['street2'];
-        $address->zipCode = $request['zipCode'];
-        $address->city = $request['city'];
-
-        $address->save();
-
-        return $address;
+        //
     }
 
     /**
@@ -83,18 +69,7 @@ class AddressController extends Controller
      */
     public function update(Request $request, Address $address)
     {
-        $this->validator($request)->validate();
-
-        $address->firstname = $request['firstname'];
-        $address->lastname = $request['lastname'];
-        $address->street = $request['street'];
-        $address->street2 = $request['street'];
-        $address->zipCode = $request['zipCode'];
-        $address->city = $request['city'];
-
-        $address->save();
-
-        return $address;
+        //
     }
 
     /**
@@ -105,30 +80,6 @@ class AddressController extends Controller
      */
     public function destroy(Address $address)
     {
-        $address->isDeleted = 1;
-        $address->save();
-    }
-
-    /**
-     * Address informations validator
-     *
-     * @param  \Illuminate\Http\Request|array $request
-
-     * @return void
-     */
-    protected function validator($request)
-    {
-        if ($request instanceof Request) {
-            $request = $request->all();
-        }
-
-        return Validator::make($request, array(
-            'firstname' => ['required', 'min:2'],
-            'lastname' => ['required', 'min:2'],
-            'street' => ['required', 'min:2'],
-            'street2' => ['nullable', 'min:2'],
-            'zipCode' => ['required', 'min:4', 'max:5'],
-            'city' => ['required', 'min:2'],
-        ));
+        //
     }
 }

@@ -2,102 +2,56 @@
 
 namespace Tests\Feature;
 
+use App\Models\Cart;
+use App\Models\CartItem;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
-use App\Cart;
 
 class CartTest extends TestCase
 {
     use RefreshDatabase;
 
-    /**
-     * A basic cart creation test
-     *
-     * @return void
-     */
-    public function testSimpleCreation()
+    public function testCompleteCreation()
     {
-        $cart = self::createSimpleCart();
-
+        // Test simple cart creation
+        $cart = self::create();
+        $cart->save();
         $this->assertNotNull($cart);
-    }
 
-    /**
-     * A cart creation test with one item
-     *
-     * @return void
-     */
-    public function testCreationWithOneItem()
-    {
-        $cart = self::createCartWithItems();
+        // Create product for item
+        $product = ProductTest::create();
+        $product->save();
 
-        $this->assertNotNull($cart);
-        $this->assertNotNull($cart->items);
+        // Test item creation
+        $item = self::createItem($cart->id, $product->id);
+        $item->save();
+        $this->assertNotNull($item);
         $this->assertEquals(1, count($cart->items));
     }
 
-    /**
-     * A cart creation test with mutliple items
-     *
-     * @return void
-     */
-    public function testCreationWithMutlipleItems()
-    {
-        $cart = self::createCartWithItems(10);
-
-        $this->assertNotNull($cart);
-        $this->assertNotNull($cart->items);
-        $this->assertEquals(10, count($cart->items));
-    }
-
-    /**
-     * A cart creation test with shipping and billing addresses
-     *
-     * @return void
-     */
-    public function testCreationWithAddresses()
-    {
-        $cart = self::createSimpleCart();
-        $shippingAddress = AddressTest::createCompleteAddress();
-        $billingAddress = AddressTest::createCompleteAddress();
-
-        $cart->shipping_address_id = $shippingAddress->id;
-        $cart->billing_address_id = $billingAddress->id;
-
-        $this->assertNotNull($cart);
-        $this->assertNotNull($cart->shippingAddress);
-        $this->assertNotNull($cart->billingAddress);
-    }
-
-    /**
-     * Create a simple cart
-     *
-     * @return Cart
-     */
-    public static function createSimpleCart()
-    {
+    public static function create(
+        $customer_id = null,
+        $token = null,
+        $isActive = null
+    ) {
         $cart = new Cart();
-        $cart->generateToken();
-        $cart->save();
+        $cart->customer_id = $customer_id;
+        $cart->token = $token ?? uniqid();
+        $cart->isActive = $isActive ?? 1;
 
         return $cart;
     }
 
-    /**
-     * Create a cart with one item
-     *
-     * @return Cart
-     */
-    public static function createCartWithItems($numberOfItems = 1)
-    {
-        $cart = new Cart();
-        $cart->generateToken();
-        $cart->save();
+    public static function createItem(
+        $cart_id,
+        $product_id,
+        $quantity = null
+    ) {
+        $item = new CartItem();
+        $item->cart_id = $cart_id;
+        $item->product_id = $product_id;
+        $item->quantity = $quantity ?? 1;
 
-        for ($i = 1; $i <= $numberOfItems; $i++) {
-            $item = CartItemTest::createCompleteCartItem($cart);
-        }
-
-        return $cart;
-    }
+        return $item;
+    }  
 }

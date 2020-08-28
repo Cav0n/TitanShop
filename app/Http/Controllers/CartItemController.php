@@ -1,0 +1,164 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Models\Cart;
+use App\Models\CartItem;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
+
+class CartItemController extends Controller
+{
+    public function updateQuantity(Request $request)
+    {
+        /** @var CartItem $item */
+        if (null === $item = CartItem::where('id', $request['id'])->first()) {
+            return new JsonResponse([
+                'status' => 'error',
+                'message' => 'Cart item doesn\'t exists.'
+            ], 404);
+        }
+
+        if (intval($request['quantity']) === 0) {
+            $item->delete();
+        } else {
+            $item->quantity = $request['quantity'];
+            $item->save();
+        }
+
+        $newItemsPrice = $item->cart->itemsPriceFormatted;
+        $newShippingPrice = $item->cart->shippingPriceFormatted;
+        $newTotalPrice = $item->cart->totalPriceFormatted;
+        $totalQuantity = $item->cart->totalQuantity > 99 ? '99+' : $item->cart->totalQuantity;
+
+        return new JsonResponse([
+            'status' => 'success',
+            'quantity' => [
+                'total' => $totalQuantity
+            ],
+            'prices' => [
+                'items'     => $newItemsPrice,
+                'shipping'  => $newShippingPrice,
+                'total'     => $newTotalPrice
+            ],
+            'item' => [
+                'id'    => $item->id,
+                'price' => $item->priceFormatted
+            ]
+        ]);
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index()
+    {
+        //
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
+    {
+        //
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Request $request)
+    {
+        $productId = $request['product_id'];
+        $quantity = $request['quantity'];
+
+        if (isset($request['cart_id'])) {
+            $cartId = $request['cart_id'];
+        } else {
+            $cartId = $request->session()->get('cart')->id;
+        }
+
+        if (null !== $item = CartItem::where('cart_id', $cartId)->where('product_id', $productId)->first()) {
+            $item->quantity += $quantity;
+            $item->save();
+            Cart::updateCartSession($request);
+
+            $totalQuantity = $item->cart->totalQuantity > 99 ? '99+' : $item->cart->totalQuantity;
+            return new JsonResponse([
+                'status' => 'success',
+                'message' => 'Cart item updated successfully.',
+                'quantity' => [
+                    'total' => $totalQuantity
+                ]
+                ]);
+        }
+
+        $item = new CartItem();
+        $item->cart_id = $cartId;
+        $item->product_id = $productId;
+        $item->quantity = $quantity;
+        $item->save();
+        Cart::updateCartSession($request);
+
+        $totalQuantity = $item->cart->totalQuantity > 99 ? '99+' : $item->cart->totalQuantity;
+        return new JsonResponse([
+            'status' => 'success',
+            'message' => 'Cart item created successfully.',
+            'quantity' => [
+                'total' => $totalQuantity
+            ]
+        ]);
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  \App\CartItem  $cartItem
+     * @return \Illuminate\Http\Response
+     */
+    public function show(CartItem $cartItem)
+    {
+        //
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  \App\CartItem  $cartItem
+     * @return \Illuminate\Http\Response
+     */
+    public function edit(CartItem $cartItem)
+    {
+        //
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\CartItem  $cartItem
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, CartItem $cartItem)
+    {
+        //
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  \App\CartItem  $cartItem
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy(CartItem $cartItem)
+    {
+        //
+    }
+}

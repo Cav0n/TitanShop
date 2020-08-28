@@ -4,60 +4,55 @@ namespace Tests\Feature;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
-use \App\Image;
+use App\Models\Image;
+use App\Models\ImageI18n;
 
 class ImageTest extends TestCase
 {
     use RefreshDatabase;
 
-    /**
-     * A basic image creation test
-     *
-     * @return void
-     */
     public function testCompleteCreation()
     {
-        $image = self::createCompleteImage();
-
-        $this->assertNotNull($image);
-    }
-
-    /**
-     * Test if size is well formatted
-     *
-     * @return void
-     */
-    public function testFormattedSize()
-    {
-        $image = self::createCompleteImage(0);
-        $this->assertEquals('Taille de l\'image inconnue.', $image->sizeFormatted);
-
-        $image = self::createCompleteImage(10);
-        $this->assertEquals('10 o', $image->sizeFormatted);
-
-        $image = self::createCompleteImage(15800);
-        $this->assertEquals('15.80 Ko', $image->sizeFormatted);
-
-        $image = self::createCompleteImage(124860000);
-        $this->assertEquals('124.86 Mo', $image->sizeFormatted);
-
-        $image = self::createCompleteImage(10000000000);
-        $this->assertEquals('10.00 Go', $image->sizeFormatted);
-    }
-
-    /**
-     * Create a complete image
-     *
-     * @return Image
-     */
-    public static function createCompleteImage($size = 16000)
-    {
-        $image = new Image();
-        $image->path = "images/utils/question-mark.png";
-        $image->alt = "question mark";
-        $image->size = $size;
+        // Test simple image creation
+        $image = self::create();
         $image->save();
+        $this->assertNotNull($image);
+
+        // Test i18n creation
+        $imageI18n = self::createI18n($image->id);
+        $imageI18n->save();
+        $this->assertNotNull($imageI18n);
+
+        // Test relation between i18n and image
+        $this->assertEquals('image de test', $image->i18nValue('title'));
+        $this->assertEquals('image de test', $image->i18nValue('alt'));
+    }
+
+    public static function create(
+        $path = null,
+        $url = null,
+        $size = null
+    ) {
+        $image = new Image();
+        $image->path = $path ?? public_path('images/utils/question-mark.png');
+        $image->url = $url ?? asset('images/utils/question-mark.png') . '?randomize=' . rand(0,5000);
+        $image->size = $size ?? rand(100000, 5000000);
 
         return $image;
+    }
+
+    public static function createI18n(
+        $image_id = null,
+        $lang = null,
+        $alt = null,
+        $title = null
+    ) {
+        $imageI18n = new ImageI18n();
+        $imageI18n->image_id = $image_id;
+        $imageI18n->lang = $lang ?? 'fr';
+        $imageI18n->alt = $alt ?? 'image de test';
+        $imageI18n->title = $title ?? 'image de test';
+
+        return $imageI18n;
     }
 }

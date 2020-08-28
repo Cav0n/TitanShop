@@ -3,6 +3,8 @@
 namespace App\Exceptions;
 
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Illuminate\Http\JsonResponse;
+use Symfony\Component\ErrorHandler\Exception\FlattenException;
 use Throwable;
 
 class Handler extends ExceptionHandler
@@ -48,8 +50,23 @@ class Handler extends ExceptionHandler
      *
      * @throws \Throwable
      */
-    public function render($request, Throwable $exception)
+    public function render($request, Throwable $e)
     {
-        return parent::render($request, $exception);
+        $exception = FlattenException::createFromThrowable($e);
+        $statusCode = $exception->getStatusCode();
+
+        if ($statusCode == 404) {
+            if($request->ajax()) {
+                return new JsonResponse(['This URL doesn\'t exists.'], 404);
+            }
+
+            return response()->view('default.errors.404', [], 404);
+        }
+
+        if ($statusCode == 500 && config('app.debug') === false) {
+            return response()->view('default.errors.500', [], 404);
+        }
+
+        return parent::render($request, $e);
     }
 }

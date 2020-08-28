@@ -4,38 +4,57 @@ namespace Tests\Feature;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
-use App\Address;
+use App\Models\Address;
+use Illuminate\Support\Facades\Hash;
 
 class AddressTest extends TestCase
 {
     use RefreshDatabase;
 
-    /**
-     * A basic address creation test
-     *
-     * @return void
-     */
     public function testCompleteCreation()
     {
-        $address = self::createCompleteAddress();
+        $address = self::create();
+        $address->save();
 
         $this->assertNotNull($address);
     }
 
-    /**
-     * Create a complete address
-     *
-     * @return Address
-     */
-    public static function createCompleteAddress()
+    public function testCreationWithCustomerId()
     {
-        $address = new Address();
-        $address->firstname = "Florian";
-        $address->lastname = "Bernard";
-        $address->street = "1 rue des paquerettes";
-        $address->zipCode = "63000";
-        $address->city = "Clermont-Ferrand";
+        $address = self::create();
         $address->save();
+
+        $customer = CustomerTest::create();
+        $customer->save();
+
+        $address->customer_id = $customer->id;
+        $address->save();
+
+        $this->assertNotNull($address->customer);
+        $this->assertNotNull($address->customer->id);
+    }
+
+    public static function create(
+        $firstname = null,
+        $lastname = null,
+        $company = null,
+        $street = null,
+        $additional = null,
+        $zipCode = null,
+        $city = null,
+        $country = null,
+        $customer_id = null
+    ) {
+        $address = new Address();
+        $address->firstname = $firstname ?? "Florian";
+        $address->lastname = $lastname ?? "Bernard";
+        $address->company = $company;
+        $address->street = $street ?? "13 Main St";
+        $address->additional = $additional;
+        $address->zipCode = $zipCode ?? "63000";
+        $address->city = $city ?? "Los Angeles";
+        $address->country = $country ?? "USA";
+        $address->customer_id = $customer_id;
 
         return $address;
     }
